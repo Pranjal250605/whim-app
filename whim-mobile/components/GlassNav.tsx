@@ -1,14 +1,15 @@
 import { Pressable, Text, View } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
+import Icon, { type IconName } from './Icon';
 
 // Floating frosted tab bar from the design's Home. Real blur needs a native
 // module (expo-blur); we approximate the "liquid glass" look with a translucent
 // white fill + soft shadow, which needs no rebuild.
-const ITEMS: { key: string; label: string; glyph: string; route: Href }[] = [
-  { key: 'discover', label: 'Discover', glyph: '🧭', route: '/' },
-  { key: 'hitlist', label: 'Hitlist', glyph: '❤️', route: '/hitlist' },
-  { key: 'route', label: 'Route', glyph: '🗺️', route: '/itinerary' },
-  { key: 'profile', label: 'Profile', glyph: '👤', route: '/settings' },
+const ITEMS: { key: string; label: string; icon: IconName; route: Href }[] = [
+  { key: 'discover', label: 'Discover', icon: 'discover', route: '/' },
+  { key: 'hitlist', label: 'Hitlist', icon: 'heart', route: '/hitlist' },
+  { key: 'route', label: 'Route', icon: 'route', route: '/itinerary' },
+  { key: 'profile', label: 'Profile', icon: 'person', route: '/settings' },
 ];
 
 export default function GlassNav({ active }: { active: string }) {
@@ -27,14 +28,11 @@ export default function GlassNav({ active }: { active: string }) {
       >
         {ITEMS.map((it) => {
           const on = it.key === active;
+          const color = on ? '#D97757' : '#B6B1A9';
           return (
-            <Pressable
-              key={it.key}
-              onPress={() => router.navigate(it.route)}
-              className="w-16 items-center gap-0.5 py-2"
-            >
-              <Text style={{ fontSize: 19, opacity: on ? 1 : 0.45 }}>{it.glyph}</Text>
-              <Text className="text-[10px] font-semibold" style={{ color: on ? '#D97757' : '#B6B1A9' }}>
+            <Pressable key={it.key} onPress={() => router.navigate(it.route)} className="w-16 items-center gap-1 py-2">
+              <Icon name={it.icon} size={23} color={color} strokeWidth={1.8} />
+              <Text className="text-[10px] font-semibold" style={{ color }}>
                 {it.label}
               </Text>
             </Pressable>

@@ -6,6 +6,7 @@ import { useWhimStore } from '@/store/useWhimStore';
 import CityPicker from '@/components/CityPicker';
 import GlassNav from '@/components/GlassNav';
 import SpotImage from '@/components/SpotImage';
+import Icon from '@/components/Icon';
 import type { VibeId } from '@/lib/types';
 
 // Phase 1 — Context & Vibe. Faithful port of the design's Home screen.
@@ -80,13 +81,19 @@ export default function Home() {
       {/* header */}
       <View className="flex-row items-center justify-between px-5 pt-1">
         <Text style={{ fontFamily: 'PlayfairDisplay_700Bold', fontSize: 26, color: '#1C1C1C' }}>Whim</Text>
-        <Pressable
-          onPress={() => router.push('/settings')}
-          accessibilityLabel="Account"
-          className="h-9 w-9 items-center justify-center rounded-full bg-[#DCE3D8]"
-        >
-          <Text className="text-[13px] font-semibold text-[#5b6b5b]">JL</Text>
-        </Pressable>
+        <View className="flex-row items-center gap-4">
+          <View className="relative">
+            <Icon name="bell" size={24} color="#1C1C1C" strokeWidth={1.7} />
+            <View className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-canvas bg-accent" />
+          </View>
+          <Pressable
+            onPress={() => router.push('/settings')}
+            accessibilityLabel="Account"
+            className="h-9 w-9 items-center justify-center rounded-full bg-[#DCE3D8]"
+          >
+            <Text className="text-[13px] font-semibold text-[#5b6b5b]">JL</Text>
+          </Pressable>
+        </View>
       </View>
 
       <ScrollView className="flex-1 px-5" contentContainerStyle={{ paddingBottom: 150 }} showsVerticalScrollIndicator={false}>
@@ -97,7 +104,7 @@ export default function Home() {
           style={shadowSoft}
         >
           <Text className="font-serif text-[26px] text-ink">{city}</Text>
-          <Text className="text-[16px] text-muted">⌄</Text>
+          <Icon name="chevronDown" size={16} color="#8E8E93" strokeWidth={2.4} />
         </Pressable>
         <Text className="mt-4 text-[15px] text-muted">Select a vibe to start discovering.</Text>
 
@@ -139,7 +146,7 @@ export default function Home() {
               <Text className="mt-2.5 text-[14.5px] leading-6 text-muted">{f.desc}</Text>
               <Pressable onPress={start} className="mt-5 flex-row items-center gap-2 self-start rounded-2xl bg-ink px-[22px] py-3.5">
                 <Text className="text-[15px] font-semibold text-white">Start Swiping</Text>
-                <Text className="text-[15px] text-white">→</Text>
+                <Icon name="arrowRight" size={17} color="#fff" strokeWidth={2.2} />
               </Pressable>
             </View>
           </View>

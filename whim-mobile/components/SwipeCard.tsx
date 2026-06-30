@@ -11,6 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import type { Spot, SwipeDirection } from '@/lib/types';
 import SpotImage from './SpotImage';
+import Icon from './Icon';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 const SWIPE_THRESHOLD = SCREEN_W * 0.28;
@@ -117,7 +118,8 @@ export default function SwipeCard({ spot, depth, isTop, onSwipe }: SwipeCardProp
             <Text className="mt-3 text-sm leading-6 text-neutral-700">{spot.desc}</Text>
             <View className="mt-auto pt-3">
               <View className="flex-row items-center gap-1.5 self-start rounded-full bg-[#F4F1EB] px-3 py-1.5">
-                <Text className="text-[12.5px] font-medium text-neutral-600">🕘 {spot.hours}</Text>
+                <Icon name="clock" size={13} color="#8E8E93" strokeWidth={2} />
+                <Text className="text-[12.5px] font-medium text-neutral-600">{spot.hours}</Text>
               </View>
             </View>
           </View>

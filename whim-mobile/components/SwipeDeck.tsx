@@ -2,6 +2,7 @@ import { Pressable, Text, View } from 'react-native';
 import { useWhimStore, selectDeckDone } from '@/store/useWhimStore';
 import type { SwipeDirection } from '@/lib/types';
 import SwipeCard from './SwipeCard';
+import Icon from './Icon';
 
 const VISIBLE = 3; // how many cards render in the stack at once
 
@@ -73,14 +74,14 @@ export default function SwipeDeck() {
           onPress={() => handleSwipe('left')}
           className="h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg shadow-black/10"
         >
-          <Text className="text-2xl text-muted">✕</Text>
+          <Icon name="close" size={26} color="#9A9A9A" strokeWidth={2.6} />
         </Pressable>
         <Pressable
           accessibilityLabel="Add to hitlist"
           onPress={() => handleSwipe('right')}
           className="h-[72px] w-[72px] items-center justify-center rounded-full bg-accent shadow-xl shadow-accent/40"
         >
-          <Text className="text-3xl text-white">♥</Text>
+          <Icon name="heartFilled" size={32} color="#fff" />
         </Pressable>
       </View>
     </View>
