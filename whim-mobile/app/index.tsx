@@ -3,9 +3,9 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useWhimStore } from '@/store/useWhimStore';
-import { CITIES } from '@/data/cities';
 import CityPicker from '@/components/CityPicker';
 import GlassNav from '@/components/GlassNav';
+import SpotImage from '@/components/SpotImage';
 import type { VibeId } from '@/lib/types';
 
 // Phase 1 — Context & Vibe. Faithful port of the design's Home screen.
@@ -15,6 +15,42 @@ const VIBES: { id: VibeId; label: string }[] = [
   { id: 'nature', label: 'Nature' },
   { id: 'nightlife', label: 'After Dark' },
 ];
+
+// Each vibe gets its own featured collection card (photo + title + blurb).
+const FEATURED: Record<VibeId, { label: string; title: string; desc: string; caption: string; tone: string; photo: string }> = {
+  classics: {
+    label: 'The Classics',
+    title: 'First-Timer Classics',
+    desc: 'The icons you can’t miss — temples, towers and timeless landmarks.',
+    caption: 'photo · iconic landmark',
+    tone: '#E7DCCB',
+    photo: 'https://images.pexels.com/photos/19867354/pexels-photo-19867354.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  },
+  matcha: {
+    label: 'Matcha',
+    title: 'Matcha & Minimalism',
+    desc: 'A hand-picked loop of slow mornings, design shops and the city’s most photogenic cafés.',
+    caption: 'photo · quiet café interior',
+    tone: '#DCE3D8',
+    photo: 'https://images.pexels.com/photos/33313174/pexels-photo-33313174.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  },
+  nature: {
+    label: 'Nature',
+    title: 'Nature & Calm',
+    desc: 'Gardens, parks and quiet waterside walks to slow the whole day down.',
+    caption: 'photo · green & quiet',
+    tone: '#DDE2D6',
+    photo: 'https://images.pexels.com/photos/18210743/pexels-photo-18210743.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  },
+  nightlife: {
+    label: 'After Dark',
+    title: 'After Dark',
+    desc: 'Neon streets, rooftop views and the city’s best late-night bites.',
+    caption: 'photo · neon at night',
+    tone: '#D7DEE4',
+    photo: 'https://images.pexels.com/photos/18867525/pexels-photo-18867525.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  },
+};
 
 const shadowSoft = { shadowColor: '#1C1C1C', shadowOpacity: 0.06, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } };
 const shadowCard = { shadowColor: '#1C1C1C', shadowOpacity: 0.14, shadowRadius: 30, shadowOffset: { width: 0, height: 18 } };
@@ -28,8 +64,7 @@ export default function Home() {
   const [vibe, setVibe] = useState<VibeId>('classics');
   const [pickerOpen, setPickerOpen] = useState(false);
 
-  const flag = CITIES.find((c) => c.name === city)?.flag ?? '';
-  const vibeLabel = VIBES.find((v) => v.id === vibe)?.label ?? '';
+  const f = FEATURED[vibe];
 
   useEffect(() => {
     if (!hydrated) hydrate();
@@ -61,7 +96,7 @@ export default function Home() {
           className="mt-2 flex-row items-center gap-2 self-start rounded-2xl border border-ink/10 bg-white px-4 py-2"
           style={shadowSoft}
         >
-          <Text className="font-serif text-[26px] text-ink">{flag}  {city}</Text>
+          <Text className="font-serif text-[26px] text-ink">{city}</Text>
           <Text className="text-[16px] text-muted">⌄</Text>
         </Pressable>
         <Text className="mt-4 text-[15px] text-muted">Select a vibe to start discovering.</Text>
@@ -87,22 +122,21 @@ export default function Home() {
           })}
         </ScrollView>
 
-        {/* featured hero card with stacked-paper effect */}
+        {/* featured hero card — changes per vibe */}
         <View className="mt-8">
           <View className="absolute left-[18px] right-[18px] -top-3 h-8 rounded-[22px] bg-white" style={{ opacity: 0.7, ...shadowSoft }} />
           <View className="absolute left-2 right-2 -top-1.5 h-8 rounded-3xl bg-white" style={{ opacity: 0.85, ...shadowSoft }} />
           <View className="overflow-hidden rounded-[26px] bg-white" style={shadowCard}>
-            <View className="h-[178px] justify-end" style={{ backgroundColor: '#DCE3D8' }}>
+            <View className="h-[178px] justify-end overflow-hidden" style={{ backgroundColor: f.tone }}>
+              <SpotImage uri={f.photo} />
               <View className="absolute left-3.5 top-3.5 rounded-full bg-white/85 px-3 py-1">
-                <Text className="text-[11.5px] font-semibold text-[#5b6b5b]">{vibeLabel}</Text>
+                <Text className="text-[11.5px] font-semibold text-[#5b6b5b]">{f.label}</Text>
               </View>
-              <Text className="font-mono p-3.5 text-[11px] text-ink/40">photo · quiet café interior</Text>
+              <Text className="font-mono p-3.5 text-[11px] text-white/80">{f.caption}</Text>
             </View>
             <View className="p-5">
-              <Text className="font-serif text-[25px] text-ink">Matcha &amp; Minimalism</Text>
-              <Text className="mt-2.5 text-[14.5px] leading-6 text-muted">
-                A hand-picked loop of slow mornings, design shops and the city’s most photogenic cafés.
-              </Text>
+              <Text className="font-serif text-[25px] text-ink">{f.title}</Text>
+              <Text className="mt-2.5 text-[14.5px] leading-6 text-muted">{f.desc}</Text>
               <Pressable onPress={start} className="mt-5 flex-row items-center gap-2 self-start rounded-2xl bg-ink px-[22px] py-3.5">
                 <Text className="text-[15px] font-semibold text-white">Start Swiping</Text>
                 <Text className="text-[15px] text-white">→</Text>
