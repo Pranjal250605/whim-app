@@ -1,45 +1,115 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useWhimStore } from '@/store/useWhimStore';
-import { orderByProximity } from '@/lib/route';
+import { orderByProximity, type RouteStop } from '@/lib/route';
+import { getTransit, type TransitResult } from '@/lib/transit';
 import RouteMap from '@/components/RouteMap';
 
-// Phase 4 — Itinerary. Orders the saved anchors by proximity (local heuristic),
-// shows them on the Mapbox map, then lists them as a vertical timeline.
+function vehicleEmoji(v?: string): string {
+  switch ((v ?? '').toUpperCase()) {
+    case 'BUS':
+      return '🚌';
+    case 'TRAM':
+    case 'LIGHT_RAIL':
+      return '🚊';
+    case 'HEAVY_RAIL':
+    case 'RAIL':
+    case 'COMMUTER_TRAIN':
+    case 'HIGH_SPEED_TRAIN':
+      return '🚆';
+    case 'FERRY':
+      return '⛴️';
+    default:
+      return '🚇'; // subway / metro
+  }
+}
+
+// Rough transit-time estimate (used until the Google key is wired up).
+function estimateMins(a: RouteStop, b: RouteStop): number {
+  const R = 6371;
+  const dLat = ((b.lat - a.lat) * Math.PI) / 180;
+  const dLng = ((b.lng - a.lng) * Math.PI) / 180;
+  const la1 = (a.lat * Math.PI) / 180;
+  const la2 = (b.lat * Math.PI) / 180;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dLng / 2) ** 2;
+  const km = 2 * R * Math.asin(Math.sqrt(h));
+  return Math.max(5, Math.round(km * 3) + 3);
+}
+
+function legText(leg: TransitResult): string {
+  const transit = leg.segments.filter((s) => s.mode === 'transit');
+  if (transit.length === 0) return `🚶 ${leg.totalDuration ?? 'walk'}`;
+  const lines = transit.map((t) => `${vehicleEmoji(t.vehicle)} ${t.line ?? 'Line'}`).join('  →  ');
+  return leg.totalDuration ? `${lines}  ·  ${leg.totalDuration}` : lines;
+}
+
+// Phase 4 — Itinerary. Orders the saved anchors, maps them, lists them as a
+// timeline, and shows the transit connection (real line names via Google, or a
+// time estimate as a fallback) between each pair of stops.
 export default function ItineraryScreen() {
   const bucketList = useWhimStore((s) => s.bucketList);
 
   const stops = useMemo(() => orderByProximity(bucketList), [bucketList]);
-  // index anchors so the timeline can show each stop's chosen micro-activities
-  const byId = useMemo(
-    () => Object.fromEntries(bucketList.map((b) => [b.anchor.id, b])),
-    [bucketList],
-  );
+  const byId = useMemo(() => Object.fromEntries(bucketList.map((b) => [b.anchor.id, b])), [bucketList]);
+
+  const [legs, setLegs] = useState<Record<number, TransitResult | null>>({});
+
+  useEffect(() => {
+    let cancelled = false;
+    setLegs({});
+    if (stops.length < 2) return;
+    (async () => {
+      const entries = await Promise.all(
+        stops.slice(0, -1).map((s, i) => getTransit(s, stops[i + 1]).then((r) => [i, r] as const)),
+      );
+      if (!cancelled) setLegs(Object.fromEntries(entries));
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [stops]);
+
+  const renderConnector = (idx: number) => {
+    const loaded = idx in legs;
+    const leg = legs[idx];
+    let label: string;
+    if (!loaded) label = 'Finding transit…';
+    else if (leg) label = legText(leg);
+    else label = `🚇 ~${estimateMins(stops[idx], stops[idx + 1])} min · est.`;
+    return (
+      <View className="my-1 ml-3.5 flex-row items-center border-l-2 border-dashed border-[#D7D1C6] py-1 pl-4">
+        <View className="rounded-full bg-[#EFEBE3] px-3 py-1.5">
+          <Text className="text-[11.5px] font-medium text-muted">{label}</Text>
+        </View>
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
       <RouteMap stops={stops} height={280} />
 
       <ScrollView className="flex-1 px-5 pt-5" contentContainerStyle={{ paddingBottom: 60 }}>
-        <Text className="font-serif text-2xl font-semibold text-ink">Your optimised day</Text>
-        <Text className="mb-5 mt-1 text-[13px] text-muted">
-          {stops.length} stops · walking-optimised
-        </Text>
+        <Text className="font-serif text-2xl text-ink">Your optimised day</Text>
+        <Text className="mb-5 mt-1 text-[13px] text-muted">{stops.length} stops · with transit</Text>
 
-        {stops.map((stop) => {
+        {stops.map((stop, idx) => {
           const entry = byId[stop.id];
           return (
-            <View key={stop.id} className="mb-4">
+            <View key={stop.id}>
+              {idx > 0 && renderConnector(idx - 1)}
+
               <View className="flex-row items-center gap-3 rounded-2xl bg-white p-3.5 shadow-sm shadow-black/5">
                 <View className="h-7 w-7 items-center justify-center rounded-full bg-accent">
                   <Text className="text-[13px] font-bold text-white">{stop.order}</Text>
                 </View>
                 <View className="flex-1">
-                  <Text className="font-serif text-[16.5px] font-semibold text-ink">{stop.title}</Text>
+                  <Text className="font-serif text-[16.5px] text-ink">{stop.title}</Text>
                   <Text className="text-xs text-muted">{stop.kind}</Text>
                 </View>
               </View>
+
               {entry?.microActivities.map((a) => (
                 <View
                   key={a.id}
