@@ -12,6 +12,7 @@
     "@expo-google-fonts/ibm-plex-mono": "^0.4.1",
     "@expo-google-fonts/playfair-display": "^0.4.2",
     "@gorhom/bottom-sheet": "^5.0.6",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@rnmapbox/maps": "~10.1.33",
     "@supabase/supabase-js": "^2.47.10",
     "expo": "~52.0.0",
