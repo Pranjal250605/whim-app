@@ -182,6 +182,7 @@
       {
         "id": "north-beach",
         "title": "North Beach",
+        "geocodeQuery": "North Beach, San Francisco, California, United States",
         "vibes": ["nightlife"],
         "kind": "Nightlife district",
         "area": "North Beach",
