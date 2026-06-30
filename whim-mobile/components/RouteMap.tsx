@@ -1,11 +1,11 @@
+import { useCallback, useEffect, useRef } from 'react';
 import { Text, View } from 'react-native';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import Mapbox, { Camera, LineLayer, MapView, PointAnnotation, ShapeSource } from '@/lib/mapbox';
 import type { RouteStop } from '@/lib/route';
 
-// @rnmapbox/maps is a NATIVE module: it renders only in a custom dev build
-// (expo run:ios) or a release build, NOT in Expo Go. We detect Expo Go and
-// show a graceful placeholder there so the itinerary screen never red-screens.
+// @rnmapbox/maps is a NATIVE module: it renders only in a custom dev build, not
+// in Expo Go. We detect Expo Go and show a graceful placeholder there.
 const inExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
 
 interface RouteMapProps {
@@ -14,6 +14,32 @@ interface RouteMapProps {
 }
 
 export default function RouteMap({ stops, height = 280 }: RouteMapProps) {
+  const cameraRef = useRef<Camera>(null);
+
+  const coords = stops.map((s) => [s.lng, s.lat] as [number, number]);
+  const lngs = coords.map((c) => c[0]);
+  const lats = coords.map((c) => c[1]);
+
+  // Frame the route: a single stop centers + zooms; multiple stops fit the
+  // bounding box with padding (extra at the bottom so pins clear the timeline).
+  const fitCamera = useCallback(() => {
+    if (!cameraRef.current || coords.length === 0) return;
+    if (coords.length === 1) {
+      cameraRef.current.setCamera({ centerCoordinate: coords[0], zoomLevel: 14, animationDuration: 600 });
+      return;
+    }
+    cameraRef.current.fitBounds(
+      [Math.max(...lngs), Math.max(...lats)],
+      [Math.min(...lngs), Math.min(...lats)],
+      [50, 40, 90, 40], // [top, right, bottom, left]
+      600,
+    );
+  }, [coords, lngs, lats]);
+
+  useEffect(() => {
+    fitCamera();
+  }, [fitCamera]);
+
   if (stops.length === 0) {
     return (
       <View className="items-center justify-center bg-[#ECEBE7]" style={{ height }}>
@@ -33,49 +59,28 @@ export default function RouteMap({ stops, height = 280 }: RouteMapProps) {
     );
   }
 
-  const coords = stops.map((s) => [s.lng, s.lat] as [number, number]);
-
   const routeLine = {
     type: 'Feature' as const,
     geometry: { type: 'LineString' as const, coordinates: coords },
     properties: {},
   };
 
-  // bounds to frame all stops
-  const lngs = coords.map((c) => c[0]);
-  const lats = coords.map((c) => c[1]);
-  const bounds = {
-    ne: [Math.max(...lngs), Math.max(...lats)] as [number, number],
-    sw: [Math.min(...lngs), Math.min(...lats)] as [number, number],
-    paddingTop: 60,
-    paddingBottom: 60,
-    paddingLeft: 60,
-    paddingRight: 60,
-  };
-
   return (
     <View style={{ height }}>
-      <MapView style={{ flex: 1 }} styleURL={Mapbox.StyleURL.Light} scaleBarEnabled={false} logoEnabled={false}>
-        <Camera
-          defaultSettings={
-            stops.length === 1
-              ? { centerCoordinate: coords[0], zoomLevel: 13 }
-              : { bounds }
-          }
-          animationDuration={0}
-        />
+      <MapView
+        style={{ flex: 1 }}
+        styleURL={Mapbox.StyleURL.Light}
+        scaleBarEnabled={false}
+        logoEnabled={false}
+        onDidFinishLoadingMap={fitCamera}
+      >
+        <Camera ref={cameraRef} defaultSettings={{ centerCoordinate: coords[0], zoomLevel: 11 }} />
 
         {stops.length > 1 && (
           <ShapeSource id="route" shape={routeLine}>
             <LineLayer
               id="routeLine"
-              style={{
-                lineColor: '#D97757',
-                lineWidth: 3,
-                lineCap: 'round',
-                lineJoin: 'round',
-                lineDasharray: [2, 2],
-              }}
+              style={{ lineColor: '#D97757', lineWidth: 3, lineCap: 'round', lineJoin: 'round', lineDasharray: [2, 2] }}
             />
           </ShapeSource>
         )}
