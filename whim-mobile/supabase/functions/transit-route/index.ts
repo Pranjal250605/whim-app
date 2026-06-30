@@ -1,10 +1,11 @@
 // Edge Function: transit-route
-// Cache-aside public-transit directions via Google Directions API. Given an
-// origin and destination it returns the transit legs (line names, vehicle type,
-// per-step duration), cached so each leg hits Google at most once.
+// Cache-aside public-transit directions via the Google **Routes API**
+// (computeRoutes, TRANSIT mode — the modern replacement for the legacy
+// Directions API). Returns transit legs (line names, vehicle, per-step
+// duration), cached so each leg hits Google at most once.
 //
 // Deploy:  supabase functions deploy transit-route
-// Secret:  supabase secrets set GOOGLE_MAPS_API_KEY=<key with Directions API + billing>
+// Secret:  supabase secrets set GOOGLE_MAPS_API_KEY=<key with Routes API + billing>
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts';
@@ -14,13 +15,14 @@ const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
-interface Segment {
-  mode: 'walk' | 'transit';
-  line?: string;
-  vehicle?: string; // SUBWAY, BUS, TRAM, HEAVY_RAIL…
-  durationText?: string;
-  numStops?: number;
-  headsign?: string;
+// Routes API durations look like "1320s" — turn into "22 min".
+function fmtDuration(s?: string): string | undefined {
+  if (!s) return undefined;
+  const sec = parseInt(String(s).replace('s', ''), 10);
+  if (isNaN(sec)) return undefined;
+  const m = Math.round(sec / 60);
+  if (m < 60) return `${m} min`;
+  return `${Math.floor(m / 60)} hr ${m % 60} min`;
 }
 
 Deno.serve(async (req) => {
@@ -49,10 +51,7 @@ Deno.serve(async (req) => {
   }
   if (!origin?.length || !dest?.length) return json({ error: 'Missing origin/dest' }, 400);
 
-  const o = `${origin[0]},${origin[1]}`;
-  const d = `${dest[0]},${dest[1]}`;
-  const cacheKey = `${o}|${d}`;
-
+  const cacheKey = `${origin[0]},${origin[1]}|${dest[0]},${dest[1]}`;
   const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
 
   const { data: cached } = await admin
@@ -67,35 +66,43 @@ Deno.serve(async (req) => {
   const key = Deno.env.get('GOOGLE_MAPS_API_KEY');
   if (!key) return json({ error: 'Server missing GOOGLE_MAPS_API_KEY' }, 500);
 
-  const url = new URL('https://maps.googleapis.com/maps/api/directions/json');
-  url.searchParams.set('origin', o);
-  url.searchParams.set('destination', d);
-  url.searchParams.set('mode', 'transit');
-  url.searchParams.set('key', key);
-
-  const res = await fetch(url.toString());
-  const data = await res.json();
-  if (data.status !== 'OK') {
-    return json({ error: `Directions: ${data.status}`, segments: [] }, data.status === 'ZERO_RESULTS' ? 200 : 502);
-  }
-
-  const leg = data.routes?.[0]?.legs?.[0];
-  const segments: Segment[] = (leg?.steps ?? []).map((step: any) => {
-    if (step.travel_mode === 'TRANSIT') {
-      const td = step.transit_details;
-      return {
-        mode: 'transit',
-        line: td?.line?.short_name || td?.line?.name,
-        vehicle: td?.line?.vehicle?.type,
-        durationText: step.duration?.text,
-        numStops: td?.num_stops,
-        headsign: td?.headsign,
-      };
-    }
-    return { mode: 'walk', durationText: step.duration?.text };
+  const res = await fetch('https://routes.googleapis.com/directions/v2:computeRoutes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': key,
+      'X-Goog-FieldMask': 'routes.duration,routes.legs.steps.travelMode,routes.legs.steps.staticDuration,routes.legs.steps.transitDetails',
+    },
+    body: JSON.stringify({
+      origin: { location: { latLng: { latitude: origin[0], longitude: origin[1] } } },
+      destination: { location: { latLng: { latitude: dest[0], longitude: dest[1] } } },
+      travelMode: 'TRANSIT',
+    }),
   });
 
-  const result = { totalDuration: leg?.duration?.text ?? null, segments };
+  const data = await res.json();
+  if (!res.ok || !data.routes?.length) {
+    return json({ error: data.error?.message ?? 'No transit route', segments: [] }, res.ok ? 200 : 502);
+  }
+
+  const route = data.routes[0];
+  const steps: any[] = (route.legs ?? []).flatMap((l: any) => l.steps ?? []);
+  const segments = steps.map((step: any) => {
+    if (step.travelMode === 'TRANSIT' && step.transitDetails) {
+      const td = step.transitDetails;
+      return {
+        mode: 'transit',
+        line: td.transitLine?.nameShort || td.transitLine?.name,
+        vehicle: td.transitLine?.vehicle?.type,
+        durationText: fmtDuration(step.staticDuration),
+        numStops: td.stopCount,
+        headsign: td.headsign,
+      };
+    }
+    return { mode: 'walk', durationText: fmtDuration(step.staticDuration) };
+  });
+
+  const result = { totalDuration: fmtDuration(route.duration), segments };
   await admin.from('transit_cache').upsert({ key: cacheKey, result, fetched_at: new Date().toISOString() });
 
   return json({ source: 'google', ...result });
