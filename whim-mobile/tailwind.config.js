@@ -13,9 +13,12 @@ module.exports = {
         hairline: 'rgba(28,28,28,0.08)',
       },
       fontFamily: {
-        // load these via expo-font; falls back to system if absent
-        serif: ['PlayfairDisplay', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        // loaded via expo-font in app/_layout.tsx (@expo-google-fonts)
+        serif: ['PlayfairDisplay_600SemiBold', 'serif'],
+        'serif-bold': ['PlayfairDisplay_700Bold', 'serif'],
+        mono: ['IBMPlexMono_400Regular', 'monospace'],
+        // body stays on the system font (San Francisco) — crisp at every weight
+        sans: ['system-ui', 'sans-serif'],
       },
       borderRadius: {
         card: '28px',

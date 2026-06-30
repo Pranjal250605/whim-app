@@ -13,8 +13,12 @@ export default function SignIn() {
   const [busy, setBusy] = useState(false);
   const [appleAvailable, setAppleAvailable] = useState(false);
 
+  // Apple Sign-In is deferred until the paid Apple Developer account + Supabase
+  // Apple provider are configured (the entitlement requires code signing). Flip
+  // APPLE_ENABLED to true then to re-enable the button.
+  const APPLE_ENABLED = false;
   useEffect(() => {
-    if (Platform.OS === 'ios') AppleAuthentication.isAvailableAsync().then(setAppleAvailable);
+    if (APPLE_ENABLED && Platform.OS === 'ios') AppleAuthentication.isAvailableAsync().then(setAppleAvailable);
   }, []);
 
   // Email + password. (In Supabase → Auth, you can turn off "Confirm email"
