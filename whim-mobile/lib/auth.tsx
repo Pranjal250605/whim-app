@@ -23,10 +23,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     // initial session (restored from the encrypted keychain via supabase client)
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setLoading(false);
-    });
+    supabase.auth
+      .getSession()
+      .then(({ data }) => setSession(data.session))
+      .catch(() => {}) // never block the app on a storage failure
+      .finally(() => setLoading(false));
 
     // live updates: sign-in, sign-out, token refresh
     const { data: sub } = supabase.auth.onAuthStateChange((_event, next) => {

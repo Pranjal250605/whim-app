@@ -11,11 +11,33 @@ import { createClient } from '@supabase/supabase-js';
 //    (encrypted at rest), not AsyncStorage (plaintext).
 // 3. Values come from EAS env vars, not hardcoded. `EXPO_PUBLIC_` vars are
 //    inlined at build time — fine for the anon key, never for secrets.
-
+// 4. The keychain needs a signing entitlement. Unsigned simulator builds (no
+//    Apple account yet) lack it, so the calls are wrapped to degrade gracefully:
+//    on failure they no-op / return null instead of throwing, which means the
+//    session just won't persist across launches on an unsigned build. On a
+//    proper signed build the keychain works and persistence is restored.
 const ExpoSecureStoreAdapter = {
-  getItem: (key: string) => SecureStore.getItemAsync(key),
-  setItem: (key: string, value: string) => SecureStore.setItemAsync(key, value),
-  removeItem: (key: string) => SecureStore.deleteItemAsync(key),
+  getItem: async (key: string) => {
+    try {
+      return await SecureStore.getItemAsync(key);
+    } catch {
+      return null;
+    }
+  },
+  setItem: async (key: string, value: string) => {
+    try {
+      await SecureStore.setItemAsync(key, value);
+    } catch {
+      /* keychain unavailable (unsigned build) — skip persistence */
+    }
+  },
+  removeItem: async (key: string) => {
+    try {
+      await SecureStore.deleteItemAsync(key);
+    } catch {
+      /* keychain unavailable — nothing to remove */
+    }
+  },
 };
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
