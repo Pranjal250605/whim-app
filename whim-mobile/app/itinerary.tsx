@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 import { useWhimStore } from '@/store/useWhimStore';
 import { orderByProximity, type RouteStop } from '@/lib/route';
 import { getTransit, type TransitResult } from '@/lib/transit';
 import RouteMap from '@/components/RouteMap';
+import GlassNav from '@/components/GlassNav';
 
 function vehicleEmoji(v?: string): string {
   switch ((v ?? '').toUpperCase()) {
@@ -90,7 +92,19 @@ export default function ItineraryScreen() {
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
       <RouteMap stops={stops} height={280} />
 
-      <ScrollView className="flex-1 px-5 pt-5" contentContainerStyle={{ paddingBottom: 60 }}>
+      {/* back button floating over the map */}
+      <View className="absolute left-4 z-10" style={{ top: 6 }}>
+        <Pressable
+          onPress={() => router.back()}
+          accessibilityLabel="Back"
+          className="h-10 w-10 items-center justify-center rounded-full"
+          style={{ backgroundColor: 'rgba(255,255,255,0.92)', shadowColor: '#1C1C1C', shadowOpacity: 0.12, shadowRadius: 12, shadowOffset: { width: 0, height: 3 } }}
+        >
+          <Text className="text-lg text-ink">‹</Text>
+        </Pressable>
+      </View>
+
+      <ScrollView className="flex-1 px-5 pt-5" contentContainerStyle={{ paddingBottom: 120 }}>
         <Text className="font-serif text-2xl text-ink">Your optimised day</Text>
         <Text className="mb-5 mt-1 text-[13px] text-muted">{stops.length} stops · with transit</Text>
 
@@ -124,6 +138,8 @@ export default function ItineraryScreen() {
           );
         })}
       </ScrollView>
+
+      <GlassNav active="route" />
     </SafeAreaView>
   );
 }
