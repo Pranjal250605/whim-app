@@ -90,11 +90,11 @@ export default function ItineraryScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-canvas" edges={[]}>
       <RouteMap stops={stops} height={280} />
 
       {/* back button floating over the map */}
-      <View className="absolute left-4 z-10" style={{ top: insets.top + 4 }}>
+      <View className="absolute left-4 z-10" style={{ top: (insets.top || 47) + 4 }}>
         <Pressable
           onPress={() => router.back()}
           accessibilityLabel="Back"
