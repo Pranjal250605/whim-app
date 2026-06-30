@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useWhimStore } from '@/store/useWhimStore';
 import { orderByProximity, type RouteStop } from '@/lib/route';
@@ -51,6 +51,7 @@ function legText(leg: TransitResult): string {
 // time estimate as a fallback) between each pair of stops.
 export default function ItineraryScreen() {
   const bucketList = useWhimStore((s) => s.bucketList);
+  const insets = useSafeAreaInsets();
 
   const stops = useMemo(() => orderByProximity(bucketList), [bucketList]);
   const byId = useMemo(() => Object.fromEntries(bucketList.map((b) => [b.anchor.id, b])), [bucketList]);
@@ -93,7 +94,7 @@ export default function ItineraryScreen() {
       <RouteMap stops={stops} height={280} />
 
       {/* back button floating over the map */}
-      <View className="absolute left-4 z-10" style={{ top: 6 }}>
+      <View className="absolute left-4 z-10" style={{ top: insets.top + 4 }}>
         <Pressable
           onPress={() => router.back()}
           accessibilityLabel="Back"
