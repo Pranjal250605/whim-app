@@ -1,0 +1,254 @@
+[
+  {
+    "city": "Paris",
+    "country": "France",
+    "center": [2.3522, 48.8566],
+    "spots": [
+      {
+        "id": "eiffel-tower",
+        "title": "Eiffel Tower",
+        "vibes": ["classics"],
+        "kind": "Landmark",
+        "area": "7th arr.",
+        "hours": "Opens morning",
+        "tags": ["Iconic", "Sunset"],
+        "description": "The wrought-iron icon — best caught sparkling on the hour after dark, or from the lawns of the Champ de Mars.",
+        "nearby": [
+          { "title": "Champ de Mars lawns", "kind": "Nature", "mins": 4 },
+          { "title": "Trocadéro viewpoint", "kind": "Photo stop", "mins": 12 }
+        ]
+      },
+      {
+        "id": "louvre",
+        "title": "Musée du Louvre",
+        "vibes": ["classics"],
+        "kind": "Museum",
+        "area": "1st arr.",
+        "hours": "Opens morning",
+        "tags": ["Culture", "Iconic"],
+        "description": "The world's most-visited museum, from the Mona Lisa to the glass pyramid in the courtyard.",
+        "nearby": [
+          { "title": "Tuileries Garden", "kind": "Garden", "mins": 5 },
+          { "title": "Café Kitsuné Palais Royal", "kind": "Coffee", "mins": 7 }
+        ]
+      },
+      {
+        "id": "sacre-coeur",
+        "title": "Sacré-Cœur, Montmartre",
+        "vibes": ["classics"],
+        "kind": "Basilica",
+        "area": "Montmartre",
+        "hours": "Opens morning",
+        "tags": ["Viewpoint", "Hilltop"],
+        "description": "A white-domed basilica crowning Montmartre, with all of Paris spread out below the front steps.",
+        "nearby": [
+          { "title": "Place du Tertre artists", "kind": "Wander", "mins": 4 },
+          { "title": "KB Café Shop", "kind": "Coffee", "mins": 9 }
+        ]
+      },
+      {
+        "id": "jardin-luxembourg",
+        "title": "Jardin du Luxembourg",
+        "vibes": ["nature"],
+        "kind": "Garden",
+        "area": "6th arr.",
+        "hours": "Daytime",
+        "tags": ["Iconic", "Calm"],
+        "description": "Paris's most elegant gardens — gravel paths, the green chairs by the pond and sail-boats for the kids.",
+        "nearby": [
+          { "title": "Saint-Germain cafés", "kind": "Coffee", "mins": 8 },
+          { "title": "Panthéon", "kind": "Landmark", "mins": 7 }
+        ]
+      },
+      {
+        "id": "canal-saint-martin",
+        "title": "Canal Saint-Martin",
+        "vibes": ["nature"],
+        "kind": "Canal walk",
+        "area": "10th arr.",
+        "hours": "Anytime",
+        "tags": ["Local", "Leafy"],
+        "description": "Iron footbridges, plane trees and canal-side picnics — the laid-back, local side of Paris.",
+        "nearby": [
+          { "title": "Ten Belles coffee", "kind": "Coffee", "mins": 3 },
+          { "title": "Place de la République", "kind": "Square", "mins": 9 }
+        ]
+      },
+      {
+        "id": "le-marais",
+        "title": "Le Marais",
+        "vibes": ["matcha"],
+        "kind": "Neighbourhood",
+        "area": "3rd/4th arr.",
+        "hours": "Daytime",
+        "tags": ["Boutiques", "Design"],
+        "description": "Cobbled lanes of concept stores, galleries and falafel windows in Paris's most stylish old quarter.",
+        "nearby": [
+          { "title": "Boot Café", "kind": "Coffee", "mins": 3 },
+          { "title": "Place des Vosges", "kind": "Garden", "mins": 7 }
+        ]
+      },
+      {
+        "id": "cafe-kitsune",
+        "title": "Café Kitsuné Palais Royal",
+        "vibes": ["matcha"],
+        "kind": "Coffee",
+        "area": "1st arr.",
+        "hours": "Daytime",
+        "tags": ["Design", "Iconic"],
+        "description": "A tiny, impeccably styled coffee window tucked into the arcades of the Palais Royal gardens.",
+        "nearby": [
+          { "title": "Palais Royal gardens", "kind": "Garden", "mins": 1 },
+          { "title": "Galerie Vivienne", "kind": "Shopping", "mins": 5 }
+        ]
+      },
+      {
+        "id": "rue-oberkampf",
+        "title": "Rue Oberkampf",
+        "vibes": ["nightlife"],
+        "kind": "Bar street",
+        "area": "11th arr.",
+        "hours": "Evenings",
+        "tags": ["Bars", "Local"],
+        "description": "The 11th's buzzing nightlife spine — natural-wine bars, live music and late terraces shoulder to shoulder.",
+        "nearby": [
+          { "title": "Rue Saint-Maur bars", "kind": "Bars", "mins": 3 },
+          { "title": "Père Lachaise", "kind": "Landmark", "mins": 12 }
+        ]
+      },
+      {
+        "id": "pigalle",
+        "title": "Pigalle & SoPi",
+        "vibes": ["nightlife"],
+        "kind": "Nightlife district",
+        "area": "9th/18th arr.",
+        "hours": "Evenings",
+        "tags": ["Cabaret", "Cocktails"],
+        "description": "From the Moulin Rouge's neon to the hidden cocktail dens of South Pigalle — Paris after dark, reinvented.",
+        "nearby": [
+          { "title": "Moulin Rouge", "kind": "Landmark", "mins": 4 },
+          { "title": "Rue des Martyrs", "kind": "Stroll", "mins": 6 }
+        ]
+      }
+    ]
+  },
+  {
+    "city": "Nice",
+    "country": "France",
+    "center": [7.262, 43.7102],
+    "spots": [
+      {
+        "id": "promenade-des-anglais",
+        "title": "Promenade des Anglais",
+        "vibes": ["classics", "nature"],
+        "kind": "Seafront",
+        "area": "Centre",
+        "hours": "Anytime",
+        "tags": ["Iconic", "Sea"],
+        "description": "The sweeping bayfront promenade along the Baie des Anges — blue chairs, palms and turquoise water.",
+        "nearby": [
+          { "title": "Castle Hill viewpoint", "kind": "Viewpoint", "mins": 14 },
+          { "title": "Pebble beach swim", "kind": "Nature", "mins": 2 }
+        ]
+      },
+      {
+        "id": "vieux-nice",
+        "title": "Vieux Nice (Old Town)",
+        "vibes": ["classics"],
+        "kind": "Old town",
+        "area": "Vieux Nice",
+        "hours": "Daytime",
+        "tags": ["Markets", "Local"],
+        "description": "A warren of ochre lanes, the Cours Saleya flower market and the city's best socca straight off the griddle.",
+        "nearby": [
+          { "title": "Cours Saleya market", "kind": "Market", "mins": 3 },
+          { "title": "Malongo Café", "kind": "Coffee", "mins": 6 }
+        ]
+      },
+      {
+        "id": "colline-du-chateau",
+        "title": "Castle Hill (Colline du Château)",
+        "vibes": ["nature"],
+        "kind": "Park",
+        "area": "Vieux Nice",
+        "hours": "Daytime",
+        "tags": ["Viewpoint", "Calm"],
+        "description": "A green hilltop park with a waterfall and the definitive panorama over Nice's terracotta rooftops and bay.",
+        "nearby": [
+          { "title": "Rauba Capeu viewpoint", "kind": "Photo stop", "mins": 8 },
+          { "title": "Old Town gelato", "kind": "Snack", "mins": 10 }
+        ]
+      },
+      {
+        "id": "parc-phoenix",
+        "title": "Parc Phoenix",
+        "vibes": ["nature"],
+        "kind": "Botanical park",
+        "area": "Arénas",
+        "hours": "Daytime",
+        "tags": ["Gardens", "Family"],
+        "description": "A lush botanical park of glasshouses, lakes and tropical greenery at the western end of the bay.",
+        "nearby": [
+          { "title": "MAMAC modern art", "kind": "Museum", "mins": 12 },
+          { "title": "Promenade cycle path", "kind": "Stroll", "mins": 6 }
+        ]
+      },
+      {
+        "id": "place-garibaldi",
+        "title": "Place Garibaldi cafés",
+        "vibes": ["matcha"],
+        "kind": "Café square",
+        "area": "Vieux Nice",
+        "hours": "Daytime",
+        "tags": ["Arcades", "Local"],
+        "description": "An elegant arcaded square where Niçois linger over coffee and the city's famous oyster bars set up under the porticoes.",
+        "nearby": [
+          { "title": "Old Town lanes", "kind": "Wander", "mins": 3 },
+          { "title": "Port of Nice", "kind": "Harbour", "mins": 8 }
+        ]
+      },
+      {
+        "id": "emilie-and-the-cool-kids",
+        "title": "Cours Saleya morning café",
+        "vibes": ["matcha"],
+        "kind": "Café",
+        "area": "Vieux Nice",
+        "hours": "Daytime",
+        "tags": ["Market", "Sunny"],
+        "description": "Pull up a terrace chair beside the flower market for a slow Riviera morning of café au lait and people-watching.",
+        "nearby": [
+          { "title": "Cours Saleya flower market", "kind": "Market", "mins": 1 },
+          { "title": "Opéra de Nice", "kind": "Landmark", "mins": 4 }
+        ]
+      },
+      {
+        "id": "port-de-nice",
+        "title": "Port of Nice",
+        "vibes": ["nightlife"],
+        "kind": "Harbour district",
+        "area": "Le Port",
+        "hours": "Evenings",
+        "tags": ["Waterside", "Bars"],
+        "description": "The pastel harbour comes alive at night with wine bars and seafood terraces around the moored yachts.",
+        "nearby": [
+          { "title": "Rauba Capeu seawalk", "kind": "Stroll", "mins": 6 },
+          { "title": "Place Île de Beauté", "kind": "Square", "mins": 3 }
+        ]
+      },
+      {
+        "id": "cours-saleya-night",
+        "title": "Cours Saleya by night",
+        "vibes": ["nightlife"],
+        "kind": "Dining square",
+        "area": "Vieux Nice",
+        "hours": "Evenings",
+        "tags": ["Terraces", "Lively"],
+        "description": "By evening the flower market becomes one long candle-lit terrace of restaurants and bars in the old town.",
+        "nearby": [
+          { "title": "Old Town bars", "kind": "Bars", "mins": 2 },
+          { "title": "Castle Hill steps", "kind": "Walk", "mins": 7 }
+        ]
+      }
+    ]
+  }
+]

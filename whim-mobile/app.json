@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Whim",
+    "slug": "whim",
+    "scheme": "whim",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.whim.app",
+      "supportsTablet": false,
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.whim.app"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-apple-authentication"
+    ],
+    "extra": {
+      "router": {}
+    },
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

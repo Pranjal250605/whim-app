@@ -1,0 +1,198 @@
+[
+  {
+    "city": "New York",
+    "country": "United States",
+    "center": [-73.9857, 40.7484],
+    "spots": [
+      {
+        "id": "brooklyn-bridge",
+        "title": "Brooklyn Bridge",
+        "vibes": ["classics"],
+        "kind": "Landmark",
+        "area": "Lower Manhattan",
+        "hours": "Anytime",
+        "tags": ["Iconic", "Skyline"],
+        "description": "Walk the gothic-arched promenade at sunrise for the classic Manhattan skyline over the East River.",
+        "nearby": [
+          { "title": "DUMBO / Washington St view", "kind": "Photo stop", "mins": 12 },
+          { "title": "Brooklyn Bridge Park", "kind": "Nature", "mins": 14 }
+        ]
+      },
+      {
+        "id": "the-met",
+        "title": "The Metropolitan Museum of Art",
+        "vibes": ["classics"],
+        "kind": "Museum",
+        "area": "Upper East Side",
+        "hours": "Opens morning",
+        "tags": ["Culture", "Iconic"],
+        "description": "Two million works spanning 5,000 years, plus a rooftop bar with Central Park views in summer.",
+        "nearby": [
+          { "title": "Museum Mile", "kind": "Stroll", "mins": 5 },
+          { "title": "Guggenheim Museum", "kind": "Museum", "mins": 9 }
+        ]
+      },
+      {
+        "id": "central-park",
+        "title": "Central Park",
+        "vibes": ["nature"],
+        "kind": "Park",
+        "area": "Manhattan",
+        "hours": "Anytime",
+        "tags": ["Iconic", "Green"],
+        "description": "843 acres of lawns, lakes and wooded ramble in the middle of Manhattan — endlessly walkable.",
+        "nearby": [
+          { "title": "Bethesda Terrace", "kind": "Landmark", "mins": 6 },
+          { "title": "The Met Museum", "kind": "Museum", "mins": 10 }
+        ]
+      },
+      {
+        "id": "high-line",
+        "title": "The High Line",
+        "vibes": ["nature"],
+        "kind": "Elevated park",
+        "area": "Chelsea",
+        "hours": "Daytime",
+        "tags": ["Unique", "Skyline"],
+        "description": "A planted walkway on a former elevated rail line, weaving between the buildings of Chelsea and Hudson Yards.",
+        "nearby": [
+          { "title": "Chelsea Market", "kind": "Food market", "mins": 4 },
+          { "title": "Little Island park", "kind": "Nature", "mins": 7 }
+        ]
+      },
+      {
+        "id": "williamsburg",
+        "title": "Williamsburg",
+        "vibes": ["matcha", "nightlife"],
+        "kind": "Neighbourhood",
+        "area": "Brooklyn",
+        "hours": "Daytime",
+        "tags": ["Local", "Design"],
+        "description": "Brooklyn's coolest stretch — vintage shops, waterfront skyline views and some of the city's best coffee.",
+        "nearby": [
+          { "title": "Devoción Coffee", "kind": "Coffee", "mins": 6 },
+          { "title": "Domino Park waterfront", "kind": "Nature", "mins": 9 }
+        ]
+      },
+      {
+        "id": "greenwich-village",
+        "title": "Greenwich Village",
+        "vibes": ["matcha"],
+        "kind": "Neighbourhood",
+        "area": "Manhattan",
+        "hours": "Daytime",
+        "tags": ["Charming", "Cafés"],
+        "description": "Leafy brownstone streets, tucked-away coffee houses and Washington Square's chess tables and buskers.",
+        "nearby": [
+          { "title": "Washington Square Park", "kind": "Nature", "mins": 4 },
+          { "title": "Stumptown Coffee", "kind": "Coffee", "mins": 6 }
+        ]
+      },
+      {
+        "id": "lower-east-side",
+        "title": "Lower East Side",
+        "vibes": ["nightlife"],
+        "kind": "Nightlife district",
+        "area": "Manhattan",
+        "hours": "Evenings",
+        "tags": ["Bars", "Live music"],
+        "description": "Dive bars, cocktail speakeasies and music venues packed into the city's grittiest, most fun nightlife grid.",
+        "nearby": [
+          { "title": "Katz's Delicatessen", "kind": "Late food", "mins": 5 },
+          { "title": "Bowery music venues", "kind": "Live music", "mins": 7 }
+        ]
+      }
+    ]
+  },
+  {
+    "city": "San Francisco",
+    "country": "United States",
+    "center": [-122.4194, 37.7749],
+    "spots": [
+      {
+        "id": "golden-gate-bridge",
+        "title": "Golden Gate Bridge",
+        "vibes": ["classics"],
+        "kind": "Landmark",
+        "area": "Presidio",
+        "hours": "Anytime",
+        "tags": ["Iconic", "Viewpoint"],
+        "description": "The unmistakable orange span — catch it from Battery Spencer or cycle across to Sausalito.",
+        "nearby": [
+          { "title": "Battery Spencer viewpoint", "kind": "Photo stop", "mins": 10 },
+          { "title": "Crissy Field walk", "kind": "Nature", "mins": 8 }
+        ]
+      },
+      {
+        "id": "ferry-building",
+        "title": "Ferry Building Marketplace",
+        "vibes": ["classics", "matcha"],
+        "kind": "Food market",
+        "area": "Embarcadero",
+        "hours": "Daytime",
+        "tags": ["Foodie", "Bayfront"],
+        "description": "A grand waterfront hall of artisan food stalls and a farmers' market, with the Bay Bridge as backdrop.",
+        "nearby": [
+          { "title": "Blue Bottle Coffee", "kind": "Coffee", "mins": 2 },
+          { "title": "Embarcadero waterfront", "kind": "Stroll", "mins": 4 }
+        ]
+      },
+      {
+        "id": "golden-gate-park",
+        "title": "Golden Gate Park",
+        "vibes": ["nature"],
+        "kind": "Park",
+        "area": "Richmond",
+        "hours": "Anytime",
+        "tags": ["Green", "Gardens"],
+        "description": "Bigger than Central Park — Japanese Tea Garden, botanical gardens, bison and windmills by the ocean.",
+        "nearby": [
+          { "title": "Japanese Tea Garden", "kind": "Garden", "mins": 5 },
+          { "title": "de Young Museum", "kind": "Museum", "mins": 7 }
+        ]
+      },
+      {
+        "id": "lands-end",
+        "title": "Lands End Trail",
+        "vibes": ["nature"],
+        "kind": "Coastal trail",
+        "area": "Outer Richmond",
+        "hours": "Daytime",
+        "tags": ["Cliffs", "Views"],
+        "description": "A cypress-lined cliff trail above crashing surf, with shipwreck views and the bridge framed at the end.",
+        "nearby": [
+          { "title": "Sutro Baths ruins", "kind": "Landmark", "mins": 6 },
+          { "title": "Legion of Honor", "kind": "Museum", "mins": 10 }
+        ]
+      },
+      {
+        "id": "mission-district",
+        "title": "The Mission",
+        "vibes": ["matcha", "nightlife"],
+        "kind": "Neighbourhood",
+        "area": "Mission",
+        "hours": "Daytime",
+        "tags": ["Murals", "Coffee"],
+        "description": "Sun-trap of the city: taquerias, mural-lined alleys, Dolores Park hangs and serious specialty coffee.",
+        "nearby": [
+          { "title": "Ritual Coffee Roasters", "kind": "Coffee", "mins": 5 },
+          { "title": "Dolores Park", "kind": "Nature", "mins": 8 }
+        ]
+      },
+      {
+        "id": "north-beach",
+        "title": "North Beach",
+        "vibes": ["nightlife"],
+        "kind": "Nightlife district",
+        "area": "North Beach",
+        "hours": "Evenings",
+        "tags": ["Bars", "Italian"],
+        "description": "SF's old Italian quarter and Beat-era haunt — espresso bars, classic dive bars and late cannoli.",
+        "nearby": [
+          { "title": "City Lights Bookstore", "kind": "Landmark", "mins": 3 },
+          { "title": "Vesuvio Cafe bar", "kind": "Bars", "mins": 2 }
+        ]
+      }
+    ]
+  }
+]

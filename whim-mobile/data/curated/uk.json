@@ -1,0 +1,226 @@
+[
+  {
+    "city": "London",
+    "country": "United Kingdom",
+    "center": [-0.1276, 51.5072],
+    "spots": [
+      {
+        "id": "tower-of-london",
+        "title": "Tower of London",
+        "vibes": ["classics"],
+        "kind": "Castle",
+        "area": "Tower Hill",
+        "hours": "Opens morning",
+        "tags": ["Iconic", "History"],
+        "description": "A 1,000-year-old fortress on the Thames guarding the Crown Jewels, with Tower Bridge right alongside.",
+        "nearby": [
+          { "title": "Tower Bridge walk", "kind": "Landmark", "mins": 6 },
+          { "title": "St Katharine Docks", "kind": "Stroll", "mins": 9 }
+        ]
+      },
+      {
+        "id": "british-museum",
+        "title": "British Museum",
+        "vibes": ["classics"],
+        "kind": "Museum",
+        "area": "Bloomsbury",
+        "hours": "Opens morning",
+        "tags": ["Culture", "Free entry"],
+        "description": "From the Rosetta Stone to the Parthenon marbles, under a soaring glass-roofed Great Court.",
+        "nearby": [
+          { "title": "Kaffeine (Store St)", "kind": "Coffee", "mins": 8 },
+          { "title": "Coal Drops Yard", "kind": "Shopping", "mins": 14 }
+        ]
+      },
+      {
+        "id": "hyde-park",
+        "title": "Hyde Park",
+        "vibes": ["nature"],
+        "kind": "Park",
+        "area": "Westminster",
+        "hours": "Anytime",
+        "tags": ["Calm", "Lakeside"],
+        "description": "350 acres of central greenery — row on the Serpentine, then drift into Kensington Gardens.",
+        "nearby": [
+          { "title": "Serpentine Lido", "kind": "Nature", "mins": 5 },
+          { "title": "Kensington Gardens", "kind": "Garden", "mins": 8 }
+        ]
+      },
+      {
+        "id": "hampstead-heath",
+        "title": "Hampstead Heath",
+        "vibes": ["nature"],
+        "kind": "Park",
+        "area": "Hampstead",
+        "hours": "Daytime",
+        "tags": ["Wild", "Viewpoint"],
+        "description": "A wild, hilly heath with swimming ponds and the Parliament Hill view across the entire London skyline.",
+        "nearby": [
+          { "title": "Parliament Hill viewpoint", "kind": "Viewpoint", "mins": 6 },
+          { "title": "Kenwood House", "kind": "Landmark", "mins": 12 }
+        ]
+      },
+      {
+        "id": "borough-market",
+        "title": "Borough Market",
+        "vibes": ["classics", "matcha"],
+        "kind": "Food market",
+        "area": "Southwark",
+        "hours": "Daytime",
+        "tags": ["Foodie", "Iconic"],
+        "description": "London's most loved food market — cheese, fresh oysters, sizzling griddles and the original Monmouth coffee.",
+        "nearby": [
+          { "title": "Monmouth Coffee", "kind": "Coffee", "mins": 2 },
+          { "title": "Southwark Cathedral", "kind": "Landmark", "mins": 4 }
+        ]
+      },
+      {
+        "id": "shoreditch",
+        "title": "Shoreditch",
+        "vibes": ["matcha", "nightlife"],
+        "kind": "Neighbourhood",
+        "area": "Hackney",
+        "hours": "Daytime",
+        "tags": ["Street art", "Coffee"],
+        "description": "East London's creative heart — street-art lanes and flat-white roasters by day, buzzing bars by night.",
+        "nearby": [
+          { "title": "Allpress Espresso", "kind": "Coffee", "mins": 4 },
+          { "title": "Brick Lane", "kind": "Street food", "mins": 7 }
+        ]
+      },
+      {
+        "id": "soho",
+        "title": "Soho",
+        "vibes": ["nightlife"],
+        "kind": "Nightlife district",
+        "area": "West End",
+        "hours": "Evenings",
+        "tags": ["Bars", "Theatre"],
+        "description": "London's neon-lit nightlife core — theatres, jazz cellars, cocktail dens and late-night Chinatown noodles.",
+        "nearby": [
+          { "title": "Chinatown", "kind": "Street food", "mins": 3 },
+          { "title": "Ronnie Scott's jazz", "kind": "Live music", "mins": 4 }
+        ]
+      }
+    ]
+  },
+  {
+    "city": "Edinburgh",
+    "country": "United Kingdom",
+    "center": [-3.1883, 55.9533],
+    "spots": [
+      {
+        "id": "edinburgh-castle",
+        "title": "Edinburgh Castle",
+        "vibes": ["classics"],
+        "kind": "Castle",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": ["Iconic", "Hilltop"],
+        "description": "A fortress on an extinct volcano above the city, anchoring the length of the Royal Mile.",
+        "nearby": [
+          { "title": "Royal Mile walk", "kind": "Stroll", "mins": 4 },
+          { "title": "Victoria Street", "kind": "Photo stop", "mins": 7 }
+        ]
+      },
+      {
+        "id": "royal-mile",
+        "title": "The Royal Mile",
+        "vibes": ["classics"],
+        "kind": "Historic street",
+        "area": "Old Town",
+        "hours": "Anytime",
+        "tags": ["History", "Closes"],
+        "description": "The cobbled spine of the Old Town from castle to palace, threaded with hidden closes and stone tenements.",
+        "nearby": [
+          { "title": "St Giles' Cathedral", "kind": "Landmark", "mins": 3 },
+          { "title": "Writers' Museum close", "kind": "Museum", "mins": 5 }
+        ]
+      },
+      {
+        "id": "arthurs-seat",
+        "title": "Arthur's Seat",
+        "vibes": ["nature"],
+        "kind": "Hill walk",
+        "area": "Holyrood",
+        "hours": "Daytime",
+        "tags": ["Viewpoint", "Hike"],
+        "description": "An ancient volcano in the middle of the city — a short climb for the best panorama in Edinburgh.",
+        "nearby": [
+          { "title": "Holyrood Palace", "kind": "Landmark", "mins": 10 },
+          { "title": "Salisbury Crags loop", "kind": "Walk", "mins": 5 }
+        ]
+      },
+      {
+        "id": "calton-hill",
+        "title": "Calton Hill",
+        "vibes": ["nature"],
+        "kind": "Hill viewpoint",
+        "area": "New Town",
+        "hours": "Anytime",
+        "tags": ["Viewpoint", "Monuments"],
+        "description": "An easy climb to neoclassical monuments and the postcard view over the city to the castle and the Firth.",
+        "nearby": [
+          { "title": "Dugald Stewart Monument", "kind": "Photo stop", "mins": 2 },
+          { "title": "Princes Street", "kind": "Shopping", "mins": 8 }
+        ]
+      },
+      {
+        "id": "dean-village",
+        "title": "Dean Village",
+        "vibes": ["matcha"],
+        "kind": "Neighbourhood",
+        "area": "Dean",
+        "hours": "Daytime",
+        "tags": ["Dreamy", "Riverside"],
+        "description": "A storybook pocket of old millworkers' houses along the Water of Leith, minutes from the centre.",
+        "nearby": [
+          { "title": "Water of Leith walk", "kind": "Stroll", "mins": 2 },
+          { "title": "Modern Art Gallery", "kind": "Museum", "mins": 9 }
+        ]
+      },
+      {
+        "id": "fortitude-coffee",
+        "title": "Fortitude Coffee",
+        "vibes": ["matcha"],
+        "kind": "Coffee",
+        "area": "New Town",
+        "hours": "Daytime",
+        "tags": ["Specialty", "Cosy"],
+        "description": "A small, much-loved independent roaster pulling Edinburgh's best espresso just off the city centre.",
+        "nearby": [
+          { "title": "St Andrew Square", "kind": "Square", "mins": 4 },
+          { "title": "Scottish Portrait Gallery", "kind": "Museum", "mins": 5 }
+        ]
+      },
+      {
+        "id": "grassmarket",
+        "title": "Grassmarket",
+        "vibes": ["nightlife"],
+        "kind": "Pub square",
+        "area": "Old Town",
+        "hours": "Evenings",
+        "tags": ["Pubs", "Historic"],
+        "description": "A historic square below the castle crag, ringed by traditional pubs and lively terraces after dark.",
+        "nearby": [
+          { "title": "Victoria Street bars", "kind": "Bars", "mins": 3 },
+          { "title": "Greyfriars Kirkyard", "kind": "Landmark", "mins": 6 }
+        ]
+      },
+      {
+        "id": "cowgate",
+        "title": "Cowgate",
+        "vibes": ["nightlife"],
+        "kind": "Nightlife street",
+        "area": "Old Town",
+        "hours": "Evenings",
+        "tags": ["Clubs", "Late"],
+        "description": "The Old Town's late-night artery under the bridges — clubs, music venues and dive bars that run till dawn.",
+        "nearby": [
+          { "title": "Grassmarket", "kind": "Pubs", "mins": 4 },
+          { "title": "Royal Mile", "kind": "Stroll", "mins": 5 }
+        ]
+      }
+    ]
+  }
+]

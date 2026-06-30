@@ -1,0 +1,17 @@
+# dependencies & build output
+node_modules/
+dist/
+web-build/
+
+# local tooling
+.claude/
+.DS_Store
+*.log
+
+# secrets / env (defense in depth — never commit these)
+.env
+.env.local
+.env.seed
+**/.env.local
+**/.env.seed
+**/.env*.local
