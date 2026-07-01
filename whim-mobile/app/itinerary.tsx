@@ -55,6 +55,8 @@ export default function ItineraryScreen() {
   const city = useWhimStore((s) => s.city);
   const vibe = useWhimStore((s) => s.vibe);
   const clearCollection = useWhimStore((s) => s.clearCollection);
+  const checkins = useWhimStore((s) => s.checkins);
+  const toggleCheckin = useWhimStore((s) => s.toggleCheckin);
   const insets = useSafeAreaInsets();
 
   const scoped = useMemo(() => scopedBucket(bucketList, city, vibe), [bucketList, city, vibe]);
@@ -139,7 +141,7 @@ export default function ItineraryScreen() {
 
       <ScrollView className="flex-1 px-5 pt-5" contentContainerStyle={{ paddingBottom: 120 }}>
         <Text className="font-serif text-2xl text-ink">Your optimised day</Text>
-        <Text className="mt-1 text-[13px] text-muted">{stops.length} stops · with transit</Text>
+        <Text className="mt-1 text-[13px] text-muted">{stops.length} stops · timed by opening hours & transit</Text>
 
         {stops.length > 0 && (
           <View className="mt-3">
@@ -170,6 +172,23 @@ export default function ItineraryScreen() {
                   <Text className="font-serif text-[16.5px] text-ink">{stop.title}</Text>
                   <Text className="text-xs text-muted">{stop.kind}</Text>
                 </View>
+                {stop.bestTime && (
+                  <View className="rounded-full bg-accent/12 px-2.5 py-1">
+                    <Text className="text-[10.5px] font-bold uppercase tracking-wide text-accent">{stop.bestTime}</Text>
+                  </View>
+                )}
+                {entry && (
+                  <Pressable
+                    onPress={() => toggleCheckin(entry.anchor, city)}
+                    hitSlop={8}
+                    accessibilityLabel="Check in"
+                    className={`h-9 w-9 items-center justify-center rounded-full border ${
+                      checkins.some((c) => c.spotId === stop.id) ? 'border-accent bg-accent' : 'border-ink/15 bg-white'
+                    }`}
+                  >
+                    <Icon name="check" size={16} color={checkins.some((c) => c.spotId === stop.id) ? '#fff' : '#C9C4BC'} strokeWidth={2.6} />
+                  </Pressable>
+                )}
               </View>
 
               {entry?.microActivities.map((a) => (

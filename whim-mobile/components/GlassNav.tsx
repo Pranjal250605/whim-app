@@ -9,7 +9,7 @@ const ITEMS: { key: string; label: string; icon: IconName; route: Href }[] = [
   { key: 'discover', label: 'Discover', icon: 'discover', route: '/' },
   { key: 'hitlist', label: 'Hitlist', icon: 'heart', route: '/hitlist' },
   { key: 'route', label: 'Route', icon: 'route', route: '/itinerary' },
-  { key: 'profile', label: 'Profile', icon: 'person', route: '/settings' },
+  { key: 'profile', label: 'Profile', icon: 'person', route: '/passport' },
 ];
 
 export default function GlassNav({ active }: { active: string }) {

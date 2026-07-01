@@ -1,6 +1,16 @@
 import { create } from 'zustand';
 import type { BucketAnchor, MicroActivity, Spot, VibeId } from '@/lib/types';
-import { clearSavedSpots, fetchDeck, fetchSavedSpots, removeSavedSpot, saveSpot } from '@/lib/db';
+import {
+  checkIn,
+  clearSavedSpots,
+  fetchCheckins,
+  fetchDeck,
+  fetchSavedSpots,
+  removeCheckin,
+  removeSavedSpot,
+  saveSpot,
+  type CheckinItem,
+} from '@/lib/db';
 import { getDeck as getMockDeck } from '@/data/mockDeck';
 
 /**
@@ -20,10 +30,12 @@ interface WhimState {
   passedIds: string[]; // spots swiped away this session, so they don't reappear
   pendingMatch: Spot | null;
   bucketList: BucketAnchor[];
+  checkins: CheckinItem[];
   hydrated: boolean;
   notificationsSeen: boolean;
 
   setContext: (city: string, vibe: VibeId) => Promise<void>;
+  toggleCheckin: (spot: Spot, city: string) => void;
   setCity: (city: string) => void;
   setVibe: (vibe: VibeId) => void;
   markNotificationsSeen: () => void;
@@ -48,6 +60,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   passedIds: [],
   pendingMatch: null,
   bucketList: [],
+  checkins: [],
   hydrated: false,
   notificationsSeen: false,
 
@@ -75,11 +88,31 @@ export const useWhimStore = create<WhimState>((set, get) => ({
 
   hydrate: async () => {
     try {
-      const bucketList = await fetchSavedSpots();
-      set({ bucketList, hydrated: true });
+      const [bucketList, checkins] = await Promise.all([fetchSavedSpots(), fetchCheckins()]);
+      set({ bucketList, checkins, hydrated: true });
     } catch (e) {
       console.warn('[whim] hydrate failed:', e);
       set({ hydrated: true });
+    }
+  },
+
+  toggleCheckin: (spot, city) => {
+    const isIn = get().checkins.some((c) => c.spotId === spot.id);
+    if (isIn) {
+      set((s) => ({ checkins: s.checkins.filter((c) => c.spotId !== spot.id) }));
+      removeCheckin(spot.id).catch((e) => console.warn('[whim] removeCheckin failed:', e));
+    } else {
+      const item: CheckinItem = {
+        spotId: spot.id,
+        title: spot.title,
+        kind: spot.kind,
+        area: spot.area,
+        city,
+        tone: spot.tone,
+        photo: spot.photo,
+      };
+      set((s) => ({ checkins: [item, ...s.checkins] }));
+      checkIn(spot.id, city).catch((e) => console.warn('[whim] checkIn failed:', e));
     }
   },
 
@@ -142,7 +175,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   },
 
   reset: () =>
-    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: [], pendingMatch: null, bucketList: [], hydrated: false, notificationsSeen: false }),
+    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: [], pendingMatch: null, bucketList: [], checkins: [], hydrated: false, notificationsSeen: false }),
 }));
 
 // Derived selectors (kept here so components don't recompute):

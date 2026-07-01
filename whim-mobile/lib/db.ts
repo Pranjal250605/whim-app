@@ -82,3 +82,43 @@ export async function clearSavedSpots(city: string, vibe: VibeId): Promise<void>
   const { error } = await supabase.from('saved_spots').delete().eq('city', city).eq('vibe', vibe);
   if (error) throw error;
 }
+
+// ── Passport / check-ins ─────────────────────────────────────────────────
+export interface CheckinItem {
+  spotId: string;
+  title: string;
+  kind: string;
+  area: string;
+  city: string;
+  tone: string;
+  photo: string;
+}
+
+export async function fetchCheckins(): Promise<CheckinItem[]> {
+  const { data, error } = await supabase
+    .from('checkins')
+    .select('spot_id, city, spots(*)')
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? [])
+    .filter((r: any) => r.spots)
+    .map((r: any) => ({
+      spotId: r.spot_id,
+      title: r.spots.title,
+      kind: r.spots.kind ?? '',
+      area: r.spots.area ?? '',
+      city: r.city ?? r.spots.city ?? '',
+      tone: r.spots.tone ?? '#E7DCCB',
+      photo: r.spots.photo ?? '',
+    }));
+}
+
+export async function checkIn(spotId: string, city: string): Promise<void> {
+  const { error } = await supabase.from('checkins').upsert({ spot_id: spotId, city }, { onConflict: 'user_id,spot_id' });
+  if (error) throw error;
+}
+
+export async function removeCheckin(spotId: string): Promise<void> {
+  const { error } = await supabase.from('checkins').delete().eq('spot_id', spotId);
+  if (error) throw error;
+}
