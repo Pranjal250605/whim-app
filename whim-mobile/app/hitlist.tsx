@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Swipeable } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
@@ -22,15 +22,26 @@ const shadowSoft = { shadowColor: '#1C1C1C', shadowOpacity: 0.06, shadowRadius: 
 export default function Hitlist() {
   const bucketList = useWhimStore((s) => s.bucketList);
   const removeAnchor = useWhimStore((s) => s.removeAnchor);
+  const clearCollection = useWhimStore((s) => s.clearCollection);
   const city = useWhimStore((s) => s.city);
   const vibe = useWhimStore((s) => s.vibe);
   const scoped = useMemo(() => scopedBucket(bucketList, city, vibe), [bucketList, city, vibe]);
   const count = scoped.length;
   const empty = count === 0;
 
+  const confirmClear = () =>
+    Alert.alert(
+      'Clear this hitlist?',
+      `This removes all ${count} spot${count > 1 ? 's' : ''} in your ${city} · ${VIBE_LABEL[vibe]} collection and lets you start fresh. This can't be undone.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Clear & start fresh', style: 'destructive', onPress: () => clearCollection() },
+      ],
+    );
+
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
-      <View className="flex-row items-center gap-2.5 px-4 pt-1">
+      <View className="flex-row items-center justify-between px-4 pt-1">
         <Pressable
           onPress={() => router.back()}
           className="h-10 w-10 items-center justify-center rounded-full bg-white"
@@ -38,6 +49,11 @@ export default function Hitlist() {
         >
           <Text className="text-lg text-ink">‹</Text>
         </Pressable>
+        {!empty && (
+          <Pressable onPress={confirmClear} className="rounded-full px-3 py-2">
+            <Text className="text-[13px] font-semibold text-[#C2603F]">Clear</Text>
+          </Pressable>
+        )}
       </View>
 
       <View className="px-5 pt-2">

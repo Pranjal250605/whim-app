@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Linking, Pressable, ScrollView, Text, View } from 'react-native';
+import { Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import Icon from '@/components/Icon';
@@ -54,6 +54,7 @@ export default function ItineraryScreen() {
   const bucketList = useWhimStore((s) => s.bucketList);
   const city = useWhimStore((s) => s.city);
   const vibe = useWhimStore((s) => s.vibe);
+  const clearCollection = useWhimStore((s) => s.clearCollection);
   const insets = useSafeAreaInsets();
 
   const scoped = useMemo(() => scopedBucket(bucketList, city, vibe), [bucketList, city, vibe]);
@@ -110,6 +111,16 @@ export default function ItineraryScreen() {
     Linking.openURL(url).catch(() => {});
   };
 
+  const confirmClear = () =>
+    Alert.alert(
+      'Delete this itinerary?',
+      `This clears all ${stops.length} stops and lets you build a new route. This can't be undone.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete & start fresh', style: 'destructive', onPress: () => clearCollection() },
+      ],
+    );
+
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={[]}>
       <RouteMap stops={stops} height={280} />
@@ -131,13 +142,18 @@ export default function ItineraryScreen() {
         <Text className="mt-1 text-[13px] text-muted">{stops.length} stops · with transit</Text>
 
         {stops.length > 0 && (
-          <Pressable
-            onPress={openInMaps}
-            className="mb-5 mt-3 flex-row items-center justify-center gap-2 rounded-2xl bg-ink py-3.5"
-          >
-            <Icon name="arrowRight" size={16} color="#fff" strokeWidth={2.2} />
-            <Text className="text-[15px] font-semibold text-white">Open route in Maps</Text>
-          </Pressable>
+          <View className="mt-3">
+            <Pressable
+              onPress={openInMaps}
+              className="flex-row items-center justify-center gap-2 rounded-2xl bg-ink py-3.5"
+            >
+              <Icon name="arrowRight" size={16} color="#fff" strokeWidth={2.2} />
+              <Text className="text-[15px] font-semibold text-white">Open route in Maps</Text>
+            </Pressable>
+            <Pressable onPress={confirmClear} className="mb-5 mt-3 items-center py-1">
+              <Text className="text-[13px] font-semibold text-[#C2603F]">Delete itinerary & start fresh</Text>
+            </Pressable>
+          </View>
         )}
 
         {stops.map((stop, idx) => {

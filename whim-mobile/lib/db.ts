@@ -76,3 +76,9 @@ export async function removeSavedSpot(spotId: string): Promise<void> {
   const { error } = await supabase.from('saved_spots').delete().eq('spot_id', spotId);
   if (error) throw error;
 }
+
+/** Wipe a whole collection (all saved spots for a city + vibe). */
+export async function clearSavedSpots(city: string, vibe: VibeId): Promise<void> {
+  const { error } = await supabase.from('saved_spots').delete().eq('city', city).eq('vibe', vibe);
+  if (error) throw error;
+}

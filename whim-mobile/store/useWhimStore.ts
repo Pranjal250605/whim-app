@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import type { BucketAnchor, MicroActivity, Spot, VibeId } from '@/lib/types';
-import { fetchDeck, fetchSavedSpots, removeSavedSpot, saveSpot } from '@/lib/db';
+import { clearSavedSpots, fetchDeck, fetchSavedSpots, removeSavedSpot, saveSpot } from '@/lib/db';
 import { getDeck as getMockDeck } from '@/data/mockDeck';
 
 /**
@@ -32,6 +32,7 @@ interface WhimState {
   saveAnchorOnly: () => void;
   saveAnchorWithActivities: (activities: MicroActivity[]) => void;
   removeAnchor: (anchorId: string) => void;
+  clearCollection: () => void;
   reset: () => void;
 }
 
@@ -118,6 +119,20 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   removeAnchor: (anchorId) => {
     set((s) => ({ bucketList: s.bucketList.filter((b) => b.anchor.id !== anchorId) }));
     removeSavedSpot(anchorId).catch((e) => console.warn('[whim] removeSavedSpot failed:', e));
+  },
+
+  // Delete the current city+vibe collection and forget swipe history, so the
+  // deck deals fresh from the top next time.
+  clearCollection: () => {
+    const { city, vibe } = get();
+    set((s) => ({
+      bucketList: s.bucketList.filter((b) => !(b.city === city && b.vibe === vibe)),
+      passedIds: [],
+      deck: [],
+      deckIndex: 0,
+      deckSourceCount: 0,
+    }));
+    clearSavedSpots(city, vibe).catch((e) => console.warn('[whim] clearSavedSpots failed:', e));
   },
 
   reset: () =>
