@@ -62,7 +62,8 @@ export default function Home() {
   const setCity = useWhimStore((s) => s.setCity);
   const hydrate = useWhimStore((s) => s.hydrate);
   const hydrated = useWhimStore((s) => s.hydrated);
-  const [vibe, setVibe] = useState<VibeId>('classics');
+  const vibe = useWhimStore((s) => s.vibe);
+  const setVibe = useWhimStore((s) => s.setVibe);
   const [pickerOpen, setPickerOpen] = useState(false);
 
   const f = FEATURED[vibe];

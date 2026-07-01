@@ -37,7 +37,7 @@ export async function fetchDeck(city: string, vibe: VibeId): Promise<Spot[]> {
 export async function fetchSavedSpots(): Promise<BucketAnchor[]> {
   const { data, error } = await supabase
     .from('saved_spots')
-    .select('spot_id, micro_activity_ids, spots(*)')
+    .select('spot_id, micro_activity_ids, city, vibe, spots(*)')
     .order('created_at', { ascending: true });
   if (error) throw error;
 
@@ -46,7 +46,12 @@ export async function fetchSavedSpots(): Promise<BucketAnchor[]> {
     .map((row: any) => {
       const anchor = rowToSpot(row.spots);
       const ids: string[] = row.micro_activity_ids ?? [];
-      return { anchor, microActivities: anchor.nearby.filter((n) => ids.includes(n.id)) };
+      return {
+        anchor,
+        microActivities: anchor.nearby.filter((n) => ids.includes(n.id)),
+        city: row.city ?? '',
+        vibe: (row.vibe ?? 'classics') as VibeId,
+      };
     });
 }
 

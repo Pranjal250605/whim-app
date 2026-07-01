@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import { useWhimStore } from '@/store/useWhimStore';
+import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { orderByProximity, type RouteStop } from '@/lib/route';
 import { getTransit, type TransitResult } from '@/lib/transit';
 import RouteMap from '@/components/RouteMap';
@@ -51,10 +51,13 @@ function legText(leg: TransitResult): string {
 // time estimate as a fallback) between each pair of stops.
 export default function ItineraryScreen() {
   const bucketList = useWhimStore((s) => s.bucketList);
+  const city = useWhimStore((s) => s.city);
+  const vibe = useWhimStore((s) => s.vibe);
   const insets = useSafeAreaInsets();
 
-  const stops = useMemo(() => orderByProximity(bucketList), [bucketList]);
-  const byId = useMemo(() => Object.fromEntries(bucketList.map((b) => [b.anchor.id, b])), [bucketList]);
+  const scoped = useMemo(() => scopedBucket(bucketList, city, vibe), [bucketList, city, vibe]);
+  const stops = useMemo(() => orderByProximity(scoped), [scoped]);
+  const byId = useMemo(() => Object.fromEntries(scoped.map((b) => [b.anchor.id, b])), [scoped]);
 
   const [legs, setLegs] = useState<Record<number, TransitResult | null>>({});
 

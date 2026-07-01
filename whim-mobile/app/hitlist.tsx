@@ -1,19 +1,31 @@
+import { useMemo } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Swipeable } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
-import { useWhimStore, selectMatchCount } from '@/store/useWhimStore';
+import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import SpotImage from '@/components/SpotImage';
+import type { VibeId } from '@/lib/types';
+
+const VIBE_LABEL: Record<VibeId, string> = {
+  classics: 'The Classics',
+  matcha: 'Matcha',
+  nature: 'Nature',
+  nightlife: 'After Dark',
+};
 
 const shadowSoft = { shadowColor: '#1C1C1C', shadowOpacity: 0.06, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } };
 
-// Phase 4 input — the Hitlist. Saved anchors (with their chosen micro-activities)
-// grouped; swipe a card left to remove it; "Generate Smart Route" → itinerary.
+// Phase 4 input — the Hitlist, scoped to the current city + vibe. Saved anchors
+// (with their chosen micro-activities); swipe a card left to remove; "Generate
+// Smart Route" → itinerary.
 export default function Hitlist() {
   const bucketList = useWhimStore((s) => s.bucketList);
   const removeAnchor = useWhimStore((s) => s.removeAnchor);
   const city = useWhimStore((s) => s.city);
-  const count = useWhimStore(selectMatchCount);
+  const vibe = useWhimStore((s) => s.vibe);
+  const scoped = useMemo(() => scopedBucket(bucketList, city, vibe), [bucketList, city, vibe]);
+  const count = scoped.length;
   const empty = count === 0;
 
   return (
@@ -30,7 +42,7 @@ export default function Hitlist() {
 
       <View className="px-5 pt-2">
         <Text className="font-serif text-[31px] text-ink">Your {city} Hitlist</Text>
-        <Text className="mt-1 text-[13.5px] text-muted">{count} saved · swipe a card left to remove</Text>
+        <Text className="mt-1 text-[13.5px] text-muted">{VIBE_LABEL[vibe]} · {count} saved · swipe a card left to remove</Text>
       </View>
 
       <ScrollView className="flex-1 px-[18px] pt-3" contentContainerStyle={{ paddingBottom: 130 }} showsVerticalScrollIndicator={false}>
@@ -45,7 +57,7 @@ export default function Hitlist() {
             </Pressable>
           </View>
         ) : (
-          bucketList.map((b) => (
+          scoped.map((b) => (
             <View key={b.anchor.id} className="mb-4">
               <Swipeable
                 renderRightActions={() => (

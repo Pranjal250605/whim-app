@@ -1,7 +1,8 @@
+import { useMemo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import { useWhimStore, selectMatchCount } from '@/store/useWhimStore';
+import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import SwipeDeck from '@/components/SwipeDeck';
 import MicroDiscoveryModal from '@/components/MicroDiscoveryModal';
 
@@ -9,7 +10,9 @@ import MicroDiscoveryModal from '@/components/MicroDiscoveryModal';
 export default function SwipeScreen() {
   const vibe = useWhimStore((s) => s.vibe);
   const city = useWhimStore((s) => s.city);
-  const matchCount = useWhimStore(selectMatchCount);
+  const bucketList = useWhimStore((s) => s.bucketList);
+  // count only what's saved in this city + vibe collection
+  const matchCount = useMemo(() => scopedBucket(bucketList, city, vibe).length, [bucketList, city, vibe]);
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>

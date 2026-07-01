@@ -43,6 +43,8 @@ export interface Spot {
 export interface BucketAnchor {
   anchor: Spot;
   microActivities: MicroActivity[];
+  city: string; // the context this was saved under — hitlists are scoped by
+  vibe: VibeId; // city + vibe, so collections never bleed across them
 }
 
 export type SwipeDirection = 'left' | 'right';

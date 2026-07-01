@@ -14,7 +14,7 @@ interface RouteMapProps {
 }
 
 export default function RouteMap({ stops, height = 280 }: RouteMapProps) {
-  const cameraRef = useRef<Camera>(null);
+  const cameraRef = useRef<any>(null);
 
   const coords = stops.map((s) => [s.lng, s.lat] as [number, number]);
   const lngs = coords.map((c) => c[0]);
