@@ -4,6 +4,7 @@ import { BottomSheetModal, BottomSheetBackdrop, BottomSheetView } from '@gorhom/
 import { useWhimStore } from '@/store/useWhimStore';
 import type { MicroActivity } from '@/lib/types';
 import SpotImage from './SpotImage';
+import { hapticSelect, hapticSuccess } from '@/lib/haptics';
 
 /**
  * Phase 3 — Micro-Discovery. Opens automatically when the store has a
@@ -36,6 +37,7 @@ export default function MicroDiscoveryModal() {
   }, [pendingMatch]);
 
   const toggle = useCallback((id: string) => {
+    hapticSelect();
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   }, []);
 
@@ -77,7 +79,10 @@ export default function MicroDiscoveryModal() {
         {!expanded ? (
           <View className="mt-6 flex-row gap-3">
             <Pressable
-              onPress={() => saveAnchorOnly()}
+              onPress={() => {
+                hapticSuccess();
+                saveAnchorOnly();
+              }}
               className="flex-1 items-center rounded-2xl border-[1.5px] border-ink/15 py-4"
             >
               <Text className="text-[14.5px] font-semibold text-ink">Just sightseeing</Text>
@@ -128,7 +133,10 @@ export default function MicroDiscoveryModal() {
             </ScrollView>
 
             <Pressable
-              onPress={() => saveAnchorWithActivities(chosen)}
+              onPress={() => {
+                hapticSuccess();
+                saveAnchorWithActivities(chosen);
+              }}
               className="mt-4 items-center rounded-2xl bg-ink py-4"
             >
               <Text className="text-[15px] font-semibold text-white">

@@ -1,33 +1,50 @@
-import { Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import { router } from 'expo-router';
 import { useWhimStore, selectDeckDone } from '@/store/useWhimStore';
 import type { SwipeDirection } from '@/lib/types';
+import { hapticLight, hapticMedium } from '@/lib/haptics';
 import SwipeCard from './SwipeCard';
 import Icon from './Icon';
 
 const VISIBLE = 3; // how many cards render in the stack at once
 
 /**
- * Phase 2 — the swipe deck. Renders up to VISIBLE cards (top one interactive),
- * drives the store on each swipe, and shows the empty state when the deck runs
- * out. Swiping right delegates to the store, which opens the Micro-Discovery
- * modal via `pendingMatch`.
+ * Phase 2 — the swipe deck. Renders up to VISIBLE cards (top one interactive)
+ * and drives the store on each swipe. The deck has memory: spots already saved
+ * or passed are filtered out (in the store), so you never re-swipe them.
  */
 export default function SwipeDeck() {
   const deck = useWhimStore((s) => s.deck);
   const deckIndex = useWhimStore((s) => s.deckIndex);
+  const deckSourceCount = useWhimStore((s) => s.deckSourceCount);
+  const deckLoading = useWhimStore((s) => s.deckLoading);
   const swipeLeft = useWhimStore((s) => s.swipeLeft);
   const swipeRight = useWhimStore((s) => s.swipeRight);
   const done = useWhimStore(selectDeckDone);
 
   const handleSwipe = (direction: SwipeDirection) => {
-    if (direction === 'right') swipeRight();
-    else swipeLeft();
+    if (direction === 'right') {
+      hapticMedium();
+      swipeRight();
+    } else {
+      hapticLight();
+      swipeLeft();
+    }
   };
 
-  if (deck.length === 0) {
+  if (deckLoading && deck.length === 0) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator color="#D97757" />
+      </View>
+    );
+  }
+
+  // no data for this city+vibe at all (vs. "you've decided on them all")
+  if (deckSourceCount === 0) {
     return (
       <View className="flex-1 items-center justify-center px-8">
-        <Text className="text-center font-serif text-2xl font-semibold text-ink">No spots here yet.</Text>
+        <Text className="text-center font-serif text-2xl text-ink">No spots here yet.</Text>
         <Text className="mt-2.5 text-center text-[15px] leading-6 text-muted">
           We haven’t curated this vibe for this city yet — try another vibe or city.
         </Text>
@@ -38,10 +55,13 @@ export default function SwipeDeck() {
   if (done) {
     return (
       <View className="flex-1 items-center justify-center px-8">
-        <Text className="text-center font-serif text-2xl font-semibold text-ink">That’s the lot.</Text>
+        <Text className="text-center font-serif text-2xl text-ink">That’s the lot.</Text>
         <Text className="mt-2.5 text-center text-[15px] leading-6 text-muted">
-          You’ve been through every spot in this vibe. Review your hitlist to build a route.
+          You’ve been through every spot in this collection.
         </Text>
+        <Pressable onPress={() => router.push('/hitlist')} className="mt-6 rounded-2xl bg-ink px-6 py-3.5">
+          <Text className="text-[15px] font-semibold text-white">Review your hitlist</Text>
+        </Pressable>
       </View>
     );
   }
@@ -52,19 +72,25 @@ export default function SwipeDeck() {
     const spot = deck[deckIndex + depth];
     if (!spot) continue;
     cards.push(
-      <SwipeCard
-        // key by spot id so React reuses the right node as the stack shifts
-        key={spot.id}
-        spot={spot}
-        depth={depth}
-        isTop={depth === 0}
-        onSwipe={handleSwipe}
-      />,
+      <SwipeCard key={spot.id} spot={spot} depth={depth} isTop={depth === 0} onSwipe={handleSwipe} />,
     );
   }
 
+  const total = deck.length;
+  const position = Math.min(deckIndex + 1, total);
+
   return (
     <View className="flex-1">
+      {/* progress */}
+      <View className="mb-3 flex-row items-center gap-3 px-1">
+        <View className="h-1 flex-1 overflow-hidden rounded-full bg-[#EAE6DE]">
+          <View className="h-full rounded-full bg-accent" style={{ width: `${(deckIndex / total) * 100}%` }} />
+        </View>
+        <Text className="text-[12px] font-medium text-muted" style={{ fontVariant: ['tabular-nums'] }}>
+          {position} / {total}
+        </Text>
+      </View>
+
       <View className="relative flex-1">{cards}</View>
 
       {/* explicit action buttons (mirror the swipe gestures, a11y-friendly) */}

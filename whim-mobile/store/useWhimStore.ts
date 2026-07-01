@@ -15,6 +15,9 @@ interface WhimState {
   vibe: VibeId;
   deck: Spot[];
   deckIndex: number;
+  deckSourceCount: number; // spots available for this context, before filtering decided ones
+  deckLoading: boolean;
+  passedIds: string[]; // spots swiped away this session, so they don't reappear
   pendingMatch: Spot | null;
   bucketList: BucketAnchor[];
   hydrated: boolean;
@@ -37,22 +40,29 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   vibe: 'classics',
   deck: [],
   deckIndex: 0,
+  deckSourceCount: 0,
+  deckLoading: false,
+  passedIds: [],
   pendingMatch: null,
   bucketList: [],
   hydrated: false,
 
   setContext: async (city, vibe) => {
-    set({ city, vibe, deck: [], deckIndex: 0 });
-    let deck: Spot[] = [];
+    set({ city, vibe, deck: [], deckIndex: 0, deckLoading: true });
+    let all: Spot[] = [];
     try {
-      deck = await fetchDeck(city, vibe);
+      all = await fetchDeck(city, vibe);
     } catch (e) {
       console.warn('[whim] fetchDeck failed, using mock:', e);
     }
     // dev fallback only for Tokyo, so other cities correctly show "no spots"
-    // before the table is seeded (instead of showing Tokyo data everywhere)
-    if (deck.length === 0 && city === 'Tokyo') deck = getMockDeck(city, vibe);
-    set({ deck });
+    if (all.length === 0 && city === 'Tokyo') all = getMockDeck(city, vibe);
+    // deck memory: skip spots already saved (in this collection) or passed
+    const s = get();
+    const saved = s.bucketList.filter((b) => b.city === city && b.vibe === vibe).map((b) => b.anchor.id);
+    const decided = new Set<string>([...s.passedIds, ...saved]);
+    const deck = all.filter((sp) => !decided.has(sp.id));
+    set({ deck, deckSourceCount: all.length, deckLoading: false });
   },
 
   setCity: (city) => set({ city }),
@@ -68,7 +78,11 @@ export const useWhimStore = create<WhimState>((set, get) => ({
     }
   },
 
-  swipeLeft: () => set((s) => ({ deckIndex: s.deckIndex + 1 })),
+  swipeLeft: () =>
+    set((s) => {
+      const spot = s.deck[s.deckIndex];
+      return { deckIndex: s.deckIndex + 1, passedIds: spot ? [...s.passedIds, spot.id] : s.passedIds };
+    }),
 
   swipeRight: () =>
     set((s) => {
@@ -106,13 +120,14 @@ export const useWhimStore = create<WhimState>((set, get) => ({
     removeSavedSpot(anchorId).catch((e) => console.warn('[whim] removeSavedSpot failed:', e));
   },
 
-  reset: () => set({ vibe: 'classics', deck: [], deckIndex: 0, pendingMatch: null, bucketList: [], hydrated: false }),
+  reset: () =>
+    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: [], pendingMatch: null, bucketList: [], hydrated: false }),
 }));
 
 // Derived selectors (kept here so components don't recompute):
 export const selectActiveSpot = (s: WhimState): Spot | undefined => s.deck[s.deckIndex];
 export const selectDeckDone = (s: WhimState): boolean =>
-  s.deck.length > 0 && s.deckIndex >= s.deck.length;
+  s.deckSourceCount > 0 && s.deckIndex >= s.deck.length;
 
 // Hitlists are scoped to a single city + vibe ("collection"), so switching vibe
 // or city shows a different list and they never mix.

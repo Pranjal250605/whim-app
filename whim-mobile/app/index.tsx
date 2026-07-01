@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import { useWhimStore } from '@/store/useWhimStore';
+import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import CityPicker from '@/components/CityPicker';
 import GlassNav from '@/components/GlassNav';
 import SpotImage from '@/components/SpotImage';
@@ -64,9 +64,11 @@ export default function Home() {
   const hydrated = useWhimStore((s) => s.hydrated);
   const vibe = useWhimStore((s) => s.vibe);
   const setVibe = useWhimStore((s) => s.setVibe);
+  const bucketList = useWhimStore((s) => s.bucketList);
   const [pickerOpen, setPickerOpen] = useState(false);
 
   const f = FEATURED[vibe];
+  const savedHere = useMemo(() => scopedBucket(bucketList, city, vibe).length, [bucketList, city, vibe]);
 
   useEffect(() => {
     if (!hydrated) hydrate();
@@ -152,6 +154,25 @@ export default function Home() {
             </View>
           </View>
         </View>
+
+        {/* continue an existing collection for this city + vibe */}
+        {savedHere > 0 && (
+          <Pressable
+            onPress={() => router.push('/hitlist')}
+            className="mt-4 flex-row items-center justify-between rounded-2xl border border-ink/10 bg-white px-4 py-3.5"
+            style={shadowSoft}
+          >
+            <View className="flex-1">
+              <Text className="text-[14.5px] font-semibold text-ink">
+                Continue your {city} · {f.label} list
+              </Text>
+              <Text className="mt-0.5 text-[12.5px] text-muted">
+                {savedHere} spot{savedHere > 1 ? 's' : ''} saved · tap to review
+              </Text>
+            </View>
+            <Icon name="arrowRight" size={18} color="#8E8E93" strokeWidth={2} />
+          </Pressable>
+        )}
       </ScrollView>
 
       <GlassNav active="discover" />
