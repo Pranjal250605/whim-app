@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import Icon from '@/components/Icon';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { orderByProximity, type RouteStop } from '@/lib/route';
 import { getTransit, type TransitResult } from '@/lib/transit';
@@ -92,6 +93,23 @@ export default function ItineraryScreen() {
     );
   };
 
+  // Hand the whole route off to Google Maps (opens the app if installed).
+  const openInMaps = () => {
+    if (stops.length === 0) return;
+    const pt = (s: RouteStop) => `${s.lat},${s.lng}`;
+    let url: string;
+    if (stops.length === 1) {
+      url = `https://www.google.com/maps/search/?api=1&query=${pt(stops[0])}`;
+    } else {
+      const waypoints = stops.slice(1, -1).map(pt).join('|');
+      url =
+        `https://www.google.com/maps/dir/?api=1&origin=${pt(stops[0])}&destination=${pt(stops[stops.length - 1])}` +
+        (waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : '') +
+        `&travelmode=transit`;
+    }
+    Linking.openURL(url).catch(() => {});
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={[]}>
       <RouteMap stops={stops} height={280} />
@@ -110,7 +128,17 @@ export default function ItineraryScreen() {
 
       <ScrollView className="flex-1 px-5 pt-5" contentContainerStyle={{ paddingBottom: 120 }}>
         <Text className="font-serif text-2xl text-ink">Your optimised day</Text>
-        <Text className="mb-5 mt-1 text-[13px] text-muted">{stops.length} stops · with transit</Text>
+        <Text className="mt-1 text-[13px] text-muted">{stops.length} stops · with transit</Text>
+
+        {stops.length > 0 && (
+          <Pressable
+            onPress={openInMaps}
+            className="mb-5 mt-3 flex-row items-center justify-center gap-2 rounded-2xl bg-ink py-3.5"
+          >
+            <Icon name="arrowRight" size={16} color="#fff" strokeWidth={2.2} />
+            <Text className="text-[15px] font-semibold text-white">Open route in Maps</Text>
+          </Pressable>
+        )}
 
         {stops.map((stop, idx) => {
           const entry = byId[stop.id];

@@ -5,6 +5,14 @@ import { router } from 'expo-router';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import SwipeDeck from '@/components/SwipeDeck';
 import MicroDiscoveryModal from '@/components/MicroDiscoveryModal';
+import type { VibeId } from '@/lib/types';
+
+const VIBE_LABEL: Record<VibeId, string> = {
+  classics: 'The Classics',
+  matcha: 'Matcha',
+  nature: 'Nature',
+  nightlife: 'After Dark',
+};
 
 // Phase 2 host screen. Owns the deck + the post-match modal overlay.
 export default function SwipeScreen() {
@@ -24,7 +32,7 @@ export default function SwipeScreen() {
           <Text className="text-lg text-ink">‹</Text>
         </Pressable>
         <Text className="flex-1 text-center text-base font-semibold text-ink">
-          Discovering {city}
+          {VIBE_LABEL[vibe]} in {city}
         </Text>
         <Pressable
           onPress={() => router.push('/itinerary')}

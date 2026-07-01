@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useState, type PropsWithChildren } from 'react';
+import { createContext, useContext, useEffect, useRef, useState, type PropsWithChildren } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from './supabase';
+import { useWhimStore } from '@/store/useWhimStore';
 
 // App-wide auth state. Subscribes once to Supabase and exposes the session to
 // every screen. The route guard (in app/_layout.tsx) reads `session`/`loading`
@@ -20,17 +21,28 @@ const AuthContext = createContext<AuthContextValue>({
 export function AuthProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const userIdRef = useRef<string | null>(null);
 
   useEffect(() => {
-    // initial session (restored from the encrypted keychain via supabase client)
+    // initial session (restored from AsyncStorage via supabase client)
     supabase.auth
       .getSession()
-      .then(({ data }) => setSession(data.session))
+      .then(({ data }) => {
+        userIdRef.current = data.session?.user?.id ?? null;
+        setSession(data.session);
+      })
       .catch(() => {}) // never block the app on a storage failure
       .finally(() => setLoading(false));
 
-    // live updates: sign-in, sign-out, token refresh
+    // live updates: sign-in, sign-out, token refresh. When the user identity
+    // changes (logout, or a different account signs in on this device), wipe the
+    // in-memory app state so one account never sees another's saved spots.
     const { data: sub } = supabase.auth.onAuthStateChange((_event, next) => {
+      const nextId = next?.user?.id ?? null;
+      if (userIdRef.current !== nextId) {
+        userIdRef.current = nextId;
+        useWhimStore.getState().reset();
+      }
       setSession(next);
     });
     return () => sub.subscription.unsubscribe();
