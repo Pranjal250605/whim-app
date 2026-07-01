@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as Location from 'expo-location';
 import { router } from 'expo-router';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
-import { CITIES } from '@/data/cities';
+import { CITIES, nearestCity } from '@/data/cities';
 import CityPicker from '@/components/CityPicker';
 import GlassNav from '@/components/GlassNav';
 import SpotImage from '@/components/SpotImage';
@@ -53,9 +54,17 @@ const FEATURED: Record<VibeId, { label: string; title: string; desc: string; cap
   },
 };
 
-const shadowSoft = { shadowColor: '#1C1C1C', shadowOpacity: 0.06, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } };
-const shadowCard = { shadowColor: '#1C1C1C', shadowOpacity: 0.16, shadowRadius: 34, shadowOffset: { width: 0, height: 20 } };
-const shadowAccent = { shadowColor: '#D97757', shadowOpacity: 0.4, shadowRadius: 16, shadowOffset: { width: 0, height: 8 } };
+// candy-pastel category dots (Gen-Z color energy, kept small so cobalt stays the hero)
+const VIBE_DOT: Record<VibeId, string> = {
+  classics: '#E0A63C',
+  matcha: '#5AA469',
+  nature: '#3F93B8',
+  nightlife: '#6B63D6',
+};
+
+const shadowSoft = { shadowColor: '#17150F', shadowOpacity: 0.06, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } };
+const shadowCard = { shadowColor: '#17150F', shadowOpacity: 0.16, shadowRadius: 34, shadowOffset: { width: 0, height: 20 } };
+const shadowAccent = { shadowColor: '#2740E0', shadowOpacity: 0.32, shadowRadius: 16, shadowOffset: { width: 0, height: 8 } };
 
 // springy press feedback (Gen-Z tactility)
 const press =
@@ -79,6 +88,15 @@ export default function Home() {
   const f = FEATURED[vibe];
   const savedHere = useMemo(() => scopedBucket(bucketList, city, vibe).length, [bucketList, city, vibe]);
 
+  // GPS-readout eyebrow — real travel data as a signature texture (not decoration).
+  const coordLabel = useMemo(() => {
+    const c = CITIES.find((x) => x.name === city);
+    if (!c) return '';
+    const ns = `${Math.abs(c.lat).toFixed(2)}°${c.lat >= 0 ? 'N' : 'S'}`;
+    const ew = `${Math.abs(c.lng).toFixed(2)}°${c.lng >= 0 ? 'E' : 'W'}`;
+    return `${ns}  ${ew}`;
+  }, [city]);
+
   useEffect(() => {
     if (!hydrated) hydrate();
   }, [hydrated, hydrate]);
@@ -88,11 +106,30 @@ export default function Home() {
     router.push('/swipe');
   };
 
+  // "Near me" — jump to the closest city we have spots for and start discovering.
+  const nearMe = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Location needed', 'Turn on location access to discover spots near you.');
+        return;
+      }
+      const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      const near = nearestCity(pos.coords.latitude, pos.coords.longitude);
+      setCity(near.name);
+      await setContext(near.name, vibe);
+      router.push('/swipe');
+    } catch (e) {
+      console.warn('[whim] near me failed:', e);
+      Alert.alert('Couldn’t get your location', 'Try again, or pick a city manually.');
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
       {/* header */}
       <View className="flex-row items-center justify-between px-5 pt-1">
-        <Text style={{ fontFamily: 'Fraunces_900Black', fontSize: 27, color: '#1C1C1C', letterSpacing: -0.5 }}>Whim</Text>
+        <Text style={{ fontFamily: 'BricolageGrotesque_800ExtraBold', fontSize: 26, color: '#17150F', letterSpacing: -0.8 }}>Whim</Text>
         <View className="flex-row items-center gap-4">
           <Pressable
             onPress={() => {
@@ -107,30 +144,44 @@ export default function Home() {
               <View className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full border-2 border-canvas bg-accent" />
             )}
           </Pressable>
-          <Pressable onPress={() => router.push('/settings')} accessibilityLabel="Account" className="h-9 w-9 items-center justify-center rounded-full bg-[#DCE3D8]">
-            <Text className="text-[13px] font-semibold text-[#5b6b5b]">JL</Text>
+          <Pressable onPress={() => router.push('/settings')} accessibilityLabel="Account" className="h-9 w-9 items-center justify-center rounded-full bg-accent-soft">
+            <Text className="text-[13px] font-bold text-accent">JL</Text>
           </Pressable>
         </View>
       </View>
 
       <ScrollView className="flex-1 px-5" contentContainerStyle={{ paddingBottom: 150 }} showsVerticalScrollIndicator={false}>
-        {/* eyebrow */}
-        <Text className="mt-6 text-[12px] font-bold uppercase tracking-[0.22em] text-accent">Where to?</Text>
+        {/* eyebrow — live GPS-style coordinate readout for the chosen city */}
+        <View className="mt-6 flex-row items-center gap-2">
+          <View className="h-1.5 w-1.5 rounded-full bg-accent" />
+          <Text className="font-mono text-[11px] tracking-[0.08em] text-accent">{coordLabel}</Text>
+        </View>
 
         {/* greeting + city chip */}
         <Text className="mt-2 font-serif text-[40px] leading-[0.98] text-ink">I’m going to</Text>
-        <Pressable
-          onPress={() => setPickerOpen(true)}
-          style={press(shadowSoft)}
-          className="mt-3 flex-row items-center gap-2.5 self-start rounded-full bg-white py-2 pl-5 pr-2"
-        >
-          <Text className="font-serif text-[28px] text-ink" style={{ lineHeight: 30, marginTop: 3 }}>
-            {city}
-          </Text>
-          <View className="h-8 w-8 items-center justify-center rounded-full bg-ink/5">
-            <Icon name="chevronDown" size={16} color="#1C1C1C" strokeWidth={2.6} />
-          </View>
-        </Pressable>
+        <View className="mt-3 flex-row items-center gap-2.5">
+          <Pressable
+            onPress={() => setPickerOpen(true)}
+            style={press(shadowSoft)}
+            className="flex-row items-center gap-2.5 rounded-full bg-white py-2 pl-5 pr-2"
+          >
+            <Text className="font-serif text-[26px] text-ink" style={{ lineHeight: 32 }}>
+              {city}
+            </Text>
+            <View className="h-8 w-8 items-center justify-center rounded-full bg-ink/5">
+              <Icon name="chevronDown" size={16} color="#1C1C1C" strokeWidth={2.6} />
+            </View>
+          </Pressable>
+          <Pressable
+            onPress={nearMe}
+            style={press()}
+            accessibilityLabel="Find spots near me"
+            className="flex-row items-center gap-1.5 rounded-full border border-ink/12 bg-white px-3.5 py-2.5"
+          >
+            <Icon name="pin" size={15} color="#2740E0" strokeWidth={2} />
+            <Text className="text-[13px] font-bold text-ink">Near me</Text>
+          </Pressable>
+        </View>
 
         <Text className="mt-4 text-[15px] text-muted">Pick a vibe to start discovering.</Text>
 
@@ -143,8 +194,9 @@ export default function Home() {
                 key={v.id}
                 onPress={() => setVibe(v.id)}
                 style={press(on ? shadowAccent : undefined)}
-                className={`rounded-full border px-5 py-3 ${on ? 'border-accent bg-accent' : 'border-ink/12 bg-white'}`}
+                className={`flex-row items-center gap-2 rounded-full border px-5 py-3 ${on ? 'border-accent bg-accent' : 'border-ink/10 bg-white'}`}
               >
+                <View className="h-2 w-2 rounded-full" style={{ backgroundColor: on ? 'rgba(255,255,255,0.9)' : VIBE_DOT[v.id] }} />
                 <Text className={`text-[14.5px] font-bold ${on ? 'text-white' : 'text-ink'}`}>{v.label}</Text>
               </Pressable>
             );
@@ -156,12 +208,29 @@ export default function Home() {
           <View className="absolute left-[18px] right-[18px] -top-3 h-8 rounded-[24px] bg-white" style={{ opacity: 0.7, ...shadowSoft }} />
           <View className="absolute left-2 right-2 -top-1.5 h-8 rounded-3xl bg-white" style={{ opacity: 0.85, ...shadowSoft }} />
           <View className="overflow-hidden rounded-[28px] bg-white" style={shadowCard}>
-            <View className="h-[186px] justify-end overflow-hidden" style={{ backgroundColor: f.tone }}>
+            <View className="h-[196px] justify-end overflow-hidden" style={{ backgroundColor: f.tone }}>
               <SpotImage uri={f.photo} />
-              <View className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5">
-                <Text className="text-[11.5px] font-bold uppercase tracking-wide text-[#5b6b5b]">{f.label}</Text>
+              <View className="absolute left-4 top-4 flex-row items-center gap-1.5 rounded-full bg-white/92 px-3 py-1.5">
+                <View className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: VIBE_DOT[vibe] }} />
+                <Text className="text-[11.5px] font-bold uppercase tracking-wide text-ink">{f.label}</Text>
               </View>
-              <Text className="font-mono p-4 text-[11px] text-white/85">{f.caption}</Text>
+              {/* postmark stamp — the signature element, grounded in travel documents */}
+              <View className="absolute right-3.5 top-3.5" style={{ transform: [{ rotate: '-5deg' }] }}>
+                <View className="rounded-lg border-2 border-white/85 px-2.5 py-1">
+                  <Text
+                    className="font-mono text-[9px] tracking-[0.15em] text-white"
+                    style={{ textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } }}
+                  >
+                    WHIM ✦ {city.toUpperCase()}
+                  </Text>
+                </View>
+              </View>
+              <Text
+                className="font-mono p-4 text-[11px] text-white/90"
+                style={{ textShadowColor: 'rgba(0,0,0,0.35)', textShadowRadius: 4 }}
+              >
+                {f.caption}
+              </Text>
             </View>
             <View className="p-5">
               <Text className="font-serif text-[27px] leading-[1.05] text-ink">{f.title}</Text>

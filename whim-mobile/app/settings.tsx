@@ -22,7 +22,7 @@ function Row({
       disabled={!onPress}
       className="flex-row items-center justify-between border-b border-hairline px-4 py-4"
     >
-      <Text className={`text-[15px] font-medium ${destructive ? 'text-[#C2603F]' : 'text-ink'}`}>{label}</Text>
+      <Text className={`text-[15px] font-medium ${destructive ? 'text-[#D23B2C]' : 'text-ink'}`}>{label}</Text>
       {value ? <Text className="text-[14px] text-muted">{value}</Text> : onPress ? <Text className="text-muted">›</Text> : null}
     </Pressable>
   );
@@ -100,7 +100,7 @@ export default function Settings() {
         <Section title="Danger zone">
           {busy ? (
             <View className="px-4 py-4">
-              <ActivityIndicator color="#C2603F" />
+              <ActivityIndicator color="#D23B2C" />
             </View>
           ) : (
             <Row label="Delete account" onPress={confirmDelete} destructive />

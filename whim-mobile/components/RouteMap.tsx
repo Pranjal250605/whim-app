@@ -80,7 +80,7 @@ export default function RouteMap({ stops, height = 280 }: RouteMapProps) {
           <ShapeSource id="route" shape={routeLine}>
             <LineLayer
               id="routeLine"
-              style={{ lineColor: '#D97757', lineWidth: 3, lineCap: 'round', lineJoin: 'round', lineDasharray: [2, 2] }}
+              style={{ lineColor: '#2740E0', lineWidth: 3, lineCap: 'round', lineJoin: 'round', lineDasharray: [2, 2] }}
             />
           </ShapeSource>
         )}

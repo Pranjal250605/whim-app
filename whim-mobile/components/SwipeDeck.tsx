@@ -35,7 +35,7 @@ export default function SwipeDeck() {
   if (deckLoading && deck.length === 0) {
     return (
       <View className="flex-1 items-center justify-center">
-        <ActivityIndicator color="#D97757" />
+        <ActivityIndicator color="#2740E0" />
       </View>
     );
   }

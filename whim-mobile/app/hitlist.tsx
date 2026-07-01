@@ -51,7 +51,7 @@ export default function Hitlist() {
         </Pressable>
         {!empty && (
           <Pressable onPress={confirmClear} className="rounded-full px-3 py-2">
-            <Text className="text-[13px] font-semibold text-[#C2603F]">Clear</Text>
+            <Text className="text-[13px] font-semibold text-[#D23B2C]">Clear</Text>
           </Pressable>
         )}
       </View>
@@ -77,7 +77,7 @@ export default function Hitlist() {
             <View key={b.anchor.id} className="mb-4">
               <Swipeable
                 renderRightActions={() => (
-                  <View className="my-0.5 ml-2 flex-row items-center justify-end rounded-[20px] bg-[#C2603F] px-6">
+                  <View className="my-0.5 ml-2 flex-row items-center justify-end rounded-[20px] bg-[#D23B2C] px-6">
                     <Text className="text-[14px] font-semibold text-white">🗑  Remove</Text>
                   </View>
                 )}

@@ -95,7 +95,7 @@ export default function Notifications() {
             className="mb-3 flex-row gap-3.5 rounded-2xl bg-white p-4"
           >
             <View className="h-11 w-11 items-center justify-center rounded-full bg-accent/12">
-              <Icon name={n.icon} size={20} color="#D97757" strokeWidth={1.9} />
+              <Icon name={n.icon} size={20} color="#2740E0" strokeWidth={1.9} />
             </View>
             <View className="flex-1">
               <Text className="text-[15px] font-bold text-ink">{n.title}</Text>

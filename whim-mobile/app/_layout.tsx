@@ -6,7 +6,13 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { useFonts, Fraunces_600SemiBold, Fraunces_700Bold, Fraunces_900Black } from '@expo-google-fonts/fraunces';
+import * as Notifications from 'expo-notifications';
+import {
+  useFonts,
+  BricolageGrotesque_600SemiBold,
+  BricolageGrotesque_700Bold,
+  BricolageGrotesque_800ExtraBold,
+} from '@expo-google-fonts/bricolage-grotesque';
 import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono';
 import { AuthProvider, useAuth } from '@/lib/auth';
 import '@/lib/mapbox'; // sets the Mapbox access token once at startup
@@ -16,6 +22,15 @@ function RootNavigator() {
   const { session, loading } = useAuth();
   const segments = useSegments();
   const router = useRouter();
+
+  // Tapping a local reminder deep-links to the route it points at.
+  useEffect(() => {
+    const sub = Notifications.addNotificationResponseReceivedListener((res) => {
+      const route = res.notification.request.content.data?.route;
+      if (typeof route === 'string') router.push(route as never);
+    });
+    return () => sub.remove();
+  }, []);
 
   useEffect(() => {
     if (loading) return;
@@ -30,7 +45,7 @@ function RootNavigator() {
   if (loading) {
     return (
       <View className="flex-1 items-center justify-center bg-canvas">
-        <ActivityIndicator color="#D97757" />
+        <ActivityIndicator color="#2740E0" />
       </View>
     );
   }
@@ -39,7 +54,7 @@ function RootNavigator() {
     <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: '#F9F8F6' },
+        contentStyle: { backgroundColor: '#F0EEE8' },
         animation: 'slide_from_right',
       }}
     />
@@ -48,15 +63,15 @@ function RootNavigator() {
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    Fraunces_600SemiBold,
-    Fraunces_700Bold,
-    Fraunces_900Black,
+    BricolageGrotesque_600SemiBold,
+    BricolageGrotesque_700Bold,
+    BricolageGrotesque_800ExtraBold,
     IBMPlexMono_400Regular,
   });
 
   // hold on the canvas colour until the editorial fonts are ready (no flash)
   if (!fontsLoaded) {
-    return <View style={{ flex: 1, backgroundColor: '#F9F8F6' }} />;
+    return <View style={{ flex: 1, backgroundColor: '#F0EEE8' }} />;
   }
 
   return (

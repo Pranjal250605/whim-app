@@ -28,7 +28,7 @@ export default function GlassNav({ active }: { active: string }) {
       >
         {ITEMS.map((it) => {
           const on = it.key === active;
-          const color = on ? '#D97757' : '#B6B1A9';
+          const color = on ? '#2740E0' : '#AEA89C';
           return (
             <Pressable key={it.key} onPress={() => router.navigate(it.route)} className="w-16 items-center gap-1 py-2">
               <Icon name={it.icon} size={23} color={color} strokeWidth={1.8} />

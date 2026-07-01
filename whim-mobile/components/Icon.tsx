@@ -14,7 +14,9 @@ export type IconName =
   | 'arrowRight'
   | 'close'
   | 'clock'
-  | 'check';
+  | 'check'
+  | 'share'
+  | 'pin';
 
 interface IconProps {
   name: IconName;
@@ -74,6 +76,21 @@ export default function Icon({ name, size = 24, color = '#1C1C1C', strokeWidth =
       return svg(<Path d="M6 6l12 12M18 6L6 18" {...s} />);
     case 'check':
       return svg(<Path d="M4 12l5 5L20 6" {...s} />);
+    case 'share':
+      return svg(
+        <>
+          <Path d="M12 3v13" {...s} />
+          <Path d="M8 7l4-4 4 4" {...s} />
+          <Path d="M20 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6" {...s} />
+        </>,
+      );
+    case 'pin':
+      return svg(
+        <>
+          <Path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z" {...s} />
+          <Circle cx={12} cy={10} r={2.5} stroke={color} strokeWidth={strokeWidth} fill="none" />
+        </>,
+      );
     case 'clock':
       return svg(
         <>

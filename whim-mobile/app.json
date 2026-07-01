@@ -11,15 +11,24 @@
       "bundleIdentifier": "com.whim.app",
       "supportsTablet": false,
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "Whim uses your location to find the closest city and surface spots near you."
       }
     },
     "android": {
-      "package": "com.whim.app"
+      "package": "com.whim.app",
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
     },
     "plugins": [
       "expo-router",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Whim uses your location to find the closest city and surface spots near you."
+        }
+      ],
+      "expo-notifications"
     ],
     "extra": {
       "router": {}

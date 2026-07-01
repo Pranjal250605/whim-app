@@ -5,6 +5,9 @@ web-build/
 
 # local tooling
 .claude/
+.agents/
+skills-lock.json
+**/supabase/.temp/
 .DS_Store
 *.log
 

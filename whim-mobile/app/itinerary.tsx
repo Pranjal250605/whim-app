@@ -1,8 +1,20 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { captureRef } from 'react-native-view-shot';
+import * as Sharing from 'expo-sharing';
 import { router } from 'expo-router';
 import Icon from '@/components/Icon';
+import ShareCard from '@/components/ShareCard';
+import { scheduleTripReminder } from '@/lib/notify';
+import type { VibeId } from '@/lib/types';
+
+const VIBE_LABEL: Record<VibeId, string> = {
+  classics: 'The Classics',
+  matcha: 'Matcha',
+  nature: 'Nature',
+  nightlife: 'After Dark',
+};
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { orderByProximity, type RouteStop } from '@/lib/route';
 import { getTransit, type TransitResult } from '@/lib/transit';
@@ -113,6 +125,27 @@ export default function ItineraryScreen() {
     Linking.openURL(url).catch(() => {});
   };
 
+  const shareRef = useRef<View>(null);
+  const shareTrip = async () => {
+    try {
+      const uri = await captureRef(shareRef, { format: 'png', quality: 1, result: 'tmpfile' });
+      if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'Share your Whim day' });
+      }
+    } catch (e) {
+      console.warn('[whim] share failed:', e);
+    }
+  };
+
+  const remindMe = async () => {
+    const when = await scheduleTripReminder(city, VIBE_LABEL[vibe], stops.length);
+    if (when) {
+      Alert.alert('Reminder set 🔔', `We’ll nudge you tomorrow at 9:00 AM about your ${city} day.`);
+    } else {
+      Alert.alert('Notifications are off', 'Enable notifications in Settings to get a reminder about your trip.');
+    }
+  };
+
   const confirmClear = () =>
     Alert.alert(
       'Delete this itinerary?',
@@ -145,15 +178,31 @@ export default function ItineraryScreen() {
 
         {stops.length > 0 && (
           <View className="mt-3">
-            <Pressable
-              onPress={openInMaps}
-              className="flex-row items-center justify-center gap-2 rounded-2xl bg-ink py-3.5"
-            >
-              <Icon name="arrowRight" size={16} color="#fff" strokeWidth={2.2} />
-              <Text className="text-[15px] font-semibold text-white">Open route in Maps</Text>
-            </Pressable>
+            <View className="flex-row gap-2.5">
+              <Pressable
+                onPress={openInMaps}
+                className="h-[52px] flex-1 flex-row items-center justify-center gap-2 rounded-2xl bg-ink"
+              >
+                <Icon name="arrowRight" size={16} color="#fff" strokeWidth={2.2} />
+                <Text className="text-[15px] font-semibold text-white">Open in Maps</Text>
+              </Pressable>
+              <Pressable
+                onPress={shareTrip}
+                accessibilityLabel="Share day"
+                className="h-[52px] w-[52px] items-center justify-center rounded-2xl border border-ink/12 bg-white"
+              >
+                <Icon name="share" size={20} color="#1C1C1C" strokeWidth={2} />
+              </Pressable>
+              <Pressable
+                onPress={remindMe}
+                accessibilityLabel="Remind me"
+                className="h-[52px] w-[52px] items-center justify-center rounded-2xl border border-ink/12 bg-white"
+              >
+                <Icon name="bell" size={20} color="#1C1C1C" strokeWidth={2} />
+              </Pressable>
+            </View>
             <Pressable onPress={confirmClear} className="mb-5 mt-3 items-center py-1">
-              <Text className="text-[13px] font-semibold text-[#C2603F]">Delete itinerary & start fresh</Text>
+              <Text className="text-[13px] font-semibold text-[#D23B2C]">Delete itinerary & start fresh</Text>
             </Pressable>
           </View>
         )}
@@ -207,6 +256,11 @@ export default function ItineraryScreen() {
       </ScrollView>
 
       <GlassNav active="route" />
+
+      {/* off-screen card captured for sharing */}
+      <View ref={shareRef} collapsable={false} style={{ position: 'absolute', left: -9999, top: 0 }}>
+        <ShareCard city={city} vibeLabel={VIBE_LABEL[vibe]} stops={stops} />
+      </View>
     </SafeAreaView>
   );
 }
