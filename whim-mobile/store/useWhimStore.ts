@@ -21,10 +21,12 @@ interface WhimState {
   pendingMatch: Spot | null;
   bucketList: BucketAnchor[];
   hydrated: boolean;
+  notificationsSeen: boolean;
 
   setContext: (city: string, vibe: VibeId) => Promise<void>;
   setCity: (city: string) => void;
   setVibe: (vibe: VibeId) => void;
+  markNotificationsSeen: () => void;
   hydrate: () => Promise<void>;
   swipeLeft: () => void;
   swipeRight: () => void;
@@ -47,6 +49,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   pendingMatch: null,
   bucketList: [],
   hydrated: false,
+  notificationsSeen: false,
 
   setContext: async (city, vibe) => {
     set({ city, vibe, deck: [], deckIndex: 0, deckLoading: true });
@@ -68,6 +71,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
 
   setCity: (city) => set({ city }),
   setVibe: (vibe) => set({ vibe }),
+  markNotificationsSeen: () => set({ notificationsSeen: true }),
 
   hydrate: async () => {
     try {
@@ -100,6 +104,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
     set((s) => ({
       bucketList: [...s.bucketList, { anchor: pendingMatch, microActivities: [], city, vibe }],
       pendingMatch: null,
+      notificationsSeen: false,
     }));
     saveSpot(pendingMatch, [], city, vibe).catch((e) => console.warn('[whim] saveSpot failed:', e));
   },
@@ -110,6 +115,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
     set((s) => ({
       bucketList: [...s.bucketList, { anchor: pendingMatch, microActivities: activities, city, vibe }],
       pendingMatch: null,
+      notificationsSeen: false,
     }));
     saveSpot(pendingMatch, activities.map((a) => a.id), city, vibe).catch((e) =>
       console.warn('[whim] saveSpot failed:', e),
@@ -136,7 +142,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   },
 
   reset: () =>
-    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: [], pendingMatch: null, bucketList: [], hydrated: false }),
+    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: [], pendingMatch: null, bucketList: [], hydrated: false, notificationsSeen: false }),
 }));
 
 // Derived selectors (kept here so components don't recompute):

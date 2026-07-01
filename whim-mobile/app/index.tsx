@@ -72,6 +72,8 @@ export default function Home() {
   const vibe = useWhimStore((s) => s.vibe);
   const setVibe = useWhimStore((s) => s.setVibe);
   const bucketList = useWhimStore((s) => s.bucketList);
+  const notificationsSeen = useWhimStore((s) => s.notificationsSeen);
+  const markNotificationsSeen = useWhimStore((s) => s.markNotificationsSeen);
   const [pickerOpen, setPickerOpen] = useState(false);
 
   const f = FEATURED[vibe];
@@ -92,10 +94,19 @@ export default function Home() {
       <View className="flex-row items-center justify-between px-5 pt-1">
         <Text style={{ fontFamily: 'Fraunces_900Black', fontSize: 27, color: '#1C1C1C', letterSpacing: -0.5 }}>Whim</Text>
         <View className="flex-row items-center gap-4">
-          <View className="relative">
+          <Pressable
+            onPress={() => {
+              markNotificationsSeen();
+              router.push('/notifications');
+            }}
+            accessibilityLabel="Notifications"
+            className="relative p-1"
+          >
             <Icon name="bell" size={24} color="#1C1C1C" strokeWidth={1.7} />
-            <View className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-canvas bg-accent" />
-          </View>
+            {!notificationsSeen && (
+              <View className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full border-2 border-canvas bg-accent" />
+            )}
+          </Pressable>
           <Pressable onPress={() => router.push('/settings')} accessibilityLabel="Account" className="h-9 w-9 items-center justify-center rounded-full bg-[#DCE3D8]">
             <Text className="text-[13px] font-semibold text-[#5b6b5b]">JL</Text>
           </Pressable>
