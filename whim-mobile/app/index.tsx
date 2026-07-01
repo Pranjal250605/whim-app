@@ -113,7 +113,9 @@ export default function Home() {
           style={press(shadowSoft)}
           className="mt-3 flex-row items-center gap-2.5 self-start rounded-full bg-white py-2 pl-5 pr-2"
         >
-          <Text className="font-serif text-[28px] text-ink">{city}</Text>
+          <Text className="font-serif text-[28px] text-ink" style={{ lineHeight: 30, marginTop: 3 }}>
+            {city}
+          </Text>
           <View className="h-8 w-8 items-center justify-center rounded-full bg-ink/5">
             <Icon name="chevronDown" size={16} color="#1C1C1C" strokeWidth={2.6} />
           </View>
