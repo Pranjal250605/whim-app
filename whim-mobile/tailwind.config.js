@@ -14,8 +14,8 @@ module.exports = {
       },
       fontFamily: {
         // loaded via expo-font in app/_layout.tsx (@expo-google-fonts)
-        serif: ['PlayfairDisplay_600SemiBold', 'serif'],
-        'serif-bold': ['PlayfairDisplay_700Bold', 'serif'],
+        serif: ['Fraunces_600SemiBold', 'serif'],
+        'serif-bold': ['Fraunces_700Bold', 'serif'],
         mono: ['IBMPlexMono_400Regular', 'monospace'],
         // body stays on the system font (San Francisco) — crisp at every weight
         sans: ['system-ui', 'sans-serif'],
