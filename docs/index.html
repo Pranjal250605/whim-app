@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#F0EEE8" />
+<title>Whim — email confirmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
+<style>
+  /* Whim "Field Notes" tokens — keep in sync with whim-mobile/tailwind.config.js */
+  :root {
+    --canvas: #F0EEE8;
+    --ink: #17150F;
+    --muted: #7C766A;
+    --accent: #2740E0;
+    --hairline: rgba(23, 21, 15, 0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    padding: 32px 24px;
+  }
+  main { max-width: 380px; width: 100%; text-align: center; }
+  .stamp {
+    display: inline-block;
+    padding: 7px 14px;
+    border: 1.5px solid var(--accent);
+    border-radius: 6px;
+    transform: rotate(-6deg);
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  p.sub { font-size: 16px; line-height: 1.55; color: var(--muted); }
+  .open-app {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 16px 36px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 999px;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    text-decoration: none;
+    transition: transform 0.06s ease;
+  }
+  .open-app:active { transform: translateY(1px) scale(0.98); }
+  .desktop-note {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="stamp" id="stamp">Whim &#10022; Confirmed</div>
+  <h1 id="headline">Email confirmed.</h1>
+  <p class="sub" id="sub">Your account is ready. Open Whim on your phone and sign in.</p>
+  <a class="open-app" href="whim://" id="cta">Open Whim</a>
+  <p class="desktop-note" id="note">Reading this on a computer? Just open the app on your phone.</p>
+</main>
+<script>
+  // Supabase's verify endpoint redirects here with details in the URL hash
+  // (e.g. #type=recovery, or #error_code=otp_expired&error_description=…).
+  var params = new URLSearchParams(
+    location.hash.replace(/^#/, '') + '&' + location.search.replace(/^\?/, '')
+  );
+  var el = function (id) { return document.getElementById(id); };
+
+  if (params.get('error_description') || params.get('error')) {
+    el('stamp').innerHTML = 'Whim &#10022; Expired';
+    el('headline').textContent = 'This link has expired.';
+    el('sub').textContent = 'No worries — open Whim and request a fresh one.';
+  } else if (params.get('type') === 'recovery') {
+    el('stamp').innerHTML = 'Whim &#10022; Verified';
+    el('headline').textContent = 'Reset link verified.';
+    el('sub').textContent = 'Head back to Whim to choose a new password.';
+  }
+  // default copy covers signup + email change confirmations
+</script>
+</body>
+</html>

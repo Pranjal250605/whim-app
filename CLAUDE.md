@@ -6,7 +6,8 @@ route on a map and share. Think "Tinder for places to go." Target: the App Store
 
 > **Repo layout:** this git repo (`whim-app`) is a small monorepo. The Expo app
 > lives in **`whim-mobile/`** — that's where you run every command. `.agents/`
-> holds installed design skills (see [Design](#design)).
+> holds installed design skills (see [Design](#design)). `docs/` is the GitHub
+> Pages site (Supabase auth emails redirect there — it's the `site_url`).
 
 ---
 
