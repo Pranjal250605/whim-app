@@ -1,4 +1,4 @@
-import type { BucketAnchor } from './types';
+import type { BucketAnchor, Spot } from './types';
 
 export interface RouteStop {
   id: string;
@@ -104,3 +104,26 @@ export function orderSmart(bucket: BucketAnchor[]): RouteStop[] {
 
 // keep the old name working for existing imports
 export const orderByProximity = orderSmart;
+
+/** Wrap bare spots (e.g. room matches) so orderSmart can sequence them. */
+export function orderSpots(spots: Spot[]): RouteStop[] {
+  return orderSmart(spots.map((s) => ({ anchor: s, microActivities: [], city: '', vibe: 'classics' })));
+}
+
+/** Rough transit-time estimate between stops (fallback when Google is down). */
+export function estimateTransitMins(a: RouteStop, b: RouteStop): number {
+  return Math.max(5, Math.round(distanceKm(a, b) * 3) + 3);
+}
+
+/** Hand the whole route to Google Maps (opens the app if installed). */
+export function googleMapsDirectionsUrl(stops: RouteStop[]): string | null {
+  if (stops.length === 0) return null;
+  const pt = (s: RouteStop) => `${s.lat},${s.lng}`;
+  if (stops.length === 1) return `https://www.google.com/maps/search/?api=1&query=${pt(stops[0])}`;
+  const waypoints = stops.slice(1, -1).map(pt).join('|');
+  return (
+    `https://www.google.com/maps/dir/?api=1&origin=${pt(stops[0])}&destination=${pt(stops[stops.length - 1])}` +
+    (waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : '') +
+    `&travelmode=transit`
+  );
+}

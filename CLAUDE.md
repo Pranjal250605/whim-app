@@ -7,7 +7,9 @@ route on a map and share. Think "Tinder for places to go." Target: the App Store
 > **Repo layout:** this git repo (`whim-app`) is a small monorepo. The Expo app
 > lives in **`whim-mobile/`** — that's where you run every command. `.agents/`
 > holds installed design skills (see [Design](#design)). `docs/` is the GitHub
-> Pages site (Supabase auth emails redirect there — it's the `site_url`).
+> Pages site: `index.html` (email-confirm landing, the auth `site_url`),
+> `reset.html` (password reset form — target of `resetPasswordForEmail`), and
+> `privacy.html` (the Privacy Policy linked from Settings).
 
 ---
 
@@ -172,8 +174,12 @@ display names without loosening profiles' own-row RLS. All RPCs are revoked from
 **State:** `store/useRoomStore.ts` — one room at a time (`enter`/`leave` own the
 realtime channel), optimistic votes, matches enriched via `fetchSpotsByIds`.
 
-**Not yet built:** group day-plan (feed matches into `orderSmart()` + `RouteMap` +
-`ShareCard`), majority thresholds, host controls (close room, kick), leave-room.
+5. **Group day-plan** (`app/room/[id]/plan.tsx`): matches → `orderSpots()` →
+   hours-smart sequence with transit legs, `RouteMap`, Open in Maps, and the
+   `ShareCard` ("crew of N"). Plan/transit helpers are shared with the solo
+   itinerary via `lib/route.ts` + `lib/transit.ts`.
+
+**Not yet built:** majority thresholds, host controls (close room, kick), leave-room.
 
 ---
 

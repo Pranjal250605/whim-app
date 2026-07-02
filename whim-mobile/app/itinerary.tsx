@@ -9,48 +9,10 @@ import { scheduleTripReminder } from '@/lib/notify';
 import { VIBE_LABEL } from '@/data/vibes';
 import { COLORS } from '@/lib/theme';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
-import { orderByProximity, type RouteStop } from '@/lib/route';
-import { getTransit, type TransitResult } from '@/lib/transit';
+import { estimateTransitMins, googleMapsDirectionsUrl, orderByProximity } from '@/lib/route';
+import { getTransit, legText, type TransitResult } from '@/lib/transit';
 import RouteMap from '@/components/RouteMap';
 import GlassNav from '@/components/GlassNav';
-
-function vehicleEmoji(v?: string): string {
-  switch ((v ?? '').toUpperCase()) {
-    case 'BUS':
-      return '🚌';
-    case 'TRAM':
-    case 'LIGHT_RAIL':
-      return '🚊';
-    case 'HEAVY_RAIL':
-    case 'RAIL':
-    case 'COMMUTER_TRAIN':
-    case 'HIGH_SPEED_TRAIN':
-      return '🚆';
-    case 'FERRY':
-      return '⛴️';
-    default:
-      return '🚇'; // subway / metro
-  }
-}
-
-// Rough transit-time estimate (used until the Google key is wired up).
-function estimateMins(a: RouteStop, b: RouteStop): number {
-  const R = 6371;
-  const dLat = ((b.lat - a.lat) * Math.PI) / 180;
-  const dLng = ((b.lng - a.lng) * Math.PI) / 180;
-  const la1 = (a.lat * Math.PI) / 180;
-  const la2 = (b.lat * Math.PI) / 180;
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dLng / 2) ** 2;
-  const km = 2 * R * Math.asin(Math.sqrt(h));
-  return Math.max(5, Math.round(km * 3) + 3);
-}
-
-function legText(leg: TransitResult): string {
-  const transit = leg.segments.filter((s) => s.mode === 'transit');
-  if (transit.length === 0) return `🚶 ${leg.totalDuration ?? 'walk'}`;
-  const lines = transit.map((t) => `${vehicleEmoji(t.vehicle)} ${t.line ?? 'Line'}`).join('  →  ');
-  return leg.totalDuration ? `${lines}  ·  ${leg.totalDuration}` : lines;
-}
 
 // Phase 4 — Itinerary. Orders the saved anchors, maps them, lists them as a
 // timeline, and shows the transit connection (real line names via Google, or a
@@ -90,7 +52,7 @@ export default function ItineraryScreen() {
     let label: string;
     if (!loaded) label = 'Finding transit…';
     else if (leg) label = legText(leg);
-    else label = `🚇 ~${estimateMins(stops[idx], stops[idx + 1])} min · est.`;
+    else label = `🚇 ~${estimateTransitMins(stops[idx], stops[idx + 1])} min · est.`;
     return (
       <View className="my-1 ml-3.5 flex-row items-center border-l-2 border-dashed border-[#D7D1C6] py-1 pl-4">
         <View className="rounded-full bg-[#EFEBE3] px-3 py-1.5">
@@ -100,21 +62,9 @@ export default function ItineraryScreen() {
     );
   };
 
-  // Hand the whole route off to Google Maps (opens the app if installed).
   const openInMaps = () => {
-    if (stops.length === 0) return;
-    const pt = (s: RouteStop) => `${s.lat},${s.lng}`;
-    let url: string;
-    if (stops.length === 1) {
-      url = `https://www.google.com/maps/search/?api=1&query=${pt(stops[0])}`;
-    } else {
-      const waypoints = stops.slice(1, -1).map(pt).join('|');
-      url =
-        `https://www.google.com/maps/dir/?api=1&origin=${pt(stops[0])}&destination=${pt(stops[stops.length - 1])}` +
-        (waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : '') +
-        `&travelmode=transit`;
-    }
-    Linking.openURL(url).catch(() => {});
+    const url = googleMapsDirectionsUrl(stops);
+    if (url) Linking.openURL(url).catch(() => {});
   };
 
   const shareRef = useRef<View>(null);

@@ -15,6 +15,34 @@ export interface TransitResult {
   segments: TransitSegment[];
 }
 
+// Emoji here are deliberate — friendly transit glyphs in the timeline copy.
+export function vehicleEmoji(v?: string): string {
+  switch ((v ?? '').toUpperCase()) {
+    case 'BUS':
+      return '🚌';
+    case 'TRAM':
+    case 'LIGHT_RAIL':
+      return '🚊';
+    case 'HEAVY_RAIL':
+    case 'RAIL':
+    case 'COMMUTER_TRAIN':
+    case 'HIGH_SPEED_TRAIN':
+      return '🚆';
+    case 'FERRY':
+      return '⛴️';
+    default:
+      return '🚇'; // subway / metro
+  }
+}
+
+/** One-line label for a leg: "🚇 Ginza  →  🚆 JR Yamanote  ·  22 min". */
+export function legText(leg: TransitResult): string {
+  const transit = leg.segments.filter((s) => s.mode === 'transit');
+  if (transit.length === 0) return `🚶 ${leg.totalDuration ?? 'walk'}`;
+  const lines = transit.map((t) => `${vehicleEmoji(t.vehicle)} ${t.line ?? 'Line'}`).join('  →  ');
+  return leg.totalDuration ? `${lines}  ·  ${leg.totalDuration}` : lines;
+}
+
 /**
  * Public-transit directions between two stops via the cache-aside Edge Function.
  * Returns null on any failure (function not deployed yet, no Google key, no

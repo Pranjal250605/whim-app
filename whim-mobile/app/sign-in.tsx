@@ -57,6 +57,34 @@ export default function SignIn() {
     // on success the auth listener flips the session and the guard routes us home
   };
 
+  // Sends the reset email; the link opens our hosted page (docs/reset.html on
+  // GitHub Pages) where the user sets the new password, then signs in here.
+  const forgotPassword = () => {
+    Alert.prompt(
+      'Reset password',
+      'We’ll email you a link to choose a new one.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Send link',
+          onPress: async (value) => {
+            const target = (value ?? '').trim();
+            if (!target) return;
+            const { error } = await supabase.auth.resetPasswordForEmail(target, {
+              redirectTo: 'https://pranjal250605.github.io/whim-app/reset.html',
+            });
+            // don't reveal whether the email exists — same message either way
+            if (!error) Alert.alert('Check your email', 'If that address has an account, a reset link is on its way.');
+            else Alert.alert('Couldn’t send', error.message);
+          },
+        },
+      ],
+      'plain-text',
+      email,
+      'email-address',
+    );
+  };
+
   // Sign in with Apple — required by App Store Guideline 4.8 once we offer it.
   // Needs the Apple provider configured in Supabase + a paid Apple account to
   // fully work; the button is hidden on non-iOS.
@@ -140,6 +168,12 @@ export default function SignIn() {
             {mode === 'sign-in' ? 'New here?  Create an account' : 'Already have an account?  Sign in'}
           </Text>
         </Pressable>
+
+        {mode === 'sign-in' && (
+          <Pressable onPress={forgotPassword} className="mt-3 items-center">
+            <Text className="text-[13.5px] font-semibold text-accent">Forgot password?</Text>
+          </Pressable>
+        )}
 
         {appleAvailable && (
           <View className="mt-8">

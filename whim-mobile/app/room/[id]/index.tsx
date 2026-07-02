@@ -132,7 +132,8 @@ export default function RoomLobby() {
             </Text>
           </View>
         ) : (
-          matches.map((m) => (
+          <>
+          {matches.map((m) => (
             <View key={m.spot.id} className="mb-3 flex-row items-center gap-3.5 rounded-[20px] bg-white p-3.5" style={SHADOWS.soft}>
               <View className="h-[56px] w-[56px] overflow-hidden rounded-[14px]" style={{ backgroundColor: m.spot.tone }}>
                 <SpotImage uri={m.spot.photo} />
@@ -148,7 +149,16 @@ export default function RoomLobby() {
                 <Text className="text-[11px] font-bold text-accent">{m.likes}</Text>
               </View>
             </View>
-          ))
+          ))}
+          <Pressable
+            onPress={() => router.push(`/room/${room.id}/plan` as never)}
+            style={press()}
+            className="mt-2 h-[54px] flex-row items-center justify-center gap-2 rounded-2xl bg-ink"
+          >
+            <Text className="text-[15px] font-semibold text-white">Build the day plan</Text>
+            <Icon name="route" size={18} color="#fff" strokeWidth={1.9} />
+          </Pressable>
+          </>
         )}
       </ScrollView>
     </SafeAreaView>
