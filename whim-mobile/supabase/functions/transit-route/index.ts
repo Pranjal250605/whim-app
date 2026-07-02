@@ -9,11 +9,27 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts';
+import { maybePurgeCaches, underDailyCap } from '../_shared/guard.ts';
 
 const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
+const DAILY_CAP = 300; // Google Routes calls are billed — per-user cache misses per UTC day
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+
+// A coordinate pair must be exactly [lat, lng] with finite, in-range numbers —
+// anything else is rejected before it can reach the cache key or Google.
+function asLatLng(v: unknown): [number, number] | null {
+  if (!Array.isArray(v) || v.length !== 2) return null;
+  const [lat, lng] = v;
+  if (typeof lat !== 'number' || typeof lng !== 'number') return null;
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+  if (Math.abs(lat) > 90 || Math.abs(lng) > 180) return null;
+  return [lat, lng];
+}
+
+// 5 decimals ≈ 1 m — normalises keys so "35.71480000001" can't mint new rows.
+const keyOf = (c: [number, number]) => `${c[0].toFixed(5)},${c[1].toFixed(5)}`;
 
 // Routes API durations look like "1320s" — turn into "22 min".
 function fmtDuration(s?: string): string | undefined {
@@ -40,19 +56,19 @@ Deno.serve(async (req) => {
   } = await userClient.auth.getUser();
   if (!user) return json({ error: 'Invalid session' }, 401);
 
-  let origin: number[] = [];
-  let dest: number[] = [];
+  let body: { origin?: unknown; dest?: unknown };
   try {
-    const body = await req.json();
-    origin = body.origin;
-    dest = body.dest;
+    body = await req.json();
   } catch {
     return json({ error: 'Invalid JSON body' }, 400);
   }
-  if (!origin?.length || !dest?.length) return json({ error: 'Missing origin/dest' }, 400);
+  const origin = asLatLng(body.origin);
+  const dest = asLatLng(body.dest);
+  if (!origin || !dest) return json({ error: 'origin/dest must be [lat, lng] pairs' }, 400);
 
-  const cacheKey = `${origin[0]},${origin[1]}|${dest[0]},${dest[1]}`;
+  const cacheKey = `${keyOf(origin)}|${keyOf(dest)}`;
   const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+  await maybePurgeCaches(admin);
 
   const { data: cached } = await admin
     .from('transit_cache')
@@ -61,6 +77,11 @@ Deno.serve(async (req) => {
     .maybeSingle();
   if (cached && Date.now() - new Date(cached.fetched_at).getTime() < NINETY_DAYS_MS) {
     return json({ source: 'cache', ...cached.result });
+  }
+
+  // cache miss → this one costs Google credits, so meter it per user
+  if (!(await underDailyCap(admin, user.id, 'transit-route', DAILY_CAP))) {
+    return json({ error: 'Daily route limit reached — try again tomorrow.', segments: [] }, 429);
   }
 
   const key = Deno.env.get('GOOGLE_MAPS_API_KEY');

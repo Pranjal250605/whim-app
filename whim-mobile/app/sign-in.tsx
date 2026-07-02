@@ -28,6 +28,10 @@ export default function SignIn() {
       Alert.alert('Missing details', 'Enter your email and password.');
       return;
     }
+    if (mode === 'sign-up' && password.length < 8) {
+      Alert.alert('Weak password', 'Use at least 8 characters.');
+      return;
+    }
     setBusy(true);
     const { error } =
       mode === 'sign-in'

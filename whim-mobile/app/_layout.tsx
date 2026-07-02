@@ -23,11 +23,14 @@ function RootNavigator() {
   const segments = useSegments();
   const router = useRouter();
 
-  // Tapping a local reminder deep-links to the route it points at.
+  // Tapping a local reminder deep-links to the route it points at. Only routes
+  // on this allowlist are followed — if we ever add remote push, a spoofed
+  // payload must not be able to navigate anywhere else.
   useEffect(() => {
+    const allowedRoutes = new Set(['/', '/swipe', '/hitlist', '/itinerary', '/passport', '/notifications']);
     const sub = Notifications.addNotificationResponseReceivedListener((res) => {
       const route = res.notification.request.content.data?.route;
-      if (typeof route === 'string') router.push(route as never);
+      if (typeof route === 'string' && allowedRoutes.has(route)) router.push(route as never);
     });
     return () => sub.remove();
   }, []);

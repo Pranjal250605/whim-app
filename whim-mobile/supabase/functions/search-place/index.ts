@@ -12,8 +12,12 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts';
+import { maybePurgeCaches, underDailyCap } from '../_shared/guard.ts';
 
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+const MAX_QUERY_LEN = 80; // real place queries are short; longer is abuse or a bug
+const DAILY_CAP = 100; // Mapbox geocoding is billed — per-user calls per UTC day
+const PROXIMITY_RE = /^-?\d{1,3}(\.\d+)?,-?\d{1,2}(\.\d+)?$/; // "lng,lat"
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -50,6 +54,13 @@ Deno.serve(async (req) => {
     return json({ error: 'Invalid JSON body' }, 400);
   }
   if (!q) return json({ error: 'Missing "q"' }, 400);
+  if (q.length > MAX_QUERY_LEN) return json({ error: `"q" too long (max ${MAX_QUERY_LEN})` }, 400);
+  if (proximity) {
+    const [lng, lat] = proximity.split(',').map(Number);
+    if (!PROXIMITY_RE.test(proximity) || Math.abs(lng) > 180 || Math.abs(lat) > 90) {
+      return json({ error: 'Invalid "proximity" (expected "lng,lat")' }, 400);
+    }
+  }
 
   const cacheKey = `${q}|${proximity}`.toLowerCase();
 
@@ -58,6 +69,8 @@ Deno.serve(async (req) => {
     Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
   );
+
+  await maybePurgeCaches(admin);
 
   // ── 1. cache hit? ──
   const { data: cached } = await admin
@@ -70,7 +83,11 @@ Deno.serve(async (req) => {
     return json({ source: 'cache', result: cached.result });
   }
 
-  // ── 2. cache miss → call Mapbox once ──
+  // ── 2. cache miss → this one costs Mapbox credits, so meter it per user ──
+  if (!(await underDailyCap(admin, user.id, 'search-place', DAILY_CAP))) {
+    return json({ error: 'Daily search limit reached — try again tomorrow.' }, 429);
+  }
+
   const token = Deno.env.get('MAPBOX_TOKEN');
   if (!token) return json({ error: 'Server missing MAPBOX_TOKEN' }, 500);
 
