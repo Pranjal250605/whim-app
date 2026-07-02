@@ -140,40 +140,40 @@ non-templated design direction, audit-first on redesigns, strict pre-flight chec
 
 ---
 
-## Planned feature — Group Rooms ("swipe places together")
+## Group Rooms ("swipe places together")
 
-> **Status: designed, not yet built.** Documented here so implementation stays
-> consistent with the architecture above.
+> **Status: v1 built** (migration `0007_rooms.sql`, applied to prod). Friends
+> create a **room**, everyone swipes the same city/vibe deck, and spots
+> **everyone** likes become live **group matches**. Tinder-style "it's a match",
+> for a friend group's trip.
 
-**Idea:** friends create a **room**, everyone swipes the same city/vibe deck, and the
-room surfaces the spots the group *mutually* wants — a shared Hitlist and day plan the
-whole group agreed on. Tinder-style "it's a match", but for a friend group's trip.
+**How it works**
+1. Host creates a room from the hub (`app/room/index.tsx`) using the current
+   Discover context → gets a 6-char **invite code** (lookalike-free alphabet).
+2. Friends join by code, or via the invite deep link `whim://room/join?code=…`
+   (`app/room/join.tsx`; the auth gate resumes the route after sign-in).
+3. Lobby (`app/room/[id]/index.tsx`): code card (tap to share), live member
+   chips, live matches list. Group deck (`app/room/[id]/swipe.tsx`) reuses the
+   presentational `SwipeDeck`; a right-swipe **upserts a vote** (`room_votes`).
+   No micro-discovery in rooms — the group decides anchors, detours stay personal.
+4. A spot matches when its like-count ≥ **current member count**
+   (`get_room_matches` RPC). Votes/membership stream over **Realtime**
+   (`postgres_changes`, RLS-scoped) → `useRoomStore` re-derives matches; new
+   matches get a haptic + "It's a match ✦" toast.
 
-**Flow**
-1. A host creates a room for a `city` (+ optional `vibe`) → gets a short **invite code**.
-2. Friends join by code (must be signed in).
-3. Each member swipes the deck; a right-swipe is a **vote** for that spot.
-4. A spot becomes a **group match** when it clears a threshold — default **everyone
-   currently in the room** liked it (configurable to majority later).
-5. Matches stream in live (Supabase **Realtime**) into a shared room Hitlist, which
-   feeds the same `orderSmart()` day-plan + map + share flow.
+**Backend shape (0007):** `rooms`, `room_members`, `room_votes` — all RLS-enabled,
+default-deny. Reads require membership via the `is_room_member()` security-definer
+helper (avoids recursive policies). Rooms are created/joined ONLY through
+security-definer RPCs (`create_room`, `join_room` — 12-member cap, open rooms only);
+votes are the only direct client write (own rows). `get_room_members` returns
+display names without loosening profiles' own-row RLS. All RPCs are revoked from
+`anon`. Realtime publication covers `room_votes` + `room_members`.
 
-**Proposed schema** (new migration, all RLS-enabled):
-- `rooms(id, code unique, host_id, name, city, vibe, status, created_at)`
-- `room_members(room_id, user_id, joined_at, unique(room_id,user_id))`
-- `room_votes(room_id, user_id, spot_id, liked bool, created_at, unique(room_id,user_id,spot_id))`
-- Group matches derived from `room_votes` (a view or RPC): spots where like-count meets
-  the threshold for that room's member count.
+**State:** `store/useRoomStore.ts` — one room at a time (`enter`/`leave` own the
+realtime channel), optimistic votes, matches enriched via `fetchSpotsByIds`.
 
-**RLS shape:** a user may read a room + its members/votes/matches **only if they are a
-member** of that room; may write **only their own** vote rows; host manages the room.
-Prefer a `security definer` helper (`is_room_member(room_id)`) to avoid recursive policies.
-
-**Client work:** extend `db.ts` with room CRUD + vote writes; add a `room` slice (or a
-sibling store) mirroring the optimistic pattern; subscribe to a Realtime channel per room
-to update matches; new routes under `app/room/` (create, join-by-code, lobby, group deck,
-group hitlist). Reuse `SwipeDeck`, `RouteMap`, and `ShareCard` — build the group layer
-with the `design-taste-frontend` skill so it matches Field Notes.
+**Not yet built:** group day-plan (feed matches into `orderSmart()` + `RouteMap` +
+`ShareCard`), majority thresholds, host controls (close room, kick), leave-room.
 
 ---
 

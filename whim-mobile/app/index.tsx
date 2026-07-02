@@ -201,6 +201,24 @@ export default function Home() {
           </View>
         </View>
 
+        {/* group rooms entry */}
+        <Pressable
+          onPress={() => router.push('/room')}
+          style={press(SHADOWS.soft)}
+          className="mt-4 flex-row items-center gap-3.5 rounded-2xl bg-white p-4"
+        >
+          <View className="h-11 w-11 items-center justify-center rounded-full bg-accent-soft">
+            <Icon name="person" size={20} color={COLORS.accent} strokeWidth={2} />
+          </View>
+          <View className="flex-1">
+            <Text className="text-[15px] font-bold text-ink">Plan with friends</Text>
+            <Text className="mt-0.5 text-[12.5px] text-muted">Swipe together — mutual likes become the plan.</Text>
+          </View>
+          <View className="rotate-[-5deg] rounded-md border-[1.5px] border-accent px-1.5 py-0.5">
+            <Text className="font-mono text-[9px] tracking-[0.14em] text-accent">NEW ✦</Text>
+          </View>
+        </Pressable>
+
         {/* continue an existing collection */}
         {savedHere > 0 && (
           <Pressable

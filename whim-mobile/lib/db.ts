@@ -83,6 +83,115 @@ export async function clearSavedSpots(city: string, vibe: VibeId): Promise<void>
   if (error) throw error;
 }
 
+// ── Group Rooms ──────────────────────────────────────────────────────────
+// Creation/joining go through security-definer RPCs; votes are the only
+// direct table write (own rows, members only — enforced by RLS).
+
+export interface Room {
+  id: string;
+  code: string;
+  hostId: string;
+  name: string | null;
+  city: string;
+  vibe: VibeId;
+  status: 'open' | 'closed';
+  memberCount?: number;
+}
+
+export interface RoomMember {
+  userId: string;
+  displayName: string | null;
+  isHost: boolean;
+}
+
+function rowToRoom(r: any): Room {
+  return {
+    id: r.id,
+    code: r.code,
+    hostId: r.host_id,
+    name: r.name,
+    city: r.city,
+    vibe: r.vibe as VibeId,
+    status: r.status,
+    memberCount: r.member_count != null ? Number(r.member_count) : undefined,
+  };
+}
+
+export async function createRoom(city: string, vibe: VibeId, name?: string): Promise<Room> {
+  const { data, error } = await supabase.rpc('create_room', {
+    p_city: city,
+    p_vibe: vibe,
+    p_name: name ?? null,
+  });
+  if (error) throw error;
+  return rowToRoom(data);
+}
+
+export async function joinRoom(code: string): Promise<Room> {
+  const { data, error } = await supabase.rpc('join_room', { p_code: code });
+  if (error) throw error;
+  return rowToRoom(data);
+}
+
+export async function fetchRoom(roomId: string): Promise<Room> {
+  const { data, error } = await supabase.from('rooms').select('*').eq('id', roomId).single();
+  if (error) throw error;
+  return rowToRoom(data);
+}
+
+export async function fetchMyRooms(): Promise<Room[]> {
+  const { data, error } = await supabase.rpc('my_rooms');
+  if (error) throw error;
+  return (data ?? []).map(rowToRoom);
+}
+
+export async function fetchRoomMembers(roomId: string): Promise<RoomMember[]> {
+  const { data, error } = await supabase.rpc('get_room_members', { p_room: roomId });
+  if (error) throw error;
+  return (data ?? []).map((m: any) => ({
+    userId: m.user_id,
+    displayName: m.display_name,
+    isHost: m.is_host,
+  }));
+}
+
+/** Right/left swipe in a room = a vote. Idempotent (re-voting updates). */
+export async function castRoomVote(roomId: string, spotId: string, liked: boolean): Promise<void> {
+  const { error } = await supabase
+    .from('room_votes')
+    .upsert({ room_id: roomId, spot_id: spotId, liked }, { onConflict: 'room_id,user_id,spot_id' });
+  if (error) throw error;
+}
+
+/** Spot ids the signed-in user has already voted on in this room. */
+export async function fetchMyRoomVotes(roomId: string): Promise<string[]> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+  const { data, error } = await supabase
+    .from('room_votes')
+    .select('spot_id')
+    .eq('room_id', roomId)
+    .eq('user_id', user.id);
+  if (error) throw error;
+  return (data ?? []).map((r: any) => r.spot_id);
+}
+
+/** Spots every current member liked, with like counts. */
+export async function fetchRoomMatches(roomId: string): Promise<{ spotId: string; likes: number }[]> {
+  const { data, error } = await supabase.rpc('get_room_matches', { p_room: roomId });
+  if (error) throw error;
+  return (data ?? []).map((r: any) => ({ spotId: r.spot_id, likes: Number(r.likes) }));
+}
+
+export async function fetchSpotsByIds(ids: string[]): Promise<Spot[]> {
+  if (ids.length === 0) return [];
+  const { data, error } = await supabase.from('spots').select('*').in('id', ids);
+  if (error) throw error;
+  return (data ?? []).map(rowToSpot);
+}
+
 // ── Profile ──────────────────────────────────────────────────────────────
 export interface Profile {
   displayName: string | null;
