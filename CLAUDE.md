@@ -51,10 +51,16 @@ Env vars (never commit these — see [Security](#security)):
 
 ### Routing (`app/`)
 File-based via expo-router. `app/_layout.tsx` is the root: it loads fonts, wires
-providers (SafeArea, BottomSheet, GestureHandler, `AuthProvider`), and acts as the
-**auth gate** — redirects to `sign-in` when logged out, and deep-links notification
-taps to their target route. Screens: `index` (home), `swipe`, `hitlist`,
-`itinerary`, `passport`, `notifications`, `settings`, `sign-in`.
+providers (SafeArea, BottomSheet, GestureHandler, `AuthProvider`), mounts the
+`ToastHost`, and acts as the **auth gate** — redirects to `sign-in` when logged
+out (remembering the intended route and resuming it after sign-in, so invite
+deep links survive), and deep-links notification taps through an allowlist.
+
+**Navigation model:** four **tab roots** — `index` (Discover), `hitlist`,
+`itinerary` (Route), `passport` (Profile) — each renders `GlassNav` and **no
+back button**. Everything else (`swipe`, `notifications`, `settings`, future
+`room/*`) is a **pushed screen**: renders `BackButton`, no GlassNav. Don't mix
+the two patterns.
 
 ### State (`store/useWhimStore.ts`)
 One Zustand store is the source of truth for the whole user loop. It updates
@@ -62,8 +68,12 @@ One Zustand store is the source of truth for the whole user loop. It updates
 if a write fails it warns and the next `hydrate()` reconciles. Key concepts:
 - **Context** = `city` + `vibe`. Switching either deals a different deck and shows
   a different Hitlist — collections never bleed across contexts.
-- **Deck memory**: spots already saved or passed this session are filtered out.
+- **Deck memory**: spots already saved or passed this session are filtered out
+  (`passedIds` is keyed per collection, so clearing one never touches another).
+- **`profile`** (display name) hydrates alongside the lists; sign-up captures the
+  name into `profiles.display_name` via the signup trigger.
 - Selectors (`selectActiveSpot`, `selectDeckDone`, `scopedBucket`) live in the store file.
+- Failed background writes surface a toast (`lib/toast.ts`) — never fail silently.
 
 ### Data layer (`lib/`)
 - `supabase.ts` — the client (anon key only). Sessions persist in the iOS Keychain
@@ -171,7 +181,14 @@ with the `design-taste-frontend` skill so it matches Field Notes.
 
 - Data access goes through `lib/db.ts`; don't scatter raw Supabase calls in components.
 - Never pass `user_id` from the client — RLS handles ownership.
-- Keep new state optimistic + background-persisted, matching the store pattern.
-- Style with NativeWind `className`; pull colors from Tailwind tokens, not hex literals in JSX.
+- Keep new state optimistic + background-persisted, matching the store pattern;
+  toast on persist failure.
+- Style with NativeWind `className`; pull colors from Tailwind tokens, not hex literals
+  in JSX. For JS-side values (icon colors, shadows) use `lib/theme.ts` (`COLORS`,
+  `SHADOWS`, `press`); vibe labels/dots/featured content live in `data/vibes.ts` only.
+- `SwipeDeck` is presentational (props in, `onSwipe` out) — wire it to a store in the
+  host screen. Reuse it for the group deck; don't fork it.
+- Pushed screens use the shared `BackButton`; icons come from `components/Icon.tsx`
+  (no emoji glyphs for UI chrome).
 - Native module added? It needs a rebuild (`npm run ios`), not just a Metro reload.
 - Local notifications only (no Apple Push account) — works on the simulator.

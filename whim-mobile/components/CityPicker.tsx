@@ -1,5 +1,6 @@
 import { Modal, Pressable, ScrollView, Text, View } from 'react-native';
 import { citiesByCountry } from '@/data/cities';
+import Icon from './Icon';
 
 interface CityPickerProps {
   visible: boolean;
@@ -40,7 +41,7 @@ export default function CityPicker({ visible, current, onSelect, onClose }: City
                       }`}
                     >
                       <Text className={`text-[16px] font-semibold ${selected ? 'text-white' : 'text-ink'}`}>{c.name}</Text>
-                      {selected && <Text className="text-white">✓</Text>}
+                      {selected && <Icon name="check" size={16} color="#fff" strokeWidth={2.6} />}
                     </Pressable>
                   );
                 })}

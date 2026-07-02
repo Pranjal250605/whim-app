@@ -1,20 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
-import { router } from 'expo-router';
 import Icon from '@/components/Icon';
 import ShareCard from '@/components/ShareCard';
 import { scheduleTripReminder } from '@/lib/notify';
-import type { VibeId } from '@/lib/types';
-
-const VIBE_LABEL: Record<VibeId, string> = {
-  classics: 'The Classics',
-  matcha: 'Matcha',
-  nature: 'Nature',
-  nightlife: 'After Dark',
-};
+import { VIBE_LABEL } from '@/data/vibes';
+import { COLORS } from '@/lib/theme';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { orderByProximity, type RouteStop } from '@/lib/route';
 import { getTransit, type TransitResult } from '@/lib/transit';
@@ -69,7 +62,6 @@ export default function ItineraryScreen() {
   const clearCollection = useWhimStore((s) => s.clearCollection);
   const checkins = useWhimStore((s) => s.checkins);
   const toggleCheckin = useWhimStore((s) => s.toggleCheckin);
-  const insets = useSafeAreaInsets();
 
   const scoped = useMemo(() => scopedBucket(bucketList, city, vibe), [bucketList, city, vibe]);
   const stops = useMemo(() => orderByProximity(scoped), [scoped]);
@@ -160,18 +152,6 @@ export default function ItineraryScreen() {
     <SafeAreaView className="flex-1 bg-canvas" edges={[]}>
       <RouteMap stops={stops} height={280} />
 
-      {/* back button floating over the map */}
-      <View className="absolute left-4 z-10" style={{ top: (insets.top || 47) + 4 }}>
-        <Pressable
-          onPress={() => router.back()}
-          accessibilityLabel="Back"
-          className="h-10 w-10 items-center justify-center rounded-full"
-          style={{ backgroundColor: 'rgba(255,255,255,0.92)', shadowColor: '#1C1C1C', shadowOpacity: 0.12, shadowRadius: 12, shadowOffset: { width: 0, height: 3 } }}
-        >
-          <Text className="text-lg text-ink">‹</Text>
-        </Pressable>
-      </View>
-
       <ScrollView className="flex-1 px-5 pt-5" contentContainerStyle={{ paddingBottom: 120 }}>
         <Text className="font-serif text-2xl text-ink">Your optimised day</Text>
         <Text className="mt-1 text-[13px] text-muted">{stops.length} stops · timed by opening hours & transit</Text>
@@ -191,14 +171,14 @@ export default function ItineraryScreen() {
                 accessibilityLabel="Share day"
                 className="h-[52px] w-[52px] items-center justify-center rounded-2xl border border-ink/12 bg-white"
               >
-                <Icon name="share" size={20} color="#1C1C1C" strokeWidth={2} />
+                <Icon name="share" size={20} color={COLORS.ink} strokeWidth={2} />
               </Pressable>
               <Pressable
                 onPress={remindMe}
                 accessibilityLabel="Remind me"
                 className="h-[52px] w-[52px] items-center justify-center rounded-2xl border border-ink/12 bg-white"
               >
-                <Icon name="bell" size={20} color="#1C1C1C" strokeWidth={2} />
+                <Icon name="bell" size={20} color={COLORS.ink} strokeWidth={2} />
               </Pressable>
             </View>
             <Pressable onPress={confirmClear} className="mb-5 mt-3 items-center py-1">

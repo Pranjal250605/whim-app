@@ -1,4 +1,5 @@
 import Svg, { Circle, Path } from 'react-native-svg';
+import { COLORS } from '@/lib/theme';
 
 // Crisp line icons ported from the design prototype (Travelo.dc.html). Stroked,
 // so they tint to any color (active nav = accent, etc.).
@@ -16,7 +17,8 @@ export type IconName =
   | 'clock'
   | 'check'
   | 'share'
-  | 'pin';
+  | 'pin'
+  | 'trash';
 
 interface IconProps {
   name: IconName;
@@ -25,7 +27,7 @@ interface IconProps {
   strokeWidth?: number;
 }
 
-export default function Icon({ name, size = 24, color = '#1C1C1C', strokeWidth = 1.8 }: IconProps) {
+export default function Icon({ name, size = 24, color = COLORS.ink, strokeWidth = 1.8 }: IconProps) {
   const s = { stroke: color, strokeWidth, fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
   const svg = (children: React.ReactNode) => (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
@@ -96,6 +98,14 @@ export default function Icon({ name, size = 24, color = '#1C1C1C', strokeWidth =
         <>
           <Circle cx={12} cy={12} r={9} stroke={color} strokeWidth={strokeWidth} fill="none" />
           <Path d="M12 7v5l3 2" {...s} />
+        </>,
+      );
+    case 'trash':
+      return svg(
+        <>
+          <Path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" {...s} />
+          <Path d="M6 7l1 13a1.5 1.5 0 0 0 1.5 1.4h7A1.5 1.5 0 0 0 17 20l1-13" {...s} />
+          <Path d="M10 11v6M14 11v6" {...s} />
         </>,
       );
   }

@@ -83,6 +83,27 @@ export async function clearSavedSpots(city: string, vibe: VibeId): Promise<void>
   if (error) throw error;
 }
 
+// ── Profile ──────────────────────────────────────────────────────────────
+export interface Profile {
+  displayName: string | null;
+}
+
+/** The signed-in user's profile row (auto-created by the signup trigger). */
+export async function fetchProfile(): Promise<Profile | null> {
+  const { data, error } = await supabase.from('profiles').select('display_name').maybeSingle();
+  if (error) throw error;
+  return data ? { displayName: data.display_name } : null;
+}
+
+export async function updateDisplayName(name: string): Promise<void> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+  const { error } = await supabase.from('profiles').update({ display_name: name }).eq('id', user.id);
+  if (error) throw error;
+}
+
 // ── Passport / check-ins ─────────────────────────────────────────────────
 export interface CheckinItem {
   spotId: string;

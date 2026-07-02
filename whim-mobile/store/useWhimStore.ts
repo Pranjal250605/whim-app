@@ -5,13 +5,21 @@ import {
   clearSavedSpots,
   fetchCheckins,
   fetchDeck,
+  fetchProfile,
   fetchSavedSpots,
   removeCheckin,
   removeSavedSpot,
   saveSpot,
+  updateDisplayName,
   type CheckinItem,
+  type Profile,
 } from '@/lib/db';
 import { getDeck as getMockDeck } from '@/data/mockDeck';
+import { toast } from '@/lib/toast';
+
+// Swipe history is scoped per collection so clearing / re-dealing one
+// city+vibe never affects another.
+const ctxKey = (city: string, vibe: VibeId) => `${city}|${vibe}`;
 
 /**
  * Single source of truth for the whole user loop (Phases 1–4).
@@ -27,14 +35,16 @@ interface WhimState {
   deckIndex: number;
   deckSourceCount: number; // spots available for this context, before filtering decided ones
   deckLoading: boolean;
-  passedIds: string[]; // spots swiped away this session, so they don't reappear
+  passedIds: Record<string, string[]>; // per-collection swipe-away history (session only)
   pendingMatch: Spot | null;
   bucketList: BucketAnchor[];
   checkins: CheckinItem[];
+  profile: Profile | null;
   hydrated: boolean;
   notificationsSeen: boolean;
 
   setContext: (city: string, vibe: VibeId) => Promise<void>;
+  renameProfile: (name: string) => void;
   toggleCheckin: (spot: Spot, city: string) => void;
   setCity: (city: string) => void;
   setVibe: (vibe: VibeId) => void;
@@ -57,10 +67,11 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   deckIndex: 0,
   deckSourceCount: 0,
   deckLoading: false,
-  passedIds: [],
+  passedIds: {},
   pendingMatch: null,
   bucketList: [],
   checkins: [],
+  profile: null,
   hydrated: false,
   notificationsSeen: false,
 
@@ -77,7 +88,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
     // deck memory: skip spots already saved (in this collection) or passed
     const s = get();
     const saved = s.bucketList.filter((b) => b.city === city && b.vibe === vibe).map((b) => b.anchor.id);
-    const decided = new Set<string>([...s.passedIds, ...saved]);
+    const decided = new Set<string>([...(s.passedIds[ctxKey(city, vibe)] ?? []), ...saved]);
     const deck = all.filter((sp) => !decided.has(sp.id));
     set({ deck, deckSourceCount: all.length, deckLoading: false });
   },
@@ -88,19 +99,36 @@ export const useWhimStore = create<WhimState>((set, get) => ({
 
   hydrate: async () => {
     try {
-      const [bucketList, checkins] = await Promise.all([fetchSavedSpots(), fetchCheckins()]);
-      set({ bucketList, checkins, hydrated: true });
+      const [bucketList, checkins, profile] = await Promise.all([
+        fetchSavedSpots(),
+        fetchCheckins(),
+        fetchProfile(),
+      ]);
+      set({ bucketList, checkins, profile, hydrated: true });
     } catch (e) {
       console.warn('[whim] hydrate failed:', e);
       set({ hydrated: true });
     }
   },
 
+  renameProfile: (name) => {
+    const trimmed = name.trim().slice(0, 60);
+    if (!trimmed) return;
+    set({ profile: { displayName: trimmed } });
+    updateDisplayName(trimmed).catch((e) => {
+      console.warn('[whim] updateDisplayName failed:', e);
+      toast('Couldn’t save your name — check your connection.');
+    });
+  },
+
   toggleCheckin: (spot, city) => {
     const isIn = get().checkins.some((c) => c.spotId === spot.id);
     if (isIn) {
       set((s) => ({ checkins: s.checkins.filter((c) => c.spotId !== spot.id) }));
-      removeCheckin(spot.id).catch((e) => console.warn('[whim] removeCheckin failed:', e));
+      removeCheckin(spot.id).catch((e) => {
+        console.warn('[whim] removeCheckin failed:', e);
+        toast('Couldn’t remove that stamp — check your connection.');
+      });
     } else {
       const item: CheckinItem = {
         spotId: spot.id,
@@ -112,14 +140,22 @@ export const useWhimStore = create<WhimState>((set, get) => ({
         photo: spot.photo,
       };
       set((s) => ({ checkins: [item, ...s.checkins] }));
-      checkIn(spot.id, city).catch((e) => console.warn('[whim] checkIn failed:', e));
+      checkIn(spot.id, city).catch((e) => {
+        console.warn('[whim] checkIn failed:', e);
+        toast('Couldn’t stamp that check-in — check your connection.');
+      });
     }
   },
 
   swipeLeft: () =>
     set((s) => {
       const spot = s.deck[s.deckIndex];
-      return { deckIndex: s.deckIndex + 1, passedIds: spot ? [...s.passedIds, spot.id] : s.passedIds };
+      if (!spot) return { deckIndex: s.deckIndex + 1 };
+      const key = ctxKey(s.city, s.vibe);
+      return {
+        deckIndex: s.deckIndex + 1,
+        passedIds: { ...s.passedIds, [key]: [...(s.passedIds[key] ?? []), spot.id] },
+      };
     }),
 
   swipeRight: () =>
@@ -139,7 +175,10 @@ export const useWhimStore = create<WhimState>((set, get) => ({
       pendingMatch: null,
       notificationsSeen: false,
     }));
-    saveSpot(pendingMatch, [], city, vibe).catch((e) => console.warn('[whim] saveSpot failed:', e));
+    saveSpot(pendingMatch, [], city, vibe).catch((e) => {
+      console.warn('[whim] saveSpot failed:', e);
+      toast('Couldn’t save that spot — check your connection.');
+    });
   },
 
   saveAnchorWithActivities: (activities) => {
@@ -150,32 +189,43 @@ export const useWhimStore = create<WhimState>((set, get) => ({
       pendingMatch: null,
       notificationsSeen: false,
     }));
-    saveSpot(pendingMatch, activities.map((a) => a.id), city, vibe).catch((e) =>
-      console.warn('[whim] saveSpot failed:', e),
-    );
+    saveSpot(pendingMatch, activities.map((a) => a.id), city, vibe).catch((e) => {
+      console.warn('[whim] saveSpot failed:', e);
+      toast('Couldn’t save that spot — check your connection.');
+    });
   },
 
   removeAnchor: (anchorId) => {
     set((s) => ({ bucketList: s.bucketList.filter((b) => b.anchor.id !== anchorId) }));
-    removeSavedSpot(anchorId).catch((e) => console.warn('[whim] removeSavedSpot failed:', e));
+    removeSavedSpot(anchorId).catch((e) => {
+      console.warn('[whim] removeSavedSpot failed:', e);
+      toast('Couldn’t remove that spot — check your connection.');
+    });
   },
 
   // Delete the current city+vibe collection and forget swipe history, so the
   // deck deals fresh from the top next time.
   clearCollection: () => {
     const { city, vibe } = get();
-    set((s) => ({
-      bucketList: s.bucketList.filter((b) => !(b.city === city && b.vibe === vibe)),
-      passedIds: [],
-      deck: [],
-      deckIndex: 0,
-      deckSourceCount: 0,
-    }));
-    clearSavedSpots(city, vibe).catch((e) => console.warn('[whim] clearSavedSpots failed:', e));
+    set((s) => {
+      // forget swipe history for THIS collection only — others keep theirs
+      const { [ctxKey(city, vibe)]: _cleared, ...rest } = s.passedIds;
+      return {
+        bucketList: s.bucketList.filter((b) => !(b.city === city && b.vibe === vibe)),
+        passedIds: rest,
+        deck: [],
+        deckIndex: 0,
+        deckSourceCount: 0,
+      };
+    });
+    clearSavedSpots(city, vibe).catch((e) => {
+      console.warn('[whim] clearSavedSpots failed:', e);
+      toast('Couldn’t clear this collection — check your connection.');
+    });
   },
 
   reset: () =>
-    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: [], pendingMatch: null, bucketList: [], checkins: [], hydrated: false, notificationsSeen: false }),
+    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: {}, pendingMatch: null, bucketList: [], checkins: [], profile: null, hydrated: false, notificationsSeen: false }),
 }));
 
 // Derived selectors (kept here so components don't recompute):

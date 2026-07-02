@@ -4,73 +4,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Location from 'expo-location';
 import { router } from 'expo-router';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
+import { useAuth } from '@/lib/auth';
 import { CITIES, nearestCity } from '@/data/cities';
+import { VIBES, FEATURED, VIBE_DOT } from '@/data/vibes';
+import { COLORS, SHADOWS, press } from '@/lib/theme';
 import CityPicker from '@/components/CityPicker';
 import GlassNav from '@/components/GlassNav';
 import SpotImage from '@/components/SpotImage';
 import Icon from '@/components/Icon';
-import type { VibeId } from '@/lib/types';
 
 // Phase 1 — Context & Vibe. Bold editorial-meets-playful home.
-const VIBES: { id: VibeId; label: string }[] = [
-  { id: 'classics', label: 'The Classics' },
-  { id: 'matcha', label: 'Matcha' },
-  { id: 'nature', label: 'Nature' },
-  { id: 'nightlife', label: 'After Dark' },
-];
-
-const FEATURED: Record<VibeId, { label: string; title: string; desc: string; caption: string; tone: string; photo: string }> = {
-  classics: {
-    label: 'The Classics',
-    title: 'First-Timer Classics',
-    desc: 'The icons you can’t miss — temples, towers and timeless landmarks.',
-    caption: 'photo · iconic landmark',
-    tone: '#E7DCCB',
-    photo: 'https://images.pexels.com/photos/19867354/pexels-photo-19867354.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  },
-  matcha: {
-    label: 'Matcha',
-    title: 'Matcha & Minimalism',
-    desc: 'A hand-picked loop of slow mornings, design shops and the city’s most photogenic cafés.',
-    caption: 'photo · quiet café interior',
-    tone: '#DCE3D8',
-    photo: 'https://images.pexels.com/photos/33313174/pexels-photo-33313174.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  },
-  nature: {
-    label: 'Nature',
-    title: 'Nature & Calm',
-    desc: 'Gardens, parks and quiet waterside walks to slow the whole day down.',
-    caption: 'photo · green & quiet',
-    tone: '#DDE2D6',
-    photo: 'https://images.pexels.com/photos/18210743/pexels-photo-18210743.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  },
-  nightlife: {
-    label: 'After Dark',
-    title: 'After Dark',
-    desc: 'Neon streets, rooftop views and the city’s best late-night bites.',
-    caption: 'photo · neon at night',
-    tone: '#D7DEE4',
-    photo: 'https://images.pexels.com/photos/18867525/pexels-photo-18867525.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  },
-};
-
-// candy-pastel category dots (Gen-Z color energy, kept small so cobalt stays the hero)
-const VIBE_DOT: Record<VibeId, string> = {
-  classics: '#E0A63C',
-  matcha: '#5AA469',
-  nature: '#3F93B8',
-  nightlife: '#6B63D6',
-};
-
-const shadowSoft = { shadowColor: '#17150F', shadowOpacity: 0.06, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } };
-const shadowCard = { shadowColor: '#17150F', shadowOpacity: 0.16, shadowRadius: 34, shadowOffset: { width: 0, height: 20 } };
-const shadowAccent = { shadowColor: '#2740E0', shadowOpacity: 0.32, shadowRadius: 16, shadowOffset: { width: 0, height: 8 } };
-
-// springy press feedback (Gen-Z tactility)
-const press =
-  (base?: object) =>
-  ({ pressed }: { pressed: boolean }) =>
-    [base, pressed ? { transform: [{ scale: 0.97 }], opacity: 0.96 } : null];
 
 export default function Home() {
   const city = useWhimStore((s) => s.city);
@@ -83,7 +26,19 @@ export default function Home() {
   const bucketList = useWhimStore((s) => s.bucketList);
   const notificationsSeen = useWhimStore((s) => s.notificationsSeen);
   const markNotificationsSeen = useWhimStore((s) => s.markNotificationsSeen);
+  const profile = useWhimStore((s) => s.profile);
+  const { session } = useAuth();
   const [pickerOpen, setPickerOpen] = useState(false);
+
+  // real initials from the profile (fallback: first letter of the email)
+  const initials = useMemo(() => {
+    const name = profile?.displayName?.trim();
+    if (name) {
+      const parts = name.split(/\s+/);
+      return (parts[0][0] + (parts[1]?.[0] ?? '')).toUpperCase();
+    }
+    return (session?.user?.email?.[0] ?? '·').toUpperCase();
+  }, [profile, session]);
 
   const f = FEATURED[vibe];
   const savedHere = useMemo(() => scopedBucket(bucketList, city, vibe).length, [bucketList, city, vibe]);
@@ -129,7 +84,7 @@ export default function Home() {
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
       {/* header */}
       <View className="flex-row items-center justify-between px-5 pt-1">
-        <Text style={{ fontFamily: 'BricolageGrotesque_800ExtraBold', fontSize: 26, color: '#17150F', letterSpacing: -0.8 }}>Whim</Text>
+        <Text style={{ fontFamily: 'BricolageGrotesque_800ExtraBold', fontSize: 26, color: COLORS.ink, letterSpacing: -0.8 }}>Whim</Text>
         <View className="flex-row items-center gap-4">
           <Pressable
             onPress={() => {
@@ -139,13 +94,13 @@ export default function Home() {
             accessibilityLabel="Notifications"
             className="relative p-1"
           >
-            <Icon name="bell" size={24} color="#1C1C1C" strokeWidth={1.7} />
+            <Icon name="bell" size={24} color={COLORS.ink} strokeWidth={1.7} />
             {!notificationsSeen && (
               <View className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full border-2 border-canvas bg-accent" />
             )}
           </Pressable>
           <Pressable onPress={() => router.push('/settings')} accessibilityLabel="Account" className="h-9 w-9 items-center justify-center rounded-full bg-accent-soft">
-            <Text className="text-[13px] font-bold text-accent">JL</Text>
+            <Text className="text-[13px] font-bold text-accent">{initials}</Text>
           </Pressable>
         </View>
       </View>
@@ -162,14 +117,14 @@ export default function Home() {
         <View className="mt-3 flex-row items-center gap-2.5">
           <Pressable
             onPress={() => setPickerOpen(true)}
-            style={press(shadowSoft)}
+            style={press(SHADOWS.soft)}
             className="flex-row items-center gap-2.5 rounded-full bg-white py-2 pl-5 pr-2"
           >
             <Text className="font-serif text-[26px] text-ink" style={{ lineHeight: 32 }}>
               {city}
             </Text>
             <View className="h-8 w-8 items-center justify-center rounded-full bg-ink/5">
-              <Icon name="chevronDown" size={16} color="#1C1C1C" strokeWidth={2.6} />
+              <Icon name="chevronDown" size={16} color={COLORS.ink} strokeWidth={2.6} />
             </View>
           </Pressable>
           <Pressable
@@ -178,7 +133,7 @@ export default function Home() {
             accessibilityLabel="Find spots near me"
             className="flex-row items-center gap-1.5 rounded-full border border-ink/12 bg-white px-3.5 py-2.5"
           >
-            <Icon name="pin" size={15} color="#2740E0" strokeWidth={2} />
+            <Icon name="pin" size={15} color={COLORS.accent} strokeWidth={2} />
             <Text className="text-[13px] font-bold text-ink">Near me</Text>
           </Pressable>
         </View>
@@ -193,7 +148,7 @@ export default function Home() {
               <Pressable
                 key={v.id}
                 onPress={() => setVibe(v.id)}
-                style={press(on ? shadowAccent : undefined)}
+                style={press(on ? SHADOWS.accent : undefined)}
                 className={`flex-row items-center gap-2 rounded-full border px-5 py-3 ${on ? 'border-accent bg-accent' : 'border-ink/10 bg-white'}`}
               >
                 <View className="h-2 w-2 rounded-full" style={{ backgroundColor: on ? 'rgba(255,255,255,0.9)' : VIBE_DOT[v.id] }} />
@@ -205,9 +160,9 @@ export default function Home() {
 
         {/* featured hero card with stacked-paper effect */}
         <View className="mt-9">
-          <View className="absolute left-[18px] right-[18px] -top-3 h-8 rounded-[24px] bg-white" style={{ opacity: 0.7, ...shadowSoft }} />
-          <View className="absolute left-2 right-2 -top-1.5 h-8 rounded-3xl bg-white" style={{ opacity: 0.85, ...shadowSoft }} />
-          <View className="overflow-hidden rounded-[28px] bg-white" style={shadowCard}>
+          <View className="absolute left-[18px] right-[18px] -top-3 h-8 rounded-[24px] bg-white" style={{ opacity: 0.7, ...SHADOWS.soft }} />
+          <View className="absolute left-2 right-2 -top-1.5 h-8 rounded-3xl bg-white" style={{ opacity: 0.85, ...SHADOWS.soft }} />
+          <View className="overflow-hidden rounded-[28px] bg-white" style={SHADOWS.card}>
             <View className="h-[196px] justify-end overflow-hidden" style={{ backgroundColor: f.tone }}>
               <SpotImage uri={f.photo} />
               <View className="absolute left-4 top-4 flex-row items-center gap-1.5 rounded-full bg-white/92 px-3 py-1.5">

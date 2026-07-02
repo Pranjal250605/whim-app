@@ -7,8 +7,7 @@ import type { CheckinItem } from '@/lib/db';
 import GlassNav from '@/components/GlassNav';
 import SpotImage from '@/components/SpotImage';
 import Icon from '@/components/Icon';
-
-const shadowSoft = { shadowColor: '#1C1C1C', shadowOpacity: 0.06, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } };
+import { COLORS, SHADOWS } from '@/lib/theme';
 
 // Profile / Passport — a travel diary of places you've checked in at.
 export default function Passport() {
@@ -28,12 +27,15 @@ export default function Passport() {
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
-      <View className="flex-row items-center justify-between px-4 pt-1">
-        <Pressable onPress={() => router.back()} className="h-10 w-10 items-center justify-center rounded-full bg-white" style={shadowSoft}>
-          <Icon name="chevronLeft" size={20} color="#1C1C1C" strokeWidth={2.2} />
-        </Pressable>
-        <Pressable onPress={() => router.push('/settings')} className="h-10 w-10 items-center justify-center rounded-full bg-white" style={shadowSoft}>
-          <Icon name="person" size={20} color="#1C1C1C" strokeWidth={1.9} />
+      {/* tab root — no back button; settings entry lives top-right */}
+      <View className="flex-row items-center justify-end px-4 pt-1">
+        <Pressable
+          onPress={() => router.push('/settings')}
+          accessibilityLabel="Settings"
+          className="h-10 w-10 items-center justify-center rounded-full bg-white"
+          style={SHADOWS.soft}
+        >
+          <Icon name="person" size={20} color={COLORS.ink} strokeWidth={1.9} />
         </Pressable>
       </View>
 
@@ -44,11 +46,11 @@ export default function Passport() {
 
       {/* stats */}
       <View className="mt-4 flex-row gap-3 px-5">
-        <View className="flex-1 rounded-2xl bg-white p-4" style={shadowSoft}>
+        <View className="flex-1 rounded-2xl bg-white p-4" style={SHADOWS.soft}>
           <Text className="font-serif text-[30px] text-ink">{cityCount}</Text>
           <Text className="mt-0.5 text-[12px] font-semibold uppercase tracking-wide text-muted">{cityCount === 1 ? 'City' : 'Cities'}</Text>
         </View>
-        <View className="flex-1 rounded-2xl bg-white p-4" style={shadowSoft}>
+        <View className="flex-1 rounded-2xl bg-white p-4" style={SHADOWS.soft}>
           <Text className="font-serif text-[30px] text-ink">{spotCount}</Text>
           <Text className="mt-0.5 text-[12px] font-semibold uppercase tracking-wide text-muted">{spotCount === 1 ? 'Place' : 'Places'}</Text>
         </View>

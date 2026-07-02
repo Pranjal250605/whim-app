@@ -3,17 +3,11 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useWhimStore } from '@/store/useWhimStore';
+import { VIBE_LABEL } from '@/data/vibes';
+import { COLORS, SHADOWS } from '@/lib/theme';
 import Icon, { type IconName } from '@/components/Icon';
+import BackButton from '@/components/BackButton';
 import type { VibeId } from '@/lib/types';
-
-const VIBE_LABEL: Record<VibeId, string> = {
-  classics: 'The Classics',
-  matcha: 'Matcha',
-  nature: 'Nature',
-  nightlife: 'After Dark',
-};
-
-const shadowSoft = { shadowColor: '#1C1C1C', shadowOpacity: 0.06, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } };
 
 interface Notif {
   id: string;
@@ -73,13 +67,7 @@ export default function Notifications() {
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
       <View className="flex-row items-center gap-2.5 px-4 pt-1">
-        <Pressable
-          onPress={() => router.back()}
-          className="h-10 w-10 items-center justify-center rounded-full bg-white"
-          style={shadowSoft}
-        >
-          <Icon name="chevronLeft" size={20} color="#1C1C1C" strokeWidth={2.2} />
-        </Pressable>
+        <BackButton />
       </View>
 
       <View className="px-5 pt-2">
@@ -91,11 +79,11 @@ export default function Notifications() {
           <Pressable
             key={n.id}
             onPress={n.onPress}
-            style={({ pressed }) => [shadowSoft, pressed ? { transform: [{ scale: 0.98 }], opacity: 0.96 } : null]}
+            style={({ pressed }) => [SHADOWS.soft, pressed ? { transform: [{ scale: 0.98 }], opacity: 0.96 } : null]}
             className="mb-3 flex-row gap-3.5 rounded-2xl bg-white p-4"
           >
             <View className="h-11 w-11 items-center justify-center rounded-full bg-accent/12">
-              <Icon name={n.icon} size={20} color="#2740E0" strokeWidth={1.9} />
+              <Icon name={n.icon} size={20} color={COLORS.accent} strokeWidth={1.9} />
             </View>
             <View className="flex-1">
               <Text className="text-[15px] font-bold text-ink">{n.title}</Text>

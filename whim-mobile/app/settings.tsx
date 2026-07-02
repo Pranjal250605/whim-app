@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
 import { useAuth } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
+import { useWhimStore } from '@/store/useWhimStore';
+import BackButton from '@/components/BackButton';
 
 function Row({
   label,
@@ -22,7 +23,7 @@ function Row({
       disabled={!onPress}
       className="flex-row items-center justify-between border-b border-hairline px-4 py-4"
     >
-      <Text className={`text-[15px] font-medium ${destructive ? 'text-[#D23B2C]' : 'text-ink'}`}>{label}</Text>
+      <Text className={`text-[15px] font-medium ${destructive ? 'text-destructive' : 'text-ink'}`}>{label}</Text>
       {value ? <Text className="text-[14px] text-muted">{value}</Text> : onPress ? <Text className="text-muted">›</Text> : null}
     </Pressable>
   );
@@ -40,7 +41,22 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function Settings() {
   const { session, signOut } = useAuth();
   const email = session?.user?.email ?? 'Signed in';
+  const profile = useWhimStore((s) => s.profile);
+  const renameProfile = useWhimStore((s) => s.renameProfile);
   const [busy, setBusy] = useState(false);
+
+  // Alert.prompt is iOS-only — fine for now, Whim targets the App Store.
+  const editName = () =>
+    Alert.prompt(
+      'Your name',
+      'Shown on your profile — and to friends when you plan together.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Save', onPress: (name) => name?.trim() && renameProfile(name) },
+      ],
+      'plain-text',
+      profile?.displayName ?? '',
+    );
 
   const confirmSignOut = () =>
     Alert.alert('Sign out?', 'You can sign back in anytime.', [
@@ -75,17 +91,13 @@ export default function Settings() {
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
       <View className="flex-row items-center gap-2.5 px-4 pb-1 pt-1">
-        <Pressable
-          onPress={() => router.back()}
-          className="h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm shadow-black/5"
-        >
-          <Text className="text-lg text-ink">‹</Text>
-        </Pressable>
+        <BackButton />
         <Text className="text-base font-semibold text-ink">Settings</Text>
       </View>
 
       <ScrollView className="flex-1 px-5 pt-4" contentContainerStyle={{ paddingBottom: 40 }}>
         <Section title="Account">
+          <Row label="Name" value={profile?.displayName ?? 'Add your name'} onPress={editName} />
           <Row label="Signed in as" value={email} />
           <Row label="Sign out" onPress={confirmSignOut} />
         </Section>

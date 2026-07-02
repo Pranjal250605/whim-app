@@ -10,6 +10,7 @@ export default function SignIn() {
   const [mode, setMode] = useState<Mode>('sign-in');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [busy, setBusy] = useState(false);
   const [appleAvailable, setAppleAvailable] = useState(false);
 
@@ -32,11 +33,20 @@ export default function SignIn() {
       Alert.alert('Weak password', 'Use at least 8 characters.');
       return;
     }
+    if (mode === 'sign-up' && !name.trim()) {
+      Alert.alert('What’s your name?', 'Friends will see it when you plan trips together.');
+      return;
+    }
     setBusy(true);
     const { error } =
       mode === 'sign-in'
         ? await supabase.auth.signInWithPassword({ email, password })
-        : await supabase.auth.signUp({ email, password });
+        : await supabase.auth.signUp({
+            email,
+            password,
+            // the signup trigger copies this into profiles.display_name
+            options: { data: { display_name: name.trim().slice(0, 60) } },
+          });
     setBusy(false);
 
     if (error) Alert.alert('Could not continue', error.message);
@@ -78,6 +88,18 @@ export default function SignIn() {
         </Text>
 
         <View className="mt-8 gap-3">
+          {mode === 'sign-up' && (
+            <TextInput
+              value={name}
+              onChangeText={setName}
+              placeholder="Your name"
+              placeholderTextColor="#B6B1A9"
+              autoCapitalize="words"
+              autoComplete="name"
+              maxLength={60}
+              className="rounded-2xl border border-ink/10 bg-white px-4 py-4 text-[16px] text-ink"
+            />
+          )}
           <TextInput
             value={email}
             onChangeText={setEmail}

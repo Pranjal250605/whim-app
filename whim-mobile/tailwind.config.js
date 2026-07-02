@@ -11,6 +11,7 @@ module.exports = {
         muted: '#7C766A', // secondary text (warm grey)
         accent: '#2740E0', // electric cobalt — passport-ink blue
         'accent-soft': '#DFE2FB', // pale cobalt tint (chips, avatars)
+        destructive: '#D23B2C', // delete / clear actions
         hairline: 'rgba(23,21,15,0.08)',
       },
       fontFamily: {

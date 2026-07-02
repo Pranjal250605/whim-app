@@ -1,5 +1,5 @@
 import '../global.css';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -15,6 +15,7 @@ import {
 } from '@expo-google-fonts/bricolage-grotesque';
 import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono';
 import { AuthProvider, useAuth } from '@/lib/auth';
+import ToastHost from '@/components/Toast';
 import '@/lib/mapbox'; // sets the Mapbox access token once at startup
 
 // Redirects between the app and the sign-in screen based on auth state.
@@ -35,13 +36,20 @@ function RootNavigator() {
     return () => sub.remove();
   }, []);
 
+  // Where the user was headed when the gate intercepted them — so an invite
+  // deep link (whim://room/…) survives the sign-in round-trip.
+  const pendingRoute = useRef<string | null>(null);
+
   useEffect(() => {
     if (loading) return;
     const inAuthScreen = segments[0] === 'sign-in';
     if (!session && !inAuthScreen) {
+      pendingRoute.current = '/' + segments.join('/');
       router.replace('/sign-in'); // logged out → gate
     } else if (session && inAuthScreen) {
-      router.replace('/'); // logged in but on sign-in → home
+      const target = pendingRoute.current ?? '/';
+      pendingRoute.current = null;
+      router.replace(target as never); // resume where they were headed
     }
   }, [session, loading, segments]);
 
@@ -84,6 +92,7 @@ export default function RootLayout() {
           <StatusBar style="dark" />
           <AuthProvider>
             <RootNavigator />
+            <ToastHost />
           </AuthProvider>
         </BottomSheetModalProvider>
       </SafeAreaProvider>

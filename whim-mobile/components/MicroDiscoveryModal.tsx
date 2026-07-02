@@ -4,6 +4,7 @@ import { BottomSheetModal, BottomSheetBackdrop, BottomSheetView } from '@gorhom/
 import { useWhimStore } from '@/store/useWhimStore';
 import type { MicroActivity } from '@/lib/types';
 import SpotImage from './SpotImage';
+import Icon from './Icon';
 import { hapticSelect, hapticSuccess } from '@/lib/haptics';
 
 /**
@@ -66,7 +67,7 @@ export default function MicroDiscoveryModal() {
       <BottomSheetView className="px-6 pb-8">
         <View className="flex-row items-center gap-2">
           <View className="h-5 w-5 items-center justify-center rounded-full bg-accent">
-            <Text className="text-[11px] font-bold text-white">✓</Text>
+            <Icon name="check" size={12} color="#fff" strokeWidth={3} />
           </View>
           <Text className="text-xs font-bold uppercase tracking-wider text-accent">Added to your Whim</Text>
         </View>

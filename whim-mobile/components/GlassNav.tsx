@@ -1,6 +1,7 @@
 import { Pressable, Text, View } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
 import Icon, { type IconName } from './Icon';
+import { COLORS, SHADOWS } from '@/lib/theme';
 
 // Floating frosted tab bar from the design's Home. Real blur needs a native
 // module (expo-blur); we approximate the "liquid glass" look with a translucent
@@ -18,17 +19,11 @@ export default function GlassNav({ active }: { active: string }) {
     <View pointerEvents="box-none" className="absolute bottom-7 left-0 right-0 items-center">
       <View
         className="flex-row gap-1 rounded-full p-1.5"
-        style={{
-          backgroundColor: 'rgba(255,255,255,0.82)',
-          shadowColor: '#1C1C1C',
-          shadowOpacity: 0.13,
-          shadowRadius: 20,
-          shadowOffset: { width: 0, height: 8 },
-        }}
+        style={{ backgroundColor: 'rgba(255,255,255,0.82)', ...SHADOWS.nav }}
       >
         {ITEMS.map((it) => {
           const on = it.key === active;
-          const color = on ? '#2740E0' : '#AEA89C';
+          const color = on ? COLORS.accent : COLORS.inactive;
           return (
             <Pressable key={it.key} onPress={() => router.navigate(it.route)} className="w-16 items-center gap-1 py-2">
               <Icon name={it.icon} size={23} color={color} strokeWidth={1.8} />
