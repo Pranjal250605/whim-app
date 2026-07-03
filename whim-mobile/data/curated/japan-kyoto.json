@@ -1150,7 +1150,8 @@
             "kind": "Riverside",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Hyakumanben intersection, Sakyo Ward, Kyoto, Japan"
       },
       {
         "id": "kamo-delta",
@@ -1303,7 +1304,8 @@
             "kind": "Local food",
             "mins": 8
           }
-        ]
+        ],
+        "geocodeQuery": "Sanzenin Temple, Ohara Raikoincho, Sakyo Ward, Kyoto, Japan"
       },
       {
         "id": "maruyama",
