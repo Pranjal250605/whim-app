@@ -25,11 +25,26 @@
           {
             "title": "Nishinomaru Garden",
             "kind": "Garden",
-            "mins": 8
+            "mins": 5
           },
           {
-            "title": "Castle Park lawns",
-            "kind": "Nature",
+            "title": "Gokurakubashi bridge photo",
+            "kind": "Photo spot",
+            "mins": 3
+          },
+          {
+            "title": "Miraiza rooftop terrace",
+            "kind": "Castle view café",
+            "mins": 2
+          },
+          {
+            "title": "Osaka Museum of History",
+            "kind": "Museum",
+            "mins": 10
+          },
+          {
+            "title": "Castle park boat",
+            "kind": "Moat cruise",
             "mins": 4
           }
         ]
@@ -51,14 +66,34 @@
         "description": "Osaka's neon canyon of giant signboards, canal reflections and endless takoyaki — loud, bright and unmissable.",
         "nearby": [
           {
-            "title": "Glico running-man sign",
-            "kind": "Photo stop",
+            "title": "Glico Running Man sign",
+            "kind": "The photo",
+            "mins": 1
+          },
+          {
+            "title": "Ebisubashi bridge",
+            "kind": "People-watching",
+            "mins": 1
+          },
+          {
+            "title": "Kani Dōraku crab sign",
+            "kind": "Landmark",
             "mins": 2
           },
           {
-            "title": "Lilo Coffee Roasters",
-            "kind": "Coffee",
-            "mins": 8
+            "title": "Hozenji Yokochō",
+            "kind": "Moss temple alley",
+            "mins": 3
+          },
+          {
+            "title": "Don Quijote Ferris wheel",
+            "kind": "Ride",
+            "mins": 2
+          },
+          {
+            "title": "Ichiran Dōtonbori",
+            "kind": "Ramen",
+            "mins": 2
           }
         ]
       },
@@ -78,14 +113,29 @@
         "description": "A gloriously old-school neon quarter under the Tsūtenkaku tower, where kushikatsu skewers and pinball reign.",
         "nearby": [
           {
-            "title": "Tsūtenkaku tower",
-            "kind": "Landmark",
+            "title": "Tsūtenkaku Tower",
+            "kind": "Retro tower",
+            "mins": 2
+          },
+          {
+            "title": "Kushikatsu Daruma",
+            "kind": "Kushikatsu",
+            "mins": 1
+          },
+          {
+            "title": "Janjan Yokochō",
+            "kind": "Retro arcade alley",
             "mins": 3
           },
           {
-            "title": "Janjan Yokocho lane",
-            "kind": "Street food",
+            "title": "Spa World",
+            "kind": "Mega onsen",
             "mins": 4
+          },
+          {
+            "title": "Billiken statue",
+            "kind": "Good-luck rub",
+            "mins": 2
           }
         ]
       },
@@ -105,14 +155,29 @@
         "description": "A 600m covered arcade of fishmongers and stalls grilling scallops, uni and wagyu to order.",
         "nearby": [
           {
-            "title": "Fresh uni stall",
-            "kind": "Snack",
+            "title": "Grilled scallop stalls",
+            "kind": "Street food",
             "mins": 1
           },
           {
-            "title": "Den Den Town",
-            "kind": "Shopping",
-            "mins": 7
+            "title": "Maguro-ya tuna counter",
+            "kind": "Sashimi",
+            "mins": 1
+          },
+          {
+            "title": "Sennichimae Doguyasuji",
+            "kind": "Kitchenware street",
+            "mins": 4
+          },
+          {
+            "title": "Namba Yasaka lion shrine",
+            "kind": "Shrine",
+            "mins": 8
+          },
+          {
+            "title": "Denden Town",
+            "kind": "Electronics & anime",
+            "mins": 6
           }
         ]
       },
@@ -132,14 +197,29 @@
         "description": "A wooded river gorge a short ride from the city, ending at a 33m waterfall — stunning in autumn.",
         "nearby": [
           {
-            "title": "Fried momiji (maple) snack",
-            "kind": "Snack",
-            "mins": 2
+            "title": "Minoo Waterfall",
+            "kind": "Waterfall",
+            "mins": 40
+          },
+          {
+            "title": "Momiji tempura stalls",
+            "kind": "Maple-leaf tempura",
+            "mins": 10
           },
           {
             "title": "Ryūan-ji temple",
             "kind": "Temple",
-            "mins": 6
+            "mins": 20
+          },
+          {
+            "title": "Minoh Beer Warehouse",
+            "kind": "Craft beer",
+            "mins": 8
+          },
+          {
+            "title": "Insect museum",
+            "kind": "Museum",
+            "mins": 15
           }
         ]
       },
@@ -159,12 +239,27 @@
         "description": "A green sandbar between two rivers with a rose garden and grand civic architecture — the city's elegant lung.",
         "nearby": [
           {
-            "title": "Nakanoshima rose garden",
+            "title": "Rose garden",
             "kind": "Garden",
             "mins": 3
           },
           {
-            "title": "Kitahama retro cafés",
+            "title": "Nakanoshima Museum of Art",
+            "kind": "Art museum",
+            "mins": 6
+          },
+          {
+            "title": "Central Public Hall",
+            "kind": "Architecture",
+            "mins": 4
+          },
+          {
+            "title": "Kitahama riverside terraces",
+            "kind": "River cafés",
+            "mins": 5
+          },
+          {
+            "title": "Moto Coffee",
             "kind": "Coffee",
             "mins": 6
           }
@@ -186,14 +281,29 @@
         "description": "A tiny, exacting roaster pulling some of Osaka's best single-origin shots in the design-forward Shinmachi district.",
         "nearby": [
           {
-            "title": "Orange Street boutiques",
-            "kind": "Shopping",
+            "title": "Orange Street (Tachibana-dōri)",
+            "kind": "Clothing street",
             "mins": 5
           },
           {
+            "title": "Horie boutiques",
+            "kind": "Shopping",
+            "mins": 4
+          },
+          {
+            "title": "Amemura Big Step",
+            "kind": "Vintage mall",
+            "mins": 8
+          },
+          {
             "title": "Utsubo Park",
-            "kind": "Nature",
+            "kind": "Park",
             "mins": 7
+          },
+          {
+            "title": "Granknot coffee",
+            "kind": "Coffee",
+            "mins": 6
           }
         ]
       },
@@ -213,14 +323,1310 @@
         "description": "A cavernous warehouse roastery and wine shop — pour-overs from a huge bean wall in an airy industrial space.",
         "nearby": [
           {
-            "title": "Utsubo Park",
-            "kind": "Nature",
+            "title": "Utsubo Park rose garden",
+            "kind": "Park",
+            "mins": 5
+          },
+          {
+            "title": "Kyōmachibori bistros",
+            "kind": "Lunch",
+            "mins": 3
+          },
+          {
+            "title": "Nakanoshima riverside walk",
+            "kind": "Stroll",
+            "mins": 8
+          },
+          {
+            "title": "LiLo Coffee Roasters",
+            "kind": "Coffee",
+            "mins": 12
+          }
+        ]
+      },
+      {
+        "id": "umeda-sky",
+        "title": "Umeda Sky Building",
+        "vibes": [
+          "classics",
+          "nightlife"
+        ],
+        "kind": "Observation deck",
+        "area": "Umeda",
+        "hours": "Until late",
+        "tags": [
+          "Floating garden",
+          "Sunset"
+        ],
+        "description": "Two towers joined by a ring in the sky — ride the glass escalator through open air to the Floating Garden.",
+        "nearby": [
+          {
+            "title": "Takimi-kōji retro food floor",
+            "kind": "Shōwa food alley",
+            "mins": 1
+          },
+          {
+            "title": "Grand Front Osaka",
+            "kind": "Shopping",
+            "mins": 8
+          },
+          {
+            "title": "Umeda Ferris wheel HEP FIVE",
+            "kind": "Ride",
+            "mins": 12
+          },
+          {
+            "title": "Shin-Umeda Shokudōgai",
+            "kind": "Izakaya maze",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "universal",
+        "title": "Universal Studios Japan",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Theme park",
+        "area": "Konohana",
+        "hours": "Book ahead",
+        "tags": [
+          "Nintendo World",
+          "Full day"
+        ],
+        "description": "USJ and Super Nintendo World — the mushroom kingdom made real. Osaka's biggest single reason to queue.",
+        "nearby": [
+          {
+            "title": "Super Nintendo World",
+            "kind": "The land",
+            "mins": 5
+          },
+          {
+            "title": "Universal CityWalk",
+            "kind": "Shopping & food",
+            "mins": 3
+          },
+          {
+            "title": "Takoyaki street stands",
+            "kind": "Street food",
+            "mins": 3
+          },
+          {
+            "title": "Bayside sunset walk",
+            "kind": "Stroll",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "kaiyukan",
+        "title": "Osaka Aquarium Kaiyūkan",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Aquarium",
+        "area": "Osaka Bay",
+        "hours": "Opens mid-morning",
+        "tags": [
+          "Whale shark",
+          "World-class"
+        ],
+        "description": "One of the planet's great aquariums — a spiral descent around a tank where whale sharks glide past.",
+        "nearby": [
+          {
+            "title": "Tempozan Ferris Wheel",
+            "kind": "Ride",
+            "mins": 2
+          },
+          {
+            "title": "Santa Maria bay cruise",
+            "kind": "Boat",
+            "mins": 3
+          },
+          {
+            "title": "Tempozan Marketplace",
+            "kind": "Food & shopping",
+            "mins": 2
+          },
+          {
+            "title": "Legoland Discovery Center",
+            "kind": "Kids",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "sumiyoshi",
+        "title": "Sumiyoshi Taisha",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shrine",
+        "area": "Sumiyoshi",
+        "hours": "Open early",
+        "tags": [
+          "Drum bridge",
+          "Ancient"
+        ],
+        "description": "One of Japan's oldest shrines, purely Japanese in style — cross the vermillion drum bridge at opening hour.",
+        "nearby": [
+          {
+            "title": "Sorihashi drum bridge",
+            "kind": "The bridge",
+            "mins": 1
+          },
+          {
+            "title": "Hankai tram ride",
+            "kind": "Retro tram",
+            "mins": 3
+          },
+          {
+            "title": "Sumiyoshi Park",
+            "kind": "Park",
             "mins": 4
           },
           {
-            "title": "Orange Street",
-            "kind": "Shopping",
+            "title": "Chin Chin Densha café stops",
+            "kind": "Local cafés",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "shitennoji",
+        "title": "Shitennō-ji",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Tennōji",
+        "hours": "Open morning",
+        "tags": [
+          "Oldest temple",
+          "Flea market"
+        ],
+        "description": "Japan's first Buddhist temple (593 AD) — five-storey pagoda, turtle pond, and a great flea market on the 21st.",
+        "nearby": [
+          {
+            "title": "Gokuraku-jōdo garden",
+            "kind": "Garden",
+            "mins": 2
+          },
+          {
+            "title": "Flea market days (21-22)",
+            "kind": "Market",
+            "mins": 1
+          },
+          {
+            "title": "Keitakuen Garden",
+            "kind": "Hidden garden",
             "mins": 8
+          },
+          {
+            "title": "Abeno Harukas",
+            "kind": "Tallest building",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "harukas",
+        "title": "Abeno Harukas Harukas 300",
+        "vibes": [
+          "classics",
+          "nightlife"
+        ],
+        "kind": "Observation deck",
+        "area": "Tennōji",
+        "hours": "Until 10 PM",
+        "tags": [
+          "300m",
+          "Vertigo"
+        ],
+        "description": "Japan's tallest skyscraper deck — a three-storey glass gallery 300 metres over the sprawl.",
+        "nearby": [
+          {
+            "title": "Tennōji Park lawn",
+            "kind": "Park",
+            "mins": 5
+          },
+          {
+            "title": "Tennōji Zoo",
+            "kind": "Zoo",
+            "mins": 6
+          },
+          {
+            "title": "Q's Mall",
+            "kind": "Shopping",
+            "mins": 3
+          },
+          {
+            "title": "Janjan Yokochō",
+            "kind": "Retro alley",
+            "mins": 12
+          }
+        ]
+      },
+      {
+        "id": "namba-parks",
+        "title": "Namba Parks",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Rooftop garden mall",
+        "area": "Namba",
+        "hours": "Shops till 9 PM",
+        "tags": [
+          "Canyon mall",
+          "Rooftop"
+        ],
+        "description": "A shopping canyon with a forest terraced up its roof — architecture worth the visit, shopping included.",
+        "nearby": [
+          {
+            "title": "Rooftop garden levels",
+            "kind": "Garden",
+            "mins": 1
+          },
+          {
+            "title": "Namba Yasaka lion shrine",
+            "kind": "Shrine",
+            "mins": 6
+          },
+          {
+            "title": "Doguyasuji kitchen street",
+            "kind": "Shopping",
+            "mins": 4
+          },
+          {
+            "title": "Misono Building bars",
+            "kind": "Retro bar floor",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "expo-park",
+        "title": "Expo '70 Park & Tower of the Sun",
+        "vibes": [
+          "classics",
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Suita",
+        "hours": "Closed Wed",
+        "tags": [
+          "Tarō Okamoto",
+          "Retro-future"
+        ],
+        "description": "Okamoto Tarō's Tower of the Sun still stares down the future — around it, one of Kansai's best big parks.",
+        "nearby": [
+          {
+            "title": "Tower of the Sun interior",
+            "kind": "Book ahead",
+            "mins": 2
+          },
+          {
+            "title": "Japanese garden",
+            "kind": "Garden",
+            "mins": 8
+          },
+          {
+            "title": "National Museum of Ethnology",
+            "kind": "Museum",
+            "mins": 6
+          },
+          {
+            "title": "EXPOCITY & giant wheel",
+            "kind": "Mall & ride",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "lilo",
+        "title": "LiLo Coffee Roasters",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Shinsaibashi",
+        "hours": "Open till evening",
+        "tags": [
+          "Roaster",
+          "Friendly"
+        ],
+        "description": "Amerikamura's beloved roaster — twenty beans on the menu and baristas who want to talk about all of them.",
+        "nearby": [
+          {
+            "title": "Amerikamura Triangle Park",
+            "kind": "People-watching",
+            "mins": 2
+          },
+          {
+            "title": "Big Step vintage",
+            "kind": "Vintage mall",
+            "mins": 2
+          },
+          {
+            "title": "Shinsaibashi-suji arcade",
+            "kind": "Shopping arcade",
+            "mins": 3
+          },
+          {
+            "title": "King Kong Records",
+            "kind": "Records",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "amemura",
+        "title": "Amerikamura",
+        "vibes": [
+          "matcha",
+          "nightlife"
+        ],
+        "kind": "District",
+        "area": "Shinsaibashi",
+        "hours": "Afternoon till late",
+        "tags": [
+          "Streetwear",
+          "Youth"
+        ],
+        "description": "Osaka's Harajuku — streetwear, vintage and record shops by day, tiny clubs and standing bars after dark.",
+        "nearby": [
+          {
+            "title": "Big Step",
+            "kind": "Vintage mall",
+            "mins": 1
+          },
+          {
+            "title": "Triangle Park",
+            "kind": "Hangout",
+            "mins": 1
+          },
+          {
+            "title": "Kogaryu takoyaki",
+            "kind": "Takoyaki",
+            "mins": 2
+          },
+          {
+            "title": "Orange Street",
+            "kind": "Clothing street",
+            "mins": 6
+          },
+          {
+            "title": "Club Circus",
+            "kind": "Club",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "horie",
+        "title": "Horie & Orange Street",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Horie",
+        "hours": "Afternoon",
+        "tags": [
+          "Boutiques",
+          "Calm cool"
+        ],
+        "description": "The grown-up block next to Amemura — furniture showrooms, boutiques and coffee on tree-lined Orange Street.",
+        "nearby": [
+          {
+            "title": "Orange Street boutiques",
+            "kind": "Clothing",
+            "mins": 1
+          },
+          {
+            "title": "Mel Coffee Roasters",
+            "kind": "Coffee",
+            "mins": 4
+          },
+          {
+            "title": "Utsubo Park",
+            "kind": "Park",
+            "mins": 8
+          },
+          {
+            "title": "Timeless Comfort",
+            "kind": "Interior shop",
+            "mins": 2
+          },
+          {
+            "title": "Horie Park",
+            "kind": "Rest stop",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "nakazakicho",
+        "title": "Nakazakichō",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Old quarter",
+        "area": "Umeda-north",
+        "hours": "Afternoon",
+        "tags": [
+          "Prewar lanes",
+          "Indie cafés"
+        ],
+        "description": "Prewar lanes that survived behind Umeda's towers — every old house now a zakka shop, gallery or café.",
+        "nearby": [
+          {
+            "title": "Salon de AManTO café",
+            "kind": "Pioneer café",
+            "mins": 2
+          },
+          {
+            "title": "Vintage kimono shops",
+            "kind": "Vintage",
+            "mins": 2
+          },
+          {
+            "title": "Zakka shops crawl",
+            "kind": "Zakka",
+            "mins": 3
+          },
+          {
+            "title": "Osaka Living Museum",
+            "kind": "Edo streets indoors",
+            "mins": 10
+          },
+          {
+            "title": "Tenjinbashisuji arcade",
+            "kind": "Longest arcade",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "tsuruhashi",
+        "title": "Tsuruhashi Koreatown",
+        "vibes": [
+          "matcha",
+          "nightlife"
+        ],
+        "kind": "Market district",
+        "area": "Ikuno",
+        "hours": "Best afternoon-evening",
+        "tags": [
+          "Korean Osaka",
+          "Yakiniku"
+        ],
+        "description": "Kansai's Koreatown — kimchi alleys, K-beauty shops and the best yakiniku smoke in the city.",
+        "nearby": [
+          {
+            "title": "Kimchi market alleys",
+            "kind": "Market",
+            "mins": 1
+          },
+          {
+            "title": "Yakiniku row",
+            "kind": "BBQ",
+            "mins": 2
+          },
+          {
+            "title": "K-cosmetics shops",
+            "kind": "Beauty shopping",
+            "mins": 2
+          },
+          {
+            "title": "Miyuki-dōri shopping street",
+            "kind": "Arcade",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "osaka-castle-park",
+        "title": "Osaka Castle Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Chūō",
+        "hours": "Open all day",
+        "tags": [
+          "Plum grove",
+          "Running"
+        ],
+        "description": "The moats and groves around the castle — 3,000 plum trees in February, cherries after, runners always.",
+        "nearby": [
+          {
+            "title": "Plum grove",
+            "kind": "Seasonal blooms",
+            "mins": 5
+          },
+          {
+            "title": "Moat-side run/walk",
+            "kind": "Loop",
+            "mins": 1
+          },
+          {
+            "title": "Jō-Terrace cafés",
+            "kind": "Cafés",
+            "mins": 3
+          },
+          {
+            "title": "Aqua-Liner river cruise",
+            "kind": "Boat",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "nagai",
+        "title": "Nagai Botanical Garden",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Botanical garden",
+        "area": "Nagai",
+        "hours": "Closed Mon",
+        "tags": [
+          "teamLab nights",
+          "Lotus"
+        ],
+        "description": "A proper botanical garden that turns into teamLab's open-air night museum after dark.",
+        "nearby": [
+          {
+            "title": "teamLab Botanical Garden (night)",
+            "kind": "Digital art",
+            "mins": 1
+          },
+          {
+            "title": "Nagai Park lawns",
+            "kind": "Park",
+            "mins": 3
+          },
+          {
+            "title": "Yanmar Stadium",
+            "kind": "Football",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "hattori",
+        "title": "Hattori Ryokuchi Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Toyonaka",
+        "hours": "Open all day",
+        "tags": [
+          "Farmhouses",
+          "Picnic"
+        ],
+        "description": "Rolling north-Osaka park with an open-air museum of thatched farmhouses from all over Japan.",
+        "nearby": [
+          {
+            "title": "Open-Air Museum of Old Farmhouses",
+            "kind": "Museum",
+            "mins": 5
+          },
+          {
+            "title": "Bamboo grove",
+            "kind": "Grove",
+            "mins": 8
+          },
+          {
+            "title": "Picnic lawns",
+            "kind": "Picnic",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "yodogawa",
+        "title": "Yodogawa Riverside",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Riverside",
+        "area": "Jūsō",
+        "hours": "Sunset best",
+        "tags": [
+          "Big sky",
+          "BBQ"
+        ],
+        "description": "Osaka's big-sky riverbank — kites, barbecues and the skyline going gold across the water.",
+        "nearby": [
+          {
+            "title": "Jūsō retro arcade",
+            "kind": "Shōwa arcade",
+            "mins": 8
+          },
+          {
+            "title": "Riverside cycling path",
+            "kind": "Cycling",
+            "mins": 1
+          },
+          {
+            "title": "Umeda skyline viewpoint",
+            "kind": "Photo spot",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "ura-namba",
+        "title": "Ura-Namba",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar district",
+        "area": "Namba",
+        "hours": "From 6 PM",
+        "tags": [
+          "Locals",
+          "Standing bars"
+        ],
+        "description": "The backstreets behind Namba where Osakans actually drink — standing bars, sake dens and no English menus.",
+        "nearby": [
+          {
+            "title": "Misono Building",
+            "kind": "Retro bar floor",
+            "mins": 3
+          },
+          {
+            "title": "Torame Yokochō",
+            "kind": "Food alley",
+            "mins": 2
+          },
+          {
+            "title": "Denden Town by night",
+            "kind": "Neon walk",
+            "mins": 5
+          },
+          {
+            "title": "Kushikatsu counters",
+            "kind": "Late food",
+            "mins": 1
+          }
+        ]
+      },
+      {
+        "id": "hozenji",
+        "title": "Hōzenji Yokochō",
+        "vibes": [
+          "nightlife",
+          "classics"
+        ],
+        "kind": "Stone alley",
+        "area": "Namba",
+        "hours": "Evenings",
+        "tags": [
+          "Moss Buddha",
+          "Lantern-lit"
+        ],
+        "description": "A stone-paved lantern alley around a moss-covered Buddha you splash with water — old Osaka, two streets from Dōtonbori's roar.",
+        "nearby": [
+          {
+            "title": "Mizukake Fudō",
+            "kind": "The moss Buddha",
+            "mins": 1
+          },
+          {
+            "title": "Yakitori & oden counters",
+            "kind": "Dinner",
+            "mins": 1
+          },
+          {
+            "title": "Kamigata Ukiyoe Museum",
+            "kind": "Museum",
+            "mins": 2
+          },
+          {
+            "title": "Dōtonbori",
+            "kind": "Neon",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "umeda-yokocho",
+        "title": "Shin-Umeda Shokudōgai",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Izakaya maze",
+        "area": "Umeda",
+        "hours": "From 5 PM",
+        "tags": [
+          "Under the tracks",
+          "Salaryman"
+        ],
+        "description": "A hundred tiny eateries packed under Umeda's tracks since 1950 — kushikatsu, gyōza and draft beer elbow-to-elbow.",
+        "nearby": [
+          {
+            "title": "Kappa Yokochō",
+            "kind": "More alleys",
+            "mins": 3
+          },
+          {
+            "title": "HEP FIVE Ferris wheel",
+            "kind": "Ride",
+            "mins": 8
+          },
+          {
+            "title": "Umeda Sky night view",
+            "kind": "Viewpoint",
+            "mins": 12
+          }
+        ]
+      },
+      {
+        "id": "misono",
+        "title": "Misono Building",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar building",
+        "area": "Namba",
+        "hours": "From 8 PM",
+        "tags": [
+          "Retro",
+          "Bar crawl in a building"
+        ],
+        "description": "A faded 1950s cabaret building whose upper floor is now forty tiny bars — pick a door, any door.",
+        "nearby": [
+          {
+            "title": "Ura-Namba streets",
+            "kind": "Bar district",
+            "mins": 2
+          },
+          {
+            "title": "Namba HIPS",
+            "kind": "Landmark",
+            "mins": 3
+          },
+          {
+            "title": "Late-night ramen row",
+            "kind": "Ramen",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "kyobashi",
+        "title": "Kyōbashi izakaya quarter",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Izakaya district",
+        "area": "Kyōbashi",
+        "hours": "From 4 PM",
+        "tags": [
+          "Cheap & loud",
+          "Real Osaka"
+        ],
+        "description": "Osaka's cheapest, loudest, friendliest drinking quarter — day-drinking pensioners and karaoke by nine.",
+        "nearby": [
+          {
+            "title": "Izakaya Toyo",
+            "kind": "Street sashimi",
+            "mins": 2
+          },
+          {
+            "title": "Kyōbashi arcade",
+            "kind": "Arcade",
+            "mins": 1
+          },
+          {
+            "title": "Osaka Castle night view",
+            "kind": "Stroll",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "shinsaibashi",
+        "title": "Shinsaibashi-suji Arcade",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shopping arcade",
+        "area": "Shinsaibashi",
+        "hours": "Shops till 9 PM",
+        "tags": [
+          "600m of shops",
+          "Covered"
+        ],
+        "description": "Osaka's kilometre of covered shopping — from depachika to drugstores to flagship fashion, rain or shine.",
+        "nearby": [
+          {
+            "title": "Daimaru Shinsaibashi",
+            "kind": "Department store",
+            "mins": 1
+          },
+          {
+            "title": "Amerikamura",
+            "kind": "Streetwear district",
+            "mins": 3
+          },
+          {
+            "title": "Onitsuka Tiger Shinsaibashi",
+            "kind": "Clothing",
+            "mins": 2
+          },
+          {
+            "title": "Kani Dōraku Dōtonbori",
+            "kind": "Landmark",
+            "mins": 5
+          },
+          {
+            "title": "Standing sushi bars",
+            "kind": "Quick sushi",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "tenjinbashi",
+        "title": "Tenjinbashi-suji Arcade",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shopping street",
+        "area": "Tenma",
+        "hours": "All day",
+        "tags": [
+          "Japan's longest",
+          "Local"
+        ],
+        "description": "Japan's longest shopping street — 2.6 km of croquette stands, old shops and zero tourist markup.",
+        "nearby": [
+          {
+            "title": "Osaka Tenmangū",
+            "kind": "Shrine",
+            "mins": 3
+          },
+          {
+            "title": "Nakamura-ya croquettes",
+            "kind": "Snack",
+            "mins": 2
+          },
+          {
+            "title": "Osaka Museum of Housing and Living",
+            "kind": "Edo streets indoors",
+            "mins": 4
+          },
+          {
+            "title": "Tenma bar alleys",
+            "kind": "Izakaya quarter",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "cup-noodles",
+        "title": "Cup Noodles Museum Ikeda",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Ikeda",
+        "hours": "Closed Tue",
+        "tags": [
+          "Make your own",
+          "Free entry"
+        ],
+        "description": "Where instant ramen was invented — design your own Cup Noodle in the birthplace of the midnight snack.",
+        "nearby": [
+          {
+            "title": "My Cup Noodle factory",
+            "kind": "The activity",
+            "mins": 1
+          },
+          {
+            "title": "Ikeda Castle ruins park",
+            "kind": "Park",
+            "mins": 8
+          },
+          {
+            "title": "Ikeda shopping street",
+            "kind": "Local street",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "ngk",
+        "title": "Namba Grand Kagetsu",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Comedy theatre",
+        "area": "Namba",
+        "hours": "Shows daily",
+        "tags": [
+          "Yoshimoto",
+          "Osaka's soul"
+        ],
+        "description": "The home of Osaka comedy — even without the language, manzai and slapstick land. This city runs on laughs.",
+        "nearby": [
+          {
+            "title": "NGK street food stalls",
+            "kind": "Snacks",
+            "mins": 1
+          },
+          {
+            "title": "Sennichimae Doguyasuji",
+            "kind": "Kitchenware street",
+            "mins": 2
+          },
+          {
+            "title": "Ura-Namba bars",
+            "kind": "Bar district",
+            "mins": 3
+          },
+          {
+            "title": "Hōzenji Yokochō",
+            "kind": "Stone alley",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "kitahama",
+        "title": "Kitahama retro quarter",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Kitahama",
+        "hours": "Daytime",
+        "tags": [
+          "Meiji banks",
+          "River terraces"
+        ],
+        "description": "Osaka's old financial street — Meiji-era banks turned cafés, with terraces hanging over the river.",
+        "nearby": [
+          {
+            "title": "Moto Coffee",
+            "kind": "River terrace coffee",
+            "mins": 1
+          },
+          {
+            "title": "Gokan patisserie",
+            "kind": "Cake in a bank",
+            "mins": 2
+          },
+          {
+            "title": "Osaka Securities Exchange building",
+            "kind": "Architecture",
+            "mins": 1
+          },
+          {
+            "title": "Nakanoshima rose garden",
+            "kind": "Garden",
+            "mins": 4
+          },
+          {
+            "title": "Kitahama Retro Building",
+            "kind": "Tea room",
+            "mins": 1
+          }
+        ]
+      },
+      {
+        "id": "wad",
+        "title": "Wad omotenashi café",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea café",
+        "area": "Minamisenba",
+        "hours": "Afternoon",
+        "tags": [
+          "Matcha",
+          "Gallery"
+        ],
+        "description": "A hushed upstairs tea room serving museum-grade matcha on handmade ceramics — Osaka's quietest half hour.",
+        "nearby": [
+          {
+            "title": "Minamisenba boutiques",
+            "kind": "Shopping",
+            "mins": 2
+          },
+          {
+            "title": "Crysta Nagahori underground",
+            "kind": "Shopping",
+            "mins": 3
+          },
+          {
+            "title": "LiLo Coffee Roasters",
+            "kind": "Coffee",
+            "mins": 5
+          },
+          {
+            "title": "Shinsaibashi-suji arcade",
+            "kind": "Arcade",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "tsurumi",
+        "title": "Tsurumi Ryokuchi Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Tsurumi",
+        "hours": "Open all day",
+        "tags": [
+          "Windmill hill",
+          "Flower fields"
+        ],
+        "description": "A former garden-expo park with a Dutch windmill over seasonal flower fields — Osaka's easiest picture-perfect picnic.",
+        "nearby": [
+          {
+            "title": "Windmill flower hill",
+            "kind": "The photo",
+            "mins": 5
+          },
+          {
+            "title": "Sakuya Konohana Kan greenhouse",
+            "kind": "Greenhouse",
+            "mins": 8
+          },
+          {
+            "title": "Japanese garden",
+            "kind": "Garden",
+            "mins": 6
+          },
+          {
+            "title": "BBQ lawns",
+            "kind": "Picnic",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "katsuoji",
+        "title": "Katsuō-ji",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Mountain temple",
+        "area": "Minoo",
+        "hours": "Open morning",
+        "tags": [
+          "Daruma dolls",
+          "Winner's luck"
+        ],
+        "description": "A mountain temple carpeted in thousands of tiny daruma dolls — the 'winner's luck' temple above Minoo forest.",
+        "nearby": [
+          {
+            "title": "Daruma doll terraces",
+            "kind": "The dolls",
+            "mins": 1
+          },
+          {
+            "title": "Minoo Park trail",
+            "kind": "Forest hike",
+            "mins": 40
+          },
+          {
+            "title": "Temple pond garden",
+            "kind": "Garden",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "kema-sakuranomiya",
+        "title": "Kema Sakuranomiya Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Riverside park",
+        "area": "Sakuranomiya",
+        "hours": "Open all day",
+        "tags": [
+          "Cherry corridor",
+          "River run"
+        ],
+        "description": "Five kilometres of cherry trees along the Ōkawa — Osaka's hanami river, with cruise boats sliding past.",
+        "nearby": [
+          {
+            "title": "Cherry tree corridor",
+            "kind": "The walk",
+            "mins": 1
+          },
+          {
+            "title": "Ōkawa river cruise",
+            "kind": "Boat",
+            "mins": 4
+          },
+          {
+            "title": "Osaka Mint cherry avenue (April)",
+            "kind": "Seasonal",
+            "mins": 8
+          },
+          {
+            "title": "Osaka Castle Park",
+            "kind": "Park",
+            "mins": 12
+          }
+        ]
+      },
+      {
+        "id": "tenma",
+        "title": "Tenma izakaya alleys",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Izakaya district",
+        "area": "Tenma",
+        "hours": "From 5 PM",
+        "tags": [
+          "Hot spot",
+          "Standing bars"
+        ],
+        "description": "The izakaya quarter Osakans rate above Dōtonbori — alleys of standing bars spilling around the station.",
+        "nearby": [
+          {
+            "title": "Osaka Tenmangū at night",
+            "kind": "Shrine",
+            "mins": 4
+          },
+          {
+            "title": "standing sushi row",
+            "kind": "Sushi",
+            "mins": 2
+          },
+          {
+            "title": "Tenjinbashi-suji arcade",
+            "kind": "Arcade",
+            "mins": 2
+          },
+          {
+            "title": "Craft beer taps Tenma",
+            "kind": "Craft beer",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "fukushima",
+        "title": "Fukushima foodie strip",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Dining district",
+        "area": "Fukushima",
+        "hours": "From 6 PM",
+        "tags": [
+          "Chef's row",
+          "Date night"
+        ],
+        "description": "One station from Umeda, a strip where young chefs open their first counters — Osaka's best-eating night out.",
+        "nearby": [
+          {
+            "title": "Yakitori counters",
+            "kind": "Yakitori",
+            "mins": 1
+          },
+          {
+            "title": "Natural wine bars",
+            "kind": "Wine",
+            "mins": 2
+          },
+          {
+            "title": "Fukushima Tenmangū",
+            "kind": "Shrine",
+            "mins": 3
+          },
+          {
+            "title": "Umeda Sky Building night view",
+            "kind": "Viewpoint",
+            "mins": 12
+          }
+        ]
+      },
+      {
+        "id": "round1",
+        "title": "Round1 Stadium Sennichimae",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Game center",
+        "area": "Namba",
+        "hours": "Open till dawn",
+        "tags": [
+          "All-nighter",
+          "Karaoke & games"
+        ],
+        "description": "Bowling, karaoke, arcade floors and sports courts stacked till dawn — the Osaka all-nighter that isn't a bar.",
+        "nearby": [
+          {
+            "title": "Purikura floor",
+            "kind": "Photo booths",
+            "mins": 1
+          },
+          {
+            "title": "Dōtonbori",
+            "kind": "Neon",
+            "mins": 3
+          },
+          {
+            "title": "Late-night takoyaki stands",
+            "kind": "Snack",
+            "mins": 2
+          },
+          {
+            "title": "big karaoke row",
+            "kind": "Karaoke",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "ohatsu",
+        "title": "Ohatsu Tenjin Ura Sando",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Shrine alley",
+        "area": "Umeda",
+        "hours": "From 5 PM",
+        "tags": [
+          "Lovers' shrine",
+          "Hidden"
+        ],
+        "description": "A lantern alley of bars behind the lovers' shrine, two minutes from Umeda's towers and a century away.",
+        "nearby": [
+          {
+            "title": "Tsuyu no Tenjinja (Ohatsu Tenjin)",
+            "kind": "Shrine",
+            "mins": 1
+          },
+          {
+            "title": "Standing bar row",
+            "kind": "Bars",
+            "mins": 1
+          },
+          {
+            "title": "Hankyu Higashi-dōri arcade",
+            "kind": "Arcade",
+            "mins": 3
+          },
+          {
+            "title": "HEP FIVE Ferris wheel",
+            "kind": "Night ride",
+            "mins": 5
           }
         ]
       }
