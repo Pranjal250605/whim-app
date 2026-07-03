@@ -1,0 +1,229 @@
+[
+  {
+    "city": "Osaka",
+    "country": "Japan",
+    "center": [
+      135.502,
+      34.694
+    ],
+    "spots": [
+      {
+        "id": "osaka-castle",
+        "title": "Osaka Castle",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Castle",
+        "area": "Chūō",
+        "hours": "Opens morning",
+        "tags": [
+          "Iconic",
+          "History"
+        ],
+        "description": "A grand reconstructed keep ringed by moats and a sprawling park that's pure cherry-blossom territory in spring.",
+        "nearby": [
+          {
+            "title": "Nishinomaru Garden",
+            "kind": "Garden",
+            "mins": 8
+          },
+          {
+            "title": "Castle Park lawns",
+            "kind": "Nature",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "dotonbori",
+        "title": "Dōtonbori",
+        "vibes": [
+          "nightlife",
+          "classics"
+        ],
+        "kind": "Entertainment district",
+        "area": "Namba",
+        "hours": "Evenings",
+        "tags": [
+          "Neon",
+          "Street food"
+        ],
+        "description": "Osaka's neon canyon of giant signboards, canal reflections and endless takoyaki — loud, bright and unmissable.",
+        "nearby": [
+          {
+            "title": "Glico running-man sign",
+            "kind": "Photo stop",
+            "mins": 2
+          },
+          {
+            "title": "Lilo Coffee Roasters",
+            "kind": "Coffee",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "shinsekai",
+        "title": "Shinsekai & Tsūtenkaku",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Retro district",
+        "area": "Naniwa",
+        "hours": "Evenings",
+        "tags": [
+          "Retro",
+          "Kushikatsu"
+        ],
+        "description": "A gloriously old-school neon quarter under the Tsūtenkaku tower, where kushikatsu skewers and pinball reign.",
+        "nearby": [
+          {
+            "title": "Tsūtenkaku tower",
+            "kind": "Landmark",
+            "mins": 3
+          },
+          {
+            "title": "Janjan Yokocho lane",
+            "kind": "Street food",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "kuromon-market",
+        "title": "Kuromon Ichiba Market",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Food market",
+        "area": "Nipponbashi",
+        "hours": "Best before noon",
+        "tags": [
+          "Foodie",
+          "Local"
+        ],
+        "description": "A 600m covered arcade of fishmongers and stalls grilling scallops, uni and wagyu to order.",
+        "nearby": [
+          {
+            "title": "Fresh uni stall",
+            "kind": "Snack",
+            "mins": 1
+          },
+          {
+            "title": "Den Den Town",
+            "kind": "Shopping",
+            "mins": 7
+          }
+        ]
+      },
+      {
+        "id": "minoo-park",
+        "title": "Minoo Park & Waterfall",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Nature trail",
+        "area": "Minoo",
+        "hours": "Daytime",
+        "tags": [
+          "Forest",
+          "Waterfall"
+        ],
+        "description": "A wooded river gorge a short ride from the city, ending at a 33m waterfall — stunning in autumn.",
+        "nearby": [
+          {
+            "title": "Fried momiji (maple) snack",
+            "kind": "Snack",
+            "mins": 2
+          },
+          {
+            "title": "Ryūan-ji temple",
+            "kind": "Temple",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "nakanoshima",
+        "title": "Nakanoshima Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "River park",
+        "area": "Kita",
+        "hours": "Anytime",
+        "tags": [
+          "Rose garden",
+          "Calm"
+        ],
+        "description": "A green sandbar between two rivers with a rose garden and grand civic architecture — the city's elegant lung.",
+        "nearby": [
+          {
+            "title": "Nakanoshima rose garden",
+            "kind": "Garden",
+            "mins": 3
+          },
+          {
+            "title": "Kitahama retro cafés",
+            "kind": "Coffee",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "mel-coffee",
+        "title": "Mel Coffee Roasters",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Nishi",
+        "hours": "Daytime",
+        "tags": [
+          "Specialty",
+          "Minimal"
+        ],
+        "description": "A tiny, exacting roaster pulling some of Osaka's best single-origin shots in the design-forward Shinmachi district.",
+        "nearby": [
+          {
+            "title": "Orange Street boutiques",
+            "kind": "Shopping",
+            "mins": 5
+          },
+          {
+            "title": "Utsubo Park",
+            "kind": "Nature",
+            "mins": 7
+          }
+        ]
+      },
+      {
+        "id": "takamura-coffee",
+        "title": "Takamura Wine & Coffee Roasters",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Nishi",
+        "hours": "Daytime",
+        "tags": [
+          "Warehouse",
+          "Specialty"
+        ],
+        "description": "A cavernous warehouse roastery and wine shop — pour-overs from a huge bean wall in an airy industrial space.",
+        "nearby": [
+          {
+            "title": "Utsubo Park",
+            "kind": "Nature",
+            "mins": 4
+          },
+          {
+            "title": "Orange Street",
+            "kind": "Shopping",
+            "mins": 8
+          }
+        ]
+      }
+    ]
+  }
+]

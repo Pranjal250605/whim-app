@@ -1,0 +1,228 @@
+[
+  {
+    "city": "Kyoto",
+    "country": "Japan",
+    "center": [
+      135.768,
+      35.011
+    ],
+    "spots": [
+      {
+        "id": "fushimi-inari",
+        "title": "Fushimi Inari Taisha",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shrine",
+        "area": "Fushimi",
+        "hours": "Open 24 hours",
+        "tags": [
+          "Iconic",
+          "Torii gates"
+        ],
+        "description": "Thousands of vermilion torii gates winding up a sacred mountain — go at dawn to beat the crowds.",
+        "nearby": [
+          {
+            "title": "Senbon Torii tunnel",
+            "kind": "Walk",
+            "mins": 5
+          },
+          {
+            "title": "Vermillion Espresso Bar",
+            "kind": "Coffee",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "kinkakuji",
+        "title": "Kinkaku-ji (Golden Pavilion)",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Kita",
+        "hours": "Opens morning",
+        "tags": [
+          "Iconic",
+          "Gold leaf"
+        ],
+        "description": "A Zen temple sheathed in gold leaf, mirrored in the still pond that wraps around it.",
+        "nearby": [
+          {
+            "title": "Ryōan-ji rock garden",
+            "kind": "Garden",
+            "mins": 12
+          },
+          {
+            "title": "Matcha tea house",
+            "kind": "Tea",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "arashiyama-bamboo",
+        "title": "Arashiyama Bamboo Grove",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Nature walk",
+        "area": "Arashiyama",
+        "hours": "Best at dawn",
+        "tags": [
+          "Serene",
+          "Iconic"
+        ],
+        "description": "Towering bamboo stalks that filter the light green and hush the sound — otherworldly early in the morning.",
+        "nearby": [
+          {
+            "title": "Tenryū-ji garden",
+            "kind": "Garden",
+            "mins": 4
+          },
+          {
+            "title": "% Arabica Kyoto Arashiyama",
+            "kind": "Coffee",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "philosophers-path",
+        "title": "Philosopher's Path",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Nature walk",
+        "area": "Higashiyama",
+        "hours": "Anytime",
+        "tags": [
+          "Cherry blossom",
+          "Calm"
+        ],
+        "description": "A canal-side stone path under cherry trees linking Ginkaku-ji to Nanzen-ji — Kyoto's most meditative stroll.",
+        "nearby": [
+          {
+            "title": "Ginkaku-ji (Silver Pavilion)",
+            "kind": "Temple",
+            "mins": 6
+          },
+          {
+            "title": "Honen-in temple",
+            "kind": "Temple",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "pontocho",
+        "title": "Pontochō Alley",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Dining alley",
+        "area": "Nakagyō",
+        "hours": "Evenings",
+        "tags": [
+          "Atmospheric",
+          "Riverside"
+        ],
+        "description": "A lantern-lit lane of narrow restaurants and bars along the Kamo River — Kyoto's most romantic after dark.",
+        "nearby": [
+          {
+            "title": "Kamo River walk",
+            "kind": "Stroll",
+            "mins": 2
+          },
+          {
+            "title": "Weekenders Coffee Tominokoji",
+            "kind": "Coffee",
+            "mins": 7
+          }
+        ]
+      },
+      {
+        "id": "kiyamachi",
+        "title": "Kiyamachi Street",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar street",
+        "area": "Nakagyō",
+        "hours": "Evenings",
+        "tags": [
+          "Canal",
+          "Local"
+        ],
+        "description": "A canal-lined strip of izakaya, cocktail bars and late-night ramen — the buzzier sibling to Pontochō next door.",
+        "nearby": [
+          {
+            "title": "Gion lantern lanes",
+            "kind": "Wander",
+            "mins": 8
+          },
+          {
+            "title": "Nishiki Market",
+            "kind": "Food market",
+            "mins": 9
+          }
+        ]
+      },
+      {
+        "id": "arabica-higashiyama",
+        "title": "% Arabica Kyoto Higashiyama",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Higashiyama",
+        "hours": "Daytime",
+        "tags": [
+          "Design",
+          "Minimal"
+        ],
+        "description": "A cult minimalist coffee bar on the slope to Yasaka Pagoda — perfect latte, perfect view.",
+        "nearby": [
+          {
+            "title": "Yasaka Pagoda",
+            "kind": "Landmark",
+            "mins": 3
+          },
+          {
+            "title": "Ninenzaka old street",
+            "kind": "Stroll",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "blue-bottle-kyoto",
+        "title": "Blue Bottle Coffee Kyoto",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Nanzenji",
+        "hours": "Daytime",
+        "tags": [
+          "Machiya",
+          "Design"
+        ],
+        "description": "A 100-year-old wooden townhouse reborn as a serene, light-filled café near the Nanzen-ji temple grounds.",
+        "nearby": [
+          {
+            "title": "Nanzen-ji aqueduct",
+            "kind": "Temple",
+            "mins": 5
+          },
+          {
+            "title": "Heian Shrine garden",
+            "kind": "Garden",
+            "mins": 10
+          }
+        ]
+      }
+    ]
+  }
+]

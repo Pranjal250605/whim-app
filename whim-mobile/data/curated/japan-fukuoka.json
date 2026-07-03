@@ -1,0 +1,228 @@
+[
+  {
+    "city": "Fukuoka",
+    "country": "Japan",
+    "center": [
+      130.401,
+      33.59
+    ],
+    "spots": [
+      {
+        "id": "ohori-park",
+        "title": "Ōhori Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Chūō",
+        "hours": "Anytime",
+        "tags": [
+          "Calm",
+          "Lakeside"
+        ],
+        "description": "A serene lake park with a looping path, a Japanese garden and pavilions made for slow afternoons.",
+        "nearby": [
+          {
+            "title": "Japanese Garden",
+            "kind": "Garden",
+            "mins": 4
+          },
+          {
+            "title": "Fukuoka Castle ruins",
+            "kind": "History",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "uminonakamichi",
+        "title": "Uminonakamichi Seaside Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Seaside park",
+        "area": "Higashi",
+        "hours": "Daytime",
+        "tags": [
+          "Flowers",
+          "Coast"
+        ],
+        "description": "A huge seaside park of flower fields and cycle paths on a sandbar across the bay, reached by ferry.",
+        "nearby": [
+          {
+            "title": "Bayside ferry ride",
+            "kind": "Stroll",
+            "mins": 3
+          },
+          {
+            "title": "Flower meadow",
+            "kind": "Nature",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "dazaifu",
+        "title": "Dazaifu Tenmangū",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shrine",
+        "area": "Dazaifu",
+        "hours": "Opens morning",
+        "tags": [
+          "Iconic",
+          "Plum blossom"
+        ],
+        "description": "The grand shrine to the god of learning, approached by an avenue of plum trees and old tea houses.",
+        "nearby": [
+          {
+            "title": "Umegae-mochi stalls",
+            "kind": "Snack",
+            "mins": 2
+          },
+          {
+            "title": "Kyushu National Museum",
+            "kind": "Museum",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "fukuoka-tower",
+        "title": "Fukuoka Tower",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Observation deck",
+        "area": "Sawara",
+        "hours": "Opens late morning",
+        "tags": [
+          "Skyline",
+          "Seaside"
+        ],
+        "description": "A mirrored seaside tower with a 123m observation deck over Hakata Bay — best at sunset.",
+        "nearby": [
+          {
+            "title": "Momochi Seaside Park",
+            "kind": "Nature",
+            "mins": 5
+          },
+          {
+            "title": "Fukuoka City Museum",
+            "kind": "Museum",
+            "mins": 9
+          }
+        ]
+      },
+      {
+        "id": "starbucks-dazaifu",
+        "title": "Starbucks Dazaifu Omotesandō",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Dazaifu",
+        "hours": "Daytime",
+        "tags": [
+          "Design",
+          "Kengo Kuma"
+        ],
+        "description": "A coffee stop wrapped in an astonishing lattice of interwoven timber by architect Kengo Kuma.",
+        "nearby": [
+          {
+            "title": "Dazaifu approach street",
+            "kind": "Stroll",
+            "mins": 1
+          },
+          {
+            "title": "Komyozenji moss garden",
+            "kind": "Garden",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "rec-coffee",
+        "title": "Rec Coffee Yakuin",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Yakuin",
+        "hours": "Daytime",
+        "tags": [
+          "Specialty",
+          "Award-winning"
+        ],
+        "description": "Fukuoka's home-grown champion roaster — flat whites and quiet design in the leafy Yakuin backstreets.",
+        "nearby": [
+          {
+            "title": "Yakuin backstreet shops",
+            "kind": "Shopping",
+            "mins": 3
+          },
+          {
+            "title": "Suzaki Park",
+            "kind": "Nature",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "nakasu-yatai",
+        "title": "Nakasu Yatai Stalls",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Street food",
+        "area": "Nakasu",
+        "hours": "Evenings",
+        "tags": [
+          "Local",
+          "Ramen"
+        ],
+        "description": "Riverside open-air food carts serving tonkotsu ramen, yakitori and beer under the lights — Fukuoka's nightlife soul.",
+        "nearby": [
+          {
+            "title": "Naka River boardwalk",
+            "kind": "Stroll",
+            "mins": 2
+          },
+          {
+            "title": "Canal City Hakata",
+            "kind": "Shopping",
+            "mins": 9
+          }
+        ]
+      },
+      {
+        "id": "oyafuko-dori",
+        "title": "Oyafukō-dōri",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar street",
+        "area": "Tenjin",
+        "hours": "Evenings",
+        "tags": [
+          "Bars",
+          "Local"
+        ],
+        "description": "Tenjin's lively after-dark strip of izakaya, dive bars and late ramen, minutes from the shopping core.",
+        "nearby": [
+          {
+            "title": "Tenjin shopping district",
+            "kind": "Shopping",
+            "mins": 4
+          },
+          {
+            "title": "Kego Shrine",
+            "kind": "Shrine",
+            "mins": 6
+          }
+        ]
+      }
+    ]
+  }
+]
