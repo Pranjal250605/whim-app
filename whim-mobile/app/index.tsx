@@ -16,6 +16,9 @@ import Icon from '@/components/Icon';
 
 // Phase 1 — Context & Vibe. Bold editorial-meets-playful home.
 
+// featured-card cover photos already fetched this session, keyed "city|vibe"
+const coverCache = new Map<string, string | null>();
+
 export default function Home() {
   const city = useWhimStore((s) => s.city);
   const setContext = useWhimStore((s) => s.setContext);
@@ -44,23 +47,32 @@ export default function Home() {
   const f = FEATURED[vibe];
   const savedHere = useMemo(() => scopedBucket(bucketList, city, vibe).length, [bucketList, city, vibe]);
 
-  // featured art should belong to the chosen CITY — pull a real spot photo
-  // from its deck; the vibe stock photo is only the fallback. Tokyo keeps the
-  // original curated vibe art (it was shot for Tokyo, and it looks better).
+  // featured art should belong to the chosen CITY. Tokyo keeps the original
+  // curated vibe art (it was shot for Tokyo); every other city shows a real
+  // photo from its own deck — and NEVER the Tokyo art, not even while
+  // loading (tone placeholder instead). Covers are cached so revisiting a
+  // city doesn't flash.
+  const isTokyo = city === 'Tokyo';
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
   useEffect(() => {
+    if (isTokyo) return;
+    const key = `${city}|${vibe}`;
+    if (coverCache.has(key)) {
+      setCoverPhoto(coverCache.get(key) ?? null);
+      return;
+    }
     let cancelled = false;
     setCoverPhoto(null);
-    if (city === 'Tokyo') return;
     fetchCoverPhoto(city, vibe)
       .then((p) => {
+        coverCache.set(key, p);
         if (!cancelled) setCoverPhoto(p);
       })
       .catch(() => {});
     return () => {
       cancelled = true;
     };
-  }, [city, vibe]);
+  }, [city, vibe, isTokyo]);
 
   // GPS-readout eyebrow — real travel data as a signature texture (not decoration).
   const coordLabel = useMemo(() => {
@@ -183,7 +195,7 @@ export default function Home() {
           <View className="absolute left-2 right-2 -top-1.5 h-8 rounded-3xl bg-white" style={{ opacity: 0.85, ...SHADOWS.soft }} />
           <View className="overflow-hidden rounded-[28px] bg-white" style={SHADOWS.card}>
             <View className="h-[196px] justify-end overflow-hidden" style={{ backgroundColor: f.tone }}>
-              <SpotImage uri={coverPhoto ?? f.photo} />
+              <SpotImage uri={isTokyo ? f.photo : coverPhoto} />
               <View className="absolute left-4 top-4 flex-row items-center gap-1.5 rounded-full bg-white/92 px-3 py-1.5">
                 <View className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: VIBE_DOT[vibe] }} />
                 <Text className="text-[11.5px] font-bold uppercase tracking-wide text-ink">{f.label}</Text>
