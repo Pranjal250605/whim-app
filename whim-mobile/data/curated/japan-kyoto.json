@@ -23,14 +23,29 @@
         "description": "Thousands of vermilion torii gates winding up a sacred mountain — go at dawn to beat the crowds.",
         "nearby": [
           {
-            "title": "Senbon Torii tunnel",
-            "kind": "Walk",
+            "title": "Senbon Torii gates",
+            "kind": "The gates",
+            "mins": 2
+          },
+          {
+            "title": "Yotsutsuji viewpoint",
+            "kind": "Viewpoint",
+            "mins": 25
+          },
+          {
+            "title": "Vermillion espresso bar",
+            "kind": "Coffee",
             "mins": 5
           },
           {
-            "title": "Vermillion Espresso Bar",
-            "kind": "Coffee",
-            "mins": 6
+            "title": "Inari suzume street food",
+            "kind": "Street food",
+            "mins": 3
+          },
+          {
+            "title": "Fushimi sake district",
+            "kind": "Sake tasting",
+            "mins": 15
           }
         ]
       },
@@ -51,13 +66,28 @@
         "nearby": [
           {
             "title": "Ryōan-ji rock garden",
-            "kind": "Garden",
-            "mins": 12
+            "kind": "Zen garden",
+            "mins": 15
           },
           {
-            "title": "Matcha tea house",
+            "title": "Kinkaku-ji matcha stall",
             "kind": "Tea",
-            "mins": 3
+            "mins": 2
+          },
+          {
+            "title": "Kitano Tenmangū",
+            "kind": "Shrine",
+            "mins": 15
+          },
+          {
+            "title": "Ninna-ji temple",
+            "kind": "Temple",
+            "mins": 18
+          },
+          {
+            "title": "Sarasa Nishijin bathhouse café",
+            "kind": "Kissaten",
+            "mins": 12
           }
         ]
       },
@@ -65,7 +95,8 @@
         "id": "arashiyama-bamboo",
         "title": "Arashiyama Bamboo Grove",
         "vibes": [
-          "nature"
+          "nature",
+          "classics"
         ],
         "kind": "Nature walk",
         "area": "Arashiyama",
@@ -77,14 +108,34 @@
         "description": "Towering bamboo stalks that filter the light green and hush the sound — otherworldly early in the morning.",
         "nearby": [
           {
-            "title": "Tenryū-ji garden",
-            "kind": "Garden",
+            "title": "Togetsukyō Bridge",
+            "kind": "Landmark",
+            "mins": 8
+          },
+          {
+            "title": "Ōkōchi Sansō Villa",
+            "kind": "Villa garden",
+            "mins": 5
+          },
+          {
+            "title": "Tenryū-ji temple",
+            "kind": "Zen temple",
             "mins": 4
           },
           {
-            "title": "% Arabica Kyoto Arashiyama",
+            "title": "Arashiyama Monkey Park",
+            "kind": "Monkeys",
+            "mins": 15
+          },
+          {
+            "title": "% Arabica Arashiyama",
             "kind": "Coffee",
-            "mins": 5
+            "mins": 9
+          },
+          {
+            "title": "Saga-Toriimoto street",
+            "kind": "Old street",
+            "mins": 12
           }
         ]
       },
@@ -106,11 +157,26 @@
           {
             "title": "Ginkaku-ji (Silver Pavilion)",
             "kind": "Temple",
-            "mins": 6
+            "mins": 3
           },
           {
-            "title": "Honen-in temple",
+            "title": "Hōnen-in moss gate",
             "kind": "Temple",
+            "mins": 5
+          },
+          {
+            "title": "Blue Bottle Kyoto",
+            "kind": "Coffee",
+            "mins": 12
+          },
+          {
+            "title": "Eikan-dō temple",
+            "kind": "Autumn temple",
+            "mins": 10
+          },
+          {
+            "title": "Yōjiya Café Ginkakuji",
+            "kind": "Café",
             "mins": 4
           }
         ]
@@ -131,14 +197,29 @@
         "description": "A lantern-lit lane of narrow restaurants and bars along the Kamo River — Kyoto's most romantic after dark.",
         "nearby": [
           {
-            "title": "Kamo River walk",
-            "kind": "Stroll",
+            "title": "Kamo River dining decks",
+            "kind": "Riverside",
+            "mins": 1
+          },
+          {
+            "title": "L'Escamoteur",
+            "kind": "Cocktail bar",
+            "mins": 3
+          },
+          {
+            "title": "Pontochō kaburenjō",
+            "kind": "Geisha theatre",
             "mins": 2
           },
           {
-            "title": "Weekenders Coffee Tominokoji",
-            "kind": "Coffee",
-            "mins": 7
+            "title": "Kiyamachi Street",
+            "kind": "Bar street",
+            "mins": 2
+          },
+          {
+            "title": "Sama Sama",
+            "kind": "Cave bar",
+            "mins": 3
           }
         ]
       },
@@ -158,14 +239,29 @@
         "description": "A canal-lined strip of izakaya, cocktail bars and late-night ramen — the buzzier sibling to Pontochō next door.",
         "nearby": [
           {
-            "title": "Gion lantern lanes",
-            "kind": "Wander",
-            "mins": 8
+            "title": "Takase Canal walk",
+            "kind": "Canalside",
+            "mins": 1
           },
           {
-            "title": "Nishiki Market",
-            "kind": "Food market",
-            "mins": 9
+            "title": "Bar Rocking Chair",
+            "kind": "Cocktails",
+            "mins": 6
+          },
+          {
+            "title": "Jam Sake Bar",
+            "kind": "Sake",
+            "mins": 4
+          },
+          {
+            "title": "Nishiki Market late stalls",
+            "kind": "Snacks",
+            "mins": 7
+          },
+          {
+            "title": "Kyoto BAL",
+            "kind": "Shopping",
+            "mins": 5
           }
         ]
       },
@@ -185,14 +281,29 @@
         "description": "A cult minimalist coffee bar on the slope to Yasaka Pagoda — perfect latte, perfect view.",
         "nearby": [
           {
-            "title": "Yasaka Pagoda",
-            "kind": "Landmark",
-            "mins": 3
+            "title": "Yasaka Pagoda street",
+            "kind": "Photo spot",
+            "mins": 2
           },
           {
-            "title": "Ninenzaka old street",
-            "kind": "Stroll",
+            "title": "Ninenzaka & Sannenzaka",
+            "kind": "Old lanes",
+            "mins": 4
+          },
+          {
+            "title": "Kasagi-ya",
+            "kind": "Century-old tea house",
+            "mins": 4
+          },
+          {
+            "title": "Kōdai-ji temple",
+            "kind": "Temple",
             "mins": 6
+          },
+          {
+            "title": "Ishibei-kōji lane",
+            "kind": "Hidden lane",
+            "mins": 5
           }
         ]
       },
@@ -214,15 +325,1566 @@
           {
             "title": "Nanzen-ji aqueduct",
             "kind": "Temple",
-            "mins": 5
+            "mins": 6
           },
           {
-            "title": "Heian Shrine garden",
-            "kind": "Garden",
+            "title": "Keage Incline",
+            "kind": "Photo spot",
+            "mins": 8
+          },
+          {
+            "title": "Murin-an garden",
+            "kind": "Garden villa",
+            "mins": 7
+          },
+          {
+            "title": "Kyoto City Zoo",
+            "kind": "Zoo",
+            "mins": 8
+          },
+          {
+            "title": "Heian Shrine torii",
+            "kind": "Landmark",
             "mins": 10
           }
         ],
         "geocodeQuery": "Blue Bottle Coffee Kyoto Cafe, Nanzenji Kusagawa-cho, Sakyo Ward, Kyoto, Japan"
+      },
+      {
+        "id": "kiyomizu",
+        "title": "Kiyomizu-dera",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Higashiyama",
+        "hours": "Open early",
+        "tags": [
+          "Wooden stage",
+          "Iconic"
+        ],
+        "description": "The hillside temple on its famous wooden stage — all of Kyoto below, and the best old lanes at its feet.",
+        "nearby": [
+          {
+            "title": "Ninenzaka & Sannenzaka",
+            "kind": "Old lanes",
+            "mins": 5
+          },
+          {
+            "title": "Otowa Waterfall",
+            "kind": "Ritual",
+            "mins": 2
+          },
+          {
+            "title": "Shichimiya Honpo spice shop",
+            "kind": "Shopping",
+            "mins": 4
+          },
+          {
+            "title": "Kasagi-ya",
+            "kind": "Tea house",
+            "mins": 6
+          },
+          {
+            "title": "Yasaka Pagoda",
+            "kind": "Photo spot",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "gion",
+        "title": "Gion",
+        "vibes": [
+          "classics",
+          "nightlife"
+        ],
+        "kind": "Geisha district",
+        "area": "Gion",
+        "hours": "Best at dusk",
+        "tags": [
+          "Geiko",
+          "Lantern-lit"
+        ],
+        "description": "Kyoto's geisha quarter — wooden teahouses, paper lanterns, and if you're lucky a geiko slipping between them at dusk.",
+        "nearby": [
+          {
+            "title": "Hanamikōji Street",
+            "kind": "The street",
+            "mins": 1
+          },
+          {
+            "title": "Yasaka Shrine",
+            "kind": "Shrine",
+            "mins": 5
+          },
+          {
+            "title": "Shirakawa Canal",
+            "kind": "Canal lane",
+            "mins": 4
+          },
+          {
+            "title": "Gion Tsujiri",
+            "kind": "Matcha parfait",
+            "mins": 3
+          },
+          {
+            "title": "Miyagawa-chō",
+            "kind": "Quieter geisha lane",
+            "mins": 7
+          },
+          {
+            "title": "Minamiza Theatre",
+            "kind": "Kabuki",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "nijo",
+        "title": "Nijō Castle",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Castle",
+        "area": "Nakagyō",
+        "hours": "Closed Tue in winter",
+        "tags": [
+          "Shogun",
+          "Nightingale floors"
+        ],
+        "description": "The shogun's Kyoto palace — gold-leaf chambers and floors that chirp underfoot to betray intruders.",
+        "nearby": [
+          {
+            "title": "Ninomaru Palace",
+            "kind": "Palace",
+            "mins": 2
+          },
+          {
+            "title": "Shinsen-en garden",
+            "kind": "Garden",
+            "mins": 5
+          },
+          {
+            "title": "Nijō-koya coffee stand",
+            "kind": "Coffee",
+            "mins": 6
+          },
+          {
+            "title": "Kyoto International Manga Museum",
+            "kind": "Museum",
+            "mins": 12
+          },
+          {
+            "title": "BAL... Horikawa stroll",
+            "kind": "Stroll",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "nishiki",
+        "title": "Nishiki Market",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Market",
+        "area": "Nakagyō",
+        "hours": "Best before 5 PM",
+        "tags": [
+          "Kyoto's kitchen",
+          "Snack crawl"
+        ],
+        "description": "Four hundred years of Kyoto's kitchen in one covered lane — tofu doughnuts, pickles, and knives that last a lifetime.",
+        "nearby": [
+          {
+            "title": "Aritsugu knives",
+            "kind": "Craft shopping",
+            "mins": 1
+          },
+          {
+            "title": "Konnamonja tofu doughnuts",
+            "kind": "Snack",
+            "mins": 1
+          },
+          {
+            "title": "Teramachi arcade",
+            "kind": "Shopping arcade",
+            "mins": 2
+          },
+          {
+            "title": "Nishiki Tenmangū",
+            "kind": "Shrine",
+            "mins": 1
+          },
+          {
+            "title": "Snoopy Chaya",
+            "kind": "Themed café",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "ginkakuji",
+        "title": "Ginkaku-ji (Silver Pavilion)",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Sakyō",
+        "hours": "Open morning",
+        "tags": [
+          "Zen",
+          "Sand garden"
+        ],
+        "description": "The Silver Pavilion never got its silver — and became the more beautiful for it, with a moon-viewing sand garden.",
+        "nearby": [
+          {
+            "title": "Philosopher's Path",
+            "kind": "Canal walk",
+            "mins": 3
+          },
+          {
+            "title": "Hōnen-in",
+            "kind": "Moss temple",
+            "mins": 6
+          },
+          {
+            "title": "Omen udon",
+            "kind": "Udon",
+            "mins": 4
+          },
+          {
+            "title": "Yōjiya Café",
+            "kind": "Café",
+            "mins": 5
+          },
+          {
+            "title": "Mount Daimonji trailhead",
+            "kind": "Short hike",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "sanjusangendo",
+        "title": "Sanjūsangen-dō",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Higashiyama",
+        "hours": "Open morning",
+        "tags": [
+          "1001 statues",
+          "Awe"
+        ],
+        "description": "A 120-metre hall holding 1,001 golden Kannon statues in rows — one of the most quietly overwhelming rooms in Japan.",
+        "nearby": [
+          {
+            "title": "Kyoto National Museum",
+            "kind": "Museum",
+            "mins": 3
+          },
+          {
+            "title": "Yōgen-in blood ceiling",
+            "kind": "Temple",
+            "mins": 4
+          },
+          {
+            "title": "Kawai Kanjirō's House",
+            "kind": "Craft museum",
+            "mins": 10
+          },
+          {
+            "title": "Shichijō Kanshundō wagashi",
+            "kind": "Sweets",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "tofukuji",
+        "title": "Tōfuku-ji",
+        "vibes": [
+          "classics",
+          "nature"
+        ],
+        "kind": "Zen temple",
+        "area": "Higashiyama",
+        "hours": "Open morning",
+        "tags": [
+          "Autumn",
+          "Zen gardens"
+        ],
+        "description": "A vast Zen complex over a maple valley — Kyoto's definitive autumn view, and checkerboard moss gardens year-round.",
+        "nearby": [
+          {
+            "title": "Tsūten-kyō bridge",
+            "kind": "The view",
+            "mins": 2
+          },
+          {
+            "title": "Hōjō checkerboard garden",
+            "kind": "Zen garden",
+            "mins": 3
+          },
+          {
+            "title": "Kōmyō-in",
+            "kind": "Quiet sub-temple",
+            "mins": 5
+          },
+          {
+            "title": "Fushimi Inari Taisha",
+            "kind": "Shrine",
+            "mins": 15
+          }
+        ]
+      },
+      {
+        "id": "heian",
+        "title": "Heian Shrine",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shrine",
+        "area": "Okazaki",
+        "hours": "Open morning",
+        "tags": [
+          "Giant torii",
+          "Gardens"
+        ],
+        "description": "A bright vermillion shrine behind one of Japan's biggest torii, with a dreamy stroll garden out back.",
+        "nearby": [
+          {
+            "title": "Shin'en gardens",
+            "kind": "Garden",
+            "mins": 2
+          },
+          {
+            "title": "Kyocera Museum of Art",
+            "kind": "Art museum",
+            "mins": 4
+          },
+          {
+            "title": "Okazaki canal boats",
+            "kind": "Canal",
+            "mins": 3
+          },
+          {
+            "title": "Rohm Theatre café",
+            "kind": "Café",
+            "mins": 4
+          },
+          {
+            "title": "Blue Bottle Kyoto",
+            "kind": "Coffee",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "kyoto-station",
+        "title": "Kyoto Station & Tower",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "Shimogyō",
+        "hours": "Open all day",
+        "tags": [
+          "Architecture",
+          "First view"
+        ],
+        "description": "Hara Hiroshi's glass canyon of a station — ride the escalators to the skywalk, then take in the city from the tower.",
+        "nearby": [
+          {
+            "title": "Kyoto Tower deck",
+            "kind": "Viewpoint",
+            "mins": 3
+          },
+          {
+            "title": "Station skywalk",
+            "kind": "Free view",
+            "mins": 2
+          },
+          {
+            "title": "Ramen Kōji floor",
+            "kind": "Ramen",
+            "mins": 2
+          },
+          {
+            "title": "Kurasu coffee stand",
+            "kind": "Coffee",
+            "mins": 3
+          },
+          {
+            "title": "Higashi Hongan-ji",
+            "kind": "Temple",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "toji",
+        "title": "Tō-ji Temple",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Minami",
+        "hours": "Open morning",
+        "tags": [
+          "Pagoda",
+          "Flea market"
+        ],
+        "description": "Japan's tallest pagoda anchoring a ninth-century temple — and on the 21st, Kyoto's best flea market.",
+        "nearby": [
+          {
+            "title": "Five-storey pagoda",
+            "kind": "The icon",
+            "mins": 1
+          },
+          {
+            "title": "Kōbō-san flea market (21st)",
+            "kind": "Market",
+            "mins": 1
+          },
+          {
+            "title": "Kyoto Aquarium",
+            "kind": "Aquarium",
+            "mins": 12
+          },
+          {
+            "title": "Umekōji Park",
+            "kind": "Park",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "uji",
+        "title": "Uji",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea town",
+        "area": "Uji",
+        "hours": "Day trip",
+        "tags": [
+          "Matcha origin",
+          "Byōdō-in"
+        ],
+        "description": "Where matcha comes from — the 10-yen-coin temple, tea terraces, and every green dessert you can imagine.",
+        "nearby": [
+          {
+            "title": "Byōdō-in Phoenix Hall",
+            "kind": "Temple",
+            "mins": 5
+          },
+          {
+            "title": "Nakamura Tōkichi Honten",
+            "kind": "Matcha café",
+            "mins": 3
+          },
+          {
+            "title": "Tsuen — oldest tea shop",
+            "kind": "Tea (since 1160)",
+            "mins": 4
+          },
+          {
+            "title": "Uji River walk",
+            "kind": "Riverside",
+            "mins": 2
+          },
+          {
+            "title": "Taihōan tea ceremony",
+            "kind": "Tea ceremony",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "ippodo",
+        "title": "Ippodo Tea Kyoto",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea shop",
+        "area": "Teramachi",
+        "hours": "Closed some Mondays",
+        "tags": [
+          "Since 1717",
+          "Kaboku tearoom"
+        ],
+        "description": "Three centuries of tea in one shop — taste your way through the Kaboku tearoom, then carry home the good stuff.",
+        "nearby": [
+          {
+            "title": "Kyoto Imperial Palace Park",
+            "kind": "Park",
+            "mins": 6
+          },
+          {
+            "title": "Murakami Kaishindō",
+            "kind": "Retro biscuit shop",
+            "mins": 3
+          },
+          {
+            "title": "Smart Coffee",
+            "kind": "Kissaten",
+            "mins": 8
+          },
+          {
+            "title": "Teramachi antiques row",
+            "kind": "Antiques",
+            "mins": 2
+          },
+          {
+            "title": "Honnō-ji",
+            "kind": "Temple",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "dandd",
+        "title": "D&Department Kyoto",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Design shop",
+        "area": "Bukkō-ji",
+        "hours": "Closed Wed",
+        "tags": [
+          "Design",
+          "In a temple"
+        ],
+        "description": "A long-life design store and café inside a working temple's grounds — very Kyoto, very good shopping.",
+        "nearby": [
+          {
+            "title": "Bukkō-ji temple",
+            "kind": "Temple",
+            "mins": 1
+          },
+          {
+            "title": "d食堂 shokudō",
+            "kind": "Café",
+            "mins": 1
+          },
+          {
+            "title": "Rokuyōsha coffee",
+            "kind": "Kissaten",
+            "mins": 5
+          },
+          {
+            "title": "Daimaru depachika",
+            "kind": "Food hall",
+            "mins": 6
+          },
+          {
+            "title": "SOU・SOU",
+            "kind": "Textile fashion",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "sousou",
+        "title": "SOU・SOU",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Textile fashion",
+        "area": "Kawaramachi",
+        "hours": "Open afternoon",
+        "tags": [
+          "Tabi",
+          "Modern kimono"
+        ],
+        "description": "Kyoto textiles remixed for now — split-toe sneakers and bold prints across a cluster of tiny shops.",
+        "nearby": [
+          {
+            "title": "SOU・SOU tabi shop",
+            "kind": "Footwear",
+            "mins": 1
+          },
+          {
+            "title": "Nishiki Market",
+            "kind": "Market",
+            "mins": 4
+          },
+          {
+            "title": "Kyoto BAL",
+            "kind": "Select shopping",
+            "mins": 3
+          },
+          {
+            "title": "Kissa Soirée",
+            "kind": "Blue-lit kissaten",
+            "mins": 3
+          },
+          {
+            "title": "Rokkaku-dō",
+            "kind": "Temple",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "weekenders",
+        "title": "Weekenders Coffee Tominokoji",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee stand",
+        "area": "Nakagyō",
+        "hours": "Opens mid-morning",
+        "tags": [
+          "Hidden",
+          "Machiya"
+        ],
+        "description": "A tiny roaster hidden behind a parking lot in a garden machiya — the espresso that made Kyoto's coffee scene.",
+        "nearby": [
+          {
+            "title": "Nishiki Market",
+            "kind": "Market",
+            "mins": 3
+          },
+          {
+            "title": "Kah Kah Ow? Cacao Market",
+            "kind": "Chocolate",
+            "mins": 5
+          },
+          {
+            "title": "Teramachi arcade",
+            "kind": "Shopping",
+            "mins": 3
+          },
+          {
+            "title": "Kyoto International Manga Museum",
+            "kind": "Museum",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "kaikado",
+        "title": "Kaikadō Café",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Craft café",
+        "area": "Kawaramachi-Shichijō",
+        "hours": "Closed Thu",
+        "tags": [
+          "Tea caddies",
+          "Sixth generation"
+        ],
+        "description": "The 140-year-old tea-caddy maker's café — copper, brass and the most considered cup of tea in the city.",
+        "nearby": [
+          {
+            "title": "Kaikadō workshop shop",
+            "kind": "Craft",
+            "mins": 1
+          },
+          {
+            "title": "Kamo River banks",
+            "kind": "Riverside",
+            "mins": 3
+          },
+          {
+            "title": "Kyoto National Museum",
+            "kind": "Museum",
+            "mins": 8
+          },
+          {
+            "title": "Ichihara Heibei Shōten chopsticks",
+            "kind": "Craft shopping",
+            "mins": 7
+          }
+        ]
+      },
+      {
+        "id": "wife-husband",
+        "title": "WIFE&HUSBAND",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee & picnic",
+        "area": "Kita",
+        "hours": "Until dusk",
+        "tags": [
+          "Picnic baskets",
+          "Riverside"
+        ],
+        "description": "A husband-and-wife roastery that packs you a picnic basket for the Kamo riverbank — Kyoto's gentlest hour.",
+        "nearby": [
+          {
+            "title": "Kamo River picnic bank",
+            "kind": "Picnic",
+            "mins": 3
+          },
+          {
+            "title": "Kamigamo Shrine",
+            "kind": "World-heritage shrine",
+            "mins": 15
+          },
+          {
+            "title": "Kyoto Botanical Gardens",
+            "kind": "Gardens",
+            "mins": 10
+          },
+          {
+            "title": "Midori bakery",
+            "kind": "Bakery",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "kurasu",
+        "title": "Kurasu Kyoto",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee stand",
+        "area": "Kyoto Station",
+        "hours": "Opens early",
+        "tags": [
+          "First stop",
+          "Local roasters"
+        ],
+        "description": "The specialty stand by the station that rotates Japan's best roasters — the correct first coffee in Kyoto.",
+        "nearby": [
+          {
+            "title": "Kyoto Tower Sando food hall",
+            "kind": "Food hall",
+            "mins": 2
+          },
+          {
+            "title": "Higashi Hongan-ji",
+            "kind": "Temple",
+            "mins": 5
+          },
+          {
+            "title": "Shōsei-en garden",
+            "kind": "Hidden garden",
+            "mins": 8
+          },
+          {
+            "title": "Kyoto Avanti? Porta underground mall",
+            "kind": "Shopping",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "hosoo",
+        "title": "HOSOO Gallery",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Textile gallery",
+        "area": "Karasuma",
+        "hours": "Closed Sun",
+        "tags": [
+          "Nishijin silk",
+          "Future craft"
+        ],
+        "description": "A 300-year-old Nishijin weaver gone avant-garde — silk textiles as contemporary art, in a beautiful flagship.",
+        "nearby": [
+          {
+            "title": "Kyoto International Manga Museum",
+            "kind": "Museum",
+            "mins": 5
+          },
+          {
+            "title": "Rokkaku-dō",
+            "kind": "Temple",
+            "mins": 4
+          },
+          {
+            "title": "Café Bibliotic Hello!",
+            "kind": "Book café",
+            "mins": 6
+          },
+          {
+            "title": "Shinpūkan",
+            "kind": "Shopping & hotel",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "kissa-la",
+        "title": "Shinshindō Kyodai-mae",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Kissaten",
+        "area": "Hyakumanben",
+        "hours": "Closed Tue",
+        "tags": [
+          "Since 1930",
+          "Students"
+        ],
+        "description": "Kyoto University's ancient coffee hall — long oak tables, curry bread, and a century of students thinking slowly.",
+        "nearby": [
+          {
+            "title": "Kyoto University campus",
+            "kind": "Campus wander",
+            "mins": 2
+          },
+          {
+            "title": "Yoshida Shrine",
+            "kind": "Shrine",
+            "mins": 6
+          },
+          {
+            "title": "Demachi Futaba mochi",
+            "kind": "Legendary mochi",
+            "mins": 10
+          },
+          {
+            "title": "Kamo River delta",
+            "kind": "Riverside",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "kamo-delta",
+        "title": "Kamo River Delta",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Riverside",
+        "area": "Demachiyanagi",
+        "hours": "Open all day",
+        "tags": [
+          "Stepping stones",
+          "Local life"
+        ],
+        "description": "Where Kyoto's two rivers meet — turtle stepping-stones, students on blankets, and herons working the shallows.",
+        "nearby": [
+          {
+            "title": "Turtle stepping stones",
+            "kind": "The crossing",
+            "mins": 1
+          },
+          {
+            "title": "Demachi Futaba",
+            "kind": "Mochi queue",
+            "mins": 3
+          },
+          {
+            "title": "Demachi Masugata arcade",
+            "kind": "Local arcade",
+            "mins": 3
+          },
+          {
+            "title": "Shimogamo Shrine forest",
+            "kind": "Ancient forest",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "kurama",
+        "title": "Kurama to Kibune hike",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Mountain hike",
+        "area": "Kurama",
+        "hours": "Start by noon",
+        "tags": [
+          "Temple hike",
+          "Riverside dining"
+        ],
+        "description": "Ride a mountain railway, hike over a temple mountain, and come down to a village that dines on platforms over the stream.",
+        "nearby": [
+          {
+            "title": "Kurama-dera",
+            "kind": "Mountain temple",
+            "mins": 30
+          },
+          {
+            "title": "Kibune Shrine steps",
+            "kind": "Shrine",
+            "mins": 60
+          },
+          {
+            "title": "Kawadoko river dining",
+            "kind": "Riverside lunch",
+            "mins": 65
+          },
+          {
+            "title": "Kurama Onsen",
+            "kind": "Onsen",
+            "mins": 10
+          },
+          {
+            "title": "Eizan railway maple tunnel",
+            "kind": "Scenic train",
+            "mins": 1
+          }
+        ]
+      },
+      {
+        "id": "botanical-kyoto",
+        "title": "Kyoto Botanical Gardens",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Botanical garden",
+        "area": "Kitayama",
+        "hours": "Open morning",
+        "tags": [
+          "Cheap ticket",
+          "Conservatory"
+        ],
+        "description": "Japan's oldest public botanical garden — camphor avenues, a grand conservatory, and barely any tourists.",
+        "nearby": [
+          {
+            "title": "Kamo River north banks",
+            "kind": "Riverside",
+            "mins": 2
+          },
+          {
+            "title": "Kyoto Concert Hall",
+            "kind": "Music",
+            "mins": 3
+          },
+          {
+            "title": "IN THE GREEN",
+            "kind": "Garden café",
+            "mins": 2
+          },
+          {
+            "title": "WIFE&HUSBAND",
+            "kind": "Picnic coffee",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "ohara",
+        "title": "Ōhara & Sanzen-in",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Mountain village",
+        "area": "Ōhara",
+        "hours": "Day trip",
+        "tags": [
+          "Moss",
+          "Countryside"
+        ],
+        "description": "A farming valley an hour north — moss gardens with stone jizō peeking through, and shiso fields on the walk in.",
+        "nearby": [
+          {
+            "title": "Sanzen-in moss garden",
+            "kind": "Temple garden",
+            "mins": 10
+          },
+          {
+            "title": "Hōsen-in framed garden",
+            "kind": "Tea & view",
+            "mins": 12
+          },
+          {
+            "title": "Jakkō-in",
+            "kind": "Quiet temple",
+            "mins": 20
+          },
+          {
+            "title": "Shiba-zuke pickle shops",
+            "kind": "Local food",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "maruyama",
+        "title": "Maruyama Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Higashiyama",
+        "hours": "Open all day",
+        "tags": [
+          "Weeping cherry",
+          "Hanami"
+        ],
+        "description": "Kyoto's hanami headquarters around one great weeping cherry — teahouses and lantern light in the evening.",
+        "nearby": [
+          {
+            "title": "Yasaka Shrine",
+            "kind": "Shrine",
+            "mins": 2
+          },
+          {
+            "title": "Chion-in gate",
+            "kind": "Giant gate",
+            "mins": 5
+          },
+          {
+            "title": "Shōren-in blue temple",
+            "kind": "Temple",
+            "mins": 8
+          },
+          {
+            "title": "Gion Tsujiri",
+            "kind": "Matcha dessert",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "okazaki-canal",
+        "title": "Okazaki Canal & Keage Incline",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Canal walk",
+        "area": "Okazaki",
+        "hours": "Open all day",
+        "tags": [
+          "Cherry tunnel",
+          "Old railway"
+        ],
+        "description": "A canal lined with cherries and a disused railway incline you walk right up — spring here is unreasonable.",
+        "nearby": [
+          {
+            "title": "Keage Incline tracks",
+            "kind": "Photo walk",
+            "mins": 2
+          },
+          {
+            "title": "Nanzen-ji aqueduct",
+            "kind": "Temple",
+            "mins": 6
+          },
+          {
+            "title": "Murin-an garden",
+            "kind": "Villa garden",
+            "mins": 4
+          },
+          {
+            "title": "Kyoto City Zoo",
+            "kind": "Zoo",
+            "mins": 3
+          },
+          {
+            "title": "Blue Bottle Kyoto",
+            "kind": "Coffee",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "imperial-park",
+        "title": "Kyoto Imperial Palace Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Kamigyō",
+        "hours": "Open all day",
+        "tags": [
+          "Gravel avenues",
+          "Plum grove"
+        ],
+        "description": "The emperors' front yard — kilometre-long gravel avenues, plum and peach groves, and shaded picnic corners.",
+        "nearby": [
+          {
+            "title": "Imperial Palace tour",
+            "kind": "Palace",
+            "mins": 5
+          },
+          {
+            "title": "Nashinoki Shrine water",
+            "kind": "Famous spring",
+            "mins": 3
+          },
+          {
+            "title": "Toraya Karyō Ichijō",
+            "kind": "Wagashi tea room",
+            "mins": 5
+          },
+          {
+            "title": "Ippodo Tea",
+            "kind": "Tea shop",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "escamoteur",
+        "title": "L'Escamoteur Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Kiyamachi",
+        "hours": "From 8 PM",
+        "tags": [
+          "Speakeasy",
+          "Magic"
+        ],
+        "description": "A French magician's apothecary of a bar — smoke, potions and Kyoto's most charming bartenders.",
+        "nearby": [
+          {
+            "title": "Kiyamachi Street",
+            "kind": "Bar street",
+            "mins": 1
+          },
+          {
+            "title": "Pontochō Alley",
+            "kind": "Dining alley",
+            "mins": 3
+          },
+          {
+            "title": "Bee's Knees",
+            "kind": "Speakeasy",
+            "mins": 4
+          },
+          {
+            "title": "Kamo River night banks",
+            "kind": "Riverside",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "beer-komachi",
+        "title": "Beer Komachi",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Craft beer bar",
+        "area": "Higashiyama",
+        "hours": "Closed Tue",
+        "tags": [
+          "Craft beer",
+          "Casual"
+        ],
+        "description": "A tiny craft-beer counter in an old shopping arcade — Kyoto brews and fried chicken, zero pretension.",
+        "nearby": [
+          {
+            "title": "Furukawachō arcade",
+            "kind": "Local arcade",
+            "mins": 1
+          },
+          {
+            "title": "Shōren-in at night",
+            "kind": "Temple light-up",
+            "mins": 6
+          },
+          {
+            "title": "Chion-in gate at night",
+            "kind": "Landmark",
+            "mins": 7
+          },
+          {
+            "title": "Gion backstreets",
+            "kind": "Stroll",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "fushimi-sake",
+        "title": "Fushimi Sake District",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Sake district",
+        "area": "Fushimi",
+        "hours": "Tastings till evening",
+        "tags": [
+          "Breweries",
+          "Canalside"
+        ],
+        "description": "Canal-side brewery quarter where Kyoto's soft water becomes sake — tasting flights among white-walled kura.",
+        "nearby": [
+          {
+            "title": "Gekkeikan Ōkura Sake Museum",
+            "kind": "Brewery museum",
+            "mins": 3
+          },
+          {
+            "title": "Fushimi Yume Hyakushu café",
+            "kind": "Sake café",
+            "mins": 2
+          },
+          {
+            "title": "Jikkoku-bune canal boat",
+            "kind": "Boat ride",
+            "mins": 4
+          },
+          {
+            "title": "Kizakura Kappa Country",
+            "kind": "Brewery taproom",
+            "mins": 5
+          },
+          {
+            "title": "Teradaya inn",
+            "kind": "History",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "nanzenji",
+        "title": "Nanzen-ji",
+        "vibes": [
+          "classics",
+          "nature"
+        ],
+        "kind": "Zen temple",
+        "area": "Higashiyama",
+        "hours": "Open morning",
+        "tags": [
+          "Aqueduct",
+          "Zen"
+        ],
+        "description": "A monumental Zen gate, a brick Meiji aqueduct running through the grounds, and maples everywhere between.",
+        "nearby": [
+          {
+            "title": "Suirokaku aqueduct",
+            "kind": "Photo spot",
+            "mins": 2
+          },
+          {
+            "title": "Sanmon gate climb",
+            "kind": "Viewpoint",
+            "mins": 1
+          },
+          {
+            "title": "Blue Bottle Kyoto",
+            "kind": "Coffee",
+            "mins": 6
+          },
+          {
+            "title": "Junsei yudōfu",
+            "kind": "Tofu lunch",
+            "mins": 3
+          },
+          {
+            "title": "Eikan-dō",
+            "kind": "Autumn temple",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "chion-in",
+        "title": "Chion-in",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Higashiyama",
+        "hours": "Open morning",
+        "tags": [
+          "Great gate",
+          "Giant bell"
+        ],
+        "description": "Japan's biggest temple gate and a bell so large it takes seventeen monks to ring it.",
+        "nearby": [
+          {
+            "title": "Sanmon gate",
+            "kind": "The gate",
+            "mins": 1
+          },
+          {
+            "title": "Yūzen-en garden",
+            "kind": "Garden",
+            "mins": 2
+          },
+          {
+            "title": "Maruyama Park",
+            "kind": "Park",
+            "mins": 3
+          },
+          {
+            "title": "Shōren-in",
+            "kind": "Blue-lit temple",
+            "mins": 5
+          },
+          {
+            "title": "Gion Tsujiri",
+            "kind": "Matcha dessert",
+            "mins": 7
+          }
+        ]
+      },
+      {
+        "id": "kenninji",
+        "title": "Kennin-ji",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Zen temple",
+        "area": "Gion",
+        "hours": "Open morning",
+        "tags": [
+          "Oldest Zen",
+          "Dragons"
+        ],
+        "description": "Kyoto's oldest Zen temple, hiding twin dragons on its ceiling and raked gardens a block from Gion's bustle.",
+        "nearby": [
+          {
+            "title": "Twin dragons ceiling",
+            "kind": "The ceiling",
+            "mins": 1
+          },
+          {
+            "title": "Hanamikōji Street",
+            "kind": "Geisha street",
+            "mins": 2
+          },
+          {
+            "title": "Miyagawa-chō lanes",
+            "kind": "Old lanes",
+            "mins": 4
+          },
+          {
+            "title": "% Arabica Higashiyama",
+            "kind": "Coffee",
+            "mins": 8
+          },
+          {
+            "title": "Yasui Konpira-gū",
+            "kind": "Power-stone shrine",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "shimogamo",
+        "title": "Shimogamo Shrine",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Shrine forest",
+        "area": "Demachiyanagi",
+        "hours": "Open morning",
+        "tags": [
+          "Primeval forest",
+          "UNESCO"
+        ],
+        "description": "A World Heritage shrine reached through Tadasu no Mori — a sliver of primeval forest older than the city.",
+        "nearby": [
+          {
+            "title": "Tadasu no Mori walk",
+            "kind": "Forest path",
+            "mins": 5
+          },
+          {
+            "title": "Kamo River Delta",
+            "kind": "Stepping stones",
+            "mins": 6
+          },
+          {
+            "title": "Saruya tea stall",
+            "kind": "Sweets",
+            "mins": 2
+          },
+          {
+            "title": "Kawai Shrine mirror ema",
+            "kind": "Beauty shrine",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "daigoji",
+        "title": "Daigo-ji",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Temple",
+        "area": "Daigo",
+        "hours": "Open morning",
+        "tags": [
+          "Pagoda & pond",
+          "Hideyoshi's hanami"
+        ],
+        "description": "Where Hideyoshi threw history's most famous cherry-blossom party — a pagoda, a pond garden and a mountain behind.",
+        "nearby": [
+          {
+            "title": "Bentendō pond",
+            "kind": "Photo spot",
+            "mins": 5
+          },
+          {
+            "title": "Five-storey pagoda",
+            "kind": "Oldest in Kyoto",
+            "mins": 3
+          },
+          {
+            "title": "Sanbō-in garden",
+            "kind": "Garden",
+            "mins": 2
+          },
+          {
+            "title": "Upper Daigo trail",
+            "kind": "Hike",
+            "mins": 50
+          }
+        ]
+      },
+      {
+        "id": "iwatayama",
+        "title": "Arashiyama Monkey Park Iwatayama",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Monkey park",
+        "area": "Arashiyama",
+        "hours": "Closes late afternoon",
+        "tags": [
+          "Monkeys",
+          "City view"
+        ],
+        "description": "Hike ten minutes up and Kyoto's macaques roam free around you — with the whole city spread out below.",
+        "nearby": [
+          {
+            "title": "Summit viewpoint",
+            "kind": "Viewpoint",
+            "mins": 1
+          },
+          {
+            "title": "Togetsukyō Bridge",
+            "kind": "Landmark",
+            "mins": 8
+          },
+          {
+            "title": "Katsura riverbank",
+            "kind": "Riverside",
+            "mins": 5
+          },
+          {
+            "title": "Arashiyama Bamboo Grove",
+            "kind": "Bamboo",
+            "mins": 15
+          }
+        ]
+      },
+      {
+        "id": "enryakuji",
+        "title": "Mount Hiei & Enryaku-ji",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Mountain temple",
+        "area": "Hieizan",
+        "hours": "Day trip",
+        "tags": [
+          "Cable car",
+          "Marathon monks"
+        ],
+        "description": "The mother-mountain of Japanese Buddhism — cedar forests, a cable-car ride up, and halls wreathed in incense fog.",
+        "nearby": [
+          {
+            "title": "Eizan cable & ropeway",
+            "kind": "Ride",
+            "mins": 5
+          },
+          {
+            "title": "Konpon Chūdō hall",
+            "kind": "The hall",
+            "mins": 10
+          },
+          {
+            "title": "Garden Museum Hiei",
+            "kind": "Summit garden",
+            "mins": 8
+          },
+          {
+            "title": "Lake Biwa viewpoint",
+            "kind": "Viewpoint",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "kyoto-beer-lab",
+        "title": "Kyoto Beer Lab",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Craft brewery",
+        "area": "Kawaramachi-Gojō",
+        "hours": "From afternoon",
+        "tags": [
+          "Brewpub",
+          "Canalside"
+        ],
+        "description": "A brewpub on the Takase canal pouring tea-infused IPAs — Kyoto flavours in craft-beer form.",
+        "nearby": [
+          {
+            "title": "Takase Canal walk",
+            "kind": "Canalside",
+            "mins": 1
+          },
+          {
+            "title": "Kamo River banks",
+            "kind": "Riverside",
+            "mins": 3
+          },
+          {
+            "title": "Five knot? Gojō zaka antiques",
+            "kind": "Browsing",
+            "mins": 5
+          },
+          {
+            "title": "Len Kyoto café-bar",
+            "kind": "Hostel bar",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "kitsune",
+        "title": "KITSUNE KYOTO",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Gion-side",
+        "hours": "From 9 PM",
+        "tags": [
+          "Club",
+          "Dance"
+        ],
+        "description": "Kyoto's big-room night out — a proper dance floor hiding behind a torii-red entrance near the river.",
+        "nearby": [
+          {
+            "title": "Kiyamachi Street",
+            "kind": "Bar street",
+            "mins": 2
+          },
+          {
+            "title": "Pontochō Alley",
+            "kind": "Dining alley",
+            "mins": 4
+          },
+          {
+            "title": "Kamo River night banks",
+            "kind": "Cool-down",
+            "mins": 2
+          },
+          {
+            "title": "Nishiki late ramen",
+            "kind": "Late food",
+            "mins": 6
+          }
+        ]
       }
     ]
   }
