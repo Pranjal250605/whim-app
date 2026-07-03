@@ -2,319 +2,1351 @@
   {
     "city": "Tokyo",
     "country": "Japan",
-    "center": [139.767, 35.681],
+    "center": [
+      139.767,
+      35.681
+    ],
     "spots": [
       {
         "id": "senso",
         "title": "Sensō-ji Temple",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Temple",
         "area": "Asakusa",
         "hours": "Open early morning",
-        "tags": ["Iconic", "Sunrise"],
+        "tags": [
+          "Iconic",
+          "Sunrise"
+        ],
         "description": "Tokyo's oldest temple, framed by the giant Kaminarimon lantern and a lane of century-old snack stalls.",
         "nearby": [
-          { "title": "Nakamise shopping street", "kind": "Souvenirs", "mins": 3 },
-          { "title": "Kagetsudo melon pan", "kind": "Snack", "mins": 4 },
-          { "title": "Sumida Park riverwalk", "kind": "Stroll", "mins": 6 },
-          { "title": "Hanayashiki amusement park", "kind": "Retro fun", "mins": 5 },
-          { "title": "Suke6 Diner", "kind": "Brunch", "mins": 6 },
-          { "title": "Kappabashi Kitchen Town", "kind": "Shopping", "mins": 10 }
+          {
+            "title": "Nakamise shopping street",
+            "kind": "Souvenirs",
+            "mins": 3
+          },
+          {
+            "title": "Kagetsudo melon pan",
+            "kind": "Snack",
+            "mins": 4
+          },
+          {
+            "title": "Sumida Park riverwalk",
+            "kind": "Stroll",
+            "mins": 6
+          },
+          {
+            "title": "Hanayashiki amusement park",
+            "kind": "Retro fun",
+            "mins": 5
+          },
+          {
+            "title": "Suke6 Diner",
+            "kind": "Brunch",
+            "mins": 6
+          },
+          {
+            "title": "Kappabashi Kitchen Town",
+            "kind": "Shopping",
+            "mins": 10
+          }
         ]
       },
       {
         "id": "meiji",
         "title": "Meiji Jingū",
-        "vibes": ["classics", "nature"],
+        "vibes": [
+          "classics",
+          "nature"
+        ],
         "kind": "Shrine",
         "area": "Harajuku",
         "hours": "Open at sunrise",
-        "tags": ["Forest", "Serene"],
+        "tags": [
+          "Forest",
+          "Serene"
+        ],
         "description": "A vast evergreen forest in the heart of the city, leading to one of Japan's grandest Shinto shrines.",
         "nearby": [
-          { "title": "Yoyogi Park", "kind": "Nature", "mins": 5 },
-          { "title": "Fuglen Tokyo", "kind": "Coffee", "mins": 10 },
-          { "title": "Cat Street vintage strip", "kind": "Clothing", "mins": 8 },
-          { "title": "Omotesando Hills", "kind": "Shopping", "mins": 10 },
-          { "title": "Harajuku Gyoza Lou", "kind": "Food", "mins": 8 },
-          { "title": "Design Festa Gallery", "kind": "Art", "mins": 7 }
+          {
+            "title": "Yoyogi Park",
+            "kind": "Nature",
+            "mins": 5
+          },
+          {
+            "title": "Fuglen Tokyo",
+            "kind": "Coffee",
+            "mins": 10
+          },
+          {
+            "title": "Cat Street vintage strip",
+            "kind": "Clothing",
+            "mins": 8
+          },
+          {
+            "title": "Omotesando Hills",
+            "kind": "Shopping",
+            "mins": 10
+          },
+          {
+            "title": "Harajuku Gyoza Lou",
+            "kind": "Food",
+            "mins": 8
+          },
+          {
+            "title": "Design Festa Gallery",
+            "kind": "Art",
+            "mins": 7
+          }
         ]
       },
       {
         "id": "teamlab",
         "title": "teamLab Planets",
-        "vibes": ["classics", "matcha"],
+        "vibes": [
+          "classics",
+          "matcha"
+        ],
         "kind": "Art museum",
         "area": "Toyosu",
         "hours": "Opens mid-morning",
-        "tags": ["Immersive", "Book ahead"],
+        "tags": [
+          "Immersive",
+          "Book ahead"
+        ],
         "description": "Wade barefoot through water and infinite mirrored rooms in this walk-through digital art museum.",
         "nearby": [
-          { "title": "Toyosu Market", "kind": "Food hall", "mins": 12 },
-          { "title": "Sushi Dai", "kind": "Sushi", "mins": 12 },
-          { "title": "Senkyaku Banrai onsen", "kind": "Hot spring", "mins": 10 },
-          { "title": "Toyosu Gururi Park", "kind": "Stroll", "mins": 8 },
-          { "title": "Ariake Garden mall", "kind": "Shopping", "mins": 12 }
+          {
+            "title": "Toyosu Market",
+            "kind": "Food hall",
+            "mins": 12
+          },
+          {
+            "title": "Sushi Dai",
+            "kind": "Sushi",
+            "mins": 12
+          },
+          {
+            "title": "Senkyaku Banrai onsen",
+            "kind": "Hot spring",
+            "mins": 10
+          },
+          {
+            "title": "Toyosu Gururi Park",
+            "kind": "Stroll",
+            "mins": 8
+          },
+          {
+            "title": "Ariake Garden mall",
+            "kind": "Shopping",
+            "mins": 12
+          }
         ]
       },
       {
         "id": "shibuya",
         "title": "Shibuya Sky",
-        "vibes": ["classics", "nightlife"],
+        "vibes": [
+          "classics",
+          "nightlife"
+        ],
         "kind": "Observation deck",
         "area": "Shibuya",
         "hours": "Opens mid-morning",
-        "tags": ["Skyline", "Sunset"],
+        "tags": [
+          "Skyline",
+          "Sunset"
+        ],
         "description": "An open-air rooftop 230m up — the whole city, and on clear evenings Mt. Fuji, glowing at golden hour.",
         "nearby": [
-          { "title": "Shibuya Crossing", "kind": "Landmark", "mins": 2 },
-          { "title": "Hachikō Statue", "kind": "Landmark", "mins": 3 },
-          { "title": "About Life Coffee Brewers", "kind": "Coffee", "mins": 5 },
-          { "title": "Mega Don Quijote", "kind": "Shopping", "mins": 4 },
-          { "title": "Center-gai", "kind": "Street life", "mins": 3 },
-          { "title": "Nonbei Yokocho", "kind": "Bars", "mins": 5 }
+          {
+            "title": "Shibuya Crossing",
+            "kind": "Landmark",
+            "mins": 2
+          },
+          {
+            "title": "Hachikō Statue",
+            "kind": "Landmark",
+            "mins": 3
+          },
+          {
+            "title": "About Life Coffee Brewers",
+            "kind": "Coffee",
+            "mins": 5
+          },
+          {
+            "title": "Mega Don Quijote",
+            "kind": "Shopping",
+            "mins": 4
+          },
+          {
+            "title": "Center-gai",
+            "kind": "Street life",
+            "mins": 3
+          },
+          {
+            "title": "Nonbei Yokocho",
+            "kind": "Bars",
+            "mins": 5
+          }
         ]
       },
       {
         "id": "tokyo-tower",
         "title": "Tokyo Tower",
-        "vibes": ["classics", "nightlife"],
+        "vibes": [
+          "classics",
+          "nightlife"
+        ],
         "kind": "Landmark",
         "area": "Shibakōen",
         "hours": "Open until late",
-        "tags": ["Icon", "Night lights"],
+        "tags": [
+          "Icon",
+          "Night lights"
+        ],
         "description": "The orange-and-white lattice icon of the skyline — corny, beloved, and genuinely magical when it lights up.",
         "nearby": [
-          { "title": "Zōjō-ji Temple", "kind": "Temple", "mins": 3 },
-          { "title": "Shiba Park", "kind": "Nature", "mins": 4 },
-          { "title": "Tofuya Ukai", "kind": "Restaurant", "mins": 2 },
-          { "title": "Azabudai Hills", "kind": "Shopping", "mins": 10 },
-          { "title": "Atago Shrine steps", "kind": "Shrine", "mins": 12 }
+          {
+            "title": "Zōjō-ji Temple",
+            "kind": "Temple",
+            "mins": 3
+          },
+          {
+            "title": "Shiba Park",
+            "kind": "Nature",
+            "mins": 4
+          },
+          {
+            "title": "Tofuya Ukai",
+            "kind": "Restaurant",
+            "mins": 2
+          },
+          {
+            "title": "Azabudai Hills",
+            "kind": "Shopping",
+            "mins": 10
+          },
+          {
+            "title": "Atago Shrine steps",
+            "kind": "Shrine",
+            "mins": 12
+          }
         ]
       },
       {
         "id": "skytree",
         "title": "Tokyo Skytree",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Observation tower",
         "area": "Oshiage",
         "hours": "Opens mid-morning",
-        "tags": ["Tallest", "Views"],
+        "tags": [
+          "Tallest",
+          "Views"
+        ],
         "description": "Japan's tallest structure — a 634m broadcast tower with decks that make even Shibuya look tiny.",
         "nearby": [
-          { "title": "Tokyo Solamachi", "kind": "Shopping", "mins": 1 },
-          { "title": "Sumida Aquarium", "kind": "Aquarium", "mins": 2 },
-          { "title": "Kirby Café", "kind": "Themed café", "mins": 2 },
-          { "title": "Tokyo Mizumachi", "kind": "Riverside cafés", "mins": 7 },
-          { "title": "Sumida River walk", "kind": "Stroll", "mins": 8 },
-          { "title": "Asahi Beer Hall flame", "kind": "Landmark", "mins": 12 }
+          {
+            "title": "Tokyo Solamachi",
+            "kind": "Shopping",
+            "mins": 1
+          },
+          {
+            "title": "Sumida Aquarium",
+            "kind": "Aquarium",
+            "mins": 2
+          },
+          {
+            "title": "Kirby Café",
+            "kind": "Themed café",
+            "mins": 2
+          },
+          {
+            "title": "Tokyo Mizumachi",
+            "kind": "Riverside cafés",
+            "mins": 7
+          },
+          {
+            "title": "Sumida River walk",
+            "kind": "Stroll",
+            "mins": 8
+          },
+          {
+            "title": "Asahi Beer Hall flame",
+            "kind": "Landmark",
+            "mins": 12
+          }
         ]
       },
       {
         "id": "imperial-gardens",
         "title": "Imperial Palace East Gardens",
-        "vibes": ["classics", "nature"],
+        "vibes": [
+          "classics",
+          "nature"
+        ],
         "kind": "Gardens",
         "area": "Marunouchi",
         "hours": "Open morning, closed Mon & Fri",
-        "tags": ["Historic", "Free"],
+        "tags": [
+          "Historic",
+          "Free"
+        ],
         "description": "The old Edo Castle grounds — moats, stone walls and manicured gardens in the exact centre of the city.",
         "nearby": [
-          { "title": "Nijūbashi Bridge", "kind": "Landmark", "mins": 8 },
-          { "title": "Tokyo Station brick façade", "kind": "Architecture", "mins": 10 },
-          { "title": "Marunouchi Naka-dōri", "kind": "Shopping street", "mins": 10 },
-          { "title": "KITTE rooftop garden", "kind": "Viewpoint", "mins": 10 },
-          { "title": "Wadakura Fountain Park", "kind": "Stroll", "mins": 5 }
+          {
+            "title": "Nijūbashi Bridge",
+            "kind": "Landmark",
+            "mins": 8
+          },
+          {
+            "title": "Tokyo Station brick façade",
+            "kind": "Architecture",
+            "mins": 10
+          },
+          {
+            "title": "Marunouchi Naka-dōri",
+            "kind": "Shopping street",
+            "mins": 10
+          },
+          {
+            "title": "KITTE rooftop garden",
+            "kind": "Viewpoint",
+            "mins": 10
+          },
+          {
+            "title": "Wadakura Fountain Park",
+            "kind": "Stroll",
+            "mins": 5
+          }
         ]
       },
       {
         "id": "tsukiji",
         "title": "Tsukiji Outer Market",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Market",
         "area": "Tsukiji",
         "hours": "Best before noon",
-        "tags": ["Street food", "Morning"],
+        "tags": [
+          "Street food",
+          "Morning"
+        ],
         "description": "The old fish market's outer lanes still run hot — tamagoyaki stands, knife shops and the city's best sushi breakfast.",
         "nearby": [
-          { "title": "Yamachō tamagoyaki stand", "kind": "Snack", "mins": 1 },
-          { "title": "Sushizanmai Honten", "kind": "Sushi", "mins": 2 },
-          { "title": "Tsukiji Masamoto knives", "kind": "Shopping", "mins": 2 },
-          { "title": "Namiyoke Shrine", "kind": "Shrine", "mins": 3 },
-          { "title": "Tsukiji Hongan-ji", "kind": "Temple", "mins": 2 },
-          { "title": "Hamarikyu Gardens", "kind": "Gardens", "mins": 10 }
+          {
+            "title": "Yamachō tamagoyaki stand",
+            "kind": "Snack",
+            "mins": 1
+          },
+          {
+            "title": "Sushizanmai Honten",
+            "kind": "Sushi",
+            "mins": 2
+          },
+          {
+            "title": "Tsukiji Masamoto knives",
+            "kind": "Shopping",
+            "mins": 2
+          },
+          {
+            "title": "Namiyoke Shrine",
+            "kind": "Shrine",
+            "mins": 3
+          },
+          {
+            "title": "Tsukiji Hongan-ji",
+            "kind": "Temple",
+            "mins": 2
+          },
+          {
+            "title": "Hamarikyu Gardens",
+            "kind": "Gardens",
+            "mins": 10
+          }
         ]
       },
       {
         "id": "ueno-park",
         "title": "Ueno Park",
-        "vibes": ["classics", "nature"],
+        "vibes": [
+          "classics",
+          "nature"
+        ],
         "kind": "Park",
         "area": "Ueno",
         "hours": "Open all day",
-        "tags": ["Museums", "Cherry blossom"],
+        "tags": [
+          "Museums",
+          "Cherry blossom"
+        ],
         "description": "Tokyo's grand old park — a museum quarter, a lotus pond and pandas, all on one hill.",
         "nearby": [
-          { "title": "Tokyo National Museum", "kind": "Museum", "mins": 5 },
-          { "title": "Ueno Zoo", "kind": "Zoo", "mins": 5 },
-          { "title": "Shinobazu Pond", "kind": "Nature", "mins": 7 },
-          { "title": "Ameyoko market street", "kind": "Shopping", "mins": 8 },
-          { "title": "Kayaba Coffee", "kind": "Kissaten", "mins": 12 },
-          { "title": "National Museum of Western Art", "kind": "Museum", "mins": 4 }
+          {
+            "title": "Tokyo National Museum",
+            "kind": "Museum",
+            "mins": 5
+          },
+          {
+            "title": "Ueno Zoo",
+            "kind": "Zoo",
+            "mins": 5
+          },
+          {
+            "title": "Shinobazu Pond",
+            "kind": "Nature",
+            "mins": 7
+          },
+          {
+            "title": "Ameyoko market street",
+            "kind": "Shopping",
+            "mins": 8
+          },
+          {
+            "title": "Kayaba Coffee",
+            "kind": "Kissaten",
+            "mins": 12
+          },
+          {
+            "title": "National Museum of Western Art",
+            "kind": "Museum",
+            "mins": 4
+          }
         ]
       },
       {
         "id": "akihabara",
         "title": "Akihabara Electric Town",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "District",
         "area": "Akihabara",
         "hours": "Shops from late morning",
-        "tags": ["Anime", "Neon"],
+        "tags": [
+          "Anime",
+          "Neon"
+        ],
         "description": "Floor after floor of anime, retro games and electronics under a canopy of neon — otaku heaven, unfiltered.",
         "nearby": [
-          { "title": "Radio Kaikan", "kind": "Otaku shopping", "mins": 2 },
-          { "title": "Super Potato retro games", "kind": "Gaming", "mins": 4 },
-          { "title": "Gachapon Kaikan", "kind": "Capsule toys", "mins": 4 },
-          { "title": "Maidreamin maid café", "kind": "Themed café", "mins": 3 },
-          { "title": "2k540 Aki-Oka Artisan", "kind": "Craft shopping", "mins": 7 },
-          { "title": "Kanda Myōjin Shrine", "kind": "Shrine", "mins": 8 }
+          {
+            "title": "Radio Kaikan",
+            "kind": "Otaku shopping",
+            "mins": 2
+          },
+          {
+            "title": "Super Potato retro games",
+            "kind": "Gaming",
+            "mins": 4
+          },
+          {
+            "title": "Gachapon Kaikan",
+            "kind": "Capsule toys",
+            "mins": 4
+          },
+          {
+            "title": "Maidreamin maid café",
+            "kind": "Themed café",
+            "mins": 3
+          },
+          {
+            "title": "2k540 Aki-Oka Artisan",
+            "kind": "Craft shopping",
+            "mins": 7
+          },
+          {
+            "title": "Kanda Myōjin Shrine",
+            "kind": "Shrine",
+            "mins": 8
+          }
         ]
       },
       {
         "id": "ginza",
         "title": "Ginza",
-        "vibes": ["classics", "matcha"],
+        "vibes": [
+          "classics",
+          "matcha"
+        ],
         "kind": "District",
         "area": "Ginza",
         "hours": "Best in the afternoon",
-        "tags": ["Flagships", "Polished"],
+        "tags": [
+          "Flagships",
+          "Polished"
+        ],
         "description": "Tokyo's most polished mile — flagship stores, backstreet kissaten and window displays treated like art.",
         "nearby": [
-          { "title": "Onitsuka Tiger Ginza", "kind": "Clothing", "mins": 4 },
-          { "title": "Dover Street Market Ginza", "kind": "Curated fashion", "mins": 5 },
-          { "title": "Uniqlo Ginza flagship", "kind": "Clothing", "mins": 4 },
-          { "title": "Itoya stationery flagship", "kind": "Shopping", "mins": 3 },
-          { "title": "Muji Ginza world flagship", "kind": "Lifestyle", "mins": 5 },
-          { "title": "Ginza Tsutaya Books", "kind": "Art books", "mins": 3 },
-          { "title": "Ginza Six rooftop garden", "kind": "Viewpoint", "mins": 3 },
-          { "title": "Café de L'Ambre", "kind": "Kissaten", "mins": 5 },
-          { "title": "Kabukiza Theatre", "kind": "Culture", "mins": 6 }
+          {
+            "title": "Onitsuka Tiger Ginza",
+            "kind": "Clothing",
+            "mins": 4
+          },
+          {
+            "title": "Dover Street Market Ginza",
+            "kind": "Curated fashion",
+            "mins": 5
+          },
+          {
+            "title": "Uniqlo Ginza flagship",
+            "kind": "Clothing",
+            "mins": 4
+          },
+          {
+            "title": "Itoya stationery flagship",
+            "kind": "Shopping",
+            "mins": 3
+          },
+          {
+            "title": "Muji Ginza world flagship",
+            "kind": "Lifestyle",
+            "mins": 5
+          },
+          {
+            "title": "Ginza Tsutaya Books",
+            "kind": "Art books",
+            "mins": 3
+          },
+          {
+            "title": "Ginza Six rooftop garden",
+            "kind": "Viewpoint",
+            "mins": 3
+          },
+          {
+            "title": "Café de L'Ambre",
+            "kind": "Kissaten",
+            "mins": 5
+          },
+          {
+            "title": "Kabukiza Theatre",
+            "kind": "Culture",
+            "mins": 6
+          }
         ]
       },
       {
         "id": "shinjuku-gyoen",
         "title": "Shinjuku Gyoen",
-        "vibes": ["classics", "nature"],
+        "vibes": [
+          "classics",
+          "nature"
+        ],
         "kind": "Gardens",
         "area": "Shinjuku",
         "hours": "Open morning, closed Mon",
-        "tags": ["Gardens", "Picnic"],
+        "tags": [
+          "Gardens",
+          "Picnic"
+        ],
         "description": "Three gardens in one — Japanese, French and English lawns — a genuinely quiet green world off Shinjuku's chaos.",
         "nearby": [
-          { "title": "Takano Fruit Parlor", "kind": "Dessert", "mins": 10 },
-          { "title": "Isetan food hall", "kind": "Depachika", "mins": 8 },
-          { "title": "NEWoMan", "kind": "Shopping", "mins": 8 },
-          { "title": "Hanazono Shrine", "kind": "Shrine", "mins": 10 },
-          { "title": "Café La Voie", "kind": "Coffee", "mins": 6 }
+          {
+            "title": "Takano Fruit Parlor",
+            "kind": "Dessert",
+            "mins": 10
+          },
+          {
+            "title": "Isetan food hall",
+            "kind": "Depachika",
+            "mins": 8
+          },
+          {
+            "title": "NEWoMan",
+            "kind": "Shopping",
+            "mins": 8
+          },
+          {
+            "title": "Hanazono Shrine",
+            "kind": "Shrine",
+            "mins": 10
+          },
+          {
+            "title": "Café La Voie",
+            "kind": "Coffee",
+            "mins": 6
+          }
         ]
       },
       {
         "id": "takeshita",
         "title": "Takeshita Street",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Street",
         "area": "Harajuku",
         "hours": "Shops from late morning",
-        "tags": ["Kawaii", "Crowds"],
+        "tags": [
+          "Kawaii",
+          "Crowds"
+        ],
         "description": "Harajuku's teen-culture artery — crepe stands, purikura booths and fashion at maximum volume.",
         "nearby": [
-          { "title": "Marion Crêpes", "kind": "Snack", "mins": 1 },
-          { "title": "WEGO Harajuku", "kind": "Clothing", "mins": 2 },
-          { "title": "Daiso Harajuku", "kind": "Shopping", "mins": 2 },
-          { "title": "Purikura photo booths", "kind": "Photos", "mins": 3 },
-          { "title": "Tōgō Shrine", "kind": "Shrine", "mins": 4 },
-          { "title": "Reissue latte art", "kind": "Café", "mins": 5 }
+          {
+            "title": "Marion Crêpes",
+            "kind": "Snack",
+            "mins": 1
+          },
+          {
+            "title": "WEGO Harajuku",
+            "kind": "Clothing",
+            "mins": 2
+          },
+          {
+            "title": "Daiso Harajuku",
+            "kind": "Shopping",
+            "mins": 2
+          },
+          {
+            "title": "Purikura photo booths",
+            "kind": "Photos",
+            "mins": 3
+          },
+          {
+            "title": "Tōgō Shrine",
+            "kind": "Shrine",
+            "mins": 4
+          },
+          {
+            "title": "Reissue latte art",
+            "kind": "Café",
+            "mins": 5
+          }
         ]
       },
       {
         "id": "odaiba",
         "title": "Odaiba Seaside Park",
-        "vibes": ["classics", "nightlife"],
+        "vibes": [
+          "classics",
+          "nightlife"
+        ],
         "kind": "Waterfront",
         "area": "Odaiba",
         "hours": "Open all day",
-        "tags": ["Bay views", "Sunset"],
+        "tags": [
+          "Bay views",
+          "Sunset"
+        ],
         "description": "A man-made beach with the Rainbow Bridge and city skyline across the bay — Tokyo doing its best seaside impression.",
         "nearby": [
-          { "title": "Rainbow Bridge viewpoint", "kind": "Landmark", "mins": 2 },
-          { "title": "Odaiba Statue of Liberty", "kind": "Landmark", "mins": 2 },
-          { "title": "Unicorn Gundam statue", "kind": "Landmark", "mins": 8 },
-          { "title": "DiverCity Tokyo Plaza", "kind": "Shopping", "mins": 8 },
-          { "title": "Decks retro arcade", "kind": "Games", "mins": 4 }
+          {
+            "title": "Rainbow Bridge viewpoint",
+            "kind": "Landmark",
+            "mins": 2
+          },
+          {
+            "title": "Odaiba Statue of Liberty",
+            "kind": "Landmark",
+            "mins": 2
+          },
+          {
+            "title": "Unicorn Gundam statue",
+            "kind": "Landmark",
+            "mins": 8
+          },
+          {
+            "title": "DiverCity Tokyo Plaza",
+            "kind": "Shopping",
+            "mins": 8
+          },
+          {
+            "title": "Decks retro arcade",
+            "kind": "Games",
+            "mins": 4
+          }
         ]
       },
       {
         "id": "yanaka",
         "title": "Yanaka Ginza",
-        "vibes": ["classics", "matcha"],
+        "vibes": [
+          "classics",
+          "matcha"
+        ],
         "kind": "Old town street",
         "area": "Yanaka",
         "hours": "Shops from late morning",
-        "tags": ["Old Tokyo", "Cats"],
+        "tags": [
+          "Old Tokyo",
+          "Cats"
+        ],
         "description": "The Tokyo that survived — a low-rise shopping street of croquette stands, cats and craftsman shops.",
         "nearby": [
-          { "title": "Niku no Suzuki menchi-katsu", "kind": "Snack", "mins": 1 },
-          { "title": "Yanaka Shippoya tail donuts", "kind": "Snack", "mins": 2 },
-          { "title": "Kayaba Coffee", "kind": "Kissaten", "mins": 7 },
-          { "title": "SCAI The Bathhouse", "kind": "Gallery", "mins": 8 },
-          { "title": "Yanaka Cemetery cherry path", "kind": "Stroll", "mins": 5 },
-          { "title": "Nezu Shrine", "kind": "Shrine", "mins": 12 }
+          {
+            "title": "Niku no Suzuki menchi-katsu",
+            "kind": "Snack",
+            "mins": 1
+          },
+          {
+            "title": "Yanaka Shippoya tail donuts",
+            "kind": "Snack",
+            "mins": 2
+          },
+          {
+            "title": "Kayaba Coffee",
+            "kind": "Kissaten",
+            "mins": 7
+          },
+          {
+            "title": "SCAI The Bathhouse",
+            "kind": "Gallery",
+            "mins": 8
+          },
+          {
+            "title": "Yanaka Cemetery cherry path",
+            "kind": "Stroll",
+            "mins": 5
+          },
+          {
+            "title": "Nezu Shrine",
+            "kind": "Shrine",
+            "mins": 12
+          }
         ]
       },
       {
         "id": "omoide",
         "title": "Omoide Yokochō",
-        "vibes": ["classics", "nightlife"],
+        "vibes": [
+          "classics",
+          "nightlife"
+        ],
         "kind": "Alley",
         "area": "Shinjuku",
         "hours": "Comes alive at dusk",
-        "tags": ["Yakitori", "Lantern-lit"],
+        "tags": [
+          "Yakitori",
+          "Lantern-lit"
+        ],
         "description": "A smoky lantern-lit alley of ten-seat yakitori counters pressed against the train tracks — postwar Tokyo, still serving.",
         "nearby": [
-          { "title": "Kabukichō neon streets", "kind": "Street life", "mins": 6 },
-          { "title": "Godzilla Head", "kind": "Landmark", "mins": 7 },
-          { "title": "Don Quijote Kabukichō", "kind": "Shopping", "mins": 5 },
-          { "title": "Shinjuku Batting Center", "kind": "Games", "mins": 7 },
-          { "title": "Hanazono Shrine", "kind": "Shrine", "mins": 9 }
+          {
+            "title": "Kabukichō neon streets",
+            "kind": "Street life",
+            "mins": 6
+          },
+          {
+            "title": "Godzilla Head",
+            "kind": "Landmark",
+            "mins": 7
+          },
+          {
+            "title": "Don Quijote Kabukichō",
+            "kind": "Shopping",
+            "mins": 5
+          },
+          {
+            "title": "Shinjuku Batting Center",
+            "kind": "Games",
+            "mins": 7
+          },
+          {
+            "title": "Hanazono Shrine",
+            "kind": "Shrine",
+            "mins": 9
+          }
         ]
       },
       {
         "id": "nakame",
         "title": "Nakameguro Canal",
-        "vibes": ["matcha", "nature"],
+        "vibes": [
+          "matcha",
+          "nature"
+        ],
         "kind": "Canal walk",
         "area": "Nakameguro",
         "hours": "Best in the afternoon",
-        "tags": ["Cherry trees", "Boutiques"],
+        "tags": [
+          "Cherry trees",
+          "Boutiques"
+        ],
         "description": "A tree-lined canal strolled slowly — indie boutiques, canalside coffee and Tokyo's prettiest cherry tunnel in spring.",
         "nearby": [
-          { "title": "Onibus Coffee", "kind": "Coffee", "mins": 3 },
-          { "title": "Starbucks Reserve Roastery", "kind": "Coffee", "mins": 8 }
+          {
+            "title": "Onibus Coffee Nakameguro",
+            "kind": "Coffee",
+            "mins": 3
+          },
+          {
+            "title": "Starbucks Reserve Roastery Tokyo",
+            "kind": "Coffee temple",
+            "mins": 8
+          },
+          {
+            "title": "TRAVELER'S FACTORY",
+            "kind": "Stationery",
+            "mins": 5
+          },
+          {
+            "title": "COW BOOKS",
+            "kind": "Books",
+            "mins": 7
+          },
+          {
+            "title": "Green Bean to Bar Chocolate",
+            "kind": "Chocolate",
+            "mins": 6
+          },
+          {
+            "title": "SIDEWALK STAND",
+            "kind": "Café",
+            "mins": 4
+          }
         ]
       },
       {
         "id": "golden-gai",
         "title": "Shinjuku Golden Gai",
-        "vibes": ["nightlife"],
+        "vibes": [
+          "nightlife"
+        ],
         "kind": "Bar district",
         "area": "Shinjuku",
         "hours": "From 8 PM",
-        "tags": ["Tiny bars", "Local"],
+        "tags": [
+          "Tiny bars",
+          "Local"
+        ],
         "description": "Six alleys, two hundred bars, five seats each — pick a door, squeeze in, and talk to strangers.",
         "nearby": [
-          { "title": "Hanazono Shrine at night", "kind": "Shrine", "mins": 2 },
-          { "title": "Kabukichō", "kind": "Neon district", "mins": 4 }
+          {
+            "title": "Hanazono Shrine at night",
+            "kind": "Shrine",
+            "mins": 2
+          },
+          {
+            "title": "Kabukichō",
+            "kind": "Neon district",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "daikanyama",
+        "title": "Daikanyama T-Site",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bookstore",
+        "area": "Daikanyama",
+        "hours": "Open morning till late",
+        "tags": [
+          "Design",
+          "Slow browse"
+        ],
+        "description": "A bookstore built like a village — magazines, vinyl and a lounge you'll lose an afternoon to, in Tokyo's calmest fashionable quarter.",
+        "nearby": [
+          {
+            "title": "Log Road Daikanyama",
+            "kind": "Boardwalk cafés",
+            "mins": 5
+          },
+          {
+            "title": "Kyu Asakura House",
+            "kind": "Historic house",
+            "mins": 6
+          },
+          {
+            "title": "Okura",
+            "kind": "Clothing",
+            "mins": 4
+          },
+          {
+            "title": "Hollywood Ranch Market",
+            "kind": "Clothing",
+            "mins": 4
+          },
+          {
+            "title": "Ivy Place",
+            "kind": "Brunch",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "kiyosumi",
+        "title": "Blue Bottle Coffee Kiyosumi-Shirakawa",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Roastery",
+        "area": "Kiyosumi",
+        "hours": "Opens early",
+        "tags": [
+          "Third wave",
+          "Origin story"
+        ],
+        "description": "The roastery that kicked off Tokyo's third-wave boom, in a warehouse quarter that's become the city's coffee district.",
+        "nearby": [
+          {
+            "title": "Kiyosumi Gardens",
+            "kind": "Gardens",
+            "mins": 5
+          },
+          {
+            "title": "Museum of Contemporary Art Tokyo",
+            "kind": "Art museum",
+            "mins": 8
+          },
+          {
+            "title": "ARiSE Coffee Roasters",
+            "kind": "Coffee",
+            "mins": 4
+          },
+          {
+            "title": "iki Roastery & Eatery",
+            "kind": "Bakery café",
+            "mins": 7
+          },
+          {
+            "title": "Fukagawa Fudōdō",
+            "kind": "Temple",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "shimokita",
+        "title": "Shimokitazawa",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Shimokitazawa",
+        "hours": "Shops from late morning",
+        "tags": [
+          "Vintage",
+          "Indie"
+        ],
+        "description": "A tangle of lanes stuffed with vintage shops, record stores and tiny cafés — Tokyo's thrift-and-theatre town.",
+        "nearby": [
+          {
+            "title": "New York Joe Exchange",
+            "kind": "Vintage clothing",
+            "mins": 5
+          },
+          {
+            "title": "Flash Disc Ranch",
+            "kind": "Records",
+            "mins": 4
+          },
+          {
+            "title": "Bear Pond Espresso",
+            "kind": "Coffee",
+            "mins": 3
+          },
+          {
+            "title": "Chicago Thrift Store",
+            "kind": "Vintage clothing",
+            "mins": 4
+          },
+          {
+            "title": "Village Vanguard",
+            "kind": "Weird shopping",
+            "mins": 3
+          },
+          {
+            "title": "reload",
+            "kind": "Design complex",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "omotesando",
+        "title": "Omotesandō",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Avenue",
+        "area": "Aoyama",
+        "hours": "Best in the afternoon",
+        "tags": [
+          "Architecture",
+          "Flagships"
+        ],
+        "description": "A zelkova-lined runway of flagship architecture — every fashion house built a landmark here, and the backstreets hide the good coffee.",
+        "nearby": [
+          {
+            "title": "Koffee Mameya",
+            "kind": "Coffee",
+            "mins": 5
+          },
+          {
+            "title": "Prada Aoyama",
+            "kind": "Architecture",
+            "mins": 6
+          },
+          {
+            "title": "Nezu Museum",
+            "kind": "Museum garden",
+            "mins": 10
+          },
+          {
+            "title": "Comme des Garçons Aoyama",
+            "kind": "Clothing",
+            "mins": 7
+          },
+          {
+            "title": "Spiral Building",
+            "kind": "Design",
+            "mins": 4
+          },
+          {
+            "title": "Blue Bottle Coffee Aoyama",
+            "kind": "Coffee",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "kuramae",
+        "title": "Kuramae",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Craft district",
+        "area": "Kuramae",
+        "hours": "Shops from late morning",
+        "tags": [
+          "Makers",
+          "Riverside"
+        ],
+        "description": "Old toy-wholesale blocks turned maker district — bean-to-bar chocolate, custom notebooks and riverside coffee.",
+        "nearby": [
+          {
+            "title": "Dandelion Chocolate",
+            "kind": "Chocolate café",
+            "mins": 2
+          },
+          {
+            "title": "Kakimori",
+            "kind": "Custom stationery",
+            "mins": 3
+          },
+          {
+            "title": "Camera",
+            "kind": "Leather & café",
+            "mins": 3
+          },
+          {
+            "title": "KONCENT",
+            "kind": "Design shop",
+            "mins": 2
+          },
+          {
+            "title": "Nui. lounge",
+            "kind": "Café bar",
+            "mins": 4
+          },
+          {
+            "title": "Sumida River Terrace",
+            "kind": "Stroll",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "jiyugaoka",
+        "title": "Jiyūgaoka",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Jiyūgaoka",
+        "hours": "Best in the afternoon",
+        "tags": [
+          "Sweets",
+          "Lifestyle"
+        ],
+        "description": "Tokyo's sweets town — patisseries and lifestyle shops on quiet lanes, with a hidden thatched tea house.",
+        "nearby": [
+          {
+            "title": "Kosoan",
+            "kind": "Tea house",
+            "mins": 5
+          },
+          {
+            "title": "Mont St. Clair",
+            "kind": "Patisserie",
+            "mins": 8
+          },
+          {
+            "title": "TODAY'S SPECIAL",
+            "kind": "Lifestyle shop",
+            "mins": 3
+          },
+          {
+            "title": "La Vita Jiyūgaoka",
+            "kind": "Photo spot",
+            "mins": 6
+          },
+          {
+            "title": "Trainchi",
+            "kind": "Shopping",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "kagurazaka",
+        "title": "Kagurazaka",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Kagurazaka",
+        "hours": "Best in the afternoon",
+        "tags": [
+          "Stone lanes",
+          "Franco-Tokyo"
+        ],
+        "description": "Cobbled geisha lanes turned Franco-Japanese quarter — stone alleys, standing sake bars and serious bakeries.",
+        "nearby": [
+          {
+            "title": "Akagi Shrine",
+            "kind": "Modern shrine",
+            "mins": 4
+          },
+          {
+            "title": "Kamome Books",
+            "kind": "Books & café",
+            "mins": 5
+          },
+          {
+            "title": "AKOMEYA TOKYO in la kagū",
+            "kind": "Lifestyle shop",
+            "mins": 3
+          },
+          {
+            "title": "Pain des Philosophes",
+            "kind": "Bakery",
+            "mins": 6
+          },
+          {
+            "title": "Hyogo Yokocho stone alley",
+            "kind": "Photo spot",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "koenji",
+        "title": "Kōenji",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Kōenji",
+        "hours": "Shops from noon",
+        "tags": [
+          "Vintage",
+          "Counterculture"
+        ],
+        "description": "Shimokita's scrappier sibling — arcades of vintage, record bars and zine culture under the train tracks.",
+        "nearby": [
+          {
+            "title": "Sokkyou",
+            "kind": "Vintage clothing",
+            "mins": 3
+          },
+          {
+            "title": "Kita-kore Building",
+            "kind": "Avant fashion",
+            "mins": 4
+          },
+          {
+            "title": "Amp Cafe",
+            "kind": "Coffee",
+            "mins": 4
+          },
+          {
+            "title": "Kōenji Junjō shopping street",
+            "kind": "Arcade",
+            "mins": 2
+          },
+          {
+            "title": "HATTIFNATT",
+            "kind": "Picture-book café",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "tomigaya",
+        "title": "Tomigaya",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Neighborhood",
+        "area": "Tomigaya",
+        "hours": "Opens early",
+        "tags": [
+          "Coffee",
+          "Local"
+        ],
+        "description": "The neighborhood behind Yoyogi Park where Tokyo's coffee scene actually lives — Nordic roasters, brunch counters and small bookshops.",
+        "nearby": [
+          {
+            "title": "Fuglen Tokyo",
+            "kind": "Coffee",
+            "mins": 1
+          },
+          {
+            "title": "Camelback sandwich & espresso",
+            "kind": "Sandwiches",
+            "mins": 2
+          },
+          {
+            "title": "Shibuya Publishing & Booksellers",
+            "kind": "Books",
+            "mins": 3
+          },
+          {
+            "title": "Path",
+            "kind": "Brunch",
+            "mins": 4
+          },
+          {
+            "title": "Yoyogi Park west lawns",
+            "kind": "Nature",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "sangenjaya",
+        "title": "Sangenjaya",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Sangenjaya",
+        "hours": "Best in the afternoon",
+        "tags": [
+          "Alleys",
+          "Local"
+        ],
+        "description": "Retro alleys and neighborhood coffee a short tram-and-train hop from Shibuya — where locals actually hang out.",
+        "nearby": [
+          {
+            "title": "Obscura Coffee Roasters",
+            "kind": "Coffee",
+            "mins": 3
+          },
+          {
+            "title": "Carrot Tower observation deck",
+            "kind": "Free view",
+            "mins": 3
+          },
+          {
+            "title": "Suzuran-dōri alleys",
+            "kind": "Alley wander",
+            "mins": 2
+          },
+          {
+            "title": "Moon Factory Coffee",
+            "kind": "Kissaten",
+            "mins": 4
+          },
+          {
+            "title": "Setagaya Line tram ride",
+            "kind": "Retro tram",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "design-sight",
+        "title": "21_21 Design Sight",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Design museum",
+        "area": "Roppongi",
+        "hours": "Closed Tue",
+        "tags": [
+          "Tadao Ando",
+          "Design"
+        ],
+        "description": "Issey Miyake and Tadao Andō's half-buried concrete gallery — one perfectly curated design exhibition at a time.",
+        "nearby": [
+          {
+            "title": "Tokyo Midtown garden",
+            "kind": "Stroll",
+            "mins": 2
+          },
+          {
+            "title": "Suntory Museum of Art",
+            "kind": "Museum",
+            "mins": 3
+          },
+          {
+            "title": "Fujifilm Square",
+            "kind": "Free gallery",
+            "mins": 2
+          },
+          {
+            "title": "The National Art Center Tokyo",
+            "kind": "Art museum",
+            "mins": 8
+          },
+          {
+            "title": "Toraya Akasaka",
+            "kind": "Wagashi tea room",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "ebisu",
+        "title": "Ebisu",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Ebisu",
+        "hours": "Opens early",
+        "tags": [
+          "Coffee",
+          "Photography"
+        ],
+        "description": "Grown-up Shibuya — specialty coffee counters, a photography museum and one of the city's best after-work yokochō.",
+        "nearby": [
+          {
+            "title": "Sarutahiko Coffee Ebisu",
+            "kind": "Coffee",
+            "mins": 1
+          },
+          {
+            "title": "Tokyo Photographic Art Museum",
+            "kind": "Museum",
+            "mins": 6
+          },
+          {
+            "title": "Yebisu Garden Place",
+            "kind": "Plaza",
+            "mins": 5
+          },
+          {
+            "title": "Ebisu Yokochō",
+            "kind": "Food alley",
+            "mins": 4
+          },
+          {
+            "title": "atré Ebisu",
+            "kind": "Shopping",
+            "mins": 2
+          }
         ]
       }
     ]
