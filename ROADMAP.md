@@ -22,7 +22,7 @@ The share card gets a city illustration (option 1: one consistent sticker pack).
 - **One style rule:** never mix packs. A city with no matching sticker gets
   nothing rather than an off-style substitute.
 
-### 1.2 Verified check-ins  · small
+### 1.2 Verified check-ins  · small · ✅ DONE (2026-07-03)
 Passport numbers must be honest before they're public flex.
 - At check-in, `expo-location` verifies you're within ~250 m of the spot
   (spots have lat/lng). Out of range → friendly "get closer to stamp this".
@@ -30,7 +30,7 @@ Passport numbers must be honest before they're public flex.
   working; only verified ones count toward public stats later.
 - Simulator caveat: location is mocked, so keep a `__DEV__` bypass.
 
-### 1.3 Passport share card ("Strava flex")  · medium
+### 1.3 Passport share card ("Strava flex")  · medium · ✅ DONE (2026-07-03)
 - New `PassportCard` (reuse ShareCard machinery + view-shot): stamps grid,
   cities/spots counts, vibe split ("62% After Dark"), coordinate eyebrow,
   postmark, landmark stickers of stamped cities.
@@ -38,7 +38,7 @@ Passport numbers must be honest before they're public flex.
   share is an ad.
 - Later (post-launch, needs users): percentiles, streaks, yearly "Wrapped".
 
-### 1.4 First-run experience  · medium
+### 1.4 First-run experience  · medium · ⏳ onboarding + featured-photo fix DONE; icon/splash pending (needs your art direction)
 - **You:** app icon direction (Field Notes: cobalt postmark "W ✦" on putty?
   — decide together, then produce at required sizes).
 - **Build:** icon + splash wired in `app.json`; 3-screen onboarding

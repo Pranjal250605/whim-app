@@ -1,17 +1,33 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import { captureRef } from 'react-native-view-shot';
+import * as Sharing from 'expo-sharing';
 import { useWhimStore } from '@/store/useWhimStore';
 import type { CheckinItem } from '@/lib/db';
 import GlassNav from '@/components/GlassNav';
 import SpotImage from '@/components/SpotImage';
+import PassportCard from '@/components/PassportCard';
 import Icon from '@/components/Icon';
 import { COLORS, SHADOWS } from '@/lib/theme';
 
 // Profile / Passport — a travel diary of places you've checked in at.
 export default function Passport() {
   const checkins = useWhimStore((s) => s.checkins);
+  const profile = useWhimStore((s) => s.profile);
+
+  const shareRef = useRef<View>(null);
+  const sharePassport = async () => {
+    try {
+      const uri = await captureRef(shareRef, { format: 'png', quality: 1, result: 'tmpfile' });
+      if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'Share your Passport' });
+      }
+    } catch (e) {
+      console.warn('[whim] passport share failed:', e);
+    }
+  };
 
   const byCity = useMemo(() => {
     const map = new Map<string, CheckinItem[]>();
@@ -27,8 +43,18 @@ export default function Passport() {
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
-      {/* tab root — no back button; settings entry lives top-right */}
-      <View className="flex-row items-center justify-end px-4 pt-1">
+      {/* tab root — no back button; share + settings live top-right */}
+      <View className="flex-row items-center justify-end gap-2.5 px-4 pt-1">
+        {spotCount > 0 && (
+          <Pressable
+            onPress={sharePassport}
+            accessibilityLabel="Share your Passport"
+            className="h-10 w-10 items-center justify-center rounded-full bg-white"
+            style={SHADOWS.soft}
+          >
+            <Icon name="share" size={19} color={COLORS.ink} strokeWidth={2} />
+          </Pressable>
+        )}
         <Pressable
           onPress={() => router.push('/settings')}
           accessibilityLabel="Settings"
@@ -91,6 +117,11 @@ export default function Passport() {
       </ScrollView>
 
       <GlassNav active="profile" />
+
+      {/* off-screen card captured for sharing */}
+      <View ref={shareRef} collapsable={false} style={{ position: 'absolute', left: -9999, top: 0 }}>
+        <PassportCard displayName={profile?.displayName ?? null} checkins={checkins} />
+      </View>
     </SafeAreaView>
   );
 }

@@ -22,6 +22,21 @@ function rowToSpot(row: any): Spot {
   };
 }
 
+/** A real photo from this city+vibe's deck, for the Home featured card. */
+export async function fetchCoverPhoto(city: string, vibe: VibeId): Promise<string | null> {
+  const { data, error } = await supabase
+    .from('spots')
+    .select('photo')
+    .eq('city', city)
+    .contains('vibes', [vibe])
+    .not('photo', 'is', null)
+    .neq('photo', '')
+    .limit(1);
+  if (error) throw error;
+  const photo = data?.[0]?.photo ?? null;
+  return photo && photo.startsWith('http') ? photo : null;
+}
+
 /** Phase 1 → 2: the curated deck for a (city, vibe), straight from the DB. */
 export async function fetchDeck(city: string, vibe: VibeId): Promise<Spot[]> {
   const { data, error } = await supabase
@@ -243,8 +258,10 @@ export async function fetchCheckins(): Promise<CheckinItem[]> {
     }));
 }
 
-export async function checkIn(spotId: string, city: string): Promise<void> {
-  const { error } = await supabase.from('checkins').upsert({ spot_id: spotId, city }, { onConflict: 'user_id,spot_id' });
+export async function checkIn(spotId: string, city: string, verified: boolean): Promise<void> {
+  const { error } = await supabase
+    .from('checkins')
+    .upsert({ spot_id: spotId, city, verified }, { onConflict: 'user_id,spot_id' });
   if (error) throw error;
 }
 

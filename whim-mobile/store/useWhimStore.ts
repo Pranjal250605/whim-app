@@ -16,6 +16,7 @@ import {
 } from '@/lib/db';
 import { getDeck as getMockDeck } from '@/data/mockDeck';
 import { toast } from '@/lib/toast';
+import { isNearSpot } from '@/lib/verifyLocation';
 
 // Swipe history is scoped per collection so clearing / re-dealing one
 // city+vibe never affects another.
@@ -45,7 +46,7 @@ interface WhimState {
 
   setContext: (city: string, vibe: VibeId) => Promise<void>;
   renameProfile: (name: string) => void;
-  toggleCheckin: (spot: Spot, city: string) => void;
+  toggleCheckin: (spot: Spot, city: string) => Promise<void>;
   setCity: (city: string) => void;
   setVibe: (vibe: VibeId) => void;
   markNotificationsSeen: () => void;
@@ -121,7 +122,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
     });
   },
 
-  toggleCheckin: (spot, city) => {
+  toggleCheckin: async (spot, city) => {
     const isIn = get().checkins.some((c) => c.spotId === spot.id);
     if (isIn) {
       set((s) => ({ checkins: s.checkins.filter((c) => c.spotId !== spot.id) }));
@@ -130,6 +131,19 @@ export const useWhimStore = create<WhimState>((set, get) => ({
         toast('Couldn’t remove that stamp — check your connection.');
       });
     } else {
+      // a stamp means "I was actually there" — verify proximity (~250 m).
+      // Dev builds skip the gate (simulator GPS is mocked) but stamp unverified.
+      let verified = false;
+      const proximity = await isNearSpot(spot);
+      if (proximity === 'near') verified = true;
+      else if (!__DEV__) {
+        toast(
+          proximity === 'far'
+            ? 'Too far away — get closer to stamp this one.'
+            : 'Turn on location access to stamp check-ins.',
+        );
+        return;
+      }
       const item: CheckinItem = {
         spotId: spot.id,
         title: spot.title,
@@ -140,7 +154,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
         photo: spot.photo,
       };
       set((s) => ({ checkins: [item, ...s.checkins] }));
-      checkIn(spot.id, city).catch((e) => {
+      checkIn(spot.id, city, verified).catch((e) => {
         console.warn('[whim] checkIn failed:', e);
         toast('Couldn’t stamp that check-in — check your connection.');
       });

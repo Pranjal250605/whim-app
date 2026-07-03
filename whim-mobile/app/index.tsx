@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import { router } from 'expo-router';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { useAuth } from '@/lib/auth';
+import { fetchCoverPhoto } from '@/lib/db';
 import { CITIES, nearestCity } from '@/data/cities';
 import { VIBES, FEATURED, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
@@ -42,6 +43,22 @@ export default function Home() {
 
   const f = FEATURED[vibe];
   const savedHere = useMemo(() => scopedBucket(bucketList, city, vibe).length, [bucketList, city, vibe]);
+
+  // featured art should belong to the chosen CITY — pull a real spot photo
+  // from its deck; the vibe stock photo is only the fallback.
+  const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    setCoverPhoto(null);
+    fetchCoverPhoto(city, vibe)
+      .then((p) => {
+        if (!cancelled) setCoverPhoto(p);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [city, vibe]);
 
   // GPS-readout eyebrow — real travel data as a signature texture (not decoration).
   const coordLabel = useMemo(() => {
@@ -164,7 +181,7 @@ export default function Home() {
           <View className="absolute left-2 right-2 -top-1.5 h-8 rounded-3xl bg-white" style={{ opacity: 0.85, ...SHADOWS.soft }} />
           <View className="overflow-hidden rounded-[28px] bg-white" style={SHADOWS.card}>
             <View className="h-[196px] justify-end overflow-hidden" style={{ backgroundColor: f.tone }}>
-              <SpotImage uri={f.photo} />
+              <SpotImage uri={coverPhoto ?? f.photo} />
               <View className="absolute left-4 top-4 flex-row items-center gap-1.5 rounded-full bg-white/92 px-3 py-1.5">
                 <View className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: VIBE_DOT[vibe] }} />
                 <Text className="text-[11.5px] font-bold uppercase tracking-wide text-ink">{f.label}</Text>

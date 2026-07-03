@@ -1,5 +1,5 @@
 import '../global.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -15,6 +15,7 @@ import {
 } from '@expo-google-fonts/bricolage-grotesque';
 import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono';
 import { AuthProvider, useAuth } from '@/lib/auth';
+import { getOnboarded } from '@/lib/onboarding';
 import ToastHost from '@/components/Toast';
 import '@/lib/mapbox'; // sets the Mapbox access token once at startup
 
@@ -39,21 +40,27 @@ function RootNavigator() {
   // Where the user was headed when the gate intercepted them — so an invite
   // deep link (whim://room/…) survives the sign-in round-trip.
   const pendingRoute = useRef<string | null>(null);
+  // null = still reading the first-run flag
+  const [onboarded, setOnboardedState] = useState<boolean | null>(null);
+  useEffect(() => {
+    getOnboarded().then(setOnboardedState);
+  }, []);
 
   useEffect(() => {
-    if (loading) return;
-    const inAuthScreen = segments[0] === 'sign-in';
-    if (!session && !inAuthScreen) {
+    if (loading || onboarded === null) return;
+    const inAuthArea = segments[0] === 'sign-in' || segments[0] === 'onboarding';
+    if (!session && !inAuthArea) {
       pendingRoute.current = '/' + segments.join('/');
-      router.replace('/sign-in'); // logged out → gate
-    } else if (session && inAuthScreen) {
+      // fresh installs get the intro once, then the sign-in gate
+      router.replace(onboarded ? '/sign-in' : ('/onboarding' as never));
+    } else if (session && inAuthArea) {
       const target = pendingRoute.current ?? '/';
       pendingRoute.current = null;
       router.replace(target as never); // resume where they were headed
     }
-  }, [session, loading, segments]);
+  }, [session, loading, segments, onboarded]);
 
-  if (loading) {
+  if (loading || onboarded === null) {
     return (
       <View className="flex-1 items-center justify-center bg-canvas">
         <ActivityIndicator color="#2740E0" />

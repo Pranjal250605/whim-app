@@ -60,9 +60,14 @@ deep links survive), and deep-links notification taps through an allowlist.
 
 **Navigation model:** four **tab roots** — `index` (Discover), `hitlist`,
 `itinerary` (Route), `passport` (Profile) — each renders `GlassNav` and **no
-back button**. Everything else (`swipe`, `notifications`, `settings`, future
-`room/*`) is a **pushed screen**: renders `BackButton`, no GlassNav. Don't mix
-the two patterns.
+back button**. Everything else (`swipe`, `notifications`, `settings`, `room/*`)
+is a **pushed screen**: renders `BackButton`, no GlassNav. Don't mix the two
+patterns. `onboarding` is pre-auth (shown once via `lib/onboarding.ts` flag,
+before the sign-in gate).
+
+**Check-ins are verified:** stamping requires GPS proximity (~250 m,
+`lib/verifyLocation.ts`); `__DEV__` bypasses the gate (simulator) but stamps
+`verified=false`. Public/Strava-style stats must count verified stamps only.
 
 ### State (`store/useWhimStore.ts`)
 One Zustand store is the source of truth for the whole user loop. It updates
