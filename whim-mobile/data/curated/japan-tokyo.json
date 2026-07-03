@@ -1348,6 +1348,801 @@
             "mins": 2
           }
         ]
+      },
+      {
+        "id": "todoroki",
+        "title": "Todoroki Valley",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Ravine walk",
+        "area": "Setagaya",
+        "hours": "Open all day",
+        "tags": [
+          "Hidden",
+          "Ravine"
+        ],
+        "description": "Tokyo's only ravine — a shaded stream walk under the city that ends at a temple and a waterfall.",
+        "nearby": [
+          {
+            "title": "Todoroki Fudōson",
+            "kind": "Temple",
+            "mins": 5
+          },
+          {
+            "title": "Fudō Falls",
+            "kind": "Waterfall",
+            "mins": 4
+          },
+          {
+            "title": "Tama River banks",
+            "kind": "Riverside",
+            "mins": 10
+          },
+          {
+            "title": "Kuhonbutsu Jōshin-ji",
+            "kind": "Temple",
+            "mins": 12
+          },
+          {
+            "title": "Oyamadai shopping street",
+            "kind": "Local street",
+            "mins": 7
+          }
+        ]
+      },
+      {
+        "id": "inokashira",
+        "title": "Inokashira Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Kichijōji",
+        "hours": "Open all day",
+        "tags": [
+          "Swan boats",
+          "Lake"
+        ],
+        "description": "A lake park with swan boats and buskers, attached to Tokyo's most livable neighborhood — and Ghibli's museum.",
+        "nearby": [
+          {
+            "title": "Ghibli Museum",
+            "kind": "Museum",
+            "mins": 5
+          },
+          {
+            "title": "Swan boat pier",
+            "kind": "Boats",
+            "mins": 2
+          },
+          {
+            "title": "Harmonica Yokochō",
+            "kind": "Food alley",
+            "mins": 8
+          },
+          {
+            "title": "Satou menchi-katsu",
+            "kind": "Snack",
+            "mins": 7
+          },
+          {
+            "title": "Blue Sky Coffee",
+            "kind": "Coffee",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "rikugien",
+        "title": "Rikugien Gardens",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Gardens",
+        "area": "Komagome",
+        "hours": "Open morning",
+        "tags": [
+          "Strolling garden",
+          "Autumn"
+        ],
+        "description": "An Edo-period strolling garden built around a poem — Tokyo's most beautiful autumn light-up.",
+        "nearby": [
+          {
+            "title": "Garden tea house",
+            "kind": "Tea",
+            "mins": 1
+          },
+          {
+            "title": "Kyū-Furukawa Gardens",
+            "kind": "Rose garden",
+            "mins": 12
+          },
+          {
+            "title": "Somei-Yoshino birthplace",
+            "kind": "Cherry history",
+            "mins": 8
+          },
+          {
+            "title": "Sugamo Jizō-dōri",
+            "kind": "Old shopping street",
+            "mins": 12
+          }
+        ]
+      },
+      {
+        "id": "hamarikyu",
+        "title": "Hamarikyu Gardens",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Gardens",
+        "area": "Shiodome",
+        "hours": "Open morning",
+        "tags": [
+          "Tidal pond",
+          "Skyline"
+        ],
+        "description": "A shogun's tidal garden where skyscrapers rise straight out of the pines — tea on an island in the pond.",
+        "nearby": [
+          {
+            "title": "Nakajima tea house",
+            "kind": "Tea",
+            "mins": 2
+          },
+          {
+            "title": "Sumida river cruise pier",
+            "kind": "Boat",
+            "mins": 3
+          },
+          {
+            "title": "Flower field",
+            "kind": "Seasonal blooms",
+            "mins": 1
+          },
+          {
+            "title": "Caretta Shiodome view",
+            "kind": "Free view",
+            "mins": 8
+          },
+          {
+            "title": "Tsukiji Outer Market",
+            "kind": "Food",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "showa-kinen",
+        "title": "Showa Memorial Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Tachikawa",
+        "hours": "Open morning",
+        "tags": [
+          "Cycling",
+          "Ginkgo"
+        ],
+        "description": "A vast national park made for renting bikes — ginkgo tunnels, flower fields and actual open sky.",
+        "nearby": [
+          {
+            "title": "Rental cycles",
+            "kind": "Cycling",
+            "mins": 2
+          },
+          {
+            "title": "Ginkgo avenue",
+            "kind": "Photo spot",
+            "mins": 5
+          },
+          {
+            "title": "Japanese garden",
+            "kind": "Garden",
+            "mins": 8
+          },
+          {
+            "title": "PLAY! Museum",
+            "kind": "Museum",
+            "mins": 10
+          },
+          {
+            "title": "GREEN SPRINGS",
+            "kind": "Terrace cafés",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "takao",
+        "title": "Mount Takao",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Mountain",
+        "area": "Hachiōji",
+        "hours": "Start early",
+        "tags": [
+          "Hike",
+          "Mt. Fuji views"
+        ],
+        "description": "The city's mountain — an hour from Shinjuku, a cable car halfway, and Fuji on the horizon from the top.",
+        "nearby": [
+          {
+            "title": "Cable car",
+            "kind": "Ride",
+            "mins": 2
+          },
+          {
+            "title": "Yakuō-in temple",
+            "kind": "Temple",
+            "mins": 15
+          },
+          {
+            "title": "Summit viewpoint",
+            "kind": "Viewpoint",
+            "mins": 40
+          },
+          {
+            "title": "Takao 599 Museum",
+            "kind": "Museum",
+            "mins": 5
+          },
+          {
+            "title": "Tororo soba shops",
+            "kind": "Soba",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "koishikawa",
+        "title": "Koishikawa Kōrakuen",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Gardens",
+        "area": "Bunkyō",
+        "hours": "Open morning",
+        "tags": [
+          "Oldest garden",
+          "Plum"
+        ],
+        "description": "One of Tokyo's two oldest gardens — bridges, plum groves and borrowed scenery beside the Dome.",
+        "nearby": [
+          {
+            "title": "Tokyo Dome City",
+            "kind": "Amusements",
+            "mins": 5
+          },
+          {
+            "title": "Bunkyō Civic Center view",
+            "kind": "Free view",
+            "mins": 8
+          },
+          {
+            "title": "Kagurazaka lanes",
+            "kind": "Stroll",
+            "mins": 12
+          },
+          {
+            "title": "Koishikawa Botanical Garden",
+            "kind": "Botanical garden",
+            "mins": 15
+          }
+        ]
+      },
+      {
+        "id": "nature-study",
+        "title": "Institute for Nature Study",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Forest reserve",
+        "area": "Shirokanedai",
+        "hours": "Closed Mon",
+        "tags": [
+          "Untouched",
+          "Quiet"
+        ],
+        "description": "A slice of untouched Musashino forest left to grow wild inside the city — capped visitors, real silence.",
+        "nearby": [
+          {
+            "title": "Teien Art Museum",
+            "kind": "Art Deco museum",
+            "mins": 2
+          },
+          {
+            "title": "Happo-en Garden",
+            "kind": "Garden",
+            "mins": 5
+          },
+          {
+            "title": "Platinum-dōri",
+            "kind": "Café street",
+            "mins": 4
+          },
+          {
+            "title": "BIOTOP Tokyo",
+            "kind": "Plants & fashion",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "kasai-rinkai",
+        "title": "Kasai Rinkai Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Seaside park",
+        "area": "Edogawa",
+        "hours": "Open all day",
+        "tags": [
+          "Bay",
+          "Ferris wheel"
+        ],
+        "description": "Tokyo Bay's big seaside park — a giant Ferris wheel, a bird sanctuary and the city's most underrated sunset.",
+        "nearby": [
+          {
+            "title": "Diamond & Flower Ferris Wheel",
+            "kind": "Ride",
+            "mins": 5
+          },
+          {
+            "title": "Tokyo Sea Life Park",
+            "kind": "Aquarium",
+            "mins": 5
+          },
+          {
+            "title": "Bird sanctuary",
+            "kind": "Birdwatching",
+            "mins": 8
+          },
+          {
+            "title": "Nishinahama beach",
+            "kind": "Beach",
+            "mins": 10
+          },
+          {
+            "title": "Crystal View",
+            "kind": "Viewpoint",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "jindai",
+        "title": "Jindai Botanical Gardens",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Botanical garden",
+        "area": "Chōfu",
+        "hours": "Closed Mon",
+        "tags": [
+          "Roses",
+          "Temple soba"
+        ],
+        "description": "Rose terraces and greenhouse jungles next to Tokyo's second-oldest temple — finish with soba at the gate.",
+        "nearby": [
+          {
+            "title": "Jindaiji Temple",
+            "kind": "Temple",
+            "mins": 5
+          },
+          {
+            "title": "Temple-gate soba shops",
+            "kind": "Soba",
+            "mins": 5
+          },
+          {
+            "title": "Kitarō Chaya",
+            "kind": "Yōkai café",
+            "mins": 4
+          },
+          {
+            "title": "Rose garden",
+            "kind": "Garden",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "yoyogi-park",
+        "title": "Yoyogi Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Yoyogi",
+        "hours": "Open all day",
+        "tags": [
+          "Picnic",
+          "Weekend energy"
+        ],
+        "description": "Tokyo's social lawn — rockabilly dancers, weekend festivals and picnic blankets from edge to edge.",
+        "nearby": [
+          {
+            "title": "Rose garden",
+            "kind": "Garden",
+            "mins": 3
+          },
+          {
+            "title": "Cycling course",
+            "kind": "Cycling",
+            "mins": 4
+          },
+          {
+            "title": "Events plaza festivals",
+            "kind": "Festivals",
+            "mins": 2
+          },
+          {
+            "title": "Tomigaya café row",
+            "kind": "Coffee",
+            "mins": 5
+          },
+          {
+            "title": "Meiji Jingū forest",
+            "kind": "Shrine forest",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "kabukicho",
+        "title": "Kabukichō",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "District",
+        "area": "Shinjuku",
+        "hours": "All night",
+        "tags": [
+          "Neon",
+          "Chaotic"
+        ],
+        "description": "Japan's loudest square kilometre — neon canyons, giant Godzilla, and every kind of night you can imagine.",
+        "nearby": [
+          {
+            "title": "Godzilla Head",
+            "kind": "Landmark",
+            "mins": 2
+          },
+          {
+            "title": "Thermae-Yu onsen",
+            "kind": "Late-night onsen",
+            "mins": 3
+          },
+          {
+            "title": "Shinjuku Batting Center",
+            "kind": "Games",
+            "mins": 4
+          },
+          {
+            "title": "Don Quijote",
+            "kind": "Shopping",
+            "mins": 2
+          },
+          {
+            "title": "Golden Gai",
+            "kind": "Tiny bars",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "ebisu-yokocho",
+        "title": "Ebisu Yokochō",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Food alley",
+        "area": "Ebisu",
+        "hours": "From 6 PM",
+        "tags": [
+          "Izakaya",
+          "Loud"
+        ],
+        "description": "A covered alley of twenty counters under one roof — order from three at once and make friends doing it.",
+        "nearby": [
+          {
+            "title": "YEBISU BREWERY TOKYO",
+            "kind": "Brewery",
+            "mins": 6
+          },
+          {
+            "title": "Bar Trench",
+            "kind": "Cocktails",
+            "mins": 4
+          },
+          {
+            "title": "Ouca ice cream",
+            "kind": "Late dessert",
+            "mins": 3
+          },
+          {
+            "title": "Yebisu Garden Place at night",
+            "kind": "Illuminations",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "nichome",
+        "title": "Shinjuku Ni-chōme",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "District",
+        "area": "Shinjuku",
+        "hours": "From 9 PM",
+        "tags": [
+          "LGBTQ+",
+          "Welcoming"
+        ],
+        "description": "The beating heart of queer Tokyo — hundreds of tiny bars, from karaoke dens to dance floors, all within four blocks.",
+        "nearby": [
+          {
+            "title": "Aiiro Cafe",
+            "kind": "Standing bar",
+            "mins": 1
+          },
+          {
+            "title": "EAGLE Tokyo Blue",
+            "kind": "Bar",
+            "mins": 2
+          },
+          {
+            "title": "Campy! bar",
+            "kind": "Drag bar",
+            "mins": 2
+          },
+          {
+            "title": "Hanazono Shrine at night",
+            "kind": "Shrine",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "roppongi-night",
+        "title": "Roppongi Hills at night",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "District",
+        "area": "Roppongi",
+        "hours": "Until late",
+        "tags": [
+          "Skyline",
+          "Art"
+        ],
+        "description": "Art and altitude after dark — Mori's open-till-late museum, Keyakizaka's Tokyo Tower view, serious cocktails below.",
+        "nearby": [
+          {
+            "title": "Tokyo City View",
+            "kind": "Observation deck",
+            "mins": 3
+          },
+          {
+            "title": "Mori Art Museum",
+            "kind": "Late-night art",
+            "mins": 3
+          },
+          {
+            "title": "Keyakizaka Tokyo Tower view",
+            "kind": "Photo spot",
+            "mins": 5
+          },
+          {
+            "title": "Gonpachi",
+            "kind": "Izakaya",
+            "mins": 8
+          },
+          {
+            "title": "Gen Yamamoto",
+            "kind": "Cocktail bar",
+            "mins": 10
+          }
+        ]
+      },
+      {
+        "id": "harmonica",
+        "title": "Harmonica Yokochō",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Food alley",
+        "area": "Kichijōji",
+        "hours": "From dusk",
+        "tags": [
+          "Postwar lanes",
+          "Local"
+        ],
+        "description": "A postwar market maze that flips at dusk — yakitori smoke, standing bars, and jazz around the corner.",
+        "nearby": [
+          {
+            "title": "Tetchan",
+            "kind": "Yakitori",
+            "mins": 1
+          },
+          {
+            "title": "Iseya Sōhonten",
+            "kind": "Yakitori",
+            "mins": 2
+          },
+          {
+            "title": "SOMETIME jazz bar",
+            "kind": "Live jazz",
+            "mins": 3
+          },
+          {
+            "title": "Sunroad arcade",
+            "kind": "Arcade street",
+            "mins": 2
+          },
+          {
+            "title": "Inokashira Park night stroll",
+            "kind": "Stroll",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "yurakucho",
+        "title": "Yūrakuchō Gādo-shita",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Under-tracks izakaya",
+        "area": "Yūrakuchō",
+        "hours": "From 5 PM",
+        "tags": [
+          "Salaryman",
+          "Brick arches"
+        ],
+        "description": "Izakaya packed under the brick railway arches — trains rattling overhead, highballs below. Peak after-work Tokyo.",
+        "nearby": [
+          {
+            "title": "Andy's Shin Hinomoto",
+            "kind": "Izakaya",
+            "mins": 1
+          },
+          {
+            "title": "Ginza Corridor",
+            "kind": "Bar street",
+            "mins": 5
+          },
+          {
+            "title": "Tokyo International Forum",
+            "kind": "Architecture",
+            "mins": 3
+          },
+          {
+            "title": "Hibiya Midtown rooftop",
+            "kind": "Rooftop park",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "miyashita",
+        "title": "Miyashita Park",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop park",
+        "area": "Shibuya",
+        "hours": "Until late",
+        "tags": [
+          "Rooftop",
+          "Yokochō"
+        ],
+        "description": "A park on a mall roof with a neon food alley below — Shibuya's new-school night out.",
+        "nearby": [
+          {
+            "title": "Shibuya Yokochō",
+            "kind": "Food alley",
+            "mins": 1
+          },
+          {
+            "title": "Rooftop skate park",
+            "kind": "Skate",
+            "mins": 2
+          },
+          {
+            "title": "SEQUENCE rooftop bar",
+            "kind": "Rooftop bar",
+            "mins": 2
+          },
+          {
+            "title": "Center-gai at night",
+            "kind": "Street life",
+            "mins": 4
+          },
+          {
+            "title": "Nonbei Yokochō",
+            "kind": "Tiny bars",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "pit-inn",
+        "title": "Shinjuku Pit Inn",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Jazz club",
+        "area": "Shinjuku",
+        "hours": "Sets from 7:30 PM",
+        "tags": [
+          "Jazz",
+          "Legendary"
+        ],
+        "description": "Tokyo's CBGB of jazz — a dark room where legends have played nightly since 1965.",
+        "nearby": [
+          {
+            "title": "DUG jazz café",
+            "kind": "Jazz kissa",
+            "mins": 5
+          },
+          {
+            "title": "Bar Albatross",
+            "kind": "Bar",
+            "mins": 6
+          },
+          {
+            "title": "Disk Union Jazz",
+            "kind": "Records",
+            "mins": 4
+          },
+          {
+            "title": "Omoide Yokochō",
+            "kind": "Yakitori alley",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "hoppy",
+        "title": "Hoppy Street",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Izakaya row",
+        "area": "Asakusa",
+        "hours": "From afternoon",
+        "tags": [
+          "Retro",
+          "Stew & beer"
+        ],
+        "description": "Asakusa's open-air izakaya strip — beef-tendon stew, cheap hoppy highballs, and the temple glowing up the road.",
+        "nearby": [
+          {
+            "title": "Sensō-ji light-up",
+            "kind": "Temple at night",
+            "mins": 4
+          },
+          {
+            "title": "Kamiya Bar",
+            "kind": "Oldest bar in Tokyo",
+            "mins": 5
+          },
+          {
+            "title": "Asahi flame at night",
+            "kind": "Landmark",
+            "mins": 8
+          },
+          {
+            "title": "Don Quijote Asakusa",
+            "kind": "Shopping",
+            "mins": 2
+          }
+        ]
       }
     ]
   }
