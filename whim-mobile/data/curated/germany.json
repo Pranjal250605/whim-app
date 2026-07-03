@@ -2,118 +2,225 @@
   {
     "city": "Berlin",
     "country": "Germany",
-    "center": [13.405, 52.52],
+    "center": [
+      13.405,
+      52.52
+    ],
     "spots": [
       {
         "id": "brandenburg-gate",
         "title": "Brandenburg Gate",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Landmark",
         "area": "Mitte",
         "hours": "Anytime",
-        "tags": ["Iconic", "History"],
+        "tags": [
+          "Iconic",
+          "History"
+        ],
         "description": "Berlin's neoclassical symbol of reunification, grandest at first light before the crowds arrive.",
         "nearby": [
-          { "title": "Reichstag dome", "kind": "Landmark", "mins": 8 },
-          { "title": "Holocaust Memorial", "kind": "Memorial", "mins": 6 }
+          {
+            "title": "Reichstag dome",
+            "kind": "Landmark",
+            "mins": 8
+          },
+          {
+            "title": "Holocaust Memorial",
+            "kind": "Memorial",
+            "mins": 6
+          }
         ]
       },
       {
         "id": "museum-island",
         "title": "Museum Island",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Museums",
         "area": "Mitte",
         "hours": "Opens morning",
-        "tags": ["Culture", "UNESCO"],
+        "tags": [
+          "Culture",
+          "UNESCO"
+        ],
         "description": "A river island stacked with five world-class museums, from the Pergamon's friezes to Nefertiti's bust.",
         "nearby": [
-          { "title": "Berlin Cathedral", "kind": "Landmark", "mins": 4 },
-          { "title": "Hackescher Markt cafés", "kind": "Coffee", "mins": 10 }
+          {
+            "title": "Berlin Cathedral",
+            "kind": "Landmark",
+            "mins": 4
+          },
+          {
+            "title": "Hackescher Markt cafés",
+            "kind": "Coffee",
+            "mins": 10
+          }
         ]
       },
       {
         "id": "tiergarten",
         "title": "Tiergarten",
-        "vibes": ["nature"],
+        "vibes": [
+          "nature"
+        ],
         "kind": "Park",
         "area": "Mitte",
         "hours": "Anytime",
-        "tags": ["Calm", "Green"],
+        "tags": [
+          "Calm",
+          "Green"
+        ],
         "description": "Berlin's vast central park — wooded paths, hidden ponds and a beer garden by the lake.",
         "nearby": [
-          { "title": "Victory Column", "kind": "Landmark", "mins": 6 },
-          { "title": "Café am Neuen See", "kind": "Coffee", "mins": 9 }
+          {
+            "title": "Victory Column",
+            "kind": "Landmark",
+            "mins": 6
+          },
+          {
+            "title": "Café am Neuen See",
+            "kind": "Coffee",
+            "mins": 9
+          }
         ]
       },
       {
         "id": "tempelhofer-feld",
         "title": "Tempelhofer Feld",
-        "vibes": ["nature"],
+        "vibes": [
+          "nature"
+        ],
         "kind": "Park",
         "area": "Tempelhof",
         "hours": "Daytime",
-        "tags": ["Unique", "Open sky"],
+        "tags": [
+          "Unique",
+          "Open sky"
+        ],
         "description": "A decommissioned airport turned vast public field — cycle the runways, picnic, and watch kite-surfers on land.",
         "nearby": [
-          { "title": "Klunkerkranich rooftop", "kind": "Rooftop bar", "mins": 12 },
-          { "title": "Neukölln cafés", "kind": "Coffee", "mins": 8 }
+          {
+            "title": "Klunkerkranich rooftop",
+            "kind": "Rooftop bar",
+            "mins": 12
+          },
+          {
+            "title": "Neukölln cafés",
+            "kind": "Coffee",
+            "mins": 8
+          }
         ]
       },
       {
         "id": "klunkerkranich",
         "title": "Klunkerkranich Rooftop",
-        "vibes": ["nightlife"],
+        "vibes": [
+          "nightlife"
+        ],
         "kind": "Rooftop bar",
         "area": "Neukölln",
         "hours": "Evenings",
-        "tags": ["Sunset", "Local"],
+        "tags": [
+          "Sunset",
+          "Local"
+        ],
         "description": "A garden bar on top of a Neukölln car park with sundowner views over the whole city and DJ sets.",
         "nearby": [
-          { "title": "Tempelhofer Feld", "kind": "Nature", "mins": 12 },
-          { "title": "Five Elephant Coffee", "kind": "Coffee", "mins": 14 }
+          {
+            "title": "Tempelhofer Feld",
+            "kind": "Nature",
+            "mins": 12
+          },
+          {
+            "title": "Five Elephant Coffee",
+            "kind": "Coffee",
+            "mins": 14
+          }
         ]
       },
       {
         "id": "raw-gelande",
         "title": "RAW-Gelände",
-        "vibes": ["nightlife"],
+        "vibes": [
+          "nightlife"
+        ],
         "kind": "Nightlife complex",
         "area": "Friedrichshain",
         "hours": "Evenings",
-        "tags": ["Clubs", "Street art"],
+        "tags": [
+          "Clubs",
+          "Street art"
+        ],
         "description": "A graffiti-covered former rail yard packed with clubs, bars, street food and Berlin's raw after-dark energy.",
         "nearby": [
-          { "title": "East Side Gallery", "kind": "Landmark", "mins": 10 },
-          { "title": "Warschauer Straße bars", "kind": "Bars", "mins": 4 }
+          {
+            "title": "East Side Gallery",
+            "kind": "Landmark",
+            "mins": 10
+          },
+          {
+            "title": "Warschauer Straße bars",
+            "kind": "Bars",
+            "mins": 4
+          }
         ]
       },
       {
         "id": "the-barn-coffee",
         "title": "The Barn Coffee Roasters",
-        "vibes": ["matcha"],
+        "vibes": [
+          "matcha"
+        ],
         "kind": "Coffee",
         "area": "Mitte",
         "hours": "Daytime",
-        "tags": ["Specialty", "Minimal"],
+        "tags": [
+          "Specialty",
+          "Minimal"
+        ],
         "description": "Berlin's purist specialty roaster — light roasts, no laptops, just exceptional coffee in a pared-back room.",
         "nearby": [
-          { "title": "Auguststraße galleries", "kind": "Galleries", "mins": 5 },
-          { "title": "Hackescher Markt", "kind": "Shopping", "mins": 7 }
+          {
+            "title": "Auguststraße galleries",
+            "kind": "Galleries",
+            "mins": 5
+          },
+          {
+            "title": "Hackescher Markt",
+            "kind": "Shopping",
+            "mins": 7
+          }
         ]
       },
       {
         "id": "bonanza-coffee",
         "title": "Bonanza Coffee Roasters",
-        "vibes": ["matcha"],
+        "vibes": [
+          "matcha"
+        ],
         "kind": "Coffee",
         "area": "Kreuzberg",
         "hours": "Daytime",
-        "tags": ["Specialty", "Industrial"],
+        "tags": [
+          "Specialty",
+          "Industrial"
+        ],
         "description": "An airy roastery in a former Kreuzberg factory, one of the pioneers of Berlin's third-wave coffee scene.",
         "nearby": [
-          { "title": "Görlitzer Park", "kind": "Nature", "mins": 6 },
-          { "title": "Landwehr Canal walk", "kind": "Stroll", "mins": 4 }
+          {
+            "title": "Görlitzer Park",
+            "kind": "Nature",
+            "mins": 6
+          },
+          {
+            "title": "Landwehr Canal walk",
+            "kind": "Stroll",
+            "mins": 4
+          }
         ]
       }
     ]
@@ -121,119 +228,227 @@
   {
     "city": "Munich",
     "country": "Germany",
-    "center": [11.582, 48.135],
+    "center": [
+      11.582,
+      48.135
+    ],
     "spots": [
       {
         "id": "marienplatz",
         "title": "Marienplatz",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Square",
         "area": "Altstadt",
         "hours": "Anytime",
-        "tags": ["Iconic", "Glockenspiel"],
+        "tags": [
+          "Iconic",
+          "Glockenspiel"
+        ],
         "description": "Munich's central square, crowned by the neo-Gothic New Town Hall and its chiming Glockenspiel.",
         "nearby": [
-          { "title": "Viktualienmarkt", "kind": "Food market", "mins": 5 },
-          { "title": "Man Versus Machine Coffee", "kind": "Coffee", "mins": 9 }
+          {
+            "title": "Viktualienmarkt",
+            "kind": "Food market",
+            "mins": 5
+          },
+          {
+            "title": "Man Versus Machine Coffee",
+            "kind": "Coffee",
+            "mins": 9
+          }
         ]
       },
       {
         "id": "nymphenburg",
         "title": "Nymphenburg Palace",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Palace",
         "area": "Neuhausen",
         "hours": "Opens morning",
-        "tags": ["Baroque", "Gardens"],
+        "tags": [
+          "Baroque",
+          "Gardens"
+        ],
         "description": "A sprawling Baroque summer palace with canal-laced gardens you can wander for hours.",
         "nearby": [
-          { "title": "Palace canal walk", "kind": "Stroll", "mins": 4 },
-          { "title": "Botanical Garden Munich", "kind": "Garden", "mins": 10 }
+          {
+            "title": "Palace canal walk",
+            "kind": "Stroll",
+            "mins": 4
+          },
+          {
+            "title": "Botanical Garden Munich",
+            "kind": "Garden",
+            "mins": 10
+          }
         ]
       },
       {
         "id": "english-garden",
         "title": "Englischer Garten",
-        "vibes": ["nature"],
+        "vibes": [
+          "nature"
+        ],
         "kind": "Park",
         "area": "Schwabing",
         "hours": "Anytime",
-        "tags": ["Calm", "River surfers"],
+        "tags": [
+          "Calm",
+          "River surfers"
+        ],
         "description": "One of the world's largest urban parks — meadows, beer gardens and a standing wave where surfers ride the Eisbach.",
         "nearby": [
-          { "title": "Eisbach surf wave", "kind": "Landmark", "mins": 3 },
-          { "title": "Chinese Tower beer garden", "kind": "Beer garden", "mins": 12 }
+          {
+            "title": "Eisbach surf wave",
+            "kind": "Landmark",
+            "mins": 3
+          },
+          {
+            "title": "Chinese Tower beer garden",
+            "kind": "Beer garden",
+            "mins": 12
+          }
         ]
       },
       {
         "id": "olympiapark",
         "title": "Olympiapark",
-        "vibes": ["nature"],
+        "vibes": [
+          "nature"
+        ],
         "kind": "Park",
         "area": "Milbertshofen",
         "hours": "Anytime",
-        "tags": ["Hilltop", "Views"],
+        "tags": [
+          "Hilltop",
+          "Views"
+        ],
         "description": "The 1972 Olympic grounds turned rolling park — climb the grassy hill for a skyline view past the tent-roof stadium.",
         "nearby": [
-          { "title": "BMW Welt", "kind": "Landmark", "mins": 8 },
-          { "title": "Olympic Tower", "kind": "Viewpoint", "mins": 6 }
+          {
+            "title": "BMW Welt",
+            "kind": "Landmark",
+            "mins": 8
+          },
+          {
+            "title": "Olympic Tower",
+            "kind": "Viewpoint",
+            "mins": 6
+          }
         ]
       },
       {
         "id": "hofbrauhaus",
         "title": "Hofbräuhaus",
-        "vibes": ["nightlife"],
+        "vibes": [
+          "nightlife"
+        ],
         "kind": "Beer hall",
         "area": "Altstadt",
         "hours": "Evenings",
-        "tags": ["Iconic", "Beer"],
+        "tags": [
+          "Iconic",
+          "Beer"
+        ],
         "description": "The world's most famous beer hall — litre steins, brass bands and long communal tables since 1589.",
         "nearby": [
-          { "title": "Platzl square", "kind": "Square", "mins": 1 },
-          { "title": "Marienplatz", "kind": "Landmark", "mins": 5 }
+          {
+            "title": "Platzl square",
+            "kind": "Square",
+            "mins": 1
+          },
+          {
+            "title": "Marienplatz",
+            "kind": "Landmark",
+            "mins": 5
+          }
         ]
       },
       {
         "id": "glockenbachviertel",
         "title": "Glockenbachviertel",
-        "vibes": ["nightlife"],
+        "vibes": [
+          "nightlife"
+        ],
         "kind": "Nightlife quarter",
         "area": "Ludwigsvorstadt",
         "hours": "Evenings",
-        "tags": ["Bars", "Local"],
+        "tags": [
+          "Bars",
+          "Local"
+        ],
         "description": "Munich's hippest after-dark quarter — cocktail bars, indie clubs and late cafés along the Glockenbach.",
         "nearby": [
-          { "title": "Gärtnerplatz square", "kind": "Square", "mins": 3 },
-          { "title": "Isar riverbank", "kind": "Nature", "mins": 7 }
+          {
+            "title": "Gärtnerplatz square",
+            "kind": "Square",
+            "mins": 3
+          },
+          {
+            "title": "Isar riverbank",
+            "kind": "Nature",
+            "mins": 7
+          }
         ]
       },
       {
         "id": "mvsm-coffee",
         "title": "Man Versus Machine Coffee",
-        "vibes": ["matcha"],
+        "vibes": [
+          "matcha"
+        ],
         "kind": "Coffee",
         "area": "Altstadt",
         "hours": "Daytime",
-        "tags": ["Specialty", "Roastery"],
+        "tags": [
+          "Specialty",
+          "Roastery"
+        ],
         "description": "Munich's standout specialty roaster — bright, fruit-forward coffee in a clean, minimal space near the centre.",
         "nearby": [
-          { "title": "Viktualienmarkt", "kind": "Food market", "mins": 6 },
-          { "title": "Gärtnerplatz", "kind": "Square", "mins": 5 }
+          {
+            "title": "Viktualienmarkt",
+            "kind": "Food market",
+            "mins": 6
+          },
+          {
+            "title": "Gärtnerplatz",
+            "kind": "Square",
+            "mins": 5
+          }
         ]
       },
       {
         "id": "vits-coffee",
         "title": "Vits der Kaffee",
-        "vibes": ["matcha"],
+        "vibes": [
+          "matcha"
+        ],
         "kind": "Coffee",
         "area": "Altstadt",
         "hours": "Daytime",
-        "tags": ["Specialty", "Classic"],
+        "tags": [
+          "Specialty",
+          "Classic"
+        ],
         "description": "A long-running, much-loved Munich roaster pulling precise espresso a short walk from Marienplatz.",
         "nearby": [
-          { "title": "Frauenkirche", "kind": "Landmark", "mins": 4 },
-          { "title": "Fünf Höfe arcade", "kind": "Shopping", "mins": 6 }
-        ]
+          {
+            "title": "Frauenkirche",
+            "kind": "Landmark",
+            "mins": 4
+          },
+          {
+            "title": "Fünf Höfe arcade",
+            "kind": "Shopping",
+            "mins": 6
+          }
+        ],
+        "geocodeQuery": "Vits der Kaffee, Rumfordstrasse 49, Munich, Germany"
       }
     ]
   }

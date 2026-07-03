@@ -221,7 +221,8 @@
             "kind": "Garden",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Blue Bottle Coffee Kyoto Cafe, Nanzenji Kusagawa-cho, Sakyo Ward, Kyoto, Japan"
       }
     ]
   }

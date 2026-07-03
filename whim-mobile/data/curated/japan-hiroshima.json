@@ -168,7 +168,8 @@
             "kind": "Memorial",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Fukuromachi, Naka Ward, Hiroshima, Japan"
       },
       {
         "id": "orizuru-tower",
