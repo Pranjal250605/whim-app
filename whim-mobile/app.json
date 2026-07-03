@@ -5,6 +5,7 @@
     "scheme": "whim",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": {
@@ -17,7 +18,11 @@
     },
     "android": {
       "package": "com.whim.app",
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2740E0"
+      }
     },
     "plugins": [
       "expo-router",
@@ -28,7 +33,15 @@
           "locationWhenInUsePermission": "Whim uses your location to find the closest city and surface spots near you."
         }
       ],
-      "expo-notifications"
+      "expo-notifications",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 220,
+          "backgroundColor": "#2740E0"
+        }
+      ]
     ],
     "extra": {
       "router": {}

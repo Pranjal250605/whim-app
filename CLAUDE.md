@@ -65,6 +65,13 @@ is a **pushed screen**: renders `BackButton`, no GlassNav. Don't mix the two
 patterns. `onboarding` is pre-auth (shown once via `lib/onboarding.ts` flag,
 before the sign-in gate).
 
+**Opening moment:** app icon + native splash are the cobalt "W ✦" postmark
+(`assets/icon.png` / `splash-icon.png`, generated from SVG with Bricolage —
+regenerate via sharp, don't hand-edit). `_layout.tsx` holds the native splash
+(`preventAutoHideAsync`), then `AnimatedSplash` renders the identical frame and
+plays the Hinge-style stamp animation before revealing the app. Changing
+icon/splash assets requires `expo prebuild` + a native rebuild.
+
 **Check-ins are verified:** stamping requires GPS proximity (~250 m,
 `lib/verifyLocation.ts`); `__DEV__` bypasses the gate (simulator) but stamps
 `verified=false`. Public/Strava-style stats must count verified stamps only.

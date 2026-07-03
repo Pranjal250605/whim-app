@@ -14,10 +14,15 @@ import {
   BricolageGrotesque_800ExtraBold,
 } from '@expo-google-fonts/bricolage-grotesque';
 import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono';
+import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider, useAuth } from '@/lib/auth';
 import { getOnboarded } from '@/lib/onboarding';
 import ToastHost from '@/components/Toast';
+import AnimatedSplash from '@/components/AnimatedSplash';
 import '@/lib/mapbox'; // sets the Mapbox access token once at startup
+
+// keep the native splash up until the animated overlay is ready to take over
+SplashScreen.preventAutoHideAsync().catch(() => {});
 
 // Redirects between the app and the sign-in screen based on auth state.
 function RootNavigator() {
@@ -87,9 +92,12 @@ export default function RootLayout() {
     IBMPlexMono_400Regular,
   });
 
-  // hold on the canvas colour until the editorial fonts are ready (no flash)
+  const [splashDone, setSplashDone] = useState(false);
+
+  // native splash stays up (preventAutoHideAsync) until fonts are in, so
+  // returning null here never shows a blank frame
   if (!fontsLoaded) {
-    return <View style={{ flex: 1, backgroundColor: '#F0EEE8' }} />;
+    return null;
   }
 
   return (
@@ -100,6 +108,7 @@ export default function RootLayout() {
           <AuthProvider>
             <RootNavigator />
             <ToastHost />
+            {!splashDone && <AnimatedSplash onDone={() => setSplashDone(true)} />}
           </AuthProvider>
         </BottomSheetModalProvider>
       </SafeAreaProvider>

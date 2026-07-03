@@ -38,7 +38,9 @@ Passport numbers must be honest before they're public flex.
   share is an ad.
 - Later (post-launch, needs users): percentiles, streaks, yearly "Wrapped".
 
-### 1.4 First-run experience  · medium · ⏳ onboarding + featured-photo fix DONE; icon/splash pending (needs your art direction)
+### 1.4 First-run experience  · medium · ✅ DONE (2026-07-03)
+Onboarding, featured-photo fix, cobalt "W ✦" postmark app icon + splash, and a
+Hinge-style animated stamp intro (`AnimatedSplash`).
 - **You:** app icon direction (Field Notes: cobalt postmark "W ✦" on putty?
   — decide together, then produce at required sizes).
 - **Build:** icon + splash wired in `app.json`; 3-screen onboarding
