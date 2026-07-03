@@ -191,12 +191,15 @@
         "tags": ["Flagships", "Polished"],
         "description": "Tokyo's most polished mile — flagship stores, backstreet kissaten and window displays treated like art.",
         "nearby": [
-          { "title": "Itoya stationery flagship", "kind": "Shopping", "mins": 3 },
+          { "title": "Onitsuka Tiger Ginza", "kind": "Clothing", "mins": 4 },
+          { "title": "Dover Street Market Ginza", "kind": "Curated fashion", "mins": 5 },
           { "title": "Uniqlo Ginza flagship", "kind": "Clothing", "mins": 4 },
+          { "title": "Itoya stationery flagship", "kind": "Shopping", "mins": 3 },
+          { "title": "Muji Ginza world flagship", "kind": "Lifestyle", "mins": 5 },
+          { "title": "Ginza Tsutaya Books", "kind": "Art books", "mins": 3 },
           { "title": "Ginza Six rooftop garden", "kind": "Viewpoint", "mins": 3 },
           { "title": "Café de L'Ambre", "kind": "Kissaten", "mins": 5 },
-          { "title": "Kabukiza Theatre", "kind": "Culture", "mins": 6 },
-          { "title": "Godzilla Statue Hibiya", "kind": "Landmark", "mins": 8 }
+          { "title": "Kabukiza Theatre", "kind": "Culture", "mins": 6 }
         ]
       },
       {
