@@ -196,10 +196,7 @@ export default function Home() {
           <View className="overflow-hidden rounded-[28px] bg-white" style={SHADOWS.card}>
             <View className="h-[196px] justify-end overflow-hidden" style={{ backgroundColor: f.tone }}>
               <SpotImage uri={isTokyo ? f.photo : coverPhoto} />
-              <View className="absolute left-4 top-4 flex-row items-center gap-1.5 rounded-full bg-white/92 px-3 py-1.5">
-                <View className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: VIBE_DOT[vibe] }} />
-                <Text className="text-[11.5px] font-bold uppercase tracking-wide text-ink">{f.label}</Text>
-              </View>
+              {/* no vibe badge here — the active pill above already says it */}
               {/* postmark stamp — the signature element, grounded in travel documents */}
               <View className="absolute right-3.5 top-3.5" style={{ transform: [{ rotate: '-5deg' }] }}>
                 <View className="rounded-lg border-2 border-white/85 px-2.5 py-1">
