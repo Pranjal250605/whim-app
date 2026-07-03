@@ -57,8 +57,9 @@ The product IS the curation. Launch narrative: deep Japan, credible elsewhere.
   **you review every spot** — the taste filter is the moat).
 - Western cities: either grow to the same bar or cut from the launch city list
   (a thin deck is worse than no deck).
-- Photos: move spot photography from Pexels hotlinks → Supabase Storage
-  (`spots` bucket, public-read) via a script; faster, stable, license-clean.
+- ✅ Photos re-hosted in Supabase Storage (`spot-photos` bucket, public CDN)
+  via `scripts/mirror-photos.mjs` — all 110 anchors serve from our own CDN.
+- ✅ Tokyo Classics batch seeded (16 anchors · 97 micros, geocode-QA'd).
 - Seed pipeline unchanged: `data/curated/*.json` → `seed-spots.mjs`.
 
 ---
