@@ -107,7 +107,7 @@ UGC solves content scale. Free first; money later only if demand shows.
 - [x] RLS everywhere · rate-capped edge functions · keychain sessions
 - [x] In-app account deletion (5.1.1(v)) · privacy policy hosted & linked
 - [x] Password reset flow
-- [ ] App icon + splash + onboarding
+- [x] App icon + splash + onboarding (+ animated stamp intro)
 - [ ] Location permission copy reviewed (already decent in app.json)
 - [ ] App Privacy "nutrition labels" (data types: email, name, user content)
 - [ ] Screenshots (6.7" + 6.1"), support URL (GitHub Pages), age rating
