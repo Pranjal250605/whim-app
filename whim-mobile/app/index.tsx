@@ -45,11 +45,13 @@ export default function Home() {
   const savedHere = useMemo(() => scopedBucket(bucketList, city, vibe).length, [bucketList, city, vibe]);
 
   // featured art should belong to the chosen CITY — pull a real spot photo
-  // from its deck; the vibe stock photo is only the fallback.
+  // from its deck; the vibe stock photo is only the fallback. Tokyo keeps the
+  // original curated vibe art (it was shot for Tokyo, and it looks better).
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
   useEffect(() => {
     let cancelled = false;
     setCoverPhoto(null);
+    if (city === 'Tokyo') return;
     fetchCoverPhoto(city, vibe)
       .then((p) => {
         if (!cancelled) setCoverPhoto(p);
