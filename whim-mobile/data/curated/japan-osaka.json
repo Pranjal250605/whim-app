@@ -1628,7 +1628,8 @@
             "kind": "Night ride",
             "mins": 5
           }
-        ]
+        ],
+        "geocodeQuery": "Tsuyunoten Shrine, Sonezaki, Kita Ward, Osaka, Japan"
       }
     ]
   }
