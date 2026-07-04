@@ -23,14 +23,29 @@
         "description": "A serene lake park with a looping path, a Japanese garden and pavilions made for slow afternoons.",
         "nearby": [
           {
-            "title": "Japanese Garden",
+            "title": "Ōhori Park Japanese Garden",
             "kind": "Garden",
-            "mins": 4
+            "mins": 3
           },
           {
             "title": "Fukuoka Castle ruins",
-            "kind": "History",
-            "mins": 8
+            "kind": "Castle ruins",
+            "mins": 5
+          },
+          {
+            "title": "Fukuoka Art Museum",
+            "kind": "Museum",
+            "mins": 4
+          },
+          {
+            "title": "Lakeside jogging loop",
+            "kind": "Run/walk",
+            "mins": 1
+          },
+          {
+            "title": "& LOCALS Ohori",
+            "kind": "Local goods café",
+            "mins": 2
           }
         ]
       },
@@ -50,13 +65,23 @@
         "description": "A huge seaside park of flower fields and cycle paths on a sandbar across the bay, reached by ferry.",
         "nearby": [
           {
-            "title": "Bayside ferry ride",
-            "kind": "Stroll",
-            "mins": 3
+            "title": "Flower fields",
+            "kind": "Seasonal blooms",
+            "mins": 5
           },
           {
-            "title": "Flower meadow",
-            "kind": "Nature",
+            "title": "Rental cycles",
+            "kind": "Cycling",
+            "mins": 2
+          },
+          {
+            "title": "Marine World aquarium",
+            "kind": "Aquarium",
+            "mins": 8
+          },
+          {
+            "title": "Beach & bay ferry",
+            "kind": "Ferry ride",
             "mins": 5
           }
         ]
@@ -77,14 +102,29 @@
         "description": "The grand shrine to the god of learning, approached by an avenue of plum trees and old tea houses.",
         "nearby": [
           {
+            "title": "Omotesandō approach",
+            "kind": "Snack street",
+            "mins": 2
+          },
+          {
             "title": "Umegae-mochi stalls",
-            "kind": "Snack",
+            "kind": "Grilled mochi",
             "mins": 2
           },
           {
             "title": "Kyushu National Museum",
             "kind": "Museum",
-            "mins": 10
+            "mins": 8
+          },
+          {
+            "title": "Kōmyōzen-ji moss garden",
+            "kind": "Zen garden",
+            "mins": 4
+          },
+          {
+            "title": "Starbucks Kengo Kuma building",
+            "kind": "Architecture",
+            "mins": 2
           }
         ]
       },
@@ -104,14 +144,24 @@
         "description": "A mirrored seaside tower with a 123m observation deck over Hakata Bay — best at sunset.",
         "nearby": [
           {
-            "title": "Momochi Seaside Park",
-            "kind": "Nature",
-            "mins": 5
+            "title": "Momochihama beach",
+            "kind": "Beach",
+            "mins": 3
           },
           {
             "title": "Fukuoka City Museum",
             "kind": "Museum",
-            "mins": 9
+            "mins": 5
+          },
+          {
+            "title": "Marizon waterfront",
+            "kind": "Waterfront",
+            "mins": 4
+          },
+          {
+            "title": "PayPay Dome",
+            "kind": "Baseball",
+            "mins": 10
           }
         ]
       },
@@ -131,14 +181,24 @@
         "description": "A coffee stop wrapped in an astonishing lattice of interwoven timber by architect Kengo Kuma.",
         "nearby": [
           {
-            "title": "Dazaifu approach street",
-            "kind": "Stroll",
+            "title": "Dazaifu Tenmangū",
+            "kind": "Shrine",
+            "mins": 2
+          },
+          {
+            "title": "Omotesandō shops",
+            "kind": "Shopping street",
             "mins": 1
           },
           {
-            "title": "Komyozenji moss garden",
-            "kind": "Garden",
-            "mins": 6
+            "title": "Kasa no Ya umegae-mochi",
+            "kind": "Snack",
+            "mins": 1
+          },
+          {
+            "title": "Kōmyōzen-ji",
+            "kind": "Zen garden",
+            "mins": 4
           }
         ],
         "geocodeQuery": "Dazaifu Tenmangu, Dazaifu, Japan"
@@ -159,14 +219,24 @@
         "description": "Fukuoka's home-grown champion roaster — flat whites and quiet design in the leafy Yakuin backstreets.",
         "nearby": [
           {
-            "title": "Yakuin backstreet shops",
-            "kind": "Shopping",
-            "mins": 3
+            "title": "Yakuin backstreet cafés",
+            "kind": "Café crawl",
+            "mins": 2
           },
           {
-            "title": "Suzaki Park",
-            "kind": "Nature",
+            "title": "Kego Shrine",
+            "kind": "Shrine",
             "mins": 8
+          },
+          {
+            "title": "Imaizumi boutiques",
+            "kind": "Shopping",
+            "mins": 5
+          },
+          {
+            "title": "Shirogane coffee row",
+            "kind": "Coffee",
+            "mins": 6
           }
         ]
       },
@@ -186,14 +256,24 @@
         "description": "Riverside open-air food carts serving tonkotsu ramen, yakitori and beer under the lights — Fukuoka's nightlife soul.",
         "nearby": [
           {
-            "title": "Naka River boardwalk",
-            "kind": "Stroll",
-            "mins": 2
+            "title": "Canal City night fountain",
+            "kind": "Mall show",
+            "mins": 6
           },
           {
-            "title": "Canal City Hakata",
-            "kind": "Shopping",
-            "mins": 9
+            "title": "Nakasu neon riverbank",
+            "kind": "Photo spot",
+            "mins": 1
+          },
+          {
+            "title": "Kushida Shrine night",
+            "kind": "Shrine",
+            "mins": 6
+          },
+          {
+            "title": "Hakata ramen counters",
+            "kind": "Ramen",
+            "mins": 2
           }
         ]
       },
@@ -213,14 +293,704 @@
         "description": "Tenjin's lively after-dark strip of izakaya, dive bars and late ramen, minutes from the shopping core.",
         "nearby": [
           {
-            "title": "Tenjin shopping district",
+            "title": "Tenjin standing bars",
+            "kind": "Bars",
+            "mins": 2
+          },
+          {
+            "title": "Late-night ramen row",
+            "kind": "Ramen",
+            "mins": 3
+          },
+          {
+            "title": "Don Quijote Tenjin",
             "kind": "Shopping",
             "mins": 4
           },
           {
-            "title": "Kego Shrine",
+            "title": "Kego Park",
+            "kind": "Late hangout",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "canal-city",
+        "title": "Canal City Hakata",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Mall complex",
+        "area": "Hakata",
+        "hours": "Shops till 9 PM",
+        "tags": [
+          "Canal show",
+          "Ramen Stadium"
+        ],
+        "description": "A canyon-shaped mall around a canal with hourly fountain shows — and Ramen Stadium's eight famous counters upstairs.",
+        "nearby": [
+          {
+            "title": "Ramen Stadium",
+            "kind": "Ramen floor",
+            "mins": 1
+          },
+          {
+            "title": "Fountain show",
+            "kind": "Show",
+            "mins": 1
+          },
+          {
+            "title": "Kushida Shrine",
             "kind": "Shrine",
             "mins": 6
+          },
+          {
+            "title": "Kawabata shopping arcade",
+            "kind": "Arcade",
+            "mins": 4
+          },
+          {
+            "title": "Nakasu riverbank",
+            "kind": "Stroll",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "kushida",
+        "title": "Kushida Shrine",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shrine",
+        "area": "Hakata",
+        "hours": "Open early",
+        "tags": [
+          "Yamakasa",
+          "Hakata's shrine"
+        ],
+        "description": "Hakata's guardian shrine, home of the Yamakasa festival — a giant decorated float stands ready all year.",
+        "nearby": [
+          {
+            "title": "Yamakasa float display",
+            "kind": "The float",
+            "mins": 1
+          },
+          {
+            "title": "Kawabata arcade",
+            "kind": "Shopping arcade",
+            "mins": 2
+          },
+          {
+            "title": "Hakata Machiya Folk Museum",
+            "kind": "Museum",
+            "mins": 3
+          },
+          {
+            "title": "Tōchō-ji giant Buddha",
+            "kind": "Temple",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "momochi",
+        "title": "Momochihama Seaside",
+        "vibes": [
+          "classics",
+          "nature"
+        ],
+        "kind": "Beach",
+        "area": "Momochi",
+        "hours": "Sunset best",
+        "tags": [
+          "City beach",
+          "Sunset"
+        ],
+        "description": "Fukuoka's futuristic seaside — a clean city beach with the tower behind and sunsets over the bay.",
+        "nearby": [
+          {
+            "title": "Fukuoka Tower",
+            "kind": "Tower",
+            "mins": 3
+          },
+          {
+            "title": "Marizon pier",
+            "kind": "Waterfront dining",
+            "mins": 2
+          },
+          {
+            "title": "Beach volleyball courts",
+            "kind": "Sport",
+            "mins": 2
+          },
+          {
+            "title": "Fukuoka City Museum",
+            "kind": "Museum",
+            "mins": 6
+          }
+        ]
+      },
+      {
+        "id": "tochoji",
+        "title": "Tōchō-ji Temple",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Hakata",
+        "hours": "Open morning",
+        "tags": [
+          "Giant Buddha",
+          "Free"
+        ],
+        "description": "Japan's largest wooden seated Buddha, hiding in plain sight two blocks from Hakata Station.",
+        "nearby": [
+          {
+            "title": "Great Buddha hall",
+            "kind": "The Buddha",
+            "mins": 1
+          },
+          {
+            "title": "Shōfuku-ji — Japan's first Zen temple",
+            "kind": "Temple",
+            "mins": 4
+          },
+          {
+            "title": "Hakata Sennen-no-mon gate",
+            "kind": "Gate",
+            "mins": 5
+          },
+          {
+            "title": "Kushida Shrine",
+            "kind": "Shrine",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "yanagibashi",
+        "title": "Yanagibashi Market",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Market",
+        "area": "Haruyoshi",
+        "hours": "Mornings, closed Sun",
+        "tags": [
+          "Hakata's kitchen",
+          "Local"
+        ],
+        "description": "Fukuoka's compact kitchen market — mentaiko, sashimi and obanzai, with almost no tourists in the aisles.",
+        "nearby": [
+          {
+            "title": "Mentaiko stalls",
+            "kind": "The specialty",
+            "mins": 1
+          },
+          {
+            "title": "Market sushi breakfast",
+            "kind": "Sushi",
+            "mins": 1
+          },
+          {
+            "title": "Haruyoshi riverside",
+            "kind": "Stroll",
+            "mins": 3
+          },
+          {
+            "title": "Yakuin cafés",
+            "kind": "Coffee",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "daimyo",
+        "title": "Daimyō",
+        "vibes": [
+          "matcha",
+          "nightlife"
+        ],
+        "kind": "District",
+        "area": "Daimyō",
+        "hours": "Afternoon till late",
+        "tags": [
+          "Vintage",
+          "Backstreets"
+        ],
+        "description": "Fukuoka's coolest grid — vintage shops and coffee stands by day, natural wine and hip-hop bars by night.",
+        "nearby": [
+          {
+            "title": "Vintage shop crawl",
+            "kind": "Clothing",
+            "mins": 1
+          },
+          {
+            "title": "Manu Coffee Daimyō",
+            "kind": "Coffee",
+            "mins": 2
+          },
+          {
+            "title": "Fuk Coffee",
+            "kind": "Coffee",
+            "mins": 3
+          },
+          {
+            "title": "Kego Shrine",
+            "kind": "Shrine",
+            "mins": 3
+          },
+          {
+            "title": "Standing wine bars",
+            "kind": "Wine",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "imaizumi",
+        "title": "Imaizumi",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "District",
+        "area": "Imaizumi",
+        "hours": "Afternoon",
+        "tags": [
+          "Boutiques",
+          "Brunch"
+        ],
+        "description": "Tenjin's quieter neighbor — select shops, brunch counters and Kyushu's best-dressed locals.",
+        "nearby": [
+          {
+            "title": "Select boutiques",
+            "kind": "Clothing",
+            "mins": 1
+          },
+          {
+            "title": "Brunch cafés",
+            "kind": "Brunch",
+            "mins": 2
+          },
+          {
+            "title": "Kego Park",
+            "kind": "Park",
+            "mins": 3
+          },
+          {
+            "title": "Yakuin station eats",
+            "kind": "Food",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "manu-kego",
+        "title": "Manu Coffee Kego",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Kego",
+        "hours": "Open late for a café",
+        "tags": [
+          "Local roaster",
+          "Night coffee"
+        ],
+        "description": "Fukuoka's homegrown roaster chain at its coziest — proper espresso that stays open into the night.",
+        "nearby": [
+          {
+            "title": "Kego Shrine",
+            "kind": "Shrine",
+            "mins": 2
+          },
+          {
+            "title": "Daimyō backstreets",
+            "kind": "Shopping",
+            "mins": 3
+          },
+          {
+            "title": "Imaizumi boutiques",
+            "kind": "Boutiques",
+            "mins": 4
+          }
+        ]
+      },
+      {
+        "id": "hakata-station",
+        "title": "Hakata Station City",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Station complex",
+        "area": "Hakata",
+        "hours": "All day",
+        "tags": [
+          "Rooftop shrine",
+          "Depachika"
+        ],
+        "description": "A station with a rooftop train shrine, a serious depachika and Kyushu's biggest bookstore — arrival done right.",
+        "nearby": [
+          {
+            "title": "Tsubame-no-mori rooftop garden",
+            "kind": "Rooftop",
+            "mins": 2
+          },
+          {
+            "title": "Hankyu depachika",
+            "kind": "Food hall",
+            "mins": 1
+          },
+          {
+            "title": "MARUZEN books",
+            "kind": "Books",
+            "mins": 2
+          },
+          {
+            "title": "Deitos ramen alley",
+            "kind": "Ramen",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "nokonoshima",
+        "title": "Nokonoshima Island Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Island park",
+        "area": "Hakata Bay",
+        "hours": "Day trip",
+        "tags": [
+          "Flower island",
+          "10-min ferry"
+        ],
+        "description": "A ten-minute ferry to an island of flower terraces over the bay — cosmos in autumn, rapeseed in spring.",
+        "nearby": [
+          {
+            "title": "Flower terraces",
+            "kind": "The fields",
+            "mins": 5
+          },
+          {
+            "title": "Island café terrace",
+            "kind": "Café",
+            "mins": 3
+          },
+          {
+            "title": "Noko ferry deck",
+            "kind": "Ferry",
+            "mins": 1
+          },
+          {
+            "title": "Beach cove",
+            "kind": "Beach",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "itoshima",
+        "title": "Itoshima Coast",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Coast",
+        "area": "Itoshima",
+        "hours": "Day trip",
+        "tags": [
+          "Surf town",
+          "Palm swing"
+        ],
+        "description": "Fukuoka's weekend coast — white torii on the beach, surf shacks, and the famous palm-tree swing.",
+        "nearby": [
+          {
+            "title": "Sakurai Futamigaura torii",
+            "kind": "The white torii",
+            "mins": 2
+          },
+          {
+            "title": "Palm tree swing",
+            "kind": "Photo spot",
+            "mins": 3
+          },
+          {
+            "title": "London Bus Café",
+            "kind": "Beach café",
+            "mins": 4
+          },
+          {
+            "title": "Beach oyster huts (winter)",
+            "kind": "Oysters",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "sumiyoshi-fk",
+        "title": "Sumiyoshi Shrine Fukuoka",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Shrine forest",
+        "area": "Sumiyoshi",
+        "hours": "Open early",
+        "tags": [
+          "Camphor grove",
+          "Quiet"
+        ],
+        "description": "An ancient shrine in a camphor grove minutes from Hakata's towers — old Fukuoka breathing quietly.",
+        "nearby": [
+          {
+            "title": "Camphor tree path",
+            "kind": "Forest walk",
+            "mins": 1
+          },
+          {
+            "title": "Rakusuien garden",
+            "kind": "Tea garden",
+            "mins": 3
+          },
+          {
+            "title": "Sumiyoshi-dōri eats",
+            "kind": "Food",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "nishi-park",
+        "title": "Nishi Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Ōhori",
+        "hours": "Open all day",
+        "tags": [
+          "Cherry hill",
+          "Bay view"
+        ],
+        "description": "A cherry-covered hill over Hakata Bay — Fukuoka's classic hanami with a shrine at the top.",
+        "nearby": [
+          {
+            "title": "Kōra Shrine viewpoint",
+            "kind": "Viewpoint",
+            "mins": 3
+          },
+          {
+            "title": "1,300 cherry trees",
+            "kind": "Hanami",
+            "mins": 1
+          },
+          {
+            "title": "Ōhori Park",
+            "kind": "Park",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "tenjin-night",
+        "title": "Tenjin at night",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "District",
+        "area": "Tenjin",
+        "hours": "Till late",
+        "tags": [
+          "City center",
+          "Everything"
+        ],
+        "description": "Kyushu's biggest downtown after dark — department-store basements to backstreet counters, all walkable.",
+        "nearby": [
+          {
+            "title": "Tenjin yatai row",
+            "kind": "Street stalls",
+            "mins": 2
+          },
+          {
+            "title": "Oyafukō-dōri",
+            "kind": "Bar street",
+            "mins": 3
+          },
+          {
+            "title": "Daimyō bars",
+            "kind": "Bars",
+            "mins": 4
+          },
+          {
+            "title": "Late tonkotsu counters",
+            "kind": "Ramen",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "seiryu",
+        "title": "Seiryū Park yatai row",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Yatai row",
+        "area": "Haruyoshi",
+        "hours": "From dusk",
+        "tags": [
+          "Riverside stalls",
+          "Local"
+        ],
+        "description": "The yatai strip locals prefer — riverside stalls in Haruyoshi with shorter queues and better conversation.",
+        "nearby": [
+          {
+            "title": "Haruyoshi bridge night view",
+            "kind": "Photo spot",
+            "mins": 1
+          },
+          {
+            "title": "Canal City backside",
+            "kind": "Mall",
+            "mins": 5
+          },
+          {
+            "title": "Late bars of Haruyoshi",
+            "kind": "Bars",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "yakuin-night",
+        "title": "Yakuin after dark",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Dining district",
+        "area": "Yakuin",
+        "hours": "From 7 PM",
+        "tags": [
+          "Bistro alley",
+          "Grown-up"
+        ],
+        "description": "Fukuoka's grown-up night out — bistro counters, sake bars and third-wave coffee that turns into wine.",
+        "nearby": [
+          {
+            "title": "Counter bistros",
+            "kind": "Dinner",
+            "mins": 1
+          },
+          {
+            "title": "Sake standing bars",
+            "kind": "Sake",
+            "mins": 2
+          },
+          {
+            "title": "Rec Coffee nightcap",
+            "kind": "Café",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "yusentei",
+        "title": "Yūsentei Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "Jōnan",
+        "hours": "Closed Mon",
+        "tags": [
+          "Tea garden",
+          "Quiet"
+        ],
+        "description": "A lord's strolling tea garden around a carp pond — matcha on tatami with the whole garden to yourself.",
+        "nearby": [
+          {
+            "title": "Tea house matcha set",
+            "kind": "Tea",
+            "mins": 1
+          },
+          {
+            "title": "Carp pond loop",
+            "kind": "Garden walk",
+            "mins": 1
+          },
+          {
+            "title": "Jōnan lanes",
+            "kind": "Stroll",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "atago",
+        "title": "Atago Shrine viewpoint",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Shrine",
+        "area": "Muromi",
+        "hours": "Open early",
+        "tags": [
+          "City view",
+          "Sunset"
+        ],
+        "description": "Fukuoka's oldest shrine on a bluff over the bay — tower, dome and sea in one sunset frame.",
+        "nearby": [
+          {
+            "title": "Viewpoint terrace",
+            "kind": "The view",
+            "mins": 1
+          },
+          {
+            "title": "Muromi riverside",
+            "kind": "Stroll",
+            "mins": 5
+          },
+          {
+            "title": "Momochihama beach",
+            "kind": "Beach",
+            "mins": 12
+          }
+        ]
+      },
+      {
+        "id": "kawabata",
+        "title": "Kawabata Shōtengai",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shopping arcade",
+        "area": "Hakata",
+        "hours": "All day",
+        "tags": [
+          "Old arcade",
+          "Zenzai"
+        ],
+        "description": "Hakata's 400-metre old arcade — festival goods, zenzai sweet soup and the city's unhurried side.",
+        "nearby": [
+          {
+            "title": "Kawabata Zenzai Hiroba",
+            "kind": "Sweet soup",
+            "mins": 1
+          },
+          {
+            "title": "Kushida Shrine",
+            "kind": "Shrine",
+            "mins": 2
+          },
+          {
+            "title": "Riverain esplanade",
+            "kind": "Riverside",
+            "mins": 2
+          },
+          {
+            "title": "Canal City",
+            "kind": "Mall",
+            "mins": 3
           }
         ]
       }

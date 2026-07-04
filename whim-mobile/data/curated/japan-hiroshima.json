@@ -23,14 +23,29 @@
         "description": "A quiet riverside park around the skeletal A-Bomb Dome, with a museum that stays with you long after.",
         "nearby": [
           {
-            "title": "Children's Peace Monument",
+            "title": "A-Bomb Dome",
             "kind": "Memorial",
+            "mins": 2
+          },
+          {
+            "title": "Peace Memorial Museum",
+            "kind": "Museum",
             "mins": 3
           },
           {
-            "title": "Obscura Coffee Roasters",
-            "kind": "Coffee",
-            "mins": 10
+            "title": "Children's Peace Monument",
+            "kind": "Memorial",
+            "mins": 2
+          },
+          {
+            "title": "Motoyasu riverbank",
+            "kind": "Riverside",
+            "mins": 1
+          },
+          {
+            "title": "Orizuru Tower",
+            "kind": "Viewpoint",
+            "mins": 3
           }
         ],
         "geocodeQuery": "Hiroshima Peace Memorial Park, Hiroshima, Japan"
@@ -52,14 +67,34 @@
         "description": "The famous vermilion torii that appears to float at high tide, on an island of wild deer and forested peaks.",
         "nearby": [
           {
-            "title": "Mt. Misen ropeway",
-            "kind": "Viewpoint",
+            "title": "Floating torii at high tide",
+            "kind": "The torii",
+            "mins": 5
+          },
+          {
+            "title": "Momijidani Park",
+            "kind": "Maple valley",
+            "mins": 10
+          },
+          {
+            "title": "Mount Misen ropeway",
+            "kind": "Ropeway & hike",
+            "mins": 15
+          },
+          {
+            "title": "Omotesandō arcade momiji manju",
+            "kind": "Snack street",
+            "mins": 5
+          },
+          {
+            "title": "Daishō-in temple",
+            "kind": "Temple",
             "mins": 12
           },
           {
-            "title": "Grilled oyster stalls",
-            "kind": "Snack",
-            "mins": 4
+            "title": "Wild deer everywhere",
+            "kind": "Deer",
+            "mins": 1
           }
         ]
       },
@@ -79,14 +114,24 @@
         "description": "A compact, exquisitely composed strolling garden of miniature landscapes, ponds and tea pavilions.",
         "nearby": [
           {
-            "title": "Hiroshima Castle",
-            "kind": "Castle",
-            "mins": 9
+            "title": "Rainbow bridge pond loop",
+            "kind": "The garden",
+            "mins": 1
           },
           {
             "title": "Prefectural Art Museum",
             "kind": "Museum",
-            "mins": 3
+            "mins": 2
+          },
+          {
+            "title": "Riverside walk to castle",
+            "kind": "Stroll",
+            "mins": 6
+          },
+          {
+            "title": "Tea pavilion",
+            "kind": "Tea",
+            "mins": 2
           }
         ]
       },
@@ -106,13 +151,23 @@
         "description": "Three floors of griddle stalls each cooking Hiroshima-style okonomiyaki — layered, noodle-stuffed and theatrical.",
         "nearby": [
           {
-            "title": "Nagarekawa bar street",
-            "kind": "Bars",
-            "mins": 4
+            "title": "Three floors of okonomiyaki",
+            "kind": "The building",
+            "mins": 1
           },
           {
-            "title": "Ebisu-chō arcade",
-            "kind": "Stroll",
+            "title": "Hondōri arcade",
+            "kind": "Shopping arcade",
+            "mins": 2
+          },
+          {
+            "title": "Round1 Hiroshima",
+            "kind": "Games",
+            "mins": 3
+          },
+          {
+            "title": "Shintenchi alley bars",
+            "kind": "Bars",
             "mins": 2
           }
         ]
@@ -133,14 +188,24 @@
         "description": "Hiroshima's densest knot of bars, live houses and late-night eats, right beside the Hondōri arcade.",
         "nearby": [
           {
-            "title": "Hondōri arcade",
-            "kind": "Shopping",
+            "title": "Standing bar alleys",
+            "kind": "Bars",
+            "mins": 1
+          },
+          {
+            "title": "Late-night okonomiyaki",
+            "kind": "Food",
+            "mins": 2
+          },
+          {
+            "title": "Jazz bars of Yagenbori",
+            "kind": "Jazz",
             "mins": 3
           },
           {
-            "title": "Ebisu-chō lanes",
-            "kind": "Stroll",
-            "mins": 4
+            "title": "Ebisu Shrine night",
+            "kind": "Shrine",
+            "mins": 2
           }
         ],
         "geocodeQuery": "Nagarekawacho, Naka Ward, Hiroshima, Japan"
@@ -161,14 +226,24 @@
         "description": "Hiroshima's beloved specialty roaster — warm wood, careful pour-overs and house-roasted beans to take home.",
         "nearby": [
           {
-            "title": "Hondōri arcade",
-            "kind": "Shopping",
-            "mins": 6
+            "title": "Fukuromachi Park",
+            "kind": "Park",
+            "mins": 2
           },
           {
-            "title": "Peace Memorial Park",
-            "kind": "Memorial",
-            "mins": 10
+            "title": "Hondōri arcade",
+            "kind": "Shopping",
+            "mins": 3
+          },
+          {
+            "title": "Peace Park via riverside",
+            "kind": "Stroll",
+            "mins": 8
+          },
+          {
+            "title": "84 bakery lane",
+            "kind": "Bakery",
+            "mins": 4
           }
         ],
         "geocodeQuery": "Fukuromachi, Naka Ward, Hiroshima, Japan"
@@ -190,14 +265,510 @@
         "description": "A sleek timber-and-glass tower beside the A-Bomb Dome, with a rooftop café and a wall of folded paper cranes.",
         "nearby": [
           {
-            "title": "Rooftop café & view",
-            "kind": "Coffee",
+            "title": "Rooftop Hiroshima panorama",
+            "kind": "The view",
+            "mins": 1
+          },
+          {
+            "title": "Paper crane wall",
+            "kind": "Fold a crane",
             "mins": 1
           },
           {
             "title": "A-Bomb Dome",
-            "kind": "Landmark",
+            "kind": "Memorial",
+            "mins": 2
+          },
+          {
+            "title": "Motoyasu bridge cafés",
+            "kind": "Coffee",
             "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "hiroshima-castle",
+        "title": "Hiroshima Castle",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Castle",
+        "area": "Motomachi",
+        "hours": "Open morning",
+        "tags": [
+          "Carp castle",
+          "Moat"
+        ],
+        "description": "The rebuilt 'Carp Castle' in its moat of still water — climb the keep for the city and mountains.",
+        "nearby": [
+          {
+            "title": "Castle keep museum",
+            "kind": "Museum",
+            "mins": 1
+          },
+          {
+            "title": "Gokoku Shrine",
+            "kind": "Shrine",
+            "mins": 2
+          },
+          {
+            "title": "Central Park lawns",
+            "kind": "Park",
+            "mins": 4
+          },
+          {
+            "title": "Shukkei-en Garden",
+            "kind": "Garden",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "hondori",
+        "title": "Hondōri Arcade",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Shopping arcade",
+        "area": "Naka",
+        "hours": "Shops till 8 PM",
+        "tags": [
+          "Covered mile",
+          "City spine"
+        ],
+        "description": "Hiroshima's covered spine — half a kilometre of shops and snack stops running from Peace Park to the nightlife.",
+        "nearby": [
+          {
+            "title": "Okonomimura",
+            "kind": "Okonomiyaki",
+            "mins": 3
+          },
+          {
+            "title": "Hiroshima PARCO",
+            "kind": "Shopping",
+            "mins": 2
+          },
+          {
+            "title": "Tōkasan Enryū-ji",
+            "kind": "Temple",
+            "mins": 4
+          },
+          {
+            "title": "Kanayama-chō cafés",
+            "kind": "Coffee",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "mitaki",
+        "title": "Mitaki-dera",
+        "vibes": [
+          "classics",
+          "nature"
+        ],
+        "kind": "Temple",
+        "area": "Mitaki",
+        "hours": "Open morning",
+        "tags": [
+          "Waterfalls",
+          "Mossy"
+        ],
+        "description": "Three waterfalls, moss-deep maples and pagodas on a hillside — Hiroshima's most atmospheric temple, fifteen minutes from town.",
+        "nearby": [
+          {
+            "title": "Three waterfalls path",
+            "kind": "The falls",
+            "mins": 5
+          },
+          {
+            "title": "Tahōtō pagoda",
+            "kind": "Pagoda",
+            "mins": 3
+          },
+          {
+            "title": "Mitaki tea house",
+            "kind": "Tea",
+            "mins": 4
+          },
+          {
+            "title": "Mount Mitaki trail",
+            "kind": "Hike",
+            "mins": 30
+          }
+        ]
+      },
+      {
+        "id": "shimanami",
+        "title": "Shimanami Kaidō (Onomichi)",
+        "vibes": [
+          "classics",
+          "nature"
+        ],
+        "kind": "Cycling route",
+        "area": "Onomichi",
+        "hours": "Day trip",
+        "tags": [
+          "Island cycling",
+          "Bucket list"
+        ],
+        "description": "The bridge-hopping cycle route across the Seto Inland Sea — rent a bike in Onomichi and ride over the islands.",
+        "nearby": [
+          {
+            "title": "Onomichi U2 cycle hotel",
+            "kind": "Base camp",
+            "mins": 2
+          },
+          {
+            "title": "Senkō-ji ropeway",
+            "kind": "Viewpoint",
+            "mins": 8
+          },
+          {
+            "title": "Onomichi ramen",
+            "kind": "Ramen",
+            "mins": 5
+          },
+          {
+            "title": "Kōsan-ji — Tatara bridge viewpoints",
+            "kind": "En route",
+            "mins": 30
+          }
+        ]
+      },
+      {
+        "id": "kanayama",
+        "title": "Kanayama-chō café lane",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café quarter",
+        "area": "Kanayama",
+        "hours": "Afternoon",
+        "tags": [
+          "Indie cafés",
+          "Riverside"
+        ],
+        "description": "A riverside pocket of indie cafés and wine stands — where Hiroshima's slow afternoons happen.",
+        "nearby": [
+          {
+            "title": "Riverside terraces",
+            "kind": "River seats",
+            "mins": 1
+          },
+          {
+            "title": "Vintage shops",
+            "kind": "Clothing",
+            "mins": 3
+          },
+          {
+            "title": "Craft chocolate stand",
+            "kind": "Chocolate",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "onomichi-slope",
+        "title": "Onomichi temple slopes",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Hill town",
+        "area": "Onomichi",
+        "hours": "Day trip",
+        "tags": [
+          "Cats",
+          "Retro port"
+        ],
+        "description": "A retro port town of temple stairways, cat alleys and renovated-warehouse coffee — Kyushu-bound trains stop; you should too.",
+        "nearby": [
+          {
+            "title": "Cat Alley",
+            "kind": "Cats",
+            "mins": 5
+          },
+          {
+            "title": "U2 café",
+            "kind": "Coffee",
+            "mins": 8
+          },
+          {
+            "title": "Temple Walk stairway",
+            "kind": "Walk",
+            "mins": 2
+          },
+          {
+            "title": "Senkō-ji viewpoint",
+            "kind": "Viewpoint",
+            "mins": 15
+          }
+        ]
+      },
+      {
+        "id": "ekinishi",
+        "title": "Ekinishi night quarter",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Izakaya quarter",
+        "area": "Hiroshima Station west",
+        "hours": "From 5 PM",
+        "tags": [
+          "Under the tracks",
+          "Young"
+        ],
+        "description": "The strip west of the station where young Hiroshima drinks — gyōza counters, natural wine and zero formality.",
+        "nearby": [
+          {
+            "title": "Gyōza counters",
+            "kind": "Gyōza",
+            "mins": 1
+          },
+          {
+            "title": "Craft beer taps",
+            "kind": "Beer",
+            "mins": 2
+          },
+          {
+            "title": "Late ramen",
+            "kind": "Ramen",
+            "mins": 2
+          }
+        ]
+      },
+      {
+        "id": "yagenbori",
+        "title": "Yagenbori jazz lanes",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar lanes",
+        "area": "Nagarekawa",
+        "hours": "From 8 PM",
+        "tags": [
+          "Jazz kissa",
+          "Intimate"
+        ],
+        "description": "Nagarekawa's quieter lanes — jazz kissa, whisky corners and bartenders who remember you.",
+        "nearby": [
+          {
+            "title": "Jazz bar crawl",
+            "kind": "Jazz",
+            "mins": 1
+          },
+          {
+            "title": "Whisky bars",
+            "kind": "Whisky",
+            "mins": 1
+          },
+          {
+            "title": "Late okonomiyaki",
+            "kind": "Food",
+            "mins": 3
+          }
+        ]
+      },
+      {
+        "id": "sandankyo",
+        "title": "Sandankyō Gorge",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Gorge",
+        "area": "Akiota",
+        "hours": "Day trip",
+        "tags": [
+          "Emerald water",
+          "Boat ride"
+        ],
+        "description": "A sixteen-kilometre emerald gorge north of the city — waterfalls, hanging bridges and a boat squeeze through the narrows.",
+        "nearby": [
+          {
+            "title": "Kurobuchi boat crossing",
+            "kind": "Boat",
+            "mins": 60
+          },
+          {
+            "title": "Sandan Falls",
+            "kind": "Waterfall",
+            "mins": 90
+          },
+          {
+            "title": "Gorge-mouth teahouses",
+            "kind": "Tea",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "misen",
+        "title": "Mount Misen",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Mountain",
+        "area": "Miyajima",
+        "hours": "Ropeway till 4:30 PM",
+        "tags": [
+          "Inland Sea view",
+          "Eternal flame"
+        ],
+        "description": "Miyajima's sacred peak — ropeway then a ridge walk to the eternal flame and a 360° Inland Sea panorama.",
+        "nearby": [
+          {
+            "title": "Shishiiwa observatory",
+            "kind": "Viewpoint",
+            "mins": 5
+          },
+          {
+            "title": "Reikadō eternal flame",
+            "kind": "Temple",
+            "mins": 20
+          },
+          {
+            "title": "Summit boulders",
+            "kind": "Summit",
+            "mins": 30
+          },
+          {
+            "title": "Daishō-in descent trail",
+            "kind": "Hike",
+            "mins": 60
+          }
+        ]
+      },
+      {
+        "id": "hijiyama",
+        "title": "Hijiyama Park",
+        "vibes": [
+          "nature",
+          "matcha"
+        ],
+        "kind": "Art park",
+        "area": "Hijiyama",
+        "hours": "Open all day",
+        "tags": [
+          "Art museum",
+          "City view"
+        ],
+        "description": "A hilltop park holding the contemporary art museum and a manga library — culture with a skyline.",
+        "nearby": [
+          {
+            "title": "Hiroshima MOCA",
+            "kind": "Art museum",
+            "mins": 2
+          },
+          {
+            "title": "Manga Library",
+            "kind": "Library",
+            "mins": 3
+          },
+          {
+            "title": "Skyline viewpoint",
+            "kind": "Viewpoint",
+            "mins": 4
+          },
+          {
+            "title": "Danbara shopping street",
+            "kind": "Local street",
+            "mins": 8
+          }
+        ]
+      },
+      {
+        "id": "mazda",
+        "title": "Mazda Museum",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Fuchū",
+        "hours": "Book ahead, closed weekends",
+        "tags": [
+          "Factory line",
+          "Rotary"
+        ],
+        "description": "Hiroshima's other icon — rotary engines, Le Mans winners and a walk along the actual assembly line.",
+        "nearby": [
+          {
+            "title": "Assembly line viewing",
+            "kind": "The line",
+            "mins": 1
+          },
+          {
+            "title": "Rotary engine hall",
+            "kind": "Exhibit",
+            "mins": 1
+          },
+          {
+            "title": "Mazda Zoom-Zoom stadium",
+            "kind": "Baseball",
+            "mins": 15
+          }
+        ]
+      },
+      {
+        "id": "fudoin",
+        "title": "Fudō-in Temple",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Temple",
+        "area": "Ushita",
+        "hours": "Open morning",
+        "tags": [
+          "National treasure",
+          "Survivor"
+        ],
+        "description": "A national-treasure Kamakura hall that survived 1945 — the oldest building in the city, serene by the river.",
+        "nearby": [
+          {
+            "title": "Kondō main hall",
+            "kind": "The hall",
+            "mins": 1
+          },
+          {
+            "title": "Ōta riverbank cycle path",
+            "kind": "Riverside",
+            "mins": 3
+          },
+          {
+            "title": "Ushita local cafés",
+            "kind": "Coffee",
+            "mins": 5
+          }
+        ]
+      },
+      {
+        "id": "mount-coffee",
+        "title": "MOUNT COFFEE",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Yokogawa",
+        "hours": "Closed Wed",
+        "tags": [
+          "Roaster",
+          "Yokogawa"
+        ],
+        "description": "Hiroshima's roaster of record in scrappy-creative Yokogawa — the neighborhood worth the two tram stops.",
+        "nearby": [
+          {
+            "title": "Yokogawa retro cinema",
+            "kind": "Cinema",
+            "mins": 3
+          },
+          {
+            "title": "Vintage shops",
+            "kind": "Clothing",
+            "mins": 2
+          },
+          {
+            "title": "Yokogawa station izakaya",
+            "kind": "Food",
+            "mins": 2
           }
         ]
       }
