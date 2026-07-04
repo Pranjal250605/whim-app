@@ -4,6 +4,10 @@ A travel-discovery iOS app: swipe through curated spots for a city + "vibe", sav
 the ones you like into a **Hitlist**, and get an auto-sequenced day plan you can
 route on a map and share. Think "Tinder for places to go." Target: the App Store.
 
+> **Continuing this project? Read `HANDOFF.md` next** — non-negotiable security
+> rules (with the incidents behind them), the App Store compliance map, pipeline
+> runbooks, and how the user likes to work. `ROADMAP.md` has the phased plan.
+
 > **Repo layout:** this git repo (`whim-app`) is a small monorepo. The Expo app
 > lives in **`whim-mobile/`** — that's where you run every command. `.agents/`
 > holds installed design skills (see [Design](#design)). `docs/` is the GitHub
