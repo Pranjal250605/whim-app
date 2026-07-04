@@ -53,6 +53,10 @@ Hinge-style animated stamp intro (`AnimatedSplash`).
 ## Phase 2 — Content depth (parallel with Phase 1, ongoing)
 
 The product IS the curation. Launch narrative: deep Japan, credible elsewhere.
+- ✅ **Japan dataset complete & seeded (2026-07-04):** Tokyo 50 · Kyoto 47 ·
+  Osaka 43 · Fukuoka 27 · Hiroshima 21 anchors, ~1,150 micros, POI-verified
+  coordinates, photos on our CDN. (Ongoing: Pranjal's on-the-ground review of
+  drafts; the ~400 uncoordinated micros list.)
 - Japan decks to ~15–20 spots per city×vibe where sensible (Claude drafts,
   **you review every spot** — the taste filter is the moat).
 - Western cities: either grow to the same bar or cut from the launch city list

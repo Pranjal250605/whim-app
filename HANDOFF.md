@@ -183,9 +183,14 @@ self-consistent with the Field Notes tokens.
 
 Built: full solo loop · Group Rooms v1 + group day-plan · security hardening
 · verified check-ins · Passport share card · onboarding · icon + animated
-splash ("W stamp") · privacy/reset/confirm pages · Japan dataset (Tokyo 50,
-Kyoto 47, Osaka 43, Fukuoka 27, Hiroshima 21 anchors; ~1,150 micros; verified
-coords; photos on own CDN).
+splash ("W stamp") · privacy/reset/confirm pages · **Japan dataset COMPLETE
+and seeded**: Tokyo 50, Kyoto 47, Osaka 43, Fukuoka 27, Hiroshima 21 anchors
+(249 total incl. western cities; ~1,150 micro-activities), all coordinates
+POI-verified (0 outliers; 3 pile-ups are legitimate same-block pairs), all
+249 photos on our CDN. Per-vibe: Tokyo 16/16/16/14, Kyoto 16/12/15/8,
+Osaka 16/9/10/15, Fukuoka 8/6/9/6, Hiroshima 9/6/7/4
+(classics/matcha/nature/nightlife). ~400 nearby micros lack coords (logged;
+harmless — micros show minutes, not pins).
 
 Next (ROADMAP.md): sticker pack (his asset) → Apple Developer account →
 Sentry+analytics → TestFlight beta → push notifications → Apple Sign-In →

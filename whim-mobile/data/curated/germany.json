@@ -86,7 +86,8 @@
             "kind": "Coffee",
             "mins": 9
           }
-        ]
+        ],
+        "geocodeQuery": "Großer Tiergarten, Berlin, Germany"
       },
       {
         "id": "tempelhofer-feld",

@@ -419,7 +419,8 @@
             "kind": "Museum",
             "mins": 4
           }
-        ]
+        ],
+        "geocodeQuery": "上野恩賜公園"
       },
       {
         "id": "akihabara",
@@ -529,7 +530,8 @@
             "kind": "Culture",
             "mins": 6
           }
-        ]
+        ],
+        "geocodeQuery": "銀座四丁目交差点"
       },
       {
         "id": "shinjuku-gyoen",

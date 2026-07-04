@@ -440,7 +440,8 @@
             "kind": "Kabuki",
             "mins": 4
           }
-        ]
+        ],
+        "geocodeQuery": "花見小路通, 京都市"
       },
       {
         "id": "nijo",
