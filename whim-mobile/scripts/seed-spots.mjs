@@ -87,10 +87,13 @@ async function nominatim(query, proximity) {
   if (!res.ok) throw new Error(`Nominatim ${res.status}`);
   const hit = (await res.json())[0];
   if (!hit) return null;
-  // a locality/boundary match means "couldn't find the POI" — reject it so
-  // the fallback (or the skip log) handles it honestly
-  if (hit.class === 'place' || hit.class === 'boundary') return null;
-  return { lat: Number(hit.lat), lng: Number(hit.lon), source: `osm:${hit.class}` };
+  // jsonv2 calls the field "category" (older formats: "class")
+  const cat = hit.category ?? hit.class;
+  // boundary/city-level matches mean "couldn't find the POI" — reject those.
+  // suburb/quarter/neighbourhood centroids are CORRECT for district anchors.
+  const CITYISH = new Set(['city', 'town', 'village', 'municipality', 'county', 'state', 'region', 'island', 'sea', 'archipelago']);
+  if (cat === 'boundary' || (cat === 'place' && CITYISH.has(hit.type))) return null;
+  return { lat: Number(hit.lat), lng: Number(hit.lon), source: `osm:${cat}` };
 }
 
 async function mapboxGeocode(query, proximity) {

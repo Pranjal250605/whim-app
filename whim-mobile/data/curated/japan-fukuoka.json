@@ -689,7 +689,8 @@
             "kind": "Beach",
             "mins": 8
           }
-        ]
+        ],
+        "geocodeQuery": "のこのしまアイランドパーク"
       },
       {
         "id": "itoshima",
@@ -726,7 +727,8 @@
             "kind": "Oysters",
             "mins": 8
           }
-        ]
+        ],
+        "geocodeQuery": "Sakurai Futamigaura, Itoshima, Japan"
       },
       {
         "id": "sumiyoshi-fk",
@@ -992,7 +994,8 @@
             "kind": "Mall",
             "mins": 3
           }
-        ]
+        ],
+        "geocodeQuery": "上川端商店街, 福岡市"
       }
     ]
   }

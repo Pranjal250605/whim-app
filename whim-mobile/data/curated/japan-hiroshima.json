@@ -466,7 +466,8 @@
             "kind": "Chocolate",
             "mins": 2
           }
-        ]
+        ],
+        "geocodeQuery": "Kanayamacho, Naka Ward, Hiroshima, Japan"
       },
       {
         "id": "onomichi-slope",
@@ -503,7 +504,8 @@
             "kind": "Viewpoint",
             "mins": 15
           }
-        ]
+        ],
+        "geocodeQuery": "Senkoji, Onomichi, Japan"
       },
       {
         "id": "ekinishi",
@@ -535,7 +537,8 @@
             "kind": "Ramen",
             "mins": 2
           }
-        ]
+        ],
+        "geocodeQuery": "Osugacho, Minami Ward, Hiroshima, Japan"
       },
       {
         "id": "yagenbori",
@@ -599,7 +602,8 @@
             "kind": "Tea",
             "mins": 5
           }
-        ]
+        ],
+        "geocodeQuery": "三段峡"
       },
       {
         "id": "misen",
@@ -636,7 +640,8 @@
             "kind": "Hike",
             "mins": 60
           }
-        ]
+        ],
+        "geocodeQuery": "弥山, 廿日市市"
       },
       {
         "id": "hijiyama",
@@ -770,7 +775,8 @@
             "kind": "Food",
             "mins": 2
           }
-        ]
+        ],
+        "geocodeQuery": "横川町, 広島市"
       }
     ]
   }
