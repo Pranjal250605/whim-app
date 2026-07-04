@@ -137,7 +137,8 @@
             "kind": "Good-luck rub",
             "mins": 2
           }
-        ]
+        ],
+        "geocodeQuery": "Tsutenkaku, Osaka, Japan"
       },
       {
         "id": "kuromon-market",
@@ -221,7 +222,8 @@
             "kind": "Museum",
             "mins": 15
           }
-        ]
+        ],
+        "geocodeQuery": "Minoo Falls, Minoo, Osaka, Japan"
       },
       {
         "id": "nakanoshima",
@@ -532,7 +534,7 @@
       },
       {
         "id": "harukas",
-        "title": "Abeno Harukas Harukas 300",
+        "title": "Abeno Harukas",
         "vibes": [
           "classics",
           "nightlife"
@@ -566,7 +568,8 @@
             "kind": "Retro alley",
             "mins": 12
           }
-        ]
+        ],
+        "geocodeQuery": "Abeno Harukas, Osaka, Japan"
       },
       {
         "id": "namba-parks",
@@ -641,7 +644,8 @@
             "kind": "Mall & ride",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Tower of the Sun, Suita, Osaka, Japan"
       },
       {
         "id": "lilo",
@@ -1147,7 +1151,8 @@
             "kind": "Stroll",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Kyobashi Station, Osaka, Japan"
       },
       {
         "id": "shinsaibashi",
@@ -1226,7 +1231,8 @@
             "kind": "Izakaya quarter",
             "mins": 5
           }
-        ]
+        ],
+        "geocodeQuery": "Tenjinbashisuji Shopping Street, Osaka, Japan"
       },
       {
         "id": "cup-noodles",
@@ -1554,7 +1560,8 @@
             "kind": "Viewpoint",
             "mins": 12
           }
-        ]
+        ],
+        "geocodeQuery": "Fukushima Station, Osaka, Japan"
       },
       {
         "id": "round1",

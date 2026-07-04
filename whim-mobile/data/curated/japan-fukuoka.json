@@ -140,7 +140,8 @@
             "kind": "Garden",
             "mins": 6
           }
-        ]
+        ],
+        "geocodeQuery": "Dazaifu Tenmangu Omotesando, Dazaifu, Japan"
       },
       {
         "id": "rec-coffee",

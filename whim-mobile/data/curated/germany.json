@@ -140,7 +140,8 @@
             "kind": "Coffee",
             "mins": 14
           }
-        ]
+        ],
+        "geocodeQuery": "Neukölln Arcaden, Berlin, Germany"
       },
       {
         "id": "raw-gelande",
@@ -194,7 +195,8 @@
             "kind": "Shopping",
             "mins": 7
           }
-        ]
+        ],
+        "geocodeQuery": "The Barn, Auguststraße, Berlin, Germany"
       },
       {
         "id": "bonanza-coffee",
@@ -420,7 +422,8 @@
             "kind": "Square",
             "mins": 5
           }
-        ]
+        ],
+        "geocodeQuery": "Man versus Machine, Müllerstraße, Munich, Germany"
       },
       {
         "id": "vits-coffee",

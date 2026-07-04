@@ -313,7 +313,8 @@
             "kind": "Coffee",
             "mins": 6
           }
-        ]
+        ],
+        "geocodeQuery": "Place Rossetti, Nice, France"
       },
       {
         "id": "colline-du-chateau",
@@ -340,7 +341,8 @@
             "kind": "Snack",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Parc de la Colline du Château, Nice, France"
       },
       {
         "id": "parc-phoenix",
@@ -394,7 +396,8 @@
             "kind": "Harbour",
             "mins": 8
           }
-        ]
+        ],
+        "geocodeQuery": "Place Garibaldi, Nice, France"
       },
       {
         "id": "emilie-and-the-cool-kids",

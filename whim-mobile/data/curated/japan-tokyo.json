@@ -912,7 +912,8 @@
             "kind": "Temple",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Blue Bottle Coffee, Hirano, Koto, Tokyo, Japan"
       },
       {
         "id": "shimokita",

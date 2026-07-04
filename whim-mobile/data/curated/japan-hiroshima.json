@@ -32,7 +32,8 @@
             "kind": "Coffee",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Hiroshima Peace Memorial Park, Hiroshima, Japan"
       },
       {
         "id": "miyajima",
@@ -141,7 +142,8 @@
             "kind": "Stroll",
             "mins": 4
           }
-        ]
+        ],
+        "geocodeQuery": "Nagarekawacho, Naka Ward, Hiroshima, Japan"
       },
       {
         "id": "obscura-coffee",

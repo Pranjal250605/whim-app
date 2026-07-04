@@ -89,7 +89,8 @@
             "kind": "Kissaten",
             "mins": 12
           }
-        ]
+        ],
+        "geocodeQuery": "Kinkaku-ji, Kyoto, Japan"
       },
       {
         "id": "arashiyama-bamboo",
@@ -179,7 +180,8 @@
             "kind": "Café",
             "mins": 4
           }
-        ]
+        ],
+        "geocodeQuery": "Philosopher's Walk, Kyoto, Japan"
       },
       {
         "id": "pontocho",
@@ -348,7 +350,7 @@
             "mins": 10
           }
         ],
-        "geocodeQuery": "Blue Bottle Coffee Kyoto Cafe, Nanzenji Kusagawa-cho, Sakyo Ward, Kyoto, Japan"
+        "geocodeQuery": "Blue Bottle Coffee, Nanzenji, Kyoto, Japan"
       },
       {
         "id": "kiyomizu",
@@ -564,7 +566,8 @@
             "kind": "Short hike",
             "mins": 8
           }
-        ]
+        ],
+        "geocodeQuery": "Ginkaku-ji, Kyoto, Japan"
       },
       {
         "id": "sanjusangendo",
@@ -723,7 +726,8 @@
             "kind": "Temple",
             "mins": 8
           }
-        ]
+        ],
+        "geocodeQuery": "Kyoto Station, Kyoto, Japan"
       },
       {
         "id": "toji",
@@ -1151,7 +1155,7 @@
             "mins": 10
           }
         ],
-        "geocodeQuery": "Hyakumanben intersection, Sakyo Ward, Kyoto, Japan"
+        "geocodeQuery": "Chionji Temple, Sakyo Ward, Kyoto, Japan"
       },
       {
         "id": "kamo-delta",
@@ -1188,7 +1192,8 @@
             "kind": "Ancient forest",
             "mins": 8
           }
-        ]
+        ],
+        "geocodeQuery": "Kamogawa Delta, Kyoto, Japan"
       },
       {
         "id": "kurama",
@@ -1230,7 +1235,8 @@
             "kind": "Scenic train",
             "mins": 1
           }
-        ]
+        ],
+        "geocodeQuery": "Kurama-dera, Kyoto, Japan"
       },
       {
         "id": "botanical-kyoto",
@@ -1384,7 +1390,8 @@
             "kind": "Coffee",
             "mins": 5
           }
-        ]
+        ],
+        "geocodeQuery": "Keage Incline, Kyoto, Japan"
       },
       {
         "id": "imperial-park",
@@ -1537,7 +1544,8 @@
             "kind": "History",
             "mins": 6
           }
-        ]
+        ],
+        "geocodeQuery": "Gekkeikan Okura Sake Museum, Kyoto, Japan"
       },
       {
         "id": "nanzenji",
@@ -1775,7 +1783,8 @@
             "kind": "Bamboo",
             "mins": 15
           }
-        ]
+        ],
+        "geocodeQuery": "Iwatayama Monkey Park, Kyoto, Japan"
       },
       {
         "id": "enryakuji",
@@ -1812,7 +1821,8 @@
             "kind": "Viewpoint",
             "mins": 10
           }
-        ]
+        ],
+        "geocodeQuery": "Enryaku-ji, Otsu, Japan"
       },
       {
         "id": "kyoto-beer-lab",
