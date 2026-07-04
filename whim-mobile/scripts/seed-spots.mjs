@@ -59,7 +59,41 @@ const slug = (s) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
-async function geocode(query, proximity) {
+// ── geocoding: OSM Nominatim POI-first, Mapbox as fallback ────────────────
+// Mapbox's geocoder is address-oriented: POIs it doesn't know silently
+// resolve to district centroids, which stacks many spots on one map point
+// (breaks pins, route ordering and check-in verification). Nominatim knows
+// actual POIs (temples, cafés, shops) and its results are storable with the
+// OSM attribution we already show in Settings.
+
+let lastNominatim = 0;
+async function nominatim(query, proximity) {
+  // usage policy: max 1 req/sec, identify yourself
+  const wait = 1100 - (Date.now() - lastNominatim);
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  lastNominatim = Date.now();
+
+  const url = new URL('https://nominatim.openstreetmap.org/search');
+  url.searchParams.set('q', query);
+  url.searchParams.set('format', 'jsonv2');
+  url.searchParams.set('limit', '1');
+  if (proximity) {
+    const [lng, lat] = proximity;
+    url.searchParams.set('viewbox', `${lng - 0.4},${lat + 0.4},${lng + 0.4},${lat - 0.4}`);
+  }
+  const res = await fetch(url, {
+    headers: { 'User-Agent': 'whim-app-seeder/1.0 (b23022@students.iitmandi.ac.in)' },
+  });
+  if (!res.ok) throw new Error(`Nominatim ${res.status}`);
+  const hit = (await res.json())[0];
+  if (!hit) return null;
+  // a locality/boundary match means "couldn't find the POI" — reject it so
+  // the fallback (or the skip log) handles it honestly
+  if (hit.class === 'place' || hit.class === 'boundary') return null;
+  return { lat: Number(hit.lat), lng: Number(hit.lon), source: `osm:${hit.class}` };
+}
+
+async function mapboxGeocode(query, proximity) {
   const url = new URL('https://api.mapbox.com/search/geocode/v6/forward');
   url.searchParams.set('q', query);
   url.searchParams.set('limit', '1');
@@ -69,11 +103,26 @@ async function geocode(query, proximity) {
 
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Mapbox ${res.status}`);
-  const json = await res.json();
-  const feature = json.features?.[0];
+  const feature = (await res.json()).features?.[0];
   if (!feature) return null;
   const [lng, lat] = feature.geometry.coordinates;
-  return { lat, lng };
+  // v6 tags results with a feature type; locality-level = centroid fallback
+  const t = feature.properties?.feature_type;
+  if (t === 'place' || t === 'locality' || t === 'region' || t === 'district') return null;
+  return { lat, lng, source: `mapbox:${t ?? 'unknown'}` };
+}
+
+// `simple` (name + city) suits Nominatim's strict matching; `full` (with the
+// area) suits Mapbox. A geocodeQuery pin overrides both.
+async function geocode({ simple, full }, proximity) {
+  let hit = null;
+  try {
+    hit = await nominatim(simple, proximity);
+  } catch (e) {
+    console.warn(`    nominatim error "${simple}": ${e.message}`);
+  }
+  if (!hit) hit = await mapboxGeocode(full, proximity);
+  return hit;
 }
 
 // Free Pexels photo (landscape). Returns a hotlinkable CDN URL or '' if none.
@@ -109,13 +158,16 @@ async function run() {
     const cities = JSON.parse(readFileSync(join(dir, file), 'utf8'));
     for (const city of cities) {
       for (const spot of city.spots) {
-        const query =
-          spot.geocodeQuery ??
-          `${spot.title}, ${spot.area ? spot.area + ', ' : ''}${city.city}, ${city.country}`;
+        const queries = {
+          simple: spot.geocodeQuery ?? `${spot.title}, ${city.city}, ${city.country}`,
+          full:
+            spot.geocodeQuery ??
+            `${spot.title}, ${spot.area ? spot.area + ', ' : ''}${city.city}, ${city.country}`,
+        };
 
         let coords = null;
         try {
-          coords = await geocode(query, city.center);
+          coords = await geocode(queries, city.center);
         } catch (e) {
           console.warn(`  geocode error for "${spot.title}": ${e.message}`);
         }
@@ -133,7 +185,8 @@ async function run() {
         for (const n of spot.nearby ?? []) {
           let nc = null;
           try {
-            nc = await geocode(`${n.title}, ${city.city}, ${city.country}`, anchorProximity);
+            const nq = `${n.title}, ${city.city}, ${city.country}`;
+            nc = await geocode({ simple: nq, full: nq }, anchorProximity);
           } catch (e) {
             console.warn(`    nearby geocode error "${n.title}": ${e.message}`);
           }
