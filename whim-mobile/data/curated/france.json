@@ -248,7 +248,8 @@
             "kind": "Stroll",
             "mins": 6
           }
-        ]
+        ],
+        "geocodeQuery": "Moulin Rouge, Paris, France"
       }
     ]
   },
@@ -342,7 +343,7 @@
             "mins": 10
           }
         ],
-        "geocodeQuery": "Parc de la Colline du Château, Nice, France"
+        "geocodeQuery": "Tour Bellanda, Nice, France"
       },
       {
         "id": "parc-phoenix",

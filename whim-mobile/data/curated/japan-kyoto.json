@@ -1155,7 +1155,7 @@
             "mins": 10
           }
         ],
-        "geocodeQuery": "Chionji Temple, Sakyo Ward, Kyoto, Japan"
+        "geocodeQuery": "Kyoto University, Kyoto, Japan"
       },
       {
         "id": "kamo-delta",
@@ -1193,7 +1193,7 @@
             "mins": 8
           }
         ],
-        "geocodeQuery": "Kamogawa Delta, Kyoto, Japan"
+        "geocodeQuery": "Demachiyanagi Station, Kyoto, Japan"
       },
       {
         "id": "kurama",
