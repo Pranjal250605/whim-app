@@ -168,8 +168,14 @@ self-consistent with the Field Notes tokens.
 
 - Google Routes TRANSIT sometimes returns empty for valid Tokyo pairs
   (pre-existing; app falls back to time estimates).
-- Western cities (Paris/Nice/Berlin/Munich/London/Edinburgh/NYC/SF) are thin
-  (~8 spots): deepen or cut before launch — decide with Pranjal.
+- NYC (75 anchors) + SF (43) are now DEEP — imported 2026-07-07 from a
+  reviewed spreadsheet (see `data/curated/usa.json`, `trustedCoords: true`
+  → seeder uses sheet lat/lng verbatim; seed with `SEED_ONLY=usa`). SF has
+  NO café/matcha data yet (empty deck shows the app's empty state — fine;
+  add SF cafés later if desired).
+- Remaining thin European cities (Paris/Nice/Berlin/Munich/London/Edinburgh,
+  ~8 spots each): deepen (same spreadsheet→trustedCoords flow) or cut before
+  launch — decide with Pranjal.
 - `Alert.prompt` used in Settings/sign-in is iOS-only (fine: iOS target).
 - MicroDiscoveryModal is solo-store-coupled by design; Rooms skips it.
 - Legacy serif fonts (Fraunces/Playfair) still in package.json — unused.
