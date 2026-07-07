@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { Text, View } from 'react-native';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
-import Mapbox, { Camera, LineLayer, MapView, PointAnnotation, ShapeSource } from '@/lib/mapbox';
+import Mapbox, { Camera, CircleLayer, LineLayer, MapView, ShapeSource, SymbolLayer } from '@/lib/mapbox';
 import type { RouteStop } from '@/lib/route';
 
 // @rnmapbox/maps is a NATIVE module: it renders only in a custom dev build, not
@@ -65,6 +65,20 @@ export default function RouteMap({ stops, height = 280 }: RouteMapProps) {
     properties: {},
   };
 
+  // Numbered markers rendered NATIVELY (CircleLayer + SymbolLayer) rather than
+  // React-view PointAnnotations — the latter fail to rasterize their number on
+  // iOS once many markers overlap (you get bare dots). Native layers draw the
+  // order label reliably and stay legible when pins cluster.
+  const lastOrder = stops.length;
+  const markerFC = {
+    type: 'FeatureCollection' as const,
+    features: stops.map((s) => ({
+      type: 'Feature' as const,
+      geometry: { type: 'Point' as const, coordinates: [s.lng, s.lat] },
+      properties: { order: s.order, label: String(s.order) },
+    })),
+  };
+
   return (
     <View style={{ height }}>
       <MapView
@@ -80,18 +94,38 @@ export default function RouteMap({ stops, height = 280 }: RouteMapProps) {
           <ShapeSource id="route" shape={routeLine}>
             <LineLayer
               id="routeLine"
-              style={{ lineColor: '#2740E0', lineWidth: 3, lineCap: 'round', lineJoin: 'round', lineDasharray: [2, 2] }}
+              style={{ lineColor: '#2740E0', lineWidth: 2.5, lineOpacity: 0.55, lineCap: 'round', lineJoin: 'round', lineDasharray: [2, 2] }}
             />
           </ShapeSource>
         )}
 
-        {stops.map((s) => (
-          <PointAnnotation key={s.id} id={s.id} coordinate={[s.lng, s.lat]}>
-            <View className="h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-accent shadow">
-              <Text className="text-[12px] font-bold text-white">{s.order}</Text>
-            </View>
-          </PointAnnotation>
-        ))}
+        <ShapeSource id="stops" shape={markerFC}>
+          {/* white halo so overlapping pins stay visually separated */}
+          <CircleLayer
+            id="stopHalo"
+            style={{ circleRadius: 11.5, circleColor: '#FFFFFF', circleStrokeColor: 'rgba(23,21,15,0.12)', circleStrokeWidth: 1 }}
+          />
+          {/* first stop = ink (start of day), the rest = cobalt */}
+          <CircleLayer
+            id="stopDot"
+            style={{
+              circleRadius: 9.5,
+              circleColor: ['case', ['==', ['get', 'order'], 1], '#17150F', ['==', ['get', 'order'], lastOrder], '#4A5AE8', '#2740E0'],
+            }}
+          />
+          <SymbolLayer
+            id="stopLabel"
+            style={{
+              textField: ['get', 'label'],
+              textSize: 11,
+              textColor: '#FFFFFF',
+              textFont: ['DIN Offc Pro Bold', 'Arial Unicode MS Bold'],
+              textAllowOverlap: true,
+              textIgnorePlacement: true,
+              symbolSortKey: ['get', 'order'], // lower orders draw first, higher on top
+            }}
+          />
+        </ShapeSource>
       </MapView>
     </View>
   );

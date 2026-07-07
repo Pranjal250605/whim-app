@@ -11,4 +11,4 @@ if (!inExpoGo) {
 }
 
 export default Mapbox;
-export const { MapView, Camera, ShapeSource, LineLayer, PointAnnotation } = Mapbox;
+export const { MapView, Camera, ShapeSource, LineLayer, CircleLayer, SymbolLayer, PointAnnotation } = Mapbox;
