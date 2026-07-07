@@ -2,104 +2,3829 @@
   {
     "city": "New York",
     "country": "United States",
-    "center": [-73.9857, 40.7484],
+    "center": [
+      -73.9857,
+      40.7484
+    ],
+    "trustedCoords": true,
     "spots": [
       {
-        "id": "brooklyn-bridge",
-        "title": "Brooklyn Bridge",
-        "vibes": ["classics"],
+        "id": "statue-of-liberty",
+        "title": "Statue of Liberty",
+        "vibes": [
+          "classics"
+        ],
         "kind": "Landmark",
-        "area": "Lower Manhattan",
-        "hours": "Anytime",
-        "tags": ["Iconic", "Skyline"],
-        "description": "Walk the gothic-arched promenade at sunrise for the classic Manhattan skyline over the East River.",
+        "area": "Liberty Island",
+        "hours": "Daily 8:30 AM - 4:00 PM (ferry dependent)",
+        "tags": [
+          "Iconic",
+          "Historic"
+        ],
+        "description": "Rising 305 feet above New York Harbor, the Statue of Liberty has welcomed generations of immigrants and travelers as a global symbol of freedom.",
+        "lat": 40.6892,
+        "lng": -74.0445,
         "nearby": [
-          { "title": "DUMBO / Washington St view", "kind": "Photo stop", "mins": 12 },
-          { "title": "Brooklyn Bridge Park", "kind": "Nature", "mins": 14 }
+          {
+            "title": "Battery Park",
+            "kind": "Park",
+            "mins": 35,
+            "lat": 40.7033,
+            "lng": -74.017
+          },
+          {
+            "title": "Castle Clinton National Monument",
+            "kind": "Historic Fort",
+            "mins": 35,
+            "lat": 40.7032,
+            "lng": -74.017
+          },
+          {
+            "title": "SeaGlass Carousel",
+            "kind": "Attraction",
+            "mins": 35,
+            "lat": 40.7024,
+            "lng": -74.0166
+          },
+          {
+            "title": "Pier A Harbor House",
+            "kind": "Restaurant & Bar",
+            "mins": 34,
+            "lat": 40.7027,
+            "lng": -74.0175
+          },
+          {
+            "title": "Staten Island Ferry Terminal",
+            "kind": "Transit & Viewpoint",
+            "mins": 36,
+            "lat": 40.7013,
+            "lng": -74.0138
+          },
+          {
+            "title": "Fraunces Tavern",
+            "kind": "Historic Tavern & Restaurant",
+            "mins": 40,
+            "lat": 40.7034,
+            "lng": -74.011
+          },
+          {
+            "title": "The Skyscraper Museum",
+            "kind": "Museum",
+            "mins": 37,
+            "lat": 40.7051,
+            "lng": -74.0169
+          },
+          {
+            "title": "Wagner Park",
+            "kind": "Park",
+            "mins": 36,
+            "lat": 40.7048,
+            "lng": -74.0175
+          },
+          {
+            "title": "Brookfield Place",
+            "kind": "Shopping & Food Hall",
+            "mins": 47,
+            "lat": 40.715,
+            "lng": -74.0154
+          }
         ]
       },
       {
-        "id": "the-met",
-        "title": "The Metropolitan Museum of Art",
-        "vibes": ["classics"],
-        "kind": "Museum",
-        "area": "Upper East Side",
-        "hours": "Opens morning",
-        "tags": ["Culture", "Iconic"],
-        "description": "Two million works spanning 5,000 years, plus a rooftop bar with Central Park views in summer.",
+        "id": "empire-state-building",
+        "title": "Empire State Building",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "New York",
+        "hours": "Daily 9:00 AM - 1:00 AM (last elevator 12:15 AM)",
+        "tags": [
+          "Observation Deck",
+          "Art Deco"
+        ],
+        "description": "An Art Deco masterpiece completed in 1931, the Empire State Building held the title of world's tallest building for nearly four decades.",
+        "lat": 40.7484,
+        "lng": -73.9857,
         "nearby": [
-          { "title": "Museum Mile", "kind": "Stroll", "mins": 5 },
-          { "title": "Guggenheim Museum", "kind": "Museum", "mins": 9 }
+          {
+            "title": "Macy's Herald Square",
+            "kind": "Department Store",
+            "mins": 5,
+            "lat": 40.7505,
+            "lng": -73.9895
+          },
+          {
+            "title": "Eataly NYC Flatiron",
+            "kind": "Food Hall",
+            "mins": 10,
+            "lat": 40.742,
+            "lng": -73.9903
+          },
+          {
+            "title": "Ace Hotel New York (Stumptown Lobby Cafe)",
+            "kind": "Hotel Lobby Cafe",
+            "mins": 5,
+            "lat": 40.7451,
+            "lng": -73.9885
+          },
+          {
+            "title": "The NoMad Bar",
+            "kind": "Cocktail Bar",
+            "mins": 7,
+            "lat": 40.744,
+            "lng": -73.9895
+          },
+          {
+            "title": "Madison Square Park",
+            "kind": "Park",
+            "mins": 9,
+            "lat": 40.7424,
+            "lng": -73.9877
+          },
+          {
+            "title": "Shake Shack (Madison Square Park)",
+            "kind": "Fast Casual",
+            "mins": 10,
+            "lat": 40.7415,
+            "lng": -73.9883
+          },
+          {
+            "title": "Kinokuniya Bookstore",
+            "kind": "Bookstore",
+            "mins": 9,
+            "lat": 40.7546,
+            "lng": -73.984
+          },
+          {
+            "title": "Her Name Is Han (Koreatown)",
+            "kind": "Korean Restaurant",
+            "mins": 2,
+            "lat": 40.7472,
+            "lng": -73.9847
+          },
+          {
+            "title": "Eleven Madison Park",
+            "kind": "Fine Dining",
+            "mins": 9,
+            "lat": 40.742,
+            "lng": -73.9871
+          },
+          {
+            "title": "ABC Carpet & Home",
+            "kind": "Home Goods Store",
+            "mins": 16,
+            "lat": 40.7376,
+            "lng": -73.9899
+          },
+          {
+            "title": "Rizzoli Bookstore",
+            "kind": "Bookstore",
+            "mins": 10,
+            "lat": 40.7418,
+            "lng": -73.9895
+          },
+          {
+            "title": "The Strand Book Store",
+            "kind": "Independent Bookstore",
+            "mins": 22,
+            "lat": 40.7332,
+            "lng": -73.991
+          },
+          {
+            "title": "Union Square Greenmarket",
+            "kind": "Farmers Market",
+            "mins": 17,
+            "lat": 40.7368,
+            "lng": -73.9903
+          }
         ]
       },
       {
         "id": "central-park",
         "title": "Central Park",
-        "vibes": ["nature"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Park",
-        "area": "Manhattan",
-        "hours": "Anytime",
-        "tags": ["Iconic", "Green"],
-        "description": "843 acres of lawns, lakes and wooded ramble in the middle of Manhattan — endlessly walkable.",
+        "area": "Central Park",
+        "hours": "Daily 6:00 AM - 1:00 AM",
+        "tags": [
+          "Green Space",
+          "Historic"
+        ],
+        "description": "Spanning 843 acres from 59th to 110th Street, Central Park was the first landscaped public park in the United States and remains the green heart of Manhattan.",
+        "lat": 40.7829,
+        "lng": -73.9654,
         "nearby": [
-          { "title": "Bethesda Terrace", "kind": "Landmark", "mins": 6 },
-          { "title": "The Met Museum", "kind": "Museum", "mins": 10 }
+          {
+            "title": "Loeb Boathouse",
+            "kind": "Restaurant",
+            "mins": 10,
+            "lat": 40.7764,
+            "lng": -73.9689
+          },
+          {
+            "title": "Central Park Zoo",
+            "kind": "Zoo",
+            "mins": 22,
+            "lat": 40.7678,
+            "lng": -73.9718
+          },
+          {
+            "title": "Strawberry Fields",
+            "kind": "Memorial Garden",
+            "mins": 15,
+            "lat": 40.7757,
+            "lng": -73.9755
+          },
+          {
+            "title": "Bow Bridge & The Lake",
+            "kind": "Landmark",
+            "mins": 12,
+            "lat": 40.7752,
+            "lng": -73.9713
+          },
+          {
+            "title": "Bethesda Terrace & Fountain",
+            "kind": "Landmark",
+            "mins": 13,
+            "lat": 40.7743,
+            "lng": -73.9707
+          },
+          {
+            "title": "Levain Bakery",
+            "kind": "Bakery",
+            "mins": 16,
+            "lat": 40.7796,
+            "lng": -73.9799
+          },
+          {
+            "title": "Serendipity 3",
+            "kind": "Dessert Restaurant",
+            "mins": 30,
+            "lat": 40.7614,
+            "lng": -73.9666
+          },
+          {
+            "title": "Central Park Carousel",
+            "kind": "Attraction",
+            "mins": 18,
+            "lat": 40.7714,
+            "lng": -73.9739
+          },
+          {
+            "title": "The Mall & Literary Walk",
+            "kind": "Promenade",
+            "mins": 15,
+            "lat": 40.7736,
+            "lng": -73.9718
+          },
+          {
+            "title": "Central Park Conservatory Garden",
+            "kind": "Garden",
+            "mins": 20,
+            "lat": 40.7938,
+            "lng": -73.9531
+          }
         ]
       },
       {
-        "id": "high-line",
-        "title": "The High Line",
-        "vibes": ["nature"],
-        "kind": "Elevated park",
-        "area": "Chelsea",
-        "hours": "Daytime",
-        "tags": ["Unique", "Skyline"],
-        "description": "A planted walkway on a former elevated rail line, weaving between the buildings of Chelsea and Hudson Yards.",
+        "id": "brooklyn-bridge",
+        "title": "Brooklyn Bridge",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "Brooklyn Bridge",
+        "hours": "Open 24 hours (pedestrian walkway)",
+        "tags": [
+          "Architecture",
+          "Scenic Walk"
+        ],
+        "description": "Completed in 1883, the Brooklyn Bridge was the longest suspension bridge in the world at the time and remains one of New York's most photographed structures.",
+        "lat": 40.7061,
+        "lng": -73.9969,
         "nearby": [
-          { "title": "Chelsea Market", "kind": "Food market", "mins": 4 },
-          { "title": "Little Island park", "kind": "Nature", "mins": 7 }
+          {
+            "title": "Brooklyn Bridge Park",
+            "kind": "Waterfront Park",
+            "mins": 8,
+            "lat": 40.7,
+            "lng": -73.9967
+          },
+          {
+            "title": "Time Out Market New York",
+            "kind": "Food Hall",
+            "mins": 9,
+            "lat": 40.7024,
+            "lng": -73.9903
+          },
+          {
+            "title": "Almondine Bakery",
+            "kind": "Bakery",
+            "mins": 8,
+            "lat": 40.7028,
+            "lng": -73.9908
+          },
+          {
+            "title": "Jacques Torres Chocolate",
+            "kind": "Chocolate Shop",
+            "mins": 8,
+            "lat": 40.7028,
+            "lng": -73.9902
+          },
+          {
+            "title": "Usagi NY",
+            "kind": "Cafe & Gallery",
+            "mins": 9,
+            "lat": 40.7034,
+            "lng": -73.9887
+          },
+          {
+            "title": "Brooklyn Ice Cream Factory",
+            "kind": "Ice Cream Shop",
+            "mins": 5,
+            "lat": 40.7028,
+            "lng": -73.9942
+          },
+          {
+            "title": "Empire Stores",
+            "kind": "Shopping & Dining Complex",
+            "mins": 8,
+            "lat": 40.7027,
+            "lng": -73.9904
+          },
+          {
+            "title": "St. Ann's Warehouse",
+            "kind": "Performing Arts Venue",
+            "mins": 8,
+            "lat": 40.7024,
+            "lng": -73.9908
+          },
+          {
+            "title": "Brooklyn Roasting Company",
+            "kind": "Coffee Roaster",
+            "mins": 12,
+            "lat": 40.7024,
+            "lng": -73.9865
+          }
         ]
       },
       {
-        "id": "williamsburg",
-        "title": "Williamsburg",
-        "vibes": ["matcha", "nightlife"],
-        "kind": "Neighbourhood",
+        "id": "the-metropolitan-museum-of-art",
+        "title": "The Metropolitan Museum of Art",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "New York",
+        "hours": "Sun-Tue, Thu 10 AM-5 PM; Fri-Sat 10 AM-9 PM; Closed Wed",
+        "tags": [
+          "Art",
+          "World Culture"
+        ],
+        "description": "Known simply as the Met, this is North America's largest art museum, housing over two million works spanning 5,000 years of human creativity.",
+        "lat": 40.7794,
+        "lng": -73.9632,
+        "nearby": [
+          {
+            "title": "The Frick Collection",
+            "kind": "Art Museum",
+            "mins": 12,
+            "lat": 40.7714,
+            "lng": -73.9673
+          },
+          {
+            "title": "Neue Galerie & Cafe Sabarsky",
+            "kind": "Art Museum & Cafe",
+            "mins": 5,
+            "lat": 40.7823,
+            "lng": -73.9598
+          },
+          {
+            "title": "Corner Bookstore",
+            "kind": "Independent Bookstore",
+            "mins": 13,
+            "lat": 40.7862,
+            "lng": -73.9553
+          },
+          {
+            "title": "Solomon R. Guggenheim Museum",
+            "kind": "Art Museum",
+            "mins": 7,
+            "lat": 40.783,
+            "lng": -73.959
+          },
+          {
+            "title": "Bemelmans Bar (The Carlyle)",
+            "kind": "Piano Bar",
+            "mins": 7,
+            "lat": 40.7742,
+            "lng": -73.9636
+          },
+          {
+            "title": "Central Park Conservatory Garden",
+            "kind": "Garden",
+            "mins": 23,
+            "lat": 40.7938,
+            "lng": -73.9531
+          },
+          {
+            "title": "Cooper Hewitt, Smithsonian Design Museum",
+            "kind": "Design Museum",
+            "mins": 7,
+            "lat": 40.783,
+            "lng": -73.9587
+          },
+          {
+            "title": "Ralph's Coffee (Ralph Lauren)",
+            "kind": "Cafe",
+            "mins": 9,
+            "lat": 40.7729,
+            "lng": -73.9647
+          }
+        ]
+      },
+      {
+        "id": "times-square",
+        "title": "Times Square",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "Times Square",
+        "hours": "Open 24 hours",
+        "tags": [
+          "Iconic",
+          "Entertainment"
+        ],
+        "description": "The neon heart of the Theater District, Times Square is one of the most visited intersections on earth, wrapped in oversized billboards, Broadway marquees, and a constant flow of tourists and performers.",
+        "lat": 40.758,
+        "lng": -73.9855,
+        "nearby": [
+          {
+            "title": "Bryant Park",
+            "kind": "Park",
+            "mins": 7,
+            "lat": 40.7536,
+            "lng": -73.9832
+          },
+          {
+            "title": "New York Public Library — Stephen A. Schwarzman Building",
+            "kind": "Library",
+            "mins": 8,
+            "lat": 40.7532,
+            "lng": -73.9822
+          },
+          {
+            "title": "Drama Book Shop",
+            "kind": "Bookstore",
+            "mins": 9,
+            "lat": 40.7537,
+            "lng": -73.9917
+          },
+          {
+            "title": "Sardi's",
+            "kind": "Restaurant",
+            "mins": 1,
+            "lat": 40.758,
+            "lng": -73.9868
+          },
+          {
+            "title": "Junior's Cheesecake (Times Square)",
+            "kind": "Dessert Restaurant",
+            "mins": 1,
+            "lat": 40.758,
+            "lng": -73.9857
+          },
+          {
+            "title": "TKTS Booth, Duffy Square",
+            "kind": "Ticket Booth",
+            "mins": 2,
+            "lat": 40.758,
+            "lng": -73.984
+          },
+          {
+            "title": "Radio City Music Hall",
+            "kind": "Performance Venue",
+            "mins": 6,
+            "lat": 40.76,
+            "lng": -73.98
+          },
+          {
+            "title": "Gotham West Market",
+            "kind": "Food Hall",
+            "mins": 14,
+            "lat": 40.7649,
+            "lng": -73.9955
+          },
+          {
+            "title": "Museum of Broadway",
+            "kind": "Museum",
+            "mins": 1,
+            "lat": 40.7576,
+            "lng": -73.9847
+          }
+        ]
+      },
+      {
+        "id": "grand-central-terminal",
+        "title": "Grand Central Terminal",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "New York",
+        "hours": "Daily 5:30 AM - 2:00 AM",
+        "tags": [
+          "Beaux-Arts",
+          "Transit Hub"
+        ],
+        "description": "Opened in 1913, Grand Central Terminal is a Beaux-Arts masterpiece as much as it is a working transit hub.",
+        "lat": 40.7527,
+        "lng": -73.9772,
+        "nearby": [
+          {
+            "title": "Bryant Park",
+            "kind": "Park",
+            "mins": 6,
+            "lat": 40.7536,
+            "lng": -73.9832
+          },
+          {
+            "title": "The Campbell",
+            "kind": "Cocktail Bar",
+            "mins": 1,
+            "lat": 40.7521,
+            "lng": -73.9776
+          },
+          {
+            "title": "Grand Central Market",
+            "kind": "Food Market",
+            "mins": 1,
+            "lat": 40.7524,
+            "lng": -73.9776
+          },
+          {
+            "title": "Grand Central Oyster Bar & Whispering Gallery",
+            "kind": "Restaurant",
+            "mins": 1,
+            "lat": 40.7522,
+            "lng": -73.9773
+          },
+          {
+            "title": "Chrysler Building",
+            "kind": "Landmark",
+            "mins": 2,
+            "lat": 40.7516,
+            "lng": -73.9755
+          },
+          {
+            "title": "Argosy Book Store",
+            "kind": "Antiquarian Bookstore",
+            "mins": 18,
+            "lat": 40.7638,
+            "lng": -73.9691
+          },
+          {
+            "title": "Urbanspace Vanderbilt",
+            "kind": "Food Hall",
+            "mins": 2,
+            "lat": 40.7538,
+            "lng": -73.9776
+          },
+          {
+            "title": "Ground Central Coffee Company",
+            "kind": "Coffee Shop",
+            "mins": 2,
+            "lat": 40.7519,
+            "lng": -73.9788
+          }
+        ]
+      },
+      {
+        "id": "top-of-the-rock-observation-deck",
+        "title": "Top of the Rock Observation Deck",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Observation Deck",
+        "area": "New York",
+        "hours": "Daily 8:00 AM - 12:00 AM (last entry 11:15 PM)",
+        "tags": [
+          "Skyline View",
+          "Rockefeller Center"
+        ],
+        "description": "Perched 850 feet above Rockefeller Center, Top of the Rock offers what many consider the best skyline view in Manhattan, largely because it includes the Empire State Building itself in the frame.",
+        "lat": 40.7592,
+        "lng": -73.9787,
+        "nearby": [
+          {
+            "title": "Radio City Music Hall",
+            "kind": "Performance Venue",
+            "mins": 2,
+            "lat": 40.76,
+            "lng": -73.98
+          },
+          {
+            "title": "Rockefeller Plaza Ice Rink & Channel Gardens",
+            "kind": "Landmark Plaza",
+            "mins": 1,
+            "lat": 40.7587,
+            "lng": -73.9787
+          },
+          {
+            "title": "Museum of Modern Art (MoMA)",
+            "kind": "Art Museum",
+            "mins": 3,
+            "lat": 40.7614,
+            "lng": -73.9776
+          },
+          {
+            "title": "Saks Fifth Avenue",
+            "kind": "Department Store",
+            "mins": 4,
+            "lat": 40.7592,
+            "lng": -73.9749
+          },
+          {
+            "title": "Tiffany & Co. Fifth Avenue Flagship",
+            "kind": "Jewelry Store",
+            "mins": 9,
+            "lat": 40.7638,
+            "lng": -73.9733
+          },
+          {
+            "title": "Blue Bottle Coffee (Rockefeller Concourse)",
+            "kind": "Coffee Shop",
+            "mins": 1,
+            "lat": 40.7589,
+            "lng": -73.9787
+          },
+          {
+            "title": "NBC Studio Tour",
+            "kind": "Guided Tour",
+            "mins": 1,
+            "lat": 40.759,
+            "lng": -73.9787
+          }
+        ]
+      },
+      {
+        "id": "9-11-memorial-museum",
+        "title": "9/11 Memorial & Museum",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Memorial",
+        "area": "New York",
+        "hours": "Memorial daily 7:30 AM-9 PM; Museum daily 9 AM-8 PM",
+        "tags": [
+          "Historic",
+          "Moving"
+        ],
+        "description": "Two enormous reflecting pools mark the footprints of the original Twin Towers, their edges inscribed with the names of nearly 3,000 victims of the September 11 and 1993 attacks.",
+        "lat": 40.7115,
+        "lng": -74.0134,
+        "nearby": [
+          {
+            "title": "Brookfield Place",
+            "kind": "Shopping & Food Hall",
+            "mins": 5,
+            "lat": 40.715,
+            "lng": -74.0154
+          },
+          {
+            "title": "Stone Street Historic District",
+            "kind": "Historic District",
+            "mins": 11,
+            "lat": 40.7038,
+            "lng": -74.0111
+          },
+          {
+            "title": "Trinity Church",
+            "kind": "Historic Church",
+            "mins": 5,
+            "lat": 40.7081,
+            "lng": -74.0119
+          },
+          {
+            "title": "Federal Hall National Memorial",
+            "kind": "Historic Site",
+            "mins": 7,
+            "lat": 40.7071,
+            "lng": -74.0104
+          },
+          {
+            "title": "Tin Building by Jean-Georges",
+            "kind": "Food Hall",
+            "mins": 13,
+            "lat": 40.7062,
+            "lng": -74.0034
+          },
+          {
+            "title": "The Dead Rabbit",
+            "kind": "Cocktail Bar",
+            "mins": 12,
+            "lat": 40.7033,
+            "lng": -74.0116
+          },
+          {
+            "title": "Oculus at Westfield World Trade Center",
+            "kind": "Shopping & Transit Hub",
+            "mins": 4,
+            "lat": 40.7115,
+            "lng": -74.0099
+          },
+          {
+            "title": "Cafe Grumpy (Stone Street)",
+            "kind": "Coffee Shop",
+            "mins": 11,
+            "lat": 40.7039,
+            "lng": -74.0112
+          },
+          {
+            "title": "South Street Seaport",
+            "kind": "Historic Waterfront District",
+            "mins": 12,
+            "lat": 40.7075,
+            "lng": -74.0034
+          }
+        ]
+      },
+      {
+        "id": "one-world-observatory",
+        "title": "One World Observatory",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Observation Deck",
+        "area": "New York",
+        "hours": "Daily 9:00 AM - 8:00 PM (seasonal)",
+        "tags": [
+          "Tallest Building",
+          "Skyline View"
+        ],
+        "description": "Occupying the top floors of One World Trade Center, the tallest building in the Western Hemisphere, One World Observatory opens with a rapid Sky Pod elevator ride narrated by a time-lapse of New York's changing skyline since the 1500s.",
+        "lat": 40.7127,
+        "lng": -74.0134,
+        "nearby": [
+          {
+            "title": "Brookfield Place",
+            "kind": "Shopping & Food Hall",
+            "mins": 4,
+            "lat": 40.715,
+            "lng": -74.0154
+          },
+          {
+            "title": "Stone Street Historic District",
+            "kind": "Historic District",
+            "mins": 13,
+            "lat": 40.7038,
+            "lng": -74.0111
+          },
+          {
+            "title": "Trinity Church",
+            "kind": "Historic Church",
+            "mins": 7,
+            "lat": 40.7081,
+            "lng": -74.0119
+          },
+          {
+            "title": "Federal Hall National Memorial",
+            "kind": "Historic Site",
+            "mins": 8,
+            "lat": 40.7071,
+            "lng": -74.0104
+          },
+          {
+            "title": "Tin Building by Jean-Georges",
+            "kind": "Food Hall",
+            "mins": 14,
+            "lat": 40.7062,
+            "lng": -74.0034
+          },
+          {
+            "title": "The Dead Rabbit",
+            "kind": "Cocktail Bar",
+            "mins": 13,
+            "lat": 40.7033,
+            "lng": -74.0116
+          },
+          {
+            "title": "Oculus at Westfield World Trade Center",
+            "kind": "Shopping & Transit Hub",
+            "mins": 4,
+            "lat": 40.7115,
+            "lng": -74.0099
+          },
+          {
+            "title": "Cafe Grumpy (Stone Street)",
+            "kind": "Coffee Shop",
+            "mins": 12,
+            "lat": 40.7039,
+            "lng": -74.0112
+          },
+          {
+            "title": "South Street Seaport",
+            "kind": "Historic Waterfront District",
+            "mins": 13,
+            "lat": 40.7075,
+            "lng": -74.0034
+          }
+        ]
+      },
+      {
+        "id": "wall-street-charging-bull",
+        "title": "Wall Street & Charging Bull",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "Bowling Green",
+        "hours": "Open 24 hours (outdoor)",
+        "tags": [
+          "Financial District",
+          "Photo Spot"
+        ],
+        "description": "Wall Street has been synonymous with American finance since the Dutch built an actual wooden wall along this line in the 1650s.",
+        "lat": 40.7056,
+        "lng": -74.0134,
+        "nearby": [
+          {
+            "title": "Brookfield Place",
+            "kind": "Shopping & Food Hall",
+            "mins": 13,
+            "lat": 40.715,
+            "lng": -74.0154
+          },
+          {
+            "title": "Stone Street Historic District",
+            "kind": "Historic District",
+            "mins": 3,
+            "lat": 40.7038,
+            "lng": -74.0111
+          },
+          {
+            "title": "Trinity Church",
+            "kind": "Historic Church",
+            "mins": 4,
+            "lat": 40.7081,
+            "lng": -74.0119
+          },
+          {
+            "title": "Federal Hall National Memorial",
+            "kind": "Historic Site",
+            "mins": 4,
+            "lat": 40.7071,
+            "lng": -74.0104
+          },
+          {
+            "title": "Tin Building by Jean-Georges",
+            "kind": "Food Hall",
+            "mins": 11,
+            "lat": 40.7062,
+            "lng": -74.0034
+          },
+          {
+            "title": "The Dead Rabbit",
+            "kind": "Cocktail Bar",
+            "mins": 4,
+            "lat": 40.7033,
+            "lng": -74.0116
+          },
+          {
+            "title": "Oculus at Westfield World Trade Center",
+            "kind": "Shopping & Transit Hub",
+            "mins": 9,
+            "lat": 40.7115,
+            "lng": -74.0099
+          },
+          {
+            "title": "Cafe Grumpy (Stone Street)",
+            "kind": "Coffee Shop",
+            "mins": 3,
+            "lat": 40.7039,
+            "lng": -74.0112
+          },
+          {
+            "title": "South Street Seaport",
+            "kind": "Historic Waterfront District",
+            "mins": 11,
+            "lat": 40.7075,
+            "lng": -74.0034
+          }
+        ]
+      },
+      {
+        "id": "american-museum-of-natural-history",
+        "title": "American Museum of Natural History",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "New York",
+        "hours": "Daily 10:00 AM - 5:30 PM",
+        "tags": [
+          "Dinosaurs",
+          "Family Favorite"
+        ],
+        "description": "One of the largest natural history museums in the world, the AMNH is best known for its dinosaur halls, the 94-foot blue whale suspended over the Milstein Hall of Ocean Life, and the Rose Center for Earth and Space with its striking glas…",
+        "lat": 40.7813,
+        "lng": -73.974,
+        "nearby": [
+          {
+            "title": "Levain Bakery",
+            "kind": "Bakery",
+            "mins": 7,
+            "lat": 40.7796,
+            "lng": -73.9799
+          },
+          {
+            "title": "Zabar's",
+            "kind": "Specialty Food Market",
+            "mins": 9,
+            "lat": 40.7874,
+            "lng": -73.9754
+          },
+          {
+            "title": "Westsider Books",
+            "kind": "Used Bookstore",
+            "mins": 9,
+            "lat": 40.7877,
+            "lng": -73.9758
+          },
+          {
+            "title": "Barney Greengrass",
+            "kind": "Deli",
+            "mins": 8,
+            "lat": 40.7871,
+            "lng": -73.9761
+          },
+          {
+            "title": "Lincoln Center",
+            "kind": "Performing Arts Complex",
+            "mins": 16,
+            "lat": 40.7725,
+            "lng": -73.9835
+          },
+          {
+            "title": "Riverside Park",
+            "kind": "Park",
+            "mins": 21,
+            "lat": 40.7959,
+            "lng": -73.9789
+          },
+          {
+            "title": "The Dakota (Exterior Viewing)",
+            "kind": "Landmark Building",
+            "mins": 7,
+            "lat": 40.7767,
+            "lng": -73.9761
+          },
+          {
+            "title": "Beacon Theatre",
+            "kind": "Performance Venue",
+            "mins": 9,
+            "lat": 40.7794,
+            "lng": -73.9817
+          },
+          {
+            "title": "Jacob's Pickles",
+            "kind": "Restaurant",
+            "mins": 8,
+            "lat": 40.7869,
+            "lng": -73.9762
+          }
+        ]
+      },
+      {
+        "id": "flatiron-building",
+        "title": "Flatiron Building",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "New York",
+        "hours": "Exterior viewing only, open 24 hours",
+        "tags": [
+          "Architecture",
+          "Photogenic"
+        ],
+        "description": "Completed in 1902, the triangular Flatiron Building was one of the tallest buildings in the world at the time and remains one of New York's most distinctive silhouettes, formed by the sharp intersection of Fifth Avenue and Broadway.",
+        "lat": 40.7411,
+        "lng": -73.9897,
+        "nearby": [
+          {
+            "title": "Eataly NYC Flatiron",
+            "kind": "Food Hall",
+            "mins": 1,
+            "lat": 40.742,
+            "lng": -73.9903
+          },
+          {
+            "title": "The NoMad Bar",
+            "kind": "Cocktail Bar",
+            "mins": 4,
+            "lat": 40.744,
+            "lng": -73.9895
+          },
+          {
+            "title": "Madison Square Park",
+            "kind": "Park",
+            "mins": 3,
+            "lat": 40.7424,
+            "lng": -73.9877
+          },
+          {
+            "title": "Shake Shack (Madison Square Park)",
+            "kind": "Fast Casual",
+            "mins": 2,
+            "lat": 40.7415,
+            "lng": -73.9883
+          },
+          {
+            "title": "Eleven Madison Park",
+            "kind": "Fine Dining",
+            "mins": 3,
+            "lat": 40.742,
+            "lng": -73.9871
+          },
+          {
+            "title": "ABC Carpet & Home",
+            "kind": "Home Goods Store",
+            "mins": 5,
+            "lat": 40.7376,
+            "lng": -73.9899
+          },
+          {
+            "title": "Rizzoli Bookstore",
+            "kind": "Bookstore",
+            "mins": 1,
+            "lat": 40.7418,
+            "lng": -73.9895
+          },
+          {
+            "title": "The Strand Book Store",
+            "kind": "Independent Bookstore",
+            "mins": 11,
+            "lat": 40.7332,
+            "lng": -73.991
+          },
+          {
+            "title": "Union Square Greenmarket",
+            "kind": "Farmers Market",
+            "mins": 6,
+            "lat": 40.7368,
+            "lng": -73.9903
+          }
+        ]
+      },
+      {
+        "id": "st-patrick-s-cathedral",
+        "title": "St. Patrick's Cathedral",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "New York",
+        "hours": "Daily 6:30 AM - 8:45 PM",
+        "tags": [
+          "Neo-Gothic",
+          "Historic"
+        ],
+        "description": "Directly across from Rockefeller Center, St. Patrick's Cathedral is the largest Neo-Gothic Catholic cathedral in North America, completed in 1878 after a construction process that spanned the Civil War.",
+        "lat": 40.7585,
+        "lng": -73.9759,
+        "nearby": [
+          {
+            "title": "Radio City Music Hall",
+            "kind": "Performance Venue",
+            "mins": 5,
+            "lat": 40.76,
+            "lng": -73.98
+          },
+          {
+            "title": "Rockefeller Plaza Ice Rink & Channel Gardens",
+            "kind": "Landmark Plaza",
+            "mins": 3,
+            "lat": 40.7587,
+            "lng": -73.9787
+          },
+          {
+            "title": "Museum of Modern Art (MoMA)",
+            "kind": "Art Museum",
+            "mins": 4,
+            "lat": 40.7614,
+            "lng": -73.9776
+          },
+          {
+            "title": "Saks Fifth Avenue",
+            "kind": "Department Store",
+            "mins": 1,
+            "lat": 40.7592,
+            "lng": -73.9749
+          },
+          {
+            "title": "Tiffany & Co. Fifth Avenue Flagship",
+            "kind": "Jewelry Store",
+            "mins": 8,
+            "lat": 40.7638,
+            "lng": -73.9733
+          },
+          {
+            "title": "Blue Bottle Coffee (Rockefeller Concourse)",
+            "kind": "Coffee Shop",
+            "mins": 3,
+            "lat": 40.7589,
+            "lng": -73.9787
+          },
+          {
+            "title": "NBC Studio Tour",
+            "kind": "Guided Tour",
+            "mins": 3,
+            "lat": 40.759,
+            "lng": -73.9787
+          }
+        ]
+      },
+      {
+        "id": "coney-island",
+        "title": "Coney Island",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Amusement Park & Beach",
+        "area": "Coney Island",
+        "hours": "Boardwalk open 24 hours; rides seasonal, typically Apr-Oct",
+        "tags": [
+          "Boardwalk",
+          "Nostalgic"
+        ],
+        "description": "Jutting into the Lower Bay at Brooklyn's southern edge, Coney Island has drawn crowds to its boardwalk, beach, and amusement rides since the late 1800s.",
+        "lat": 40.5755,
+        "lng": -73.9707,
+        "nearby": [
+          {
+            "title": "Nathan's Famous",
+            "kind": "Hot Dog Stand",
+            "mins": 11,
+            "lat": 40.5747,
+            "lng": -73.9814
+          },
+          {
+            "title": "Deno's Wonder Wheel",
+            "kind": "Amusement Ride",
+            "mins": 10,
+            "lat": 40.5745,
+            "lng": -73.9799
+          },
+          {
+            "title": "New York Aquarium",
+            "kind": "Aquarium",
+            "mins": 6,
+            "lat": 40.5749,
+            "lng": -73.9761
+          },
+          {
+            "title": "Coney Island Museum",
+            "kind": "Museum",
+            "mins": 11,
+            "lat": 40.575,
+            "lng": -73.9807
+          },
+          {
+            "title": "Totonno's Pizzeria Napolitano",
+            "kind": "Pizzeria",
+            "mins": 13,
+            "lat": 40.5773,
+            "lng": -73.9827
+          },
+          {
+            "title": "Coney Island Boardwalk",
+            "kind": "Boardwalk",
+            "mins": 7,
+            "lat": 40.5735,
+            "lng": -73.9772
+          },
+          {
+            "title": "Williams Candy",
+            "kind": "Candy Shop",
+            "mins": 11,
+            "lat": 40.5747,
+            "lng": -73.9812
+          },
+          {
+            "title": "Brighton Beach",
+            "kind": "Neighborhood & Beach",
+            "mins": 11,
+            "lat": 40.5776,
+            "lng": -73.9605
+          },
+          {
+            "title": "Ruby's Bar & Grill",
+            "kind": "Boardwalk Bar",
+            "mins": 9,
+            "lat": 40.5738,
+            "lng": -73.9793
+          }
+        ]
+      },
+      {
+        "id": "blue-bottle-coffee-chelsea-market",
+        "title": "Blue Bottle Coffee (Chelsea Market)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Specialty Coffee",
+        "area": "New York",
+        "hours": "Daily 7:00 AM - 7:00 PM",
+        "tags": [
+          "Third Wave Roaster",
+          "Coworking Friendly"
+        ],
+        "description": "The Oakland-born roaster's Chelsea Market outpost remains one of its most reliable New York locations, pouring meticulous pourovers and espresso inside the market's industrial-chic food hall.",
+        "lat": 40.7424,
+        "lng": -74.0061,
+        "nearby": [
+          {
+            "title": "The High Line",
+            "kind": "Elevated Park",
+            "mins": 8,
+            "lat": 40.748,
+            "lng": -74.0048
+          },
+          {
+            "title": "Printed Matter",
+            "kind": "Art Book Store",
+            "mins": 12,
+            "lat": 40.7511,
+            "lng": -74.0037
+          },
+          {
+            "title": "Gagosian Gallery (Chelsea)",
+            "kind": "Art Gallery",
+            "mins": 7,
+            "lat": 40.7477,
+            "lng": -74.0057
+          }
+        ]
+      },
+      {
+        "id": "balthazar-bakery",
+        "title": "Balthazar Bakery",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "French Bakery & Brasserie",
+        "area": "New York",
+        "hours": "Daily 7:30 AM - 11:00 PM",
+        "tags": [
+          "Parisian Brasserie",
+          "Since 1997"
+        ],
+        "description": "A SoHo institution since 1997, Balthazar recreates a bustling Parisian brasserie down to the zinc bar, tiled floors, and towering bread baskets delivered table-side.",
+        "lat": 40.7233,
+        "lng": -73.9977,
+        "nearby": [
+          {
+            "title": "Prince Street Pizza",
+            "kind": "Pizzeria",
+            "mins": 3,
+            "lat": 40.7233,
+            "lng": -73.9948
+          },
+          {
+            "title": "McNally Jackson (Prince St)",
+            "kind": "Independent Bookstore",
+            "mins": 2,
+            "lat": 40.7233,
+            "lng": -73.9955
+          },
+          {
+            "title": "Elizabeth Street Garden",
+            "kind": "Community Garden",
+            "mins": 2,
+            "lat": 40.7226,
+            "lng": -73.9958
+          }
+        ]
+      },
+      {
+        "id": "russ-daughters-cafe",
+        "title": "Russ & Daughters Cafe",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Appetizing & Brunch",
+        "area": "New York",
+        "hours": "Daily 9:00 AM - 10:00 PM",
+        "tags": [
+          "Jewish Deli",
+          "Since 1914"
+        ],
+        "description": "A sit-down extension of the century-old Russ & Daughters appetizing shop, serving the same smoked salmon, bagels, and caviar service in a proper restaurant setting with table service and cocktails.",
+        "lat": 40.7186,
+        "lng": -73.9891,
+        "nearby": [
+          {
+            "title": "Katz's Delicatessen",
+            "kind": "Deli",
+            "mins": 5,
+            "lat": 40.7223,
+            "lng": -73.9874
+          },
+          {
+            "title": "Tenement Museum",
+            "kind": "Museum",
+            "mins": 1,
+            "lat": 40.7186,
+            "lng": -73.9899
+          },
+          {
+            "title": "Economy Candy",
+            "kind": "Candy Shop",
+            "mins": 2,
+            "lat": 40.7203,
+            "lng": -73.9885
+          }
+        ]
+      },
+      {
+        "id": "clinton-st-baking-company",
+        "title": "Clinton St. Baking Company",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Brunch Restaurant",
+        "area": "New York",
+        "hours": "Mon-Fri 8:00 AM - 4:00 PM & 6:00 PM-11:00 PM, Sat-Sun 9:00 AM-4:00 PM",
+        "tags": [
+          "Famous Pancakes",
+          "Weekend Lines"
+        ],
+        "description": "Famous for blueberry pancakes drenched in warm maple butter, Clinton St. Baking Company has anchored this Lower East Side corner since 2001 and remains one of the most reliably long weekend brunch lines in the city.",
+        "lat": 40.7191,
+        "lng": -73.9868,
+        "nearby": [
+          {
+            "title": "Katz's Delicatessen",
+            "kind": "Deli",
+            "mins": 4,
+            "lat": 40.7223,
+            "lng": -73.9874
+          },
+          {
+            "title": "Tenement Museum",
+            "kind": "Museum",
+            "mins": 3,
+            "lat": 40.7186,
+            "lng": -73.9899
+          },
+          {
+            "title": "Economy Candy",
+            "kind": "Candy Shop",
+            "mins": 2,
+            "lat": 40.7203,
+            "lng": -73.9885
+          }
+        ]
+      },
+      {
+        "id": "sarabeth-s-upper-west-side",
+        "title": "Sarabeth's (Upper West Side)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Brunch Restaurant",
+        "area": "New York",
+        "hours": "Daily 8:00 AM - 4:00 PM",
+        "tags": [
+          "Classic NYC Brunch",
+          "Since 1981"
+        ],
+        "description": "A defining name in New York brunch since 1981, Sarabeth's built its reputation on homemade preserves, baked French toast, and a genuinely warm, unhurried dining room that predates the city's current brunch-industrial complex.",
+        "lat": 40.7852,
+        "lng": -73.9765,
+        "nearby": [
+          {
+            "title": "Central Park",
+            "kind": "Park",
+            "mins": 12,
+            "lat": 40.7829,
+            "lng": -73.9654
+          },
+          {
+            "title": "Zabar's",
+            "kind": "Specialty Food Market",
+            "mins": 3,
+            "lat": 40.7874,
+            "lng": -73.9754
+          },
+          {
+            "title": "Levain Bakery",
+            "kind": "Bakery",
+            "mins": 9,
+            "lat": 40.7796,
+            "lng": -73.9799
+          }
+        ]
+      },
+      {
+        "id": "jack-s-wife-freda-soho-nolita",
+        "title": "Jack's Wife Freda (Soho/Nolita)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Brunch Restaurant",
+        "area": "New York",
+        "hours": "Daily 9:00 AM - 11:00 PM",
+        "tags": [
+          "Mediterranean-Inspired",
+          "Trendy"
+        ],
+        "description": "A perennially busy Mediterranean-inspired brunch spot straddling SoHo and Nolita, known for its green shakshuka and Bikini sandwich alongside a small, tightly packed dining room that fills quickly on weekends.",
+        "lat": 40.722,
+        "lng": -73.9971,
+        "nearby": [
+          {
+            "title": "Prince Street Pizza",
+            "kind": "Pizzeria",
+            "mins": 3,
+            "lat": 40.7233,
+            "lng": -73.9948
+          },
+          {
+            "title": "McNally Jackson (Prince St)",
+            "kind": "Independent Bookstore",
+            "mins": 2,
+            "lat": 40.7233,
+            "lng": -73.9955
+          },
+          {
+            "title": "Elizabeth Street Garden",
+            "kind": "Community Garden",
+            "mins": 2,
+            "lat": 40.7226,
+            "lng": -73.9958
+          }
+        ]
+      },
+      {
+        "id": "think-coffee",
+        "title": "Think Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee Shop",
+        "area": "New York",
+        "hours": "Daily 6:30 AM - 11:00 PM",
+        "tags": [
+          "Coworking Friendly",
+          "NYU Area"
+        ],
+        "description": "A long-running Greenwich Village coffee shop that's become a default laptop headquarters for NYU students and remote workers alike, with communal tables, reliable wifi, and a straightforward menu of well-made espresso drinks.",
+        "lat": 40.729,
+        "lng": -73.9955,
+        "nearby": [
+          {
+            "title": "Washington Square Park",
+            "kind": "Park",
+            "mins": 3,
+            "lat": 40.7308,
+            "lng": -73.9973
+          },
+          {
+            "title": "The Strand Book Store",
+            "kind": "Independent Bookstore",
+            "mins": 8,
+            "lat": 40.7332,
+            "lng": -73.991
+          },
+          {
+            "title": "Blue Note Jazz Club",
+            "kind": "Jazz Club",
+            "mins": 6,
+            "lat": 40.7308,
+            "lng": -74.0003
+          }
+        ]
+      },
+      {
+        "id": "culture-espresso",
+        "title": "Culture Espresso",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee Shop",
+        "area": "New York",
+        "hours": "Mon-Fri 7:00 AM - 6:00 PM, Sat-Sun 8:00 AM - 5:00 PM",
+        "tags": [
+          "Excellent Espresso",
+          "Garment District"
+        ],
+        "description": "A small, focused espresso bar in the Garment District known for consistently excellent shots and a genuinely good chocolate chip cookie, drawing a loyal following of Midtown office workers escaping chain coffee options nearby.",
+        "lat": 40.7522,
+        "lng": -73.9855,
+        "nearby": [
+          {
+            "title": "Macy's Herald Square",
+            "kind": "Department Store",
+            "mins": 5,
+            "lat": 40.7505,
+            "lng": -73.9895
+          },
+          {
+            "title": "The Museum at FIT",
+            "kind": "Fashion Museum",
+            "mins": 13,
+            "lat": 40.7474,
+            "lng": -73.9962
+          }
+        ]
+      },
+      {
+        "id": "devocion-williamsburg",
+        "title": "Devoción (Williamsburg)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee Roaster",
         "area": "Brooklyn",
-        "hours": "Daytime",
-        "tags": ["Local", "Design"],
-        "description": "Brooklyn's coolest stretch — vintage shops, waterfront skyline views and some of the city's best coffee.",
+        "hours": "Daily 7:00 AM - 7:00 PM",
+        "tags": [
+          "Colombian Roaster",
+          "Greenhouse Interior"
+        ],
+        "description": "A greenhouse-style Williamsburg roaster filled with hanging plants and skylights, roasting beans flown in weekly from the founder's own farm in Colombia.",
+        "lat": 40.7157,
+        "lng": -73.9622,
         "nearby": [
-          { "title": "Devoción Coffee", "kind": "Coffee", "mins": 6 },
-          { "title": "Domino Park waterfront", "kind": "Nature", "mins": 9 }
+          {
+            "title": "Domino Park",
+            "kind": "Waterfront Park",
+            "mins": 4,
+            "lat": 40.7178,
+            "lng": -73.9647
+          },
+          {
+            "title": "Bedford Cheese Shop",
+            "kind": "Specialty Food Shop",
+            "mins": 4,
+            "lat": 40.7156,
+            "lng": -73.9585
+          },
+          {
+            "title": "Wythe Hotel Rooftop (Ides Bar)",
+            "kind": "Rooftop Bar",
+            "mins": 10,
+            "lat": 40.7217,
+            "lng": -73.9573
+          }
         ]
       },
       {
-        "id": "greenwich-village",
-        "title": "Greenwich Village",
-        "vibes": ["matcha"],
-        "kind": "Neighbourhood",
-        "area": "Manhattan",
-        "hours": "Daytime",
-        "tags": ["Charming", "Cafés"],
-        "description": "Leafy brownstone streets, tucked-away coffee houses and Washington Square's chess tables and buskers.",
+        "id": "cafe-grumpy-greenpoint-flagship",
+        "title": "Café Grumpy (Greenpoint Flagship)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee Roaster",
+        "area": "Brooklyn",
+        "hours": "Daily 7:00 AM - 7:00 PM",
+        "tags": [
+          "No Laptops Policy",
+          "Original Location"
+        ],
+        "description": "The original Café Grumpy location that inspired the fictional cafe of the same name on HGTV's Girls, still roasting its own beans and serving a neighborhood crowd rather than a tourist one in quiet Greenpoint.",
+        "lat": 40.7278,
+        "lng": -73.9505,
         "nearby": [
-          { "title": "Washington Square Park", "kind": "Nature", "mins": 4 },
-          { "title": "Stumptown Coffee", "kind": "Coffee", "mins": 6 }
+          {
+            "title": "WORD Bookstore",
+            "kind": "Independent Bookstore",
+            "mins": 8,
+            "lat": 40.7259,
+            "lng": -73.9575
+          },
+          {
+            "title": "Transmitter Park",
+            "kind": "Waterfront Park",
+            "mins": 9,
+            "lat": 40.7307,
+            "lng": -73.9585
+          }
         ]
       },
       {
-        "id": "lower-east-side",
-        "title": "Lower East Side",
-        "vibes": ["nightlife"],
-        "kind": "Nightlife district",
-        "area": "Manhattan",
-        "hours": "Evenings",
-        "tags": ["Bars", "Live music"],
-        "description": "Dive bars, cocktail speakeasies and music venues packed into the city's grittiest, most fun nightlife grid.",
+        "id": "partners-coffee-williamsburg",
+        "title": "Partners Coffee (Williamsburg)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee Roaster",
+        "area": "Brooklyn",
+        "hours": "Daily 7:00 AM - 7:00 PM",
+        "tags": [
+          "Spacious",
+          "Coworking Friendly"
+        ],
+        "description": "A spacious, light-filled Williamsburg roaster with enough seating and outlets to genuinely function as a workday office away from home, a rarer combination in a neighborhood full of small-footprint coffee bars.",
+        "lat": 40.718,
+        "lng": -73.9587,
         "nearby": [
-          { "title": "Katz's Delicatessen", "kind": "Late food", "mins": 5 },
-          { "title": "Bowery music venues", "kind": "Live music", "mins": 7 }
+          {
+            "title": "Domino Park",
+            "kind": "Waterfront Park",
+            "mins": 6,
+            "lat": 40.7178,
+            "lng": -73.9647
+          },
+          {
+            "title": "Bedford Cheese Shop",
+            "kind": "Specialty Food Shop",
+            "mins": 3,
+            "lat": 40.7156,
+            "lng": -73.9585
+          },
+          {
+            "title": "Wythe Hotel Rooftop (Ides Bar)",
+            "kind": "Rooftop Bar",
+            "mins": 5,
+            "lat": 40.7217,
+            "lng": -73.9573
+          }
+        ]
+      },
+      {
+        "id": "sey-coffee",
+        "title": "Sey Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee Roaster",
+        "area": "Brooklyn",
+        "hours": "Mon-Fri 7:00 AM - 5:00 PM, Sat-Sun 8:00 AM - 5:00 PM",
+        "tags": [
+          "Single Origin",
+          "Skylit Space"
+        ],
+        "description": "A bright, airy roaster on the Bushwick-Williamsburg border built around a commitment to single-origin coffee over blends, sourcing rotating guest beans from respected international roasters alongside its own.",
+        "lat": 40.7061,
+        "lng": -73.9331,
+        "nearby": [
+          {
+            "title": "The Bushwick Collective",
+            "kind": "Street Art",
+            "mins": 11,
+            "lat": 40.7037,
+            "lng": -73.9231
+          },
+          {
+            "title": "Roberta's Pizza",
+            "kind": "Pizzeria",
+            "mins": 1,
+            "lat": 40.7051,
+            "lng": -73.9335
+          }
+        ]
+      },
+      {
+        "id": "sweetleaf-coffee-roasters-lic",
+        "title": "Sweetleaf Coffee Roasters (LIC)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee Roaster",
+        "area": "Long Island City",
+        "hours": "Mon-Fri 7:00 AM - 7:00 PM, Sat-Sun 8:00 AM - 7:00 PM",
+        "tags": [
+          "Bar-Like Atmosphere",
+          "Long Island City"
+        ],
+        "description": "A serious, precisely dialed-in coffee bar in Long Island City, built around the idea of coffee prepared with bar-like technique and ceremony rather than fast-casual convenience.",
+        "lat": 40.7447,
+        "lng": -73.9481,
+        "nearby": [
+          {
+            "title": "Gantry Plaza State Park",
+            "kind": "Waterfront Park",
+            "mins": 13,
+            "lat": 40.7454,
+            "lng": -73.96
+          },
+          {
+            "title": "MoMA PS1",
+            "kind": "Contemporary Art Museum",
+            "mins": 3,
+            "lat": 40.7469,
+            "lng": -73.9481
+          }
+        ]
+      },
+      {
+        "id": "third-rail-coffee",
+        "title": "Third Rail Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee Shop",
+        "area": "New York",
+        "hours": "Daily 7:00 AM - 8:00 PM",
+        "tags": [
+          "Neighborhood Favorite",
+          "Greenwich Village"
+        ],
+        "description": "A small, unassuming Greenwich Village coffee shop that's built a devoted following through consistently well-pulled espresso rather than any particular design statement or gimmick.",
+        "lat": 40.7285,
+        "lng": -74.0,
+        "nearby": [
+          {
+            "title": "Washington Square Park",
+            "kind": "Park",
+            "mins": 4,
+            "lat": 40.7308,
+            "lng": -73.9973
+          },
+          {
+            "title": "The Strand Book Store",
+            "kind": "Independent Bookstore",
+            "mins": 12,
+            "lat": 40.7332,
+            "lng": -73.991
+          },
+          {
+            "title": "Blue Note Jazz Club",
+            "kind": "Jazz Club",
+            "mins": 3,
+            "lat": 40.7308,
+            "lng": -74.0003
+          }
+        ]
+      },
+      {
+        "id": "alice-s-tea-cup-upper-west-side",
+        "title": "Alice's Tea Cup (Upper West Side)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea House & Brunch",
+        "area": "New York",
+        "hours": "Daily 8:00 AM - 7:00 PM",
+        "tags": [
+          "Whimsical",
+          "Family Favorite"
+        ],
+        "description": "A whimsical, fairy-tale-themed tea house serving scones, finger sandwiches, and an extensive loose-leaf tea list alongside a full brunch menu, drawing a loyal following of families and tea enthusiasts on the Upper West Side.",
+        "lat": 40.7791,
+        "lng": -73.9776,
+        "nearby": [
+          {
+            "title": "Central Park",
+            "kind": "Park",
+            "mins": 14,
+            "lat": 40.7829,
+            "lng": -73.9654
+          },
+          {
+            "title": "Zabar's",
+            "kind": "Specialty Food Market",
+            "mins": 12,
+            "lat": 40.7874,
+            "lng": -73.9754
+          },
+          {
+            "title": "Levain Bakery",
+            "kind": "Bakery",
+            "mins": 3,
+            "lat": 40.7796,
+            "lng": -73.9799
+          }
+        ]
+      },
+      {
+        "id": "12-matcha",
+        "title": "12 Matcha",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "New York",
+        "hours": "Daily 8:30 AM - 5:00 PM",
+        "tags": [
+          "Minimalist Design",
+          "NoHo"
+        ],
+        "description": "Designed by Paris-based studio Ciguë, 12 Matcha's Bond Street space is a masterclass in restraint: polished concrete, hand-applied green lacquer, and brushed stainless steel arranged around a single central counter.",
+        "lat": 40.7259,
+        "lng": -73.9934,
+        "nearby": [
+          {
+            "title": "Housing Works Bookstore Cafe",
+            "kind": "Used Bookstore & Cafe",
+            "mins": 5,
+            "lat": 40.7241,
+            "lng": -73.9974
+          },
+          {
+            "title": "DeVocion Coffee (Great Jones St)",
+            "kind": "Coffee Roaster",
+            "mins": 2,
+            "lat": 40.7275,
+            "lng": -73.9942
+          },
+          {
+            "title": "Merchant's House Museum",
+            "kind": "Historic House Museum",
+            "mins": 3,
+            "lat": 40.7274,
+            "lng": -73.9917
+          },
+          {
+            "title": "The Public Theater",
+            "kind": "Performing Arts Venue",
+            "mins": 4,
+            "lat": 40.7286,
+            "lng": -73.9917
+          },
+          {
+            "title": "Astor Place Cube",
+            "kind": "Public Art",
+            "mins": 6,
+            "lat": 40.7297,
+            "lng": -73.9909
+          }
+        ]
+      },
+      {
+        "id": "cha-cha-matcha",
+        "title": "Cha Cha Matcha",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "New York",
+        "hours": "Daily 8:00 AM - 7:00 PM",
+        "tags": [
+          "Draft Matcha",
+          "Iconic"
+        ],
+        "description": "NYC's most iconic matcha brand built its name on Draft Matcha, dispensed from a tap like cold brew for a consistently smooth, lightly frothy pour.",
+        "lat": 40.742,
+        "lng": -73.991,
+        "nearby": [
+          {
+            "title": "Madison Square Park",
+            "kind": "Park",
+            "mins": 4,
+            "lat": 40.7424,
+            "lng": -73.9877
+          },
+          {
+            "title": "Rizzoli Bookstore",
+            "kind": "Bookstore",
+            "mins": 2,
+            "lat": 40.7418,
+            "lng": -73.9895
+          },
+          {
+            "title": "Eataly NYC Flatiron",
+            "kind": "Food Hall",
+            "mins": 1,
+            "lat": 40.742,
+            "lng": -73.9903
+          },
+          {
+            "title": "ABC Carpet & Home",
+            "kind": "Home Goods Store",
+            "mins": 6,
+            "lat": 40.7376,
+            "lng": -73.9899
+          }
+        ]
+      },
+      {
+        "id": "matchaful",
+        "title": "Matchaful",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "New York",
+        "hours": "Daily 8:00 AM - 6:00 PM",
+        "tags": [
+          "Wabi-Sabi Interiors",
+          "Farm-to-Whisk"
+        ],
+        "description": "Matchaful takes direct inspiration from wabi-sabi design principles, building a calm, understated space meant to help visitors escape the city's intensity for a few minutes.",
+        "lat": 40.7273,
+        "lng": -74.0026,
+        "nearby": [
+          {
+            "title": "MUJI SoHo",
+            "kind": "Design Store",
+            "mins": 8,
+            "lat": 40.7217,
+            "lng": -73.9998
+          },
+          {
+            "title": "McNally Jackson (Prince St)",
+            "kind": "Independent Bookstore",
+            "mins": 9,
+            "lat": 40.7233,
+            "lng": -73.9955
+          },
+          {
+            "title": "Nalata Nalata",
+            "kind": "Design Store",
+            "mins": 12,
+            "lat": 40.7189,
+            "lng": -74.0011
+          },
+          {
+            "title": "The Drawing Center",
+            "kind": "Art Gallery",
+            "mins": 6,
+            "lat": 40.7233,
+            "lng": -74.0023
+          },
+          {
+            "title": "Sant Ambroeus SoHo",
+            "kind": "Italian Cafe",
+            "mins": 9,
+            "lat": 40.7335,
+            "lng": -74.0033
+          }
+        ]
+      },
+      {
+        "id": "setsugekka",
+        "title": "Setsugekka",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea House",
+        "area": "East Village",
+        "hours": "Tue-Fri 12 PM-5 PM, Sat-Sun 11 AM-5 PM, Closed Mon",
+        "tags": [
+          "Ceremonial",
+          "Stone-Milled"
+        ],
+        "description": "The most authentically ceremonial matcha experience in New York, run by tea master Souheki Mori, who has practiced Japanese tea ceremony for more than 30 years.",
+        "lat": 40.7265,
+        "lng": -73.9815,
+        "nearby": [
+          {
+            "title": "Tompkins Square Park",
+            "kind": "Park",
+            "mins": 1,
+            "lat": 40.7265,
+            "lng": -73.9815
+          },
+          {
+            "title": "Veselka",
+            "kind": "Ukrainian Diner",
+            "mins": 7,
+            "lat": 40.7297,
+            "lng": -73.9868
+          },
+          {
+            "title": "Mast Books",
+            "kind": "Used Bookstore",
+            "mins": 2,
+            "lat": 40.7255,
+            "lng": -73.9829
+          },
+          {
+            "title": "Van Leeuwen Ice Cream (East Village)",
+            "kind": "Ice Cream Shop",
+            "mins": 7,
+            "lat": 40.7266,
+            "lng": -73.9885
+          },
+          {
+            "title": "Cooper Union Foundation Building",
+            "kind": "Landmark Building",
+            "mins": 10,
+            "lat": 40.7295,
+            "lng": -73.9905
+          },
+          {
+            "title": "6BC Botanical Garden",
+            "kind": "Community Garden",
+            "mins": 3,
+            "lat": 40.7247,
+            "lng": -73.9803
+          },
+          {
+            "title": "St. Marks Place",
+            "kind": "Historic Street",
+            "mins": 5,
+            "lat": 40.7282,
+            "lng": -73.9857
+          },
+          {
+            "title": "Two Boots Pizza (East Village)",
+            "kind": "Pizzeria",
+            "mins": 3,
+            "lat": 40.7248,
+            "lng": -73.9835
+          }
+        ]
+      },
+      {
+        "id": "kettl-tea",
+        "title": "Kettl Tea",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea House",
+        "area": "New York",
+        "hours": "Daily 10:00 AM - 6:00 PM",
+        "tags": [
+          "Japanese Import",
+          "Serious Matcha"
+        ],
+        "description": "One of the most serious matcha operators in the city, Kettl imports directly from small Japanese tea farms and treats matcha with the same rigor a specialty coffee shop treats single-origin beans.",
+        "lat": 40.7188,
+        "lng": -73.9895,
+        "nearby": [
+          {
+            "title": "Economy Candy",
+            "kind": "Candy Shop",
+            "mins": 2,
+            "lat": 40.7203,
+            "lng": -73.9885
+          },
+          {
+            "title": "Tenement Museum",
+            "kind": "Museum",
+            "mins": 1,
+            "lat": 40.7186,
+            "lng": -73.9899
+          },
+          {
+            "title": "Essex Market",
+            "kind": "Food Market",
+            "mins": 2,
+            "lat": 40.7182,
+            "lng": -73.9878
+          },
+          {
+            "title": "10 Ft Single by Stella Dallas",
+            "kind": "Vintage Store",
+            "mins": 8,
+            "lat": 40.7231,
+            "lng": -73.9945
+          }
+        ]
+      },
+      {
+        "id": "isshiki-matcha",
+        "title": "Isshiki Matcha",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "New York",
+        "hours": "Daily 8:00 AM - 3:00 PM",
+        "tags": [
+          "Serene Oasis",
+          "Uji Sourced"
+        ],
+        "description": "Isshiki, meaning \"one color\" in Japanese, is built entirely around the idea of matcha as purity and simplicity distilled into a single vibrant green hue.",
+        "lat": 40.7291,
+        "lng": -73.9877,
+        "nearby": [
+          {
+            "title": "Tompkins Square Park",
+            "kind": "Park",
+            "mins": 7,
+            "lat": 40.7265,
+            "lng": -73.9815
+          },
+          {
+            "title": "Veselka",
+            "kind": "Ukrainian Diner",
+            "mins": 1,
+            "lat": 40.7297,
+            "lng": -73.9868
+          },
+          {
+            "title": "Mast Books",
+            "kind": "Used Bookstore",
+            "mins": 7,
+            "lat": 40.7255,
+            "lng": -73.9829
+          },
+          {
+            "title": "Van Leeuwen Ice Cream (East Village)",
+            "kind": "Ice Cream Shop",
+            "mins": 4,
+            "lat": 40.7266,
+            "lng": -73.9885
+          },
+          {
+            "title": "Cooper Union Foundation Building",
+            "kind": "Landmark Building",
+            "mins": 3,
+            "lat": 40.7295,
+            "lng": -73.9905
+          },
+          {
+            "title": "6BC Botanical Garden",
+            "kind": "Community Garden",
+            "mins": 10,
+            "lat": 40.7247,
+            "lng": -73.9803
+          },
+          {
+            "title": "St. Marks Place",
+            "kind": "Historic Street",
+            "mins": 2,
+            "lat": 40.7282,
+            "lng": -73.9857
+          },
+          {
+            "title": "Two Boots Pizza (East Village)",
+            "kind": "Pizzeria",
+            "mins": 7,
+            "lat": 40.7248,
+            "lng": -73.9835
+          }
+        ]
+      },
+      {
+        "id": "sorate",
+        "title": "Sorate",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "Sullivan St",
+        "hours": "Daily 9:00 AM - 5:00 PM",
+        "tags": [
+          "Tiny & Intimate",
+          "Tokyo Tea House Feel"
+        ],
+        "description": "With only a handful of counter seats, Sorate feels more like a Tokyo side-street tea house than a commercial Soho cafe.",
+        "lat": 40.7261,
+        "lng": -74.0031,
+        "nearby": [
+          {
+            "title": "MUJI SoHo",
+            "kind": "Design Store",
+            "mins": 7,
+            "lat": 40.7217,
+            "lng": -73.9998
+          },
+          {
+            "title": "McNally Jackson (Prince St)",
+            "kind": "Independent Bookstore",
+            "mins": 9,
+            "lat": 40.7233,
+            "lng": -73.9955
+          },
+          {
+            "title": "Nalata Nalata",
+            "kind": "Design Store",
+            "mins": 10,
+            "lat": 40.7189,
+            "lng": -74.0011
+          },
+          {
+            "title": "The Drawing Center",
+            "kind": "Art Gallery",
+            "mins": 4,
+            "lat": 40.7233,
+            "lng": -74.0023
+          },
+          {
+            "title": "Sant Ambroeus SoHo",
+            "kind": "Italian Cafe",
+            "mins": 10,
+            "lat": 40.7335,
+            "lng": -74.0033
+          }
+        ]
+      },
+      {
+        "id": "aoko-matcha",
+        "title": "Aoko Matcha",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Gelato Shop",
+        "area": "New York",
+        "hours": "Daily 11:00 AM - 11:00 PM",
+        "tags": [
+          "Five-Shade Tasting",
+          "West Village"
+        ],
+        "description": "Aokō reimagines matcha as gelato and soft serve across a five-level tasting progression, from a gently sweet Level 1 to a bold, ceremonial-grade Level 5, letting guests sample before committing like a wine flight.",
+        "lat": 40.7325,
+        "lng": -74.0034,
+        "nearby": [
+          {
+            "title": "Washington Square Park",
+            "kind": "Park",
+            "mins": 7,
+            "lat": 40.7308,
+            "lng": -73.9973
+          },
+          {
+            "title": "Three Lives & Company",
+            "kind": "Independent Bookstore",
+            "mins": 4,
+            "lat": 40.7343,
+            "lng": -74.0007
+          },
+          {
+            "title": "Rocco's Italian Pastry Shop",
+            "kind": "Bakery",
+            "mins": 1,
+            "lat": 40.7317,
+            "lng": -74.0027
+          },
+          {
+            "title": "IFC Center",
+            "kind": "Independent Cinema",
+            "mins": 3,
+            "lat": 40.7314,
+            "lng": -74.0005
+          }
+        ]
+      },
+      {
+        "id": "cafe-kitsune",
+        "title": "Cafe Kitsune",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "New York",
+        "hours": "Daily 8:00 AM - 7:00 PM",
+        "tags": [
+          "Design-Forward",
+          "Nolita"
+        ],
+        "description": "The New York outpost of the French-Japanese Maison Kitsune brand brings a minimalist, design-forward take on Japanese cafe culture to a quiet stretch of Nolita.",
+        "lat": 40.7231,
+        "lng": -73.9945,
+        "nearby": [
+          {
+            "title": "Elizabeth Street Garden",
+            "kind": "Community Garden",
+            "mins": 2,
+            "lat": 40.7226,
+            "lng": -73.9958
+          },
+          {
+            "title": "Cafe Habana",
+            "kind": "Cuban-Mexican Restaurant",
+            "mins": 1,
+            "lat": 40.7229,
+            "lng": -73.9955
+          },
+          {
+            "title": "The Butcher's Daughter",
+            "kind": "Vegetarian Cafe",
+            "mins": 2,
+            "lat": 40.7217,
+            "lng": -73.9958
+          },
+          {
+            "title": "Emilio's Ballato",
+            "kind": "Italian Restaurant",
+            "mins": 1,
+            "lat": 40.7233,
+            "lng": -73.9956
+          }
+        ]
+      },
+      {
+        "id": "kijitora",
+        "title": "KIJITORA",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "Brooklyn",
+        "hours": "Daily 8:00 AM - 6:00 PM",
+        "tags": [
+          "Cat-Themed",
+          "Slow Living"
+        ],
+        "description": "Named after the Japanese word for tabby cat, KIJITORA brings a warm, unhurried energy to Williamsburg's matcha scene, built around a philosophy of slowing down and savoring every sip.",
+        "lat": 40.7178,
+        "lng": -73.9576,
+        "nearby": [
+          {
+            "title": "Domino Park",
+            "kind": "Waterfront Park",
+            "mins": 7,
+            "lat": 40.7178,
+            "lng": -73.9647
+          },
+          {
+            "title": "Spoonbill & Sugartown Booksellers",
+            "kind": "Independent Bookstore",
+            "mins": 2,
+            "lat": 40.7168,
+            "lng": -73.9586
+          },
+          {
+            "title": "Devoción (Williamsburg flagship)",
+            "kind": "Coffee Roaster",
+            "mins": 6,
+            "lat": 40.7157,
+            "lng": -73.9622
+          },
+          {
+            "title": "Wythe Hotel Rooftop (Ides Bar)",
+            "kind": "Rooftop Bar",
+            "mins": 5,
+            "lat": 40.7217,
+            "lng": -73.9573
+          }
+        ]
+      },
+      {
+        "id": "rhythm-zero",
+        "title": "Rhythm Zero",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee & Matcha Shop",
+        "area": "New York",
+        "hours": "Daily 7:30 AM - 6:00 PM",
+        "tags": [
+          "Airy Minimalist Space",
+          "Seasonal Specials"
+        ],
+        "description": "A trendy West Village shop making some of the more inventive matcha lattes in the city, with rotating seasonal specials like blackberry pie matcha and sparkling yuzu matcha.",
+        "lat": 40.7345,
+        "lng": -74.0033,
+        "nearby": [
+          {
+            "title": "Washington Square Park",
+            "kind": "Park",
+            "mins": 8,
+            "lat": 40.7308,
+            "lng": -73.9973
+          },
+          {
+            "title": "Three Lives & Company",
+            "kind": "Independent Bookstore",
+            "mins": 3,
+            "lat": 40.7343,
+            "lng": -74.0007
+          },
+          {
+            "title": "Rocco's Italian Pastry Shop",
+            "kind": "Bakery",
+            "mins": 4,
+            "lat": 40.7317,
+            "lng": -74.0027
+          },
+          {
+            "title": "IFC Center",
+            "kind": "Independent Cinema",
+            "mins": 5,
+            "lat": 40.7314,
+            "lng": -74.0005
+          }
+        ]
+      },
+      {
+        "id": "matcha-cafe-maiko",
+        "title": "Matcha Cafe Maiko",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "New York",
+        "hours": "Daily 11:00 AM - 8:00 PM",
+        "tags": [
+          "Japanese Dessert",
+          "Soft Serve"
+        ],
+        "description": "Born in Uji, Japan and brought to the East Village, Maiko builds its menu around the Japanese dessert cafe format rather than the Western latte bar.",
+        "lat": 40.7305,
+        "lng": -73.9877,
+        "nearby": [
+          {
+            "title": "Tompkins Square Park",
+            "kind": "Park",
+            "mins": 9,
+            "lat": 40.7265,
+            "lng": -73.9815
+          },
+          {
+            "title": "Veselka",
+            "kind": "Ukrainian Diner",
+            "mins": 1,
+            "lat": 40.7297,
+            "lng": -73.9868
+          },
+          {
+            "title": "Mast Books",
+            "kind": "Used Bookstore",
+            "mins": 9,
+            "lat": 40.7255,
+            "lng": -73.9829
+          },
+          {
+            "title": "Van Leeuwen Ice Cream (East Village)",
+            "kind": "Ice Cream Shop",
+            "mins": 5,
+            "lat": 40.7266,
+            "lng": -73.9885
+          },
+          {
+            "title": "Cooper Union Foundation Building",
+            "kind": "Landmark Building",
+            "mins": 3,
+            "lat": 40.7295,
+            "lng": -73.9905
+          },
+          {
+            "title": "6BC Botanical Garden",
+            "kind": "Community Garden",
+            "mins": 11,
+            "lat": 40.7247,
+            "lng": -73.9803
+          },
+          {
+            "title": "St. Marks Place",
+            "kind": "Historic Street",
+            "mins": 4,
+            "lat": 40.7282,
+            "lng": -73.9857
+          },
+          {
+            "title": "Two Boots Pizza (East Village)",
+            "kind": "Pizzeria",
+            "mins": 9,
+            "lat": 40.7248,
+            "lng": -73.9835
+          }
+        ]
+      },
+      {
+        "id": "matcha-house",
+        "title": "Matcha House",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea House",
+        "area": "New York",
+        "hours": "Mon 9 AM-5:30 PM, Tue-Fri 8 AM-5:30 PM, Sat 9 AM-6 PM, Closed Sun",
+        "tags": [
+          "Uji Sourced",
+          "Community Hub"
+        ],
+        "description": "Built on a philosophy of excellence at every step, from the tea farm to the final pour, Matcha House sources from award-winning Uji farms and studies single-cultivar profiles for tastings that go well beyond a standard latte menu.",
+        "lat": 40.7284,
+        "lng": -73.9862,
+        "nearby": [
+          {
+            "title": "Tompkins Square Park",
+            "kind": "Park",
+            "mins": 6,
+            "lat": 40.7265,
+            "lng": -73.9815
+          },
+          {
+            "title": "Veselka",
+            "kind": "Ukrainian Diner",
+            "mins": 2,
+            "lat": 40.7297,
+            "lng": -73.9868
+          },
+          {
+            "title": "Mast Books",
+            "kind": "Used Bookstore",
+            "mins": 5,
+            "lat": 40.7255,
+            "lng": -73.9829
+          },
+          {
+            "title": "Van Leeuwen Ice Cream (East Village)",
+            "kind": "Ice Cream Shop",
+            "mins": 3,
+            "lat": 40.7266,
+            "lng": -73.9885
+          },
+          {
+            "title": "Cooper Union Foundation Building",
+            "kind": "Landmark Building",
+            "mins": 5,
+            "lat": 40.7295,
+            "lng": -73.9905
+          },
+          {
+            "title": "6BC Botanical Garden",
+            "kind": "Community Garden",
+            "mins": 8,
+            "lat": 40.7247,
+            "lng": -73.9803
+          },
+          {
+            "title": "St. Marks Place",
+            "kind": "Historic Street",
+            "mins": 1,
+            "lat": 40.7282,
+            "lng": -73.9857
+          },
+          {
+            "title": "Two Boots Pizza (East Village)",
+            "kind": "Pizzeria",
+            "mins": 6,
+            "lat": 40.7248,
+            "lng": -73.9835
+          }
+        ]
+      },
+      {
+        "id": "choji",
+        "title": "Choji",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "New York",
+        "hours": "Daily 10:00 AM - 7:00 PM",
+        "tags": [
+          "Creative Flavors",
+          "Grab and Go"
+        ],
+        "description": "A tiny East Village storefront known for the most creative matcha flavor pairings in the neighborhood, including matcha fig cream, matcha creme brulee, and banana pudding matcha.",
+        "lat": 40.7307,
+        "lng": -73.9924,
+        "nearby": [
+          {
+            "title": "Tompkins Square Park",
+            "kind": "Park",
+            "mins": 13,
+            "lat": 40.7265,
+            "lng": -73.9815
+          },
+          {
+            "title": "Veselka",
+            "kind": "Ukrainian Diner",
+            "mins": 6,
+            "lat": 40.7297,
+            "lng": -73.9868
+          },
+          {
+            "title": "Mast Books",
+            "kind": "Used Bookstore",
+            "mins": 12,
+            "lat": 40.7255,
+            "lng": -73.9829
+          },
+          {
+            "title": "Van Leeuwen Ice Cream (East Village)",
+            "kind": "Ice Cream Shop",
+            "mins": 7,
+            "lat": 40.7266,
+            "lng": -73.9885
+          },
+          {
+            "title": "Cooper Union Foundation Building",
+            "kind": "Landmark Building",
+            "mins": 3,
+            "lat": 40.7295,
+            "lng": -73.9905
+          },
+          {
+            "title": "6BC Botanical Garden",
+            "kind": "Community Garden",
+            "mins": 15,
+            "lat": 40.7247,
+            "lng": -73.9803
+          },
+          {
+            "title": "St. Marks Place",
+            "kind": "Historic Street",
+            "mins": 8,
+            "lat": 40.7282,
+            "lng": -73.9857
+          },
+          {
+            "title": "Two Boots Pizza (East Village)",
+            "kind": "Pizzeria",
+            "mins": 12,
+            "lat": 40.7248,
+            "lng": -73.9835
+          }
+        ]
+      },
+      {
+        "id": "verse",
+        "title": "Verse",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Matcha Cafe",
+        "area": "Queens",
+        "hours": "Daily 8:00 AM - 5:00 PM",
+        "tags": [
+          "Neighborhood Gem",
+          "Astoria"
+        ],
+        "description": "A Japanese cafe serving standout matcha on an unassuming Astoria block, well outside the denser Manhattan matcha circuit.",
+        "lat": 40.7746,
+        "lng": -73.9209,
+        "nearby": [
+          {
+            "title": "Astoria Park",
+            "kind": "Waterfront Park",
+            "mins": 7,
+            "lat": 40.7794,
+            "lng": -73.9226
+          },
+          {
+            "title": "Bohemian Hall & Beer Garden",
+            "kind": "Beer Garden",
+            "mins": 9,
+            "lat": 40.7729,
+            "lng": -73.9127
+          },
+          {
+            "title": "Museum of the Moving Image",
+            "kind": "Museum",
+            "mins": 27,
+            "lat": 40.7553,
+            "lng": -73.9243
+          }
+        ]
+      },
+      {
+        "id": "please-don-t-tell-pdt",
+        "title": "Please Don't Tell (PDT)",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Speakeasy",
+        "area": "New York",
+        "hours": "Daily 6:00 PM - 2:00 AM",
+        "tags": [
+          "Hidden Entrance",
+          "Craft Cocktails"
+        ],
+        "description": "One of the defining speakeasies of New York's cocktail revival, PDT is entered through a hidden phone booth inside Crif Dogs, the hot dog shop next door.",
+        "lat": 40.7275,
+        "lng": -73.9847,
+        "nearby": [
+          {
+            "title": "Tompkins Square Park",
+            "kind": "Park",
+            "mins": 4,
+            "lat": 40.7265,
+            "lng": -73.9815
+          },
+          {
+            "title": "Veselka",
+            "kind": "Ukrainian Diner",
+            "mins": 4,
+            "lat": 40.7297,
+            "lng": -73.9868
+          },
+          {
+            "title": "St. Marks Place",
+            "kind": "Historic Street",
+            "mins": 1,
+            "lat": 40.7282,
+            "lng": -73.9857
+          }
+        ]
+      },
+      {
+        "id": "village-vanguard",
+        "title": "Village Vanguard",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Jazz Club",
+        "area": "New York",
+        "hours": "Daily, sets typically 8:30 PM & 10:30 PM",
+        "tags": [
+          "Historic",
+          "Live Music"
+        ],
+        "description": "Operating since 1935, the Village Vanguard is the holy grail for jazz purists and one of the most historically significant music venues in the world.",
+        "lat": 40.7357,
+        "lng": -74.0027,
+        "nearby": [
+          {
+            "title": "Washington Square Park",
+            "kind": "Park",
+            "mins": 9,
+            "lat": 40.7308,
+            "lng": -73.9973
+          },
+          {
+            "title": "Blue Note Jazz Club",
+            "kind": "Jazz Club",
+            "mins": 7,
+            "lat": 40.7308,
+            "lng": -74.0003
+          },
+          {
+            "title": "Three Lives & Company",
+            "kind": "Independent Bookstore",
+            "mins": 3,
+            "lat": 40.7343,
+            "lng": -74.0007
+          },
+          {
+            "title": "Magnolia Bakery (Original)",
+            "kind": "Bakery",
+            "mins": 3,
+            "lat": 40.7351,
+            "lng": -74.0059
+          }
+        ]
+      },
+      {
+        "id": "bathtub-gin",
+        "title": "Bathtub Gin",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Speakeasy",
+        "area": "New York",
+        "hours": "Daily 6:00 PM - 2:00 AM",
+        "tags": [
+          "Prohibition Era",
+          "Chelsea"
+        ],
+        "description": "Concealed behind an unmarked coffee shop front in Chelsea, Bathtub Gin leans fully into Prohibition-era theming, right down to a freestanding bathtub near the bar as its namesake centerpiece.",
+        "lat": 40.7422,
+        "lng": -74.0021,
+        "nearby": [
+          {
+            "title": "The High Line",
+            "kind": "Elevated Park",
+            "mins": 9,
+            "lat": 40.748,
+            "lng": -74.0048
+          },
+          {
+            "title": "Chelsea Market",
+            "kind": "Food Hall",
+            "mins": 4,
+            "lat": 40.7424,
+            "lng": -74.0061
+          },
+          {
+            "title": "Gagosian Gallery (Chelsea)",
+            "kind": "Art Gallery",
+            "mins": 9,
+            "lat": 40.7477,
+            "lng": -74.0057
+          }
+        ]
+      },
+      {
+        "id": "attaboy",
+        "title": "Attaboy",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail Bar",
+        "area": "New York",
+        "hours": "Daily 6:00 PM - 3:00 AM",
+        "tags": [
+          "No Menu",
+          "Lower East Side"
+        ],
+        "description": "Attaboy operates with no printed menu at all — guests simply describe what they're in the mood for, and bartenders build a custom cocktail on the spot.",
+        "lat": 40.7185,
+        "lng": -73.9924,
+        "nearby": [
+          {
+            "title": "Katz's Delicatessen",
+            "kind": "Deli",
+            "mins": 7,
+            "lat": 40.7223,
+            "lng": -73.9874
+          },
+          {
+            "title": "The Tenement Museum",
+            "kind": "Museum",
+            "mins": 3,
+            "lat": 40.7186,
+            "lng": -73.9899
+          },
+          {
+            "title": "Economy Candy",
+            "kind": "Candy Shop",
+            "mins": 5,
+            "lat": 40.7203,
+            "lng": -73.9885
+          },
+          {
+            "title": "Essex Market",
+            "kind": "Food Market",
+            "mins": 5,
+            "lat": 40.7182,
+            "lng": -73.9878
+          }
+        ]
+      },
+      {
+        "id": "smalls-jazz-club",
+        "title": "Smalls Jazz Club",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Jazz Club",
+        "area": "New York",
+        "hours": "Daily, sets from 7:30 PM, late sets to 4:00 AM weekends",
+        "tags": [
+          "Intimate",
+          "Nightly Sets"
+        ],
+        "description": "Smalls gives off the authentic feel of a true speakeasy rather than a polished tourist-facing jazz dinner club. The room is compact and unpretentious, with musicians and audience sharing close quarters that make every set feel personal.",
+        "lat": 40.7343,
+        "lng": -74.0034,
+        "nearby": [
+          {
+            "title": "Washington Square Park",
+            "kind": "Park",
+            "mins": 8,
+            "lat": 40.7308,
+            "lng": -73.9973
+          },
+          {
+            "title": "Blue Note Jazz Club",
+            "kind": "Jazz Club",
+            "mins": 6,
+            "lat": 40.7308,
+            "lng": -74.0003
+          },
+          {
+            "title": "Three Lives & Company",
+            "kind": "Independent Bookstore",
+            "mins": 3,
+            "lat": 40.7343,
+            "lng": -74.0007
+          },
+          {
+            "title": "Magnolia Bakery (Original)",
+            "kind": "Bakery",
+            "mins": 3,
+            "lat": 40.7351,
+            "lng": -74.0059
+          }
+        ]
+      },
+      {
+        "id": "230-fifth-rooftop-bar",
+        "title": "230 Fifth Rooftop Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop Bar",
+        "area": "New York",
+        "hours": "Daily 4:00 PM - 4:00 AM",
+        "tags": [
+          "Empire State Views",
+          "Large Terrace"
+        ],
+        "description": "One of Manhattan's largest rooftop venues, 230 Fifth wraps a sprawling terrace around unobstructed views of the Empire State Building, close enough that the tower feels like it's practically overhead.",
+        "lat": 40.744,
+        "lng": -73.9885,
+        "nearby": [
+          {
+            "title": "Madison Square Park",
+            "kind": "Park",
+            "mins": 2,
+            "lat": 40.7424,
+            "lng": -73.9877
+          },
+          {
+            "title": "Eataly NYC Flatiron",
+            "kind": "Food Hall",
+            "mins": 3,
+            "lat": 40.742,
+            "lng": -73.9903
+          },
+          {
+            "title": "The NoMad Bar",
+            "kind": "Cocktail Bar",
+            "mins": 1,
+            "lat": 40.744,
+            "lng": -73.9895
+          }
+        ]
+      },
+      {
+        "id": "apotheke-nomad",
+        "title": "Apotheke NoMad",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Speakeasy",
+        "area": "New York",
+        "hours": "Tue-Sat 6:00 PM - 1:00 AM, Closed Sun-Mon",
+        "tags": [
+          "Live Jazz",
+          "Penthouse Terrace"
+        ],
+        "description": "A NoMad offshoot of the original Chinatown apothecary-themed speakeasy, this location remains comparatively under-the-radar despite opening in 2022.",
+        "lat": 40.746,
+        "lng": -73.9885,
+        "nearby": [
+          {
+            "title": "Madison Square Park",
+            "kind": "Park",
+            "mins": 5,
+            "lat": 40.7424,
+            "lng": -73.9877
+          },
+          {
+            "title": "Eataly NYC Flatiron",
+            "kind": "Food Hall",
+            "mins": 6,
+            "lat": 40.742,
+            "lng": -73.9903
+          },
+          {
+            "title": "The NoMad Bar",
+            "kind": "Cocktail Bar",
+            "mins": 3,
+            "lat": 40.744,
+            "lng": -73.9895
+          }
+        ]
+      },
+      {
+        "id": "employees-only",
+        "title": "Employees Only",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail Bar",
+        "area": "New York",
+        "hours": "Daily 6:00 PM - 4:00 AM",
+        "tags": [
+          "Speakeasy Style",
+          "Since 2004"
+        ],
+        "description": "One of the bars credited with kickstarting New York's modern speakeasy revival back in 2004, Employees Only is entered past a psychic reader sitting in the front window, a deliberate bit of theater before the actual bar opens up behind a…",
+        "lat": 40.7328,
+        "lng": -74.006,
+        "nearby": [
+          {
+            "title": "Washington Square Park",
+            "kind": "Park",
+            "mins": 10,
+            "lat": 40.7308,
+            "lng": -73.9973
+          },
+          {
+            "title": "Blue Note Jazz Club",
+            "kind": "Jazz Club",
+            "mins": 7,
+            "lat": 40.7308,
+            "lng": -74.0003
+          },
+          {
+            "title": "Three Lives & Company",
+            "kind": "Independent Bookstore",
+            "mins": 6,
+            "lat": 40.7343,
+            "lng": -74.0007
+          },
+          {
+            "title": "Magnolia Bakery (Original)",
+            "kind": "Bakery",
+            "mins": 3,
+            "lat": 40.7351,
+            "lng": -74.0059
+          }
+        ]
+      },
+      {
+        "id": "the-django",
+        "title": "The Django",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Jazz Club",
+        "area": "New York",
+        "hours": "Wed-Sat, sets from 7:30 PM",
+        "tags": [
+          "Supper Club",
+          "Art Deco"
+        ],
+        "description": "A subterranean jazz supper club inside the Roxy Hotel in Tribeca, styled after 1920s Parisian jazz clubs with Art Deco lighting and velvet booths built for both dinner and a full night of live sets.",
+        "lat": 40.7192,
+        "lng": -74.0055,
+        "nearby": [
+          {
+            "title": "City Hall Park",
+            "kind": "Park",
+            "mins": 9,
+            "lat": 40.7127,
+            "lng": -74.0059
+          },
+          {
+            "title": "Tribeca Grill",
+            "kind": "Restaurant",
+            "mins": 5,
+            "lat": 40.7196,
+            "lng": -74.01
+          }
+        ]
+      },
+      {
+        "id": "house-of-yes",
+        "title": "House of Yes",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Nightclub & Performance Venue",
+        "area": "Brooklyn",
+        "hours": "Thu-Sat, hours vary by event",
+        "tags": [
+          "Immersive",
+          "Circus Performances"
+        ],
+        "description": "An immersive, performance-fueled nightclub in Bushwick built around cage dancers, cabaret, live music, and elaborately themed parties that regularly sell out.",
+        "lat": 40.7057,
+        "lng": -73.9204,
+        "nearby": [
+          {
+            "title": "The Bushwick Collective",
+            "kind": "Street Art",
+            "mins": 4,
+            "lat": 40.7037,
+            "lng": -73.9231
+          },
+          {
+            "title": "Roberta's Pizza",
+            "kind": "Pizzeria",
+            "mins": 14,
+            "lat": 40.7051,
+            "lng": -73.9335
+          }
+        ]
+      },
+      {
+        "id": "beauty-essex",
+        "title": "Beauty & Essex",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail Lounge",
+        "area": "New York",
+        "hours": "Daily 5:30 PM - 2:00 AM",
+        "tags": [
+          "Hidden Behind Pawn Shop",
+          "Multi-Level"
+        ],
+        "description": "Entered through a working pawn shop storefront on Essex Street, Beauty & Essex opens into a sprawling, multi-level lounge with private booths, a champagne room, and a full dinner menu alongside its cocktail program.",
+        "lat": 40.7189,
+        "lng": -73.9878,
+        "nearby": [
+          {
+            "title": "Katz's Delicatessen",
+            "kind": "Deli",
+            "mins": 5,
+            "lat": 40.7223,
+            "lng": -73.9874
+          },
+          {
+            "title": "The Tenement Museum",
+            "kind": "Museum",
+            "mins": 2,
+            "lat": 40.7186,
+            "lng": -73.9899
+          },
+          {
+            "title": "Economy Candy",
+            "kind": "Candy Shop",
+            "mins": 2,
+            "lat": 40.7203,
+            "lng": -73.9885
+          },
+          {
+            "title": "Essex Market",
+            "kind": "Food Market",
+            "mins": 1,
+            "lat": 40.7182,
+            "lng": -73.9878
+          }
+        ]
+      },
+      {
+        "id": "westlight",
+        "title": "Westlight",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop Bar",
+        "area": "Brooklyn",
+        "hours": "Daily 4:00 PM - 1:00 AM (seasonal)",
+        "tags": [
+          "Skyline Views",
+          "22nd Floor"
+        ],
+        "description": "A 22nd-floor rooftop bar atop the William Vale Hotel, offering some of the widest panoramic views in Brooklyn, stretching from the Manhattan skyline to the harbor and beyond.",
+        "lat": 40.7217,
+        "lng": -73.9578,
+        "nearby": [
+          {
+            "title": "Domino Park",
+            "kind": "Waterfront Park",
+            "mins": 9,
+            "lat": 40.7178,
+            "lng": -73.9647
+          },
+          {
+            "title": "Bedford Avenue Shopping Strip",
+            "kind": "Shopping District",
+            "mins": 6,
+            "lat": 40.7173,
+            "lng": -73.9583
+          }
+        ]
+      },
+      {
+        "id": "le-bain",
+        "title": "Le Bain",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop Nightclub",
+        "area": "New York",
+        "hours": "Thu-Sat 10:00 PM - 4:00 AM (seasonal rooftop)",
+        "tags": [
+          "Rooftop Pool",
+          "Meatpacking District"
+        ],
+        "description": "Atop the Standard Hotel in the Meatpacking District, Le Bain combines a dance floor, a hot tub, and a rooftop deck with unobstructed views over the Hudson River and High Line below.",
+        "lat": 40.7406,
+        "lng": -74.0088,
+        "nearby": [
+          {
+            "title": "Whitney Museum of American Art",
+            "kind": "Art Museum",
+            "mins": 1,
+            "lat": 40.7396,
+            "lng": -74.0089
+          },
+          {
+            "title": "Pastis",
+            "kind": "French Brasserie",
+            "mins": 2,
+            "lat": 40.7392,
+            "lng": -74.0079
+          }
+        ]
+      },
+      {
+        "id": "the-back-room",
+        "title": "The Back Room",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Speakeasy",
+        "area": "New York",
+        "hours": "Daily 8:00 PM - 4:00 AM",
+        "tags": [
+          "Prohibition-Era Original",
+          "Fake Storefront"
+        ],
+        "description": "Entered through an unmarked door behind a fake storefront reading Lower East Side Toy Company, then down an alley and up a back staircase, The Back Room occupies a space that operated as an actual Prohibition-era speakeasy in the 1920s.",
+        "lat": 40.7195,
+        "lng": -73.9884,
+        "nearby": [
+          {
+            "title": "Katz's Delicatessen",
+            "kind": "Deli",
+            "mins": 4,
+            "lat": 40.7223,
+            "lng": -73.9874
+          },
+          {
+            "title": "The Tenement Museum",
+            "kind": "Museum",
+            "mins": 2,
+            "lat": 40.7186,
+            "lng": -73.9899
+          },
+          {
+            "title": "Economy Candy",
+            "kind": "Candy Shop",
+            "mins": 1,
+            "lat": 40.7203,
+            "lng": -73.9885
+          },
+          {
+            "title": "Essex Market",
+            "kind": "Food Market",
+            "mins": 2,
+            "lat": 40.7182,
+            "lng": -73.9878
+          }
+        ]
+      },
+      {
+        "id": "dear-irving-on-hudson",
+        "title": "Dear Irving on Hudson",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop Bar",
+        "area": "New York",
+        "hours": "Daily 5:00 PM - 1:00 AM (seasonal rooftop)",
+        "tags": [
+          "Skyline Views",
+          "Craft Cocktails"
+        ],
+        "description": "Dear Irving on Hudson pairs polished cocktail craft with genuinely romantic rooftop seating designed around individual seating stations, each angled to feel like its own private nook.",
+        "lat": 40.7401,
+        "lng": -74.0024,
+        "nearby": [
+          {
+            "title": "The High Line",
+            "kind": "Elevated Park",
+            "mins": 11,
+            "lat": 40.748,
+            "lng": -74.0048
+          },
+          {
+            "title": "Chelsea Market",
+            "kind": "Food Hall",
+            "mins": 5,
+            "lat": 40.7424,
+            "lng": -74.0061
+          },
+          {
+            "title": "Gagosian Gallery (Chelsea)",
+            "kind": "Art Gallery",
+            "mins": 11,
+            "lat": 40.7477,
+            "lng": -74.0057
+          }
+        ]
+      },
+      {
+        "id": "central-park-conservatory-garden",
+        "title": "Central Park Conservatory Garden",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "Central Park",
+        "hours": "Daily 8:00 AM - Dusk",
+        "tags": [
+          "Formal Garden",
+          "Quiet Escape"
+        ],
+        "description": "Tucked into the northern reaches of Central Park, the Conservatory Garden is the park's only formal garden, with Italian, French, and English sections offering manicured lawns, wisteria-draped pergolas, and fountains far removed from the…",
+        "lat": 40.7938,
+        "lng": -73.9531,
+        "nearby": [
+          {
+            "title": "Belvedere Castle",
+            "kind": "Viewpoint",
+            "mins": 26,
+            "lat": 40.7794,
+            "lng": -73.9691
+          },
+          {
+            "title": "The Loch (Central Park North Woods)",
+            "kind": "Stream & Woodland",
+            "mins": 4,
+            "lat": 40.7963,
+            "lng": -73.9538
+          },
+          {
+            "title": "Central Park Zoo",
+            "kind": "Zoo",
+            "mins": 41,
+            "lat": 40.7678,
+            "lng": -73.9718
+          }
+        ]
+      },
+      {
+        "id": "the-ramble-central-park",
+        "title": "The Ramble (Central Park)",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Woodland",
+        "area": "Central Park",
+        "hours": "Daily 6:00 AM - 1:00 AM",
+        "tags": [
+          "Bird Watching",
+          "Wooded Trails"
+        ],
+        "description": "A deliberately wild, 36-acre woodland at the center of Central Park, designed by Olmsted and Vaux to feel like a rustic mountain forest rather than a manicured city park.",
+        "lat": 40.7772,
+        "lng": -73.9663,
+        "nearby": [
+          {
+            "title": "Belvedere Castle",
+            "kind": "Viewpoint",
+            "mins": 4,
+            "lat": 40.7794,
+            "lng": -73.9691
+          },
+          {
+            "title": "The Loch (Central Park North Woods)",
+            "kind": "Stream & Woodland",
+            "mins": 30,
+            "lat": 40.7963,
+            "lng": -73.9538
+          },
+          {
+            "title": "Central Park Zoo",
+            "kind": "Zoo",
+            "mins": 14,
+            "lat": 40.7678,
+            "lng": -73.9718
+          }
+        ]
+      },
+      {
+        "id": "the-high-line",
+        "title": "The High Line",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Elevated Park",
+        "area": "High Line",
+        "hours": "Daily 7:00 AM - 10:00 PM (seasonal)",
+        "tags": [
+          "Urban Nature",
+          "Art Walk"
+        ],
+        "description": "Built atop a disused elevated freight rail line, the High Line transformed 1.45 miles of industrial infrastructure into one of the most distinctive parks in the world.",
+        "lat": 40.748,
+        "lng": -74.0048,
+        "nearby": [
+          {
+            "title": "Little Island",
+            "kind": "Park",
+            "mins": 13,
+            "lat": 40.7406,
+            "lng": -74.0116
+          },
+          {
+            "title": "Hudson River Park (Chelsea Piers)",
+            "kind": "Waterfront Park",
+            "mins": 4,
+            "lat": 40.748,
+            "lng": -74.0088
+          }
+        ]
+      },
+      {
+        "id": "fort-tryon-park",
+        "title": "Fort Tryon Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Fort Tryon Park",
+        "hours": "Daily 6:00 AM - 1:00 AM",
+        "tags": [
+          "Hudson Views",
+          "Hidden Gem"
+        ],
+        "description": "Perched 250 feet above the Hudson River in upper Manhattan, Fort Tryon Park is routinely overlooked by visitors who never make it past Midtown.",
+        "lat": 40.8613,
+        "lng": -73.9317,
+        "nearby": [
+          {
+            "title": "The Met Cloisters",
+            "kind": "Museum",
+            "mins": 5,
+            "lat": 40.8648,
+            "lng": -73.9317
+          },
+          {
+            "title": "Shorakapok Rock & Salt Marsh",
+            "kind": "Natural Landmark",
+            "mins": 15,
+            "lat": 40.8699,
+            "lng": -73.9236
+          },
+          {
+            "title": "Dyckman Farmhouse Museum",
+            "kind": "Historic House Museum",
+            "mins": 10,
+            "lat": 40.8664,
+            "lng": -73.9256
+          }
+        ]
+      },
+      {
+        "id": "riverside-park",
+        "title": "Riverside Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Riverside Park",
+        "hours": "Daily 6:00 AM - 1:00 AM",
+        "tags": [
+          "Hudson River Views",
+          "Quieter Alternative"
+        ],
+        "description": "Running along the Hudson River for over four miles, Riverside Park offers a genuinely quieter, more residential alternative to Central Park, with sweeping river views, cherry blossom groves, and the historic Soldiers' and Sailors' Monume…",
+        "lat": 40.7959,
+        "lng": -73.9789,
+        "nearby": [
+          {
+            "title": "Grant's Tomb (General Grant National Memorial)",
+            "kind": "Monument",
+            "mins": 30,
+            "lat": 40.8134,
+            "lng": -73.9627
+          },
+          {
+            "title": "79th Street Boat Basin",
+            "kind": "Marina",
+            "mins": 13,
+            "lat": 40.7871,
+            "lng": -73.9838
+          }
+        ]
+      },
+      {
+        "id": "brooklyn-botanic-garden",
+        "title": "Brooklyn Botanic Garden",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Botanical Garden",
+        "area": "Brooklyn",
+        "hours": "Tue-Sun 10 AM-6 PM (seasonal), Closed Mon",
+        "tags": [
+          "Cherry Blossoms",
+          "Japanese Garden"
+        ],
+        "description": "Nestled beside Prospect Park, Brooklyn Botanic Garden is best known for its Japanese Hill-and-Pond Garden, the first public Japanese-inspired garden in the United States, complete with a red torii gate and koi-filled pond.",
+        "lat": 40.6694,
+        "lng": -73.9629,
+        "nearby": [
+          {
+            "title": "Brooklyn Museum",
+            "kind": "Art Museum",
+            "mins": 3,
+            "lat": 40.6712,
+            "lng": -73.9636
+          },
+          {
+            "title": "Prospect Park Zoo",
+            "kind": "Zoo",
+            "mins": 9,
+            "lat": 40.6626,
+            "lng": -73.9629
+          },
+          {
+            "title": "Prospect Park Boathouse",
+            "kind": "Historic Building",
+            "mins": 13,
+            "lat": 40.6598,
+            "lng": -73.9635
+          }
+        ]
+      },
+      {
+        "id": "prospect-park",
+        "title": "Prospect Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Prospect Park",
+        "hours": "Daily 5:00 AM - 1:00 AM",
+        "tags": [
+          "Brooklyn Green Space",
+          "Lake & Trails"
+        ],
+        "description": "Often called Brooklyn's answer to Central Park, and in some ways preferred by Olmsted and Vaux themselves, Prospect Park spans 526 acres of woodland, meadow, and a 60-acre lake at its southern end.",
+        "lat": 40.6602,
+        "lng": -73.969,
+        "nearby": [
+          {
+            "title": "Brooklyn Museum",
+            "kind": "Art Museum",
+            "mins": 16,
+            "lat": 40.6712,
+            "lng": -73.9636
+          },
+          {
+            "title": "Prospect Park Zoo",
+            "kind": "Zoo",
+            "mins": 7,
+            "lat": 40.6626,
+            "lng": -73.9629
+          },
+          {
+            "title": "Prospect Park Boathouse",
+            "kind": "Historic Building",
+            "mins": 6,
+            "lat": 40.6598,
+            "lng": -73.9635
+          }
+        ]
+      },
+      {
+        "id": "new-york-botanical-garden",
+        "title": "New York Botanical Garden",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Botanical Garden",
+        "area": "Bronx",
+        "hours": "Tue-Sun 10 AM-6 PM, Closed Mon",
+        "tags": [
+          "Conservatory",
+          "Old-Growth Forest"
+        ],
+        "description": "Sprawling across 250 acres in the Bronx, the New York Botanical Garden includes a 50-acre old-growth forest, the largest remnant of the woodland that once covered New York. The Enid A.",
+        "lat": 40.8676,
+        "lng": -73.876,
+        "nearby": [
+          {
+            "title": "Bronx Zoo",
+            "kind": "Zoo",
+            "mins": 24,
+            "lat": 40.8506,
+            "lng": -73.877
+          },
+          {
+            "title": "Fordham University Rose Hill Campus",
+            "kind": "University Campus",
+            "mins": 13,
+            "lat": 40.8623,
+            "lng": -73.8857
+          }
+        ]
+      },
+      {
+        "id": "wave-hill",
+        "title": "Wave Hill",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "Bronx",
+        "hours": "Wed-Sun 10 AM-5:30 PM (seasonal), Closed Mon-Tue",
+        "tags": [
+          "Hudson River Views",
+          "Hidden Gem"
+        ],
+        "description": "A former private estate turned public garden, Wave Hill offers 28 acres of landscaped grounds overlooking the Hudson River and the New Jersey Palisades from the Riverdale section of the Bronx.",
+        "lat": 40.8996,
+        "lng": -73.9128,
+        "nearby": [
+          {
+            "title": "Old Croton Aqueduct Trail",
+            "kind": "Hiking Trail",
+            "mins": 6,
+            "lat": 40.8969,
+            "lng": -73.9082
+          },
+          {
+            "title": "Riverdale Park",
+            "kind": "Park",
+            "mins": 14,
+            "lat": 40.8896,
+            "lng": -73.9126
+          },
+          {
+            "title": "Van Cortlandt Golf Course",
+            "kind": "Golf Course",
+            "mins": 25,
+            "lat": 40.8983,
+            "lng": -73.889
+          }
+        ]
+      },
+      {
+        "id": "van-cortlandt-park",
+        "title": "Van Cortlandt Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Broadway & W 246th St",
+        "hours": "Daily 6:00 AM - 1:00 AM",
+        "tags": [
+          "Hiking Trails",
+          "Old-Growth Forest"
+        ],
+        "description": "The Bronx's largest park holds the city's oldest municipal golf course and a genuine network of hiking trails through old-growth forest, including a stretch of the historic Old Croton Aqueduct Trail.",
+        "lat": 40.8974,
+        "lng": -73.8916,
+        "nearby": [
+          {
+            "title": "Old Croton Aqueduct Trail",
+            "kind": "Hiking Trail",
+            "mins": 17,
+            "lat": 40.8969,
+            "lng": -73.9082
+          },
+          {
+            "title": "Riverdale Park",
+            "kind": "Park",
+            "mins": 25,
+            "lat": 40.8896,
+            "lng": -73.9126
+          },
+          {
+            "title": "Van Cortlandt Golf Course",
+            "kind": "Golf Course",
+            "mins": 3,
+            "lat": 40.8983,
+            "lng": -73.889
+          }
+        ]
+      },
+      {
+        "id": "pelham-bay-park",
+        "title": "Pelham Bay Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Pelham Bay Park",
+        "hours": "Daily 6:00 AM - 1:00 AM",
+        "tags": [
+          "Largest NYC Park",
+          "Beach & Nature Trails"
+        ],
+        "description": "At over three times the size of Central Park, Pelham Bay Park is New York City's largest park by far, holding salt marshes, forest trails, and Orchard Beach — often nicknamed the Bronx Riviera.",
+        "lat": 40.8712,
+        "lng": -73.8065,
+        "nearby": [
+          {
+            "title": "Orchard Beach",
+            "kind": "Beach",
+            "mins": 13,
+            "lat": 40.8709,
+            "lng": -73.7938
+          },
+          {
+            "title": "Bartow-Pell Mansion Museum",
+            "kind": "Historic House Museum",
+            "mins": 13,
+            "lat": 40.8635,
+            "lng": -73.7999
+          }
+        ]
+      },
+      {
+        "id": "jamaica-bay-wildlife-refuge",
+        "title": "Jamaica Bay Wildlife Refuge",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Wildlife Refuge",
+        "area": "Cross Bay Blvd",
+        "hours": "Daily sunrise to sunset (visitor center Wed-Sun 9 AM-5 PM)",
+        "tags": [
+          "Birding",
+          "Salt Marsh"
+        ],
+        "description": "Part of the Gateway National Recreation Area, Jamaica Bay Wildlife Refuge protects one of the most important bird habitats on the Eastern Seaboard, with over 330 species recorded across its salt marshes, ponds, and upland fields.",
+        "lat": 40.6205,
+        "lng": -73.8202,
+        "nearby": [
+          {
+            "title": "Jacob Riis Park",
+            "kind": "Beach",
+            "mins": 92,
+            "lat": 40.5687,
+            "lng": -73.8749
+          },
+          {
+            "title": "Fort Tilden",
+            "kind": "Nature Preserve & Beach",
+            "mins": 118,
+            "lat": 40.5589,
+            "lng": -73.8971
+          }
+        ]
+      },
+      {
+        "id": "staten-island-greenbelt",
+        "title": "Staten Island Greenbelt",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Nature Preserve",
+        "area": "Staten Island",
+        "hours": "Daily dawn to dusk",
+        "tags": [
+          "Hiking Trails",
+          "Forest"
+        ],
+        "description": "A sprawling network of forest, wetland, and hiking trails covering roughly a third of Staten Island, protected from development since the 1980s.",
+        "lat": 40.5795,
+        "lng": -74.1502,
+        "nearby": [
+          {
+            "title": "High Rock Park",
+            "kind": "Nature Preserve",
+            "mins": 26,
+            "lat": 40.5735,
+            "lng": -74.1266
+          },
+          {
+            "title": "Historic Richmond Town",
+            "kind": "Living History Museum",
+            "mins": 12,
+            "lat": 40.5716,
+            "lng": -74.1454
+          }
+        ]
+      },
+      {
+        "id": "governors-island",
+        "title": "Governors Island",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Island Park",
+        "area": "Governors Island",
+        "hours": "Seasonal, generally May-Oct, daily 10 AM-6 PM",
+        "tags": [
+          "Car-Free",
+          "Harbor Views"
+        ],
+        "description": "A short ferry ride from Lower Manhattan, Governors Island offers 172 acres of car-free green space with sweeping harbor views toward the Statue of Liberty and the Manhattan skyline alike.",
+        "lat": 40.6895,
+        "lng": -74.0165,
+        "nearby": [
+          {
+            "title": "Hammock Grove",
+            "kind": "Recreation Area",
+            "mins": 1,
+            "lat": 40.6889,
+            "lng": -74.017
+          },
+          {
+            "title": "The Hills (Governors Island)",
+            "kind": "Constructed Landscape",
+            "mins": 2,
+            "lat": 40.6878,
+            "lng": -74.0158
+          }
+        ]
+      },
+      {
+        "id": "inwood-hill-park",
+        "title": "Inwood Hill Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Inwood Hill Park",
+        "hours": "Daily 6:00 AM - 1:00 AM",
+        "tags": [
+          "Manhattan's Last Forest",
+          "Caves & Salt Marsh"
+        ],
+        "description": "Manhattan's last natural forest, Inwood Hill Park holds the borough's only remaining salt marsh and a network of glacial caves once used by the Lenape people.",
+        "lat": 40.8712,
+        "lng": -73.9257,
+        "nearby": [
+          {
+            "title": "The Met Cloisters",
+            "kind": "Museum",
+            "mins": 11,
+            "lat": 40.8648,
+            "lng": -73.9317
+          },
+          {
+            "title": "Shorakapok Rock & Salt Marsh",
+            "kind": "Natural Landmark",
+            "mins": 3,
+            "lat": 40.8699,
+            "lng": -73.9236
+          },
+          {
+            "title": "Dyckman Farmhouse Museum",
+            "kind": "Historic House Museum",
+            "mins": 7,
+            "lat": 40.8664,
+            "lng": -73.9256
+          }
         ]
       }
     ]
@@ -107,92 +3832,1604 @@
   {
     "city": "San Francisco",
     "country": "United States",
-    "center": [-122.4194, 37.7749],
+    "center": [
+      -122.4194,
+      37.7749
+    ],
+    "trustedCoords": true,
     "spots": [
       {
         "id": "golden-gate-bridge",
         "title": "Golden Gate Bridge",
-        "vibes": ["classics"],
-        "kind": "Landmark",
-        "area": "Presidio",
-        "hours": "Anytime",
-        "tags": ["Iconic", "Viewpoint"],
-        "description": "The unmistakable orange span — catch it from Battery Spencer or cycle across to Sausalito.",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Iconic Landmark",
+        "area": "",
+        "hours": "Pedestrian east sidewalk: 5:00 AM–9:00 PM (early Mar–early Nov), 5:00 AM–6:30 PM (early Nov–early Mar). Welcome Center: 9:00 AM–6:00 PM daily. Free for pedestrians; toll applies only for southbound vehicles.",
+        "tags": [
+          "Bridge",
+          "Photo Spot"
+        ],
+        "description": "Completed in 1937, this Art Deco suspension bridge spans the strait connecting San Francisco Bay to the Pacific and remains the city's single most recognizable symbol.",
+        "lat": 37.8199,
+        "lng": -122.4783,
         "nearby": [
-          { "title": "Battery Spencer viewpoint", "kind": "Photo stop", "mins": 10 },
-          { "title": "Crissy Field walk", "kind": "Nature", "mins": 8 }
+          {
+            "title": "Presidio Tunnel Tops",
+            "kind": "Park & Overlook",
+            "mins": 29,
+            "lat": 37.8014,
+            "lng": -122.4661
+          },
+          {
+            "title": "Crissy Field",
+            "kind": "Waterfront Park",
+            "mins": 28,
+            "lat": 37.8036,
+            "lng": -122.4629
+          },
+          {
+            "title": "Fort Point National Historic Site",
+            "kind": "Historic Fort",
+            "mins": 13,
+            "lat": 37.8109,
+            "lng": -122.4773
+          }
         ]
       },
       {
-        "id": "ferry-building",
-        "title": "Ferry Building Marketplace",
-        "vibes": ["classics", "matcha"],
-        "kind": "Food market",
-        "area": "Embarcadero",
-        "hours": "Daytime",
-        "tags": ["Foodie", "Bayfront"],
-        "description": "A grand waterfront hall of artisan food stalls and a farmers' market, with the Bay Bridge as backdrop.",
+        "id": "alcatraz-island",
+        "title": "Alcatraz Island",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic Landmark",
+        "area": "Alcatraz Island",
+        "hours": "Ferries depart approximately every 30 minutes, 8:40 AM–5:00 PM (day tours), plus evening tours in season. Open daily except Thanksgiving and Christmas. Advance reservations required.",
+        "tags": [
+          "Former Prison",
+          "National Park"
+        ],
+        "description": "Once a federal penitentiary housing inmates like Al Capone, 'The Rock' sits just over a mile off Fisherman's Wharf in San Francisco Bay and is now run by the National Park Service.",
+        "lat": 37.8267,
+        "lng": -122.423,
         "nearby": [
-          { "title": "Blue Bottle Coffee", "kind": "Coffee", "mins": 2 },
-          { "title": "Embarcadero waterfront", "kind": "Stroll", "mins": 4 }
+          {
+            "title": "Alcatraz Historic Gardens",
+            "kind": "Historic Garden",
+            "mins": 1,
+            "lat": 37.8271,
+            "lng": -122.4235
+          },
+          {
+            "title": "Building 64 – Indians of All Tribes Exhibit",
+            "kind": "Historic Exhibit",
+            "mins": 1,
+            "lat": 37.8264,
+            "lng": -122.4225
+          }
+        ]
+      },
+      {
+        "id": "pier-39-fisherman-s-wharf",
+        "title": "PIER 39 & Fisherman's Wharf",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Waterfront District",
+        "area": "Pier 39",
+        "hours": "Retail: 10:00 AM–9:00 PM. Restaurants: 11:00 AM–10:00 PM. Attractions: 10:00 AM–9:00 PM. Hours vary slightly by individual business. Free to enter; some attractions charge admission.",
+        "tags": [
+          "Shopping & Dining",
+          "Sea Lions"
+        ],
+        "description": "This 45-acre waterfront complex two blocks east of Fisherman's Wharf packs in restaurants, shops, and street performers along San Francisco Bay, with views stretching to the Golden Gate Bridge, Bay Bridge, and Alcatraz.",
+        "lat": 37.8087,
+        "lng": -122.4098,
+        "nearby": [
+          {
+            "title": "Musée Mécanique",
+            "kind": "Arcade Museum",
+            "mins": 9,
+            "lat": 37.8095,
+            "lng": -122.418
+          },
+          {
+            "title": "Boudin Bakery & Bakery Tour",
+            "kind": "Bakery",
+            "mins": 7,
+            "lat": 37.8087,
+            "lng": -122.4166
+          },
+          {
+            "title": "San Francisco Maritime National Historical Park",
+            "kind": "Maritime Museum",
+            "mins": 13,
+            "lat": 37.8078,
+            "lng": -122.4217
+          }
         ]
       },
       {
         "id": "golden-gate-park",
         "title": "Golden Gate Park",
-        "vibes": ["nature"],
-        "kind": "Park",
-        "area": "Richmond",
-        "hours": "Anytime",
-        "tags": ["Green", "Gardens"],
-        "description": "Bigger than Central Park — Japanese Tea Garden, botanical gardens, bison and windmills by the ocean.",
+        "vibes": [
+          "classics",
+          "nature"
+        ],
+        "kind": "Urban Park",
+        "area": "San Francisco",
+        "hours": "Park grounds: 5:00 AM–midnight daily. Most individual attractions (museums, Tea Garden, Conservatory): approximately 9:00 AM–5:00 PM, hours vary and several are closed Mondays. Park entry is free; individual attractions charge separate admission.",
+        "tags": [
+          "Museums",
+          "Gardens"
+        ],
+        "description": "Stretching over 1,000 acres from the Haight to the Pacific Ocean, this park is larger than New York's Central Park and packs in the de Young Museum, California Academy of Sciences, Japanese Tea Garden, and a Victorian-era Conservatory of…",
+        "lat": 37.7694,
+        "lng": -122.4862,
         "nearby": [
-          { "title": "Japanese Tea Garden", "kind": "Garden", "mins": 5 },
-          { "title": "de Young Museum", "kind": "Museum", "mins": 7 }
+          {
+            "title": "de Young Museum",
+            "kind": "Art Museum",
+            "mins": 20,
+            "lat": 37.7715,
+            "lng": -122.4686
+          },
+          {
+            "title": "California Academy of Sciences",
+            "kind": "Natural History Museum",
+            "mins": 22,
+            "lat": 37.7699,
+            "lng": -122.4661
+          },
+          {
+            "title": "Japanese Tea Garden",
+            "kind": "Japanese Garden",
+            "mins": 18,
+            "lat": 37.7702,
+            "lng": -122.47
+          },
+          {
+            "title": "Conservatory of Flowers",
+            "kind": "Botanical Greenhouse",
+            "mins": 29,
+            "lat": 37.7716,
+            "lng": -122.4603
+          },
+          {
+            "title": "Stow Lake Boathouse",
+            "kind": "Lake",
+            "mins": 9,
+            "lat": 37.7699,
+            "lng": -122.4776
+          },
+          {
+            "title": "Stow Lake & Strawberry Hill",
+            "kind": "Lake",
+            "mins": 9,
+            "lat": 37.7686,
+            "lng": -122.4783
+          },
+          {
+            "title": "Golden Gate Park Bison Paddock",
+            "kind": "Wildlife Viewing",
+            "mins": 19,
+            "lat": 37.7695,
+            "lng": -122.5031
+          }
+        ]
+      },
+      {
+        "id": "painted-ladies-alamo-square",
+        "title": "Painted Ladies (Alamo Square)",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic Architecture",
+        "area": "San Francisco",
+        "hours": "Alamo Square Park: 5:00 AM–midnight daily. Painted Ladies are private homes viewed from the street/park; no set hours or admission fee.",
+        "tags": [
+          "Victorian Houses",
+          "Skyline View"
+        ],
+        "description": "This row of ornate Victorian homes on Steiner Street, known as 'Postcard Row,' is one of San Francisco's most photographed sights, framing the downtown skyline behind pastel 19th-century facades that somehow survived the 1906 earthquake.",
+        "lat": 37.7764,
+        "lng": -122.4346,
+        "nearby": [
+          {
+            "title": "Patricia's Green",
+            "kind": "Neighborhood Park",
+            "mins": 11,
+            "lat": 37.7764,
+            "lng": -122.4243
+          },
+          {
+            "title": "Souvla",
+            "kind": "Greek Restaurant",
+            "mins": 11,
+            "lat": 37.7762,
+            "lng": -122.4247
+          },
+          {
+            "title": "Smitten Ice Cream",
+            "kind": "Ice Cream Shop",
+            "mins": 12,
+            "lat": 37.7758,
+            "lng": -122.4238
+          }
+        ]
+      },
+      {
+        "id": "lombard-street-crooked-block",
+        "title": "Lombard Street (Crooked Block)",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic Street",
+        "area": "San Francisco",
+        "hours": "Open 24 hours as a public street. No admission fee. Best light and least traffic in early morning; avoid weekend afternoons.",
+        "tags": [
+          "Photo Spot",
+          "Landmark Drive"
+        ],
+        "description": "Dubbed 'the crookedest street in the world,' this one-block stretch of Russian Hill between Hyde and Leavenworth streets was engineered in the 1920s with eight sharp switchbacks to make an otherwise dangerously steep grade manageable.",
+        "lat": 37.8021,
+        "lng": -122.4188,
+        "nearby": []
+      },
+      {
+        "id": "coit-tower",
+        "title": "Coit Tower",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Observation Tower",
+        "area": "San Francisco",
+        "hours": "Open daily, April–October: 10:00 AM–6:00 PM; November–March: 10:00 AM–5:00 PM. Ground-floor murals free; elevator to observation deck approximately $10.",
+        "tags": [
+          "City View",
+          "Depression-Era Murals"
+        ],
+        "description": "Perched atop Telegraph Hill, this fluted 210-foot Art Deco column was completed in 1933 using a bequest from wealthy eccentric Lillie Hitchcock Coit, 'to add beauty to the city she loved.' The ground floor houses Depression-era WPA mural…",
+        "lat": 37.8024,
+        "lng": -122.4058,
+        "nearby": [
+          {
+            "title": "City Lights Bookstore",
+            "kind": "Independent Bookstore",
+            "mins": 8,
+            "lat": 37.7969,
+            "lng": -122.4066
+          },
+          {
+            "title": "Washington Square Park",
+            "kind": "City Park",
+            "mins": 6,
+            "lat": 37.8006,
+            "lng": -122.4103
+          },
+          {
+            "title": "Caffè Trieste",
+            "kind": "Historic Cafe",
+            "mins": 7,
+            "lat": 37.7982,
+            "lng": -122.4092
+          },
+          {
+            "title": "Molinari Delicatessen",
+            "kind": "Italian Deli",
+            "mins": 6,
+            "lat": 37.7981,
+            "lng": -122.4079
+          },
+          {
+            "title": "Filbert Street Steps & Napier Lane",
+            "kind": "Garden Stairway",
+            "mins": 2,
+            "lat": 37.8016,
+            "lng": -122.4048
+          }
+        ]
+      },
+      {
+        "id": "twin-peaks",
+        "title": "Twin Peaks",
+        "vibes": [
+          "classics",
+          "nature"
+        ],
+        "kind": "Scenic Viewpoint",
+        "area": "San Francisco",
+        "hours": "Park grounds open 5:00 AM–midnight daily. No admission fee. Access is via Portola Drive; often windy and considerably colder than the rest of the city.",
+        "tags": [
+          "City Skyline",
+          "Hiking"
+        ],
+        "description": "At 922 feet, these twin summits are among San Francisco's highest points and offer arguably the best 360-degree panorama in the city, taking in downtown skyscrapers, both bridges, Alcatraz, and on clear days the distant hills of Marin.",
+        "lat": 37.7544,
+        "lng": -122.4477,
+        "nearby": [
+          {
+            "title": "Tank Hill",
+            "kind": "Hidden Viewpoint",
+            "mins": 9,
+            "lat": 37.7602,
+            "lng": -122.4442
+          },
+          {
+            "title": "Grandview Park (Turtle Hill)",
+            "kind": "Hidden Viewpoint",
+            "mins": 29,
+            "lat": 37.7601,
+            "lng": -122.4732
+          },
+          {
+            "title": "Corona Heights Park",
+            "kind": "Rocky Outcrop",
+            "mins": 17,
+            "lat": 37.7639,
+            "lng": -122.438
+          }
+        ]
+      },
+      {
+        "id": "ferry-building-marketplace",
+        "title": "Ferry Building Marketplace",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic Landmark",
+        "area": "San Francisco",
+        "hours": "Marketplace: 7:00 AM–8:00 PM daily; individual merchant hours vary. Farmers Market: Tuesday and Thursday mornings, Saturday 8:00 AM–2:00 PM. Free to browse.",
+        "tags": [
+          "Food Hall",
+          "Waterfront"
+        ],
+        "description": "Standing since 1898 with a 245-foot clock tower modeled on Seville's Giralda, this Beaux-Arts terminal once welcomed up to 50,000 commuters a day before the bridges made ferries obsolete.",
+        "lat": 37.7955,
+        "lng": -122.3937,
+        "nearby": [
+          {
+            "title": "Hog Island Oyster Co.",
+            "kind": "Oyster Bar",
+            "mins": 1,
+            "lat": 37.7957,
+            "lng": -122.3934
+          },
+          {
+            "title": "The Slanted Door",
+            "kind": "Vietnamese Restaurant",
+            "mins": 1,
+            "lat": 37.7954,
+            "lng": -122.3939
+          },
+          {
+            "title": "Exploratorium",
+            "kind": "Science Museum",
+            "mins": 10,
+            "lat": 37.8017,
+            "lng": -122.3975
+          }
+        ]
+      },
+      {
+        "id": "powell-street-cable-car-turnaround",
+        "title": "Powell Street Cable Car Turnaround",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic Transit",
+        "area": "Powell St & Market St",
+        "hours": "Cable cars run approximately 6:00 AM–12:30 AM daily (hours vary by line). Single ride fare $9, purchased at the turnaround or via MuniMobile app.",
+        "tags": [
+          "Cable Cars",
+          "Photo Spot"
+        ],
+        "description": "San Francisco's cable cars, invented in 1873 and now a National Historic Landmark, are the last manually operated system of their kind in the world.",
+        "lat": 37.7845,
+        "lng": -122.4079,
+        "nearby": [
+          {
+            "title": "Cable Car Museum",
+            "kind": "Transit Museum",
+            "mins": 14,
+            "lat": 37.7946,
+            "lng": -122.4108
+          }
+        ]
+      },
+      {
+        "id": "chinatown-dragon-s-gate",
+        "title": "Chinatown & Dragon's Gate",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic District",
+        "area": "Grant Ave & Bush St",
+        "hours": "Gate and streets accessible 24 hours as a public neighborhood. Individual shop and restaurant hours vary, generally 9:00 AM–9:00 PM.",
+        "tags": [
+          "Cultural Landmark",
+          "Street Food"
+        ],
+        "description": "Marking the southern entrance to the oldest and one of the largest Chinatowns in North America, this ornamental gate was a 1970 gift from Taiwan, its green roof tiles and stone lions setting the tone for the dense blocks of shops, temple…",
+        "lat": 37.7909,
+        "lng": -122.4058,
+        "nearby": [
+          {
+            "title": "Golden Gate Bakery",
+            "kind": "Bakery",
+            "mins": 8,
+            "lat": 37.7963,
+            "lng": -122.4067
+          },
+          {
+            "title": "Portsmouth Square",
+            "kind": "Historic Plaza",
+            "mins": 6,
+            "lat": 37.7952,
+            "lng": -122.4054
+          }
+        ]
+      },
+      {
+        "id": "union-square",
+        "title": "Union Square",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "City Plaza",
+        "area": "Bordered by Geary",
+        "hours": "Public plaza open 24 hours. Surrounding stores typically 10:00 AM–8:00 PM, later on weekends. Free to visit.",
+        "tags": [
+          "Shopping",
+          "Public Art"
+        ],
+        "description": "Named for pro-Union rallies held here before the Civil War, this 2.6-acre plaza is the commercial heart of downtown San Francisco, ringed by flagship department stores, historic theaters, and four-star hotels.",
+        "lat": 37.788,
+        "lng": -122.4074,
+        "nearby": [
+          {
+            "title": "Westfield San Francisco Centre",
+            "kind": "Shopping Mall",
+            "mins": 5,
+            "lat": 37.7842,
+            "lng": -122.4064
+          },
+          {
+            "title": "Maiden Lane",
+            "kind": "Pedestrian Alley",
+            "mins": 3,
+            "lat": 37.7883,
+            "lng": -122.4051
+          }
+        ]
+      },
+      {
+        "id": "palace-of-fine-arts",
+        "title": "Palace of Fine Arts",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic Landmark",
+        "area": "San Francisco",
+        "hours": "Grounds open 24 hours as a public park; free. Palace of Fine Arts Theatre box office and event hours vary by performance.",
+        "tags": [
+          "Neoclassical Architecture",
+          "Photo Spot"
+        ],
+        "description": "Built for the 1915 Panama-Pacific Exposition and originally meant to be torn down afterward, this neoclassical rotunda and colonnade is the only structure from that world's fair still standing, saved by public affection after the tempora…",
+        "lat": 37.8029,
+        "lng": -122.4484,
+        "nearby": [
+          {
+            "title": "Chestnut Street (Marina District)",
+            "kind": "Shopping Street",
+            "mins": 12,
+            "lat": 37.8003,
+            "lng": -122.438
+          },
+          {
+            "title": "Marina Green",
+            "kind": "Waterfront Lawn",
+            "mins": 12,
+            "lat": 37.8065,
+            "lng": -122.4386
+          }
+        ]
+      },
+      {
+        "id": "ghirardelli-square",
+        "title": "Ghirardelli Square",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic Landmark",
+        "area": "San Francisco",
+        "hours": "Square grounds: 6:00 AM–midnight. Shops: approximately 11:00 AM–9:00 PM daily, later Fri/Sat. Free to enter.",
+        "tags": [
+          "Chocolate",
+          "Shopping"
+        ],
+        "description": "Once the working Ghirardelli chocolate factory, established in the 1890s, this red-brick complex above Aquatic Park was redeveloped in 1964 into one of the country's first successful adaptive-reuse shopping projects, now a National Histo…",
+        "lat": 37.8058,
+        "lng": -122.4229,
+        "nearby": [
+          {
+            "title": "San Francisco Maritime National Historical Park",
+            "kind": "Maritime Museum",
+            "mins": 3,
+            "lat": 37.8078,
+            "lng": -122.4217
+          },
+          {
+            "title": "Ghirardelli Original Chocolate Shop",
+            "kind": "Chocolate Shop",
+            "mins": 1,
+            "lat": 37.8064,
+            "lng": -122.4225
+          },
+          {
+            "title": "Buena Vista Cafe",
+            "kind": "Historic Bar",
+            "mins": 3,
+            "lat": 37.8058,
+            "lng": -122.4198
+          }
+        ]
+      },
+      {
+        "id": "sutro-baths-lands-end",
+        "title": "Sutro Baths & Lands End",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic Ruins",
+        "area": "San Francisco",
+        "hours": "Ruins accessible dawn to dusk daily, free. Lands End Lookout visitor center/cafe: approximately 9:00 AM–5:00 PM. Uneven terrain; sturdy shoes recommended.",
+        "tags": [
+          "Coastal Trail",
+          "Ocean View"
+        ],
+        "description": "Once the world's largest indoor swimming pool complex, built by former mayor Adolph Sutro in 1896 with six saltwater pools under a glass-and-steel roof, this site burned to its concrete foundations in 1966 and now sits as evocative ruins…",
+        "lat": 37.78,
+        "lng": -122.5136,
+        "nearby": [
+          {
+            "title": "Lands End Lookout Visitor Center",
+            "kind": "Visitor Center",
+            "mins": 4,
+            "lat": 37.7809,
+            "lng": -122.51
+          },
+          {
+            "title": "Sutro Heights Park",
+            "kind": "Historic Garden",
+            "mins": 3,
+            "lat": 37.7793,
+            "lng": -122.5115
+          },
+          {
+            "title": "Legion of Honor",
+            "kind": "Art Museum",
+            "mins": 16,
+            "lat": 37.7845,
+            "lng": -122.5
+          },
+          {
+            "title": "Cliff House Overlook",
+            "kind": "Historic Site",
+            "mins": 1,
+            "lat": 37.7791,
+            "lng": -122.5133
+          }
+        ]
+      },
+      {
+        "id": "bourbon-branch",
+        "title": "Bourbon & Branch",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Speakeasy",
+        "area": "San Francisco",
+        "hours": "Daily 6:00 PM - 2:00 AM (reservation required)",
+        "tags": [
+          "Password Required",
+          "Prohibition Era"
+        ],
+        "description": "Operating from the same Tenderloin address where an actual speakeasy illegally served whiskey during Prohibition, Bourbon & Branch requires a password (currently issued through the reservation system) and enforces a strict no-phones poli…",
+        "lat": 37.7854,
+        "lng": -122.4127,
+        "nearby": [
+          {
+            "title": "Aunt Charlie's Lounge",
+            "kind": "Drag Bar",
+            "mins": 2,
+            "lat": 37.7841,
+            "lng": -122.4113
+          },
+          {
+            "title": "Curran Theatre",
+            "kind": "Theater",
+            "mins": 4,
+            "lat": 37.7869,
+            "lng": -122.4098
+          }
+        ]
+      },
+      {
+        "id": "smuggler-s-cove",
+        "title": "Smuggler's Cove",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Tiki Bar",
+        "area": "San Francisco",
+        "hours": "Daily 5:00 PM - 1:15 AM",
+        "tags": [
+          "Rum Selection",
+          "Shipwreck Decor"
+        ],
+        "description": "One of the most respected tiki bars in the world, Smuggler's Cove packs three themed levels — shipwreck, tropical island, and Caribbean hideaway — with over 500 varieties of rum.",
+        "lat": 37.777,
+        "lng": -122.4237,
+        "nearby": [
+          {
+            "title": "Absinthe Brasserie & Bar",
+            "kind": "French Brasserie",
+            "mins": 1,
+            "lat": 37.7767,
+            "lng": -122.4235
+          },
+          {
+            "title": "Patricia's Green",
+            "kind": "Park",
+            "mins": 1,
+            "lat": 37.7763,
+            "lng": -122.4243
+          }
+        ]
+      },
+      {
+        "id": "the-devil-s-acre",
+        "title": "The Devil's Acre",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Speakeasy",
+        "area": "San Francisco",
+        "hours": "Daily 4:00 PM - 2:00 AM",
+        "tags": [
+          "Apothecary Style",
+          "1868 Mahogany Bar"
+        ],
+        "description": "Sitting right between Chinatown and North Beach, The Devil's Acre pays tribute to San Francisco's rowdy Barbary Coast era behind a genuine mahogany bar dating to 1868.",
+        "lat": 37.7975,
+        "lng": -122.4066,
+        "nearby": [
+          {
+            "title": "City Lights Bookstore",
+            "kind": "Independent Bookstore",
+            "mins": 1,
+            "lat": 37.7975,
+            "lng": -122.4066
+          },
+          {
+            "title": "Molinari Delicatessen",
+            "kind": "Italian Deli",
+            "mins": 2,
+            "lat": 37.7978,
+            "lng": -122.4083
+          },
+          {
+            "title": "Washington Square Park (North Beach)",
+            "kind": "Park",
+            "mins": 6,
+            "lat": 37.8006,
+            "lng": -122.4103
+          }
+        ]
+      },
+      {
+        "id": "li-po-cocktail-lounge",
+        "title": "Li Po Cocktail Lounge",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Historic Dive Bar",
+        "area": "San Francisco",
+        "hours": "Daily 2:00 PM - 2:00 AM",
+        "tags": [
+          "Chinese Mai Tai",
+          "Since the 1930s"
+        ],
+        "description": "Tucked along Grant Avenue in the heart of Chinatown, Li Po has operated since the 1930s and still feels like stepping into another era, with dim lighting, red lanterns, and a golden Buddha behind the bar.",
+        "lat": 37.7963,
+        "lng": -122.4058,
+        "nearby": [
+          {
+            "title": "Ross Alley",
+            "kind": "Historic Alley",
+            "mins": 2,
+            "lat": 37.7947,
+            "lng": -122.4066
+          },
+          {
+            "title": "Portsmouth Square",
+            "kind": "Public Plaza",
+            "mins": 2,
+            "lat": 37.7947,
+            "lng": -122.4056
+          }
+        ]
+      },
+      {
+        "id": "twin-peaks-tavern",
+        "title": "Twin Peaks Tavern",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Historic Bar",
+        "area": "San Francisco",
+        "hours": "Daily 12:00 PM - 2:00 AM",
+        "tags": [
+          "LGBTQ+ Landmark",
+          "Castro Institution"
+        ],
+        "description": "Granted historic landmark status for being one of the first gay bars in the country to install full-length clear street-facing windows, Twin Peaks Tavern has anchored the corner of Castro and Market since the 1880s building itself was co…",
+        "lat": 37.7609,
+        "lng": -122.435,
+        "nearby": [
+          {
+            "title": "Castro Theatre",
+            "kind": "Historic Movie Palace",
+            "mins": 1,
+            "lat": 37.7617,
+            "lng": -122.435
+          },
+          {
+            "title": "Harvey Milk Plaza",
+            "kind": "Public Plaza",
+            "mins": 2,
+            "lat": 37.7621,
+            "lng": -122.4348
+          }
+        ]
+      },
+      {
+        "id": "vesuvio-cafe",
+        "title": "Vesuvio Cafe",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Historic Bar",
+        "area": "San Francisco",
+        "hours": "Daily 6:00 AM - 2:00 AM",
+        "tags": [
+          "Beat Generation",
+          "Since 1948"
+        ],
+        "description": "A North Beach legend that hasn't lost its edge since opening in 1948, Vesuvio once hosted Jack Kerouac and the wider Beat poetry scene across its two-story, art-cluttered interior.",
+        "lat": 37.7975,
+        "lng": -122.4068,
+        "nearby": [
+          {
+            "title": "City Lights Bookstore",
+            "kind": "Independent Bookstore",
+            "mins": 1,
+            "lat": 37.7975,
+            "lng": -122.4066
+          },
+          {
+            "title": "Molinari Delicatessen",
+            "kind": "Italian Deli",
+            "mins": 2,
+            "lat": 37.7978,
+            "lng": -122.4083
+          },
+          {
+            "title": "Washington Square Park (North Beach)",
+            "kind": "Park",
+            "mins": 6,
+            "lat": 37.8006,
+            "lng": -122.4103
+          }
+        ]
+      },
+      {
+        "id": "tonga-room-hurricane-bar",
+        "title": "Tonga Room & Hurricane Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Tiki Bar",
+        "area": "San Francisco",
+        "hours": "Wed-Thu 5:00 PM-10:00 PM, Fri-Sat 5:00 PM-11:00 PM, Closed Sun-Tue",
+        "tags": [
+          "Indoor Lagoon",
+          "Since 1945"
+        ],
+        "description": "Hidden inside the Beaux Arts Fairmont San Francisco hotel, the Tonga Room centers on a lagoon built into the hotel's former indoor swimming pool, complete with a floating stage where a live band performs and periodic simulated tropical r…",
+        "lat": 37.7925,
+        "lng": -122.4103,
+        "nearby": [
+          {
+            "title": "Grace Cathedral",
+            "kind": "Historic Church",
+            "mins": 3,
+            "lat": 37.792,
+            "lng": -122.4132
+          },
+          {
+            "title": "Huntington Park",
+            "kind": "Park",
+            "mins": 2,
+            "lat": 37.7917,
+            "lng": -122.4113
+          }
+        ]
+      },
+      {
+        "id": "top-of-the-mark",
+        "title": "Top of the Mark",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop Bar",
+        "area": "San Francisco",
+        "hours": "Daily 4:30 PM - 11:00 PM (extended weekends)",
+        "tags": [
+          "Since 1939",
+          "360-Degree Views"
+        ],
+        "description": "Perched on the 19th floor of the InterContinental Mark Hopkins hotel, Top of the Mark has been drawing San Franciscans to dress up for a view since 1939.",
+        "lat": 37.7919,
+        "lng": -122.4108,
+        "nearby": [
+          {
+            "title": "Grace Cathedral",
+            "kind": "Historic Church",
+            "mins": 3,
+            "lat": 37.792,
+            "lng": -122.4132
+          },
+          {
+            "title": "Huntington Park",
+            "kind": "Park",
+            "mins": 1,
+            "lat": 37.7917,
+            "lng": -122.4113
+          }
+        ]
+      },
+      {
+        "id": "sfjazz-center",
+        "title": "SFJAZZ Center",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Jazz Venue",
+        "area": "San Francisco",
+        "hours": "Wed 12 PM-5:30 PM, Thu-Sat 12 PM-10 PM, Closed Sun-Tue (showtimes vary)",
+        "tags": [
+          "Purpose-Built",
+          "Miner Auditorium"
+        ],
+        "description": "Opened in 2013 as the first freestanding building in the country designed specifically for jazz performance and education, SFJAZZ Center's Miner Auditorium is regarded as one of the best listening rooms in the country, with no genuinely …",
+        "lat": 37.7766,
+        "lng": -122.4225,
+        "nearby": [
+          {
+            "title": "Absinthe Brasserie & Bar",
+            "kind": "French Brasserie",
+            "mins": 1,
+            "lat": 37.7767,
+            "lng": -122.4235
+          },
+          {
+            "title": "Patricia's Green",
+            "kind": "Park",
+            "mins": 2,
+            "lat": 37.7763,
+            "lng": -122.4243
+          }
+        ]
+      },
+      {
+        "id": "moongate-lounge",
+        "title": "Moongate Lounge",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail Lounge",
+        "area": "San Francisco",
+        "hours": "Wed-Sat 5:00 PM - 12:00 AM, Closed Sun-Tue",
+        "tags": [
+          "Above Mister Jiu's",
+          "Bond Lair Aesthetic"
+        ],
+        "description": "Set above the acclaimed restaurant Mister Jiu's in Chinatown, Moongate Lounge looks like something out of a spy film, with an illuminated bar, red velvet upholstery, and elegant lotus-shaped chandeliers.",
+        "lat": 37.7942,
+        "lng": -122.4066,
+        "nearby": [
+          {
+            "title": "Ross Alley",
+            "kind": "Historic Alley",
+            "mins": 1,
+            "lat": 37.7947,
+            "lng": -122.4066
+          },
+          {
+            "title": "Portsmouth Square",
+            "kind": "Public Plaza",
+            "mins": 1,
+            "lat": 37.7947,
+            "lng": -122.4056
+          }
+        ]
+      },
+      {
+        "id": "local-edition",
+        "title": "Local Edition",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Speakeasy",
+        "area": "San Francisco",
+        "hours": "Tue-Sat 5:00 PM - 2:00 AM, Closed Sun-Mon",
+        "tags": [
+          "Financial District",
+          "Newspaper Theme"
+        ],
+        "description": "A basement speakeasy in the Financial District styled around a vintage newsroom theme, complete with typewriters and old newspaper clippings lining the walls.",
+        "lat": 37.7885,
+        "lng": -122.4034,
+        "nearby": [
+          {
+            "title": "Ferry Building Marketplace",
+            "kind": "Food Hall",
+            "mins": 14,
+            "lat": 37.7955,
+            "lng": -122.3937
+          },
+          {
+            "title": "Transamerica Pyramid (Redwood Park)",
+            "kind": "Landmark & Park",
+            "mins": 9,
+            "lat": 37.7952,
+            "lng": -122.4028
+          }
+        ]
+      },
+      {
+        "id": "comstock-saloon",
+        "title": "Comstock Saloon",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Historic Cocktail Bar",
+        "area": "San Francisco",
+        "hours": "Daily 4:00 PM - 2:00 AM",
+        "tags": [
+          "Barbary Coast Revival",
+          "North Beach"
+        ],
+        "description": "Occupying a beautifully restored 1907 saloon space at the edge of North Beach and Chinatown, Comstock Saloon revives pre-Prohibition drinking culture with a menu built around Pisco Punch and other San Francisco classics dating to the Bar…",
+        "lat": 37.7975,
+        "lng": -122.4066,
+        "nearby": [
+          {
+            "title": "City Lights Bookstore",
+            "kind": "Independent Bookstore",
+            "mins": 1,
+            "lat": 37.7975,
+            "lng": -122.4066
+          },
+          {
+            "title": "Molinari Delicatessen",
+            "kind": "Italian Deli",
+            "mins": 2,
+            "lat": 37.7978,
+            "lng": -122.4083
+          },
+          {
+            "title": "Washington Square Park (North Beach)",
+            "kind": "Park",
+            "mins": 6,
+            "lat": 37.8006,
+            "lng": -122.4103
+          }
+        ]
+      },
+      {
+        "id": "trick-dog",
+        "title": "Trick Dog",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail Bar",
+        "area": "San Francisco",
+        "hours": "Daily 3:00 PM - 2:00 AM",
+        "tags": [
+          "Rotating Themed Menu",
+          "Mission District"
+        ],
+        "description": "One of the Mission District's most acclaimed cocktail bars, Trick Dog reinvents its entire menu roughly twice a year around a different visual and conceptual theme, from Chinese takeout menus to tarot cards.",
+        "lat": 37.7592,
+        "lng": -122.4113,
+        "nearby": [
+          {
+            "title": "Clarion Alley",
+            "kind": "Street Art",
+            "mins": 12,
+            "lat": 37.7621,
+            "lng": -122.4212
+          },
+          {
+            "title": "Dolores Park",
+            "kind": "Park",
+            "mins": 17,
+            "lat": 37.7596,
+            "lng": -122.4269
+          }
+        ]
+      },
+      {
+        "id": "el-rio",
+        "title": "El Rio",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Dive Bar & Live Music Venue",
+        "area": "San Francisco",
+        "hours": "Mon-Fri 3:00 PM - 2:00 AM, Sat-Sun 12:00 PM - 2:00 AM",
+        "tags": [
+          "Backyard Patio",
+          "Queer-Friendly"
+        ],
+        "description": "A beloved, unpretentious Mission District dive with a spacious back patio that hosts everything from salsa nights to drag shows to live bands, drawing one of the most genuinely diverse crowds in the city.",
+        "lat": 37.7477,
+        "lng": -122.4187,
+        "nearby": [
+          {
+            "title": "Clarion Alley",
+            "kind": "Street Art",
+            "mins": 20,
+            "lat": 37.7621,
+            "lng": -122.4212
+          },
+          {
+            "title": "Dolores Park",
+            "kind": "Park",
+            "mins": 19,
+            "lat": 37.7596,
+            "lng": -122.4269
+          }
+        ]
+      },
+      {
+        "id": "great-american-music-hall",
+        "title": "Great American Music Hall",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Live Music Venue",
+        "area": "San Francisco",
+        "hours": "Box office hours vary by show",
+        "tags": [
+          "Historic Victorian",
+          "Since 1907"
+        ],
+        "description": "Housed in an ornate 1907 building with balconies, marble columns, and elaborate frescoed ceilings, the Great American Music Hall has hosted touring acts across nearly every genre for decades in the Tenderloin.",
+        "lat": 37.7844,
+        "lng": -122.4192,
+        "nearby": [
+          {
+            "title": "Aunt Charlie's Lounge",
+            "kind": "Drag Bar",
+            "mins": 9,
+            "lat": 37.7841,
+            "lng": -122.4113
+          },
+          {
+            "title": "Curran Theatre",
+            "kind": "Theater",
+            "mins": 11,
+            "lat": 37.7869,
+            "lng": -122.4098
+          }
+        ]
+      },
+      {
+        "id": "japanese-tea-garden",
+        "title": "Japanese Tea Garden",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "San Francisco",
+        "hours": "Daily 9:00 AM - 5:45 PM (seasonal)",
+        "tags": [
+          "Oldest Public Japanese Garden in US",
+          "Since 1894"
+        ],
+        "description": "The oldest public Japanese garden in the United States, built for the 1894 California Midwinter Exposition and maintained continuously since, with arched bridges, koi ponds, and a five-tiered pagoda set among meticulously pruned trees.",
+        "lat": 37.7702,
+        "lng": -122.4703,
+        "nearby": [
+          {
+            "title": "de Young Museum",
+            "kind": "Art Museum",
+            "mins": 3,
+            "lat": 37.7715,
+            "lng": -122.4686
+          },
+          {
+            "title": "California Academy of Sciences",
+            "kind": "Natural History Museum",
+            "mins": 5,
+            "lat": 37.7699,
+            "lng": -122.4661
+          },
+          {
+            "title": "Conservatory of Flowers",
+            "kind": "Botanical Conservatory",
+            "mins": 11,
+            "lat": 37.7726,
+            "lng": -122.4605
+          },
+          {
+            "title": "Stow Lake & Strawberry Hill",
+            "kind": "Lake",
+            "mins": 9,
+            "lat": 37.7686,
+            "lng": -122.4783
+          },
+          {
+            "title": "Golden Gate Park Bison Paddock",
+            "kind": "Wildlife Viewing",
+            "mins": 36,
+            "lat": 37.7695,
+            "lng": -122.5031
+          }
+        ]
+      },
+      {
+        "id": "san-francisco-botanical-garden",
+        "title": "San Francisco Botanical Garden",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Botanical Garden",
+        "area": "San Francisco",
+        "hours": "Daily 7:30 AM - 6:00 PM (seasonal)",
+        "tags": [
+          "55 Acres",
+          "Global Plant Collection"
+        ],
+        "description": "A 55-acre garden within Golden Gate Park organized by world region, holding plant collections from Chile, South Africa, and the Himalayas alongside a dedicated native California section and a Redwood Grove.",
+        "lat": 37.7663,
+        "lng": -122.4707,
+        "nearby": [
+          {
+            "title": "de Young Museum",
+            "kind": "Art Museum",
+            "mins": 8,
+            "lat": 37.7715,
+            "lng": -122.4686
+          },
+          {
+            "title": "California Academy of Sciences",
+            "kind": "Natural History Museum",
+            "mins": 7,
+            "lat": 37.7699,
+            "lng": -122.4661
+          },
+          {
+            "title": "Conservatory of Flowers",
+            "kind": "Botanical Conservatory",
+            "mins": 14,
+            "lat": 37.7726,
+            "lng": -122.4605
+          },
+          {
+            "title": "Stow Lake & Strawberry Hill",
+            "kind": "Lake",
+            "mins": 9,
+            "lat": 37.7686,
+            "lng": -122.4783
+          },
+          {
+            "title": "Golden Gate Park Bison Paddock",
+            "kind": "Wildlife Viewing",
+            "mins": 36,
+            "lat": 37.7695,
+            "lng": -122.5031
+          }
         ]
       },
       {
         "id": "lands-end",
-        "title": "Lands End Trail",
-        "vibes": ["nature"],
-        "kind": "Coastal trail",
-        "area": "Outer Richmond",
-        "hours": "Daytime",
-        "tags": ["Cliffs", "Views"],
-        "description": "A cypress-lined cliff trail above crashing surf, with shipwreck views and the bridge framed at the end.",
+        "title": "Lands End",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Coastal Trail",
+        "area": "San Francisco",
+        "hours": "Daily sunrise to sunset",
+        "tags": [
+          "Shipwreck Views",
+          "Rugged Cliffs"
+        ],
+        "description": "A rugged, wind-battered coastal trail along the city's northwestern edge, with sweeping views of the Golden Gate Bridge, the Marin Headlands, and the wreckage of ships still visible at low tide from a labyrinth built by a local artist al…",
+        "lat": 37.7783,
+        "lng": -122.5064,
         "nearby": [
-          { "title": "Sutro Baths ruins", "kind": "Landmark", "mins": 6 },
-          { "title": "Legion of Honor", "kind": "Museum", "mins": 10 }
+          {
+            "title": "Lands End Lookout Visitor Center",
+            "kind": "Visitor Center",
+            "mins": 5,
+            "lat": 37.7787,
+            "lng": -122.5107
+          },
+          {
+            "title": "USS San Francisco Memorial",
+            "kind": "War Memorial",
+            "mins": 6,
+            "lat": 37.7796,
+            "lng": -122.5013
+          },
+          {
+            "title": "Eagle's Point Overlook",
+            "kind": "Viewpoint",
+            "mins": 16,
+            "lat": 37.7838,
+            "lng": -122.4941
+          }
         ]
       },
       {
-        "id": "mission-district",
-        "title": "The Mission",
-        "vibes": ["matcha", "nightlife"],
-        "kind": "Neighbourhood",
-        "area": "Mission",
-        "hours": "Daytime",
-        "tags": ["Murals", "Coffee"],
-        "description": "Sun-trap of the city: taquerias, mural-lined alleys, Dolores Park hangs and serious specialty coffee.",
+        "id": "baker-beach",
+        "title": "Baker Beach",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Beach",
+        "area": "San Francisco",
+        "hours": "Daily 6:00 AM - 10:00 PM",
+        "tags": [
+          "Golden Gate Bridge Views",
+          "Clothing-Optional North End"
+        ],
+        "description": "A mile-long beach inside the Presidio with one of the most photographed views of the Golden Gate Bridge from ground level, framed by cypress trees along the bluff above.",
+        "lat": 37.7935,
+        "lng": -122.4839,
         "nearby": [
-          { "title": "Ritual Coffee Roasters", "kind": "Coffee", "mins": 5 },
-          { "title": "Dolores Park", "kind": "Nature", "mins": 8 }
+          {
+            "title": "Presidio Tunnel Tops",
+            "kind": "Park",
+            "mins": 23,
+            "lat": 37.8016,
+            "lng": -122.4661
+          },
+          {
+            "title": "Palace of Fine Arts",
+            "kind": "Historic Monument",
+            "mins": 41,
+            "lat": 37.8029,
+            "lng": -122.4484
+          },
+          {
+            "title": "Fort Point National Historic Site",
+            "kind": "Historic Fort",
+            "mins": 25,
+            "lat": 37.8108,
+            "lng": -122.4773
+          },
+          {
+            "title": "Inspiration Point",
+            "kind": "Viewpoint",
+            "mins": 29,
+            "lat": 37.7935,
+            "lng": -122.4574
+          }
         ]
       },
       {
-        "id": "north-beach",
-        "title": "North Beach",
-        "geocodeQuery": "North Beach, San Francisco, California, United States",
-        "vibes": ["nightlife"],
-        "kind": "Nightlife district",
-        "area": "North Beach",
-        "hours": "Evenings",
-        "tags": ["Bars", "Italian"],
-        "description": "SF's old Italian quarter and Beat-era haunt — espresso bars, classic dive bars and late cannoli.",
+        "id": "presidio-of-san-francisco",
+        "title": "Presidio of San Francisco",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "National Park",
+        "area": "Presidio Blvd",
+        "hours": "Daily 6:00 AM - 10:00 PM",
+        "tags": [
+          "Former Military Base",
+          "Forested Trails"
+        ],
+        "description": "A 1,500-acre former Army post turned national park site, holding forested hiking trails, historic military buildings, and coastal bluffs all within the same footprint at the northern tip of the city.",
+        "lat": 37.7989,
+        "lng": -122.4662,
         "nearby": [
-          { "title": "City Lights Bookstore", "kind": "Landmark", "mins": 3 },
-          { "title": "Vesuvio Cafe bar", "kind": "Bars", "mins": 2 }
+          {
+            "title": "Presidio Tunnel Tops",
+            "kind": "Park",
+            "mins": 4,
+            "lat": 37.8016,
+            "lng": -122.4661
+          },
+          {
+            "title": "Palace of Fine Arts",
+            "kind": "Historic Monument",
+            "mins": 20,
+            "lat": 37.8029,
+            "lng": -122.4484
+          },
+          {
+            "title": "Fort Point National Historic Site",
+            "kind": "Historic Fort",
+            "mins": 21,
+            "lat": 37.8108,
+            "lng": -122.4773
+          },
+          {
+            "title": "Inspiration Point",
+            "kind": "Viewpoint",
+            "mins": 12,
+            "lat": 37.7935,
+            "lng": -122.4574
+          }
         ]
+      },
+      {
+        "id": "crissy-field",
+        "title": "Crissy Field",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Waterfront Park",
+        "area": "San Francisco",
+        "hours": "Daily 6:00 AM - 10:00 PM",
+        "tags": [
+          "Golden Gate Bridge Views",
+          "Restored Tidal Marsh"
+        ],
+        "description": "A former military airfield within the Presidio, restored into a waterfront park with a tidal marsh, a long promenade, and unobstructed views straight across to the Golden Gate Bridge.",
+        "lat": 37.8033,
+        "lng": -122.4652,
+        "nearby": [
+          {
+            "title": "Presidio Tunnel Tops",
+            "kind": "Park",
+            "mins": 3,
+            "lat": 37.8016,
+            "lng": -122.4661
+          },
+          {
+            "title": "Palace of Fine Arts",
+            "kind": "Historic Monument",
+            "mins": 18,
+            "lat": 37.8029,
+            "lng": -122.4484
+          },
+          {
+            "title": "Fort Point National Historic Site",
+            "kind": "Historic Fort",
+            "mins": 17,
+            "lat": 37.8108,
+            "lng": -122.4773
+          },
+          {
+            "title": "Inspiration Point",
+            "kind": "Viewpoint",
+            "mins": 16,
+            "lat": 37.7935,
+            "lng": -122.4574
+          }
+        ]
+      },
+      {
+        "id": "golden-gate-bridge-vista-point",
+        "title": "Golden Gate Bridge Vista Point",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Viewpoint",
+        "area": "Golden Gate Bridge Plaza",
+        "hours": "Daily 5:00 AM - 9:00 PM",
+        "tags": [
+          "Iconic Bridge Views",
+          "Photo Spot"
+        ],
+        "description": "The southern welcome plaza at the foot of the Golden Gate Bridge, offering the closest ground-level views of the span's Art Deco towers alongside a paved walking path onto the bridge itself.",
+        "lat": 37.8078,
+        "lng": -122.475,
+        "nearby": [
+          {
+            "title": "Golden Gate Bridge Welcome Center",
+            "kind": "Visitor Center",
+            "mins": 1,
+            "lat": 37.8072,
+            "lng": -122.4761
+          },
+          {
+            "title": "Marina Green",
+            "kind": "Waterfront Park",
+            "mins": 41,
+            "lat": 37.806,
+            "lng": -122.4381
+          }
+        ]
+      },
+      {
+        "id": "mount-sutro-open-space-reserve",
+        "title": "Mount Sutro Open Space Reserve",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Forest Reserve",
+        "area": "Medical Center Way",
+        "hours": "Daily dawn to dusk",
+        "tags": [
+          "Eucalyptus Forest",
+          "Hidden Gem"
+        ],
+        "description": "A dense, fog-shrouded eucalyptus forest in the middle of the city, planted in the 1880s and left to grow wild ever since, with a network of trails that feel closer to Northern California redwood country than a neighborhood park.",
+        "lat": 37.7575,
+        "lng": -122.4531,
+        "nearby": [
+          {
+            "title": "Interior Greenbelt Trail",
+            "kind": "Hiking Trail",
+            "mins": 3,
+            "lat": 37.7591,
+            "lng": -122.4544
+          },
+          {
+            "title": "Sutro Tower Vista Point",
+            "kind": "Viewpoint",
+            "mins": 3,
+            "lat": 37.7552,
+            "lng": -122.4529
+          }
+        ]
+      },
+      {
+        "id": "glen-canyon-park",
+        "title": "Glen Canyon Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Canyon Park",
+        "area": "San Francisco",
+        "hours": "Daily dawn to dusk",
+        "tags": [
+          "Hiking Trails",
+          "Urban Wilderness"
+        ],
+        "description": "A steep, rocky canyon running through the middle of the Glen Park and Diamond Heights neighborhoods, with a creek, native plantings, and rock-climbing bluffs that make it feel far more remote than its central location suggests.",
+        "lat": 37.7405,
+        "lng": -122.4413,
+        "nearby": [
+          {
+            "title": "Billy Goat Hill",
+            "kind": "Hilltop Park",
+            "mins": 7,
+            "lat": 37.7431,
+            "lng": -122.4362
+          },
+          {
+            "title": "Islais Creek Headwaters Trail",
+            "kind": "Restored Creek Trail",
+            "mins": 2,
+            "lat": 37.7398,
+            "lng": -122.44
+          }
+        ]
+      },
+      {
+        "id": "sutro-baths-ruins",
+        "title": "Sutro Baths Ruins",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Historic Ruins",
+        "area": "San Francisco",
+        "hours": "Daily sunrise to sunset",
+        "tags": [
+          "Oceanfront Ruins",
+          "Free"
+        ],
+        "description": "The concrete foundations of what was once the world's largest indoor swimming pool complex, destroyed by fire in 1966 and left as a striking, free-to-explore ruin at the edge of the Pacific.",
+        "lat": 37.7802,
+        "lng": -122.5128,
+        "nearby": [
+          {
+            "title": "Lands End Lookout Visitor Center",
+            "kind": "Visitor Center",
+            "mins": 3,
+            "lat": 37.7787,
+            "lng": -122.5107
+          },
+          {
+            "title": "USS San Francisco Memorial",
+            "kind": "War Memorial",
+            "mins": 13,
+            "lat": 37.7796,
+            "lng": -122.5013
+          },
+          {
+            "title": "Eagle's Point Overlook",
+            "kind": "Viewpoint",
+            "mins": 21,
+            "lat": 37.7838,
+            "lng": -122.4941
+          }
+        ]
+      },
+      {
+        "id": "ocean-beach",
+        "title": "Ocean Beach",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Beach",
+        "area": "Great Highway",
+        "hours": "Daily 6:00 AM - 10:00 PM",
+        "tags": [
+          "4-Mile Shoreline",
+          "Surfing"
+        ],
+        "description": "A wide, four-mile stretch of sand running the entire western edge of the city, popular with surfers despite genuinely dangerous currents that make swimming inadvisable for most visitors.",
+        "lat": 37.7594,
+        "lng": -122.5107,
+        "nearby": [
+          {
+            "title": "Sutro Heights Park",
+            "kind": "Clifftop Park",
+            "mins": 27,
+            "lat": 37.7789,
+            "lng": -122.5115
+          }
+        ]
+      },
+      {
+        "id": "angel-island-state-park",
+        "title": "Angel Island State Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Island Park",
+        "area": "Angel Island",
+        "hours": "Daily 8:00 AM - 6:00 PM (ferry dependent)",
+        "tags": [
+          "Ferry Access",
+          "Immigration History"
+        ],
+        "description": "The largest natural island in San Francisco Bay, reachable only by ferry, holding hiking and biking trails around its full perimeter alongside the preserved Angel Island Immigration Station, once known as the Ellis Island of the West.",
+        "lat": 37.8608,
+        "lng": -122.4326,
+        "nearby": []
+      },
+      {
+        "id": "mount-davidson",
+        "title": "Mount Davidson",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Dalewood Way",
+        "hours": "Daily dawn to dusk",
+        "tags": [
+          "Highest Point in SF",
+          "938 Feet"
+        ],
+        "description": "At 938 feet, Mount Davidson is the highest natural point in San Francisco, topped by a 103-foot concrete cross and surrounded by a dense forest that feels almost entirely disconnected from the surrounding residential streets.",
+        "lat": 37.7383,
+        "lng": -122.4577,
+        "nearby": []
       }
     ]
   }

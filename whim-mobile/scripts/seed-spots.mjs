@@ -152,7 +152,12 @@ async function fetchPhoto(query) {
 
 async function run() {
   const dir = join(__dirname, '..', 'data', 'curated');
-  const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
+  // SEED_ONLY=usa (comma-separated substrings) limits the run to matching
+  // files — handy for re-seeding one country without touching the rest.
+  const only = (process.env.SEED_ONLY ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+  const files = readdirSync(dir)
+    .filter((f) => f.endsWith('.json'))
+    .filter((f) => only.length === 0 || only.some((o) => f.includes(o)));
   let ok = 0;
   let skipped = 0;
   let nearbyMisses = 0;
@@ -160,19 +165,28 @@ async function run() {
   for (const file of files) {
     const cities = JSON.parse(readFileSync(join(dir, file), 'utf8'));
     for (const city of cities) {
-      for (const spot of city.spots) {
-        const queries = {
-          simple: spot.geocodeQuery ?? `${spot.title}, ${city.city}, ${city.country}`,
-          full:
-            spot.geocodeQuery ??
-            `${spot.title}, ${spot.area ? spot.area + ', ' : ''}${city.city}, ${city.country}`,
-        };
+      // Trusted-coords files (e.g. a reviewed, finalized spreadsheet export)
+      // carry exact lat/lng on every anchor and micro — use them verbatim
+      // instead of re-geocoding, which both preserves the reviewed positions
+      // and skips the slow Nominatim throttle.
+      const trusted = city.trustedCoords === true;
 
+      for (const spot of city.spots) {
         let coords = null;
-        try {
-          coords = await geocode(queries, city.center);
-        } catch (e) {
-          console.warn(`  geocode error for "${spot.title}": ${e.message}`);
+        if (trusted && typeof spot.lat === 'number' && typeof spot.lng === 'number') {
+          coords = { lat: spot.lat, lng: spot.lng, source: 'trusted' };
+        } else {
+          const queries = {
+            simple: spot.geocodeQuery ?? `${spot.title}, ${city.city}, ${city.country}`,
+            full:
+              spot.geocodeQuery ??
+              `${spot.title}, ${spot.area ? spot.area + ', ' : ''}${city.city}, ${city.country}`,
+          };
+          try {
+            coords = await geocode(queries, city.center);
+          } catch (e) {
+            console.warn(`  geocode error for "${spot.title}": ${e.message}`);
+          }
         }
         if (!coords) {
           console.warn(`  SKIP (not found): ${spot.title}`);
@@ -187,15 +201,20 @@ async function run() {
         const nearby = [];
         for (const n of spot.nearby ?? []) {
           let nc = null;
-          try {
-            const nq = `${n.title}, ${city.city}, ${city.country}`;
-            nc = await geocode({ simple: nq, full: nq }, anchorProximity);
-          } catch (e) {
-            console.warn(`    nearby geocode error "${n.title}": ${e.message}`);
-          }
-          if (!nc) {
-            console.warn(`    ⚠ nearby not found (review): ${n.title}`);
-            nearbyMisses++;
+          if (trusted && typeof n.lat === 'number' && typeof n.lng === 'number') {
+            nc = { lat: n.lat, lng: n.lng };
+          } else {
+            try {
+              const nq = `${n.title}, ${city.city}, ${city.country}`;
+              nc = await geocode({ simple: nq, full: nq }, anchorProximity);
+            } catch (e) {
+              console.warn(`    nearby geocode error "${n.title}": ${e.message}`);
+            }
+            if (!nc) {
+              console.warn(`    ⚠ nearby not found (review): ${n.title}`);
+              nearbyMisses++;
+            }
+            await new Promise((r) => setTimeout(r, 120));
           }
           const nPhoto = FETCH_NEARBY_PHOTOS ? await fetchPhoto(`${n.title} ${city.city}`) : '';
           nearby.push({
@@ -207,7 +226,6 @@ async function run() {
             photo: nPhoto,
             ...(nc ? { lat: nc.lat, lng: nc.lng } : {}),
           });
-          await new Promise((r) => setTimeout(r, 120));
         }
 
         const anchorPhoto = FETCH_PHOTOS ? await fetchPhoto(`${spot.title} ${city.city}`) : '';
