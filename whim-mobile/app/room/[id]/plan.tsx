@@ -75,7 +75,7 @@ export default function RoomPlan() {
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={[]}>
-      <RouteMap stops={stops} height={280} />
+      <RouteMap key={room.id} stops={stops} height={280} />
 
       {/* back floats over the map — this is a pushed screen */}
       <View className="absolute left-4 top-14 z-10">

@@ -100,7 +100,10 @@ export default function ItineraryScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={[]}>
-      <RouteMap stops={stops} height={280} />
+      {/* key by collection so switching city/vibe REMOUNTS the native map
+          instead of mutating its ShapeSource across a different route —
+          the in-place swap flashed the old city's pins and could crash. */}
+      <RouteMap key={`${city}|${vibe}`} stops={stops} height={280} />
 
       <ScrollView className="flex-1 px-5 pt-5" contentContainerStyle={{ paddingBottom: 120 }}>
         <Text className="font-serif text-2xl text-ink">Your optimised day</Text>
