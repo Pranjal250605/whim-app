@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabase';
 import { googleMapsDirectionsUrl, type RouteStop } from '@/lib/route';
 import type { Spot } from '@/lib/types';
 import RouteMap from '@/components/RouteMap';
-import { VIBE_DOT, VIBE_LABEL } from '@/data/vibes';
+import { VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
 import BackButton from '@/components/BackButton';
@@ -77,12 +77,25 @@ export default function Trip() {
   }
 
   const { itin, stops, mine } = state;
-  const mapStops: RouteStop[] = stops
-    .filter((s) => s.lat != null && s.lng != null)
-    .map((s, i) => ({ id: s.id, title: s.title, kind: s.kind, lat: s.lat as number, lng: s.lng as number, order: i + 1 }));
+  const official = itin.authorName === 'Whim';
 
-  const openInMaps = () => {
-    const url = googleMapsDirectionsUrl(mapStops);
+  // global stop number (matches the map pins) is the position in the full list
+  const indexOf = new Map(stops.map((s, i) => [s.id, i] as const));
+  const toRoute = (list: Spot[]): RouteStop[] =>
+    list
+      .filter((s) => s.lat != null && s.lng != null)
+      .map((s) => ({ id: s.id, title: s.title, kind: s.kind, lat: s.lat as number, lng: s.lng as number, order: (indexOf.get(s.id) ?? 0) + 1 }));
+  const mapStops = toRoute(stops);
+
+  // group into days when the itinerary carries a per-stop day number
+  const multiDay = !!itin.stopDays && new Set(itin.stopDays).size > 1;
+  const dayOf = new Map<string, number>();
+  if (itin.stopDays) itin.stopSpotIds.forEach((sid, i) => dayOf.set(sid, itin.stopDays![i] ?? 1));
+  const dayNums = multiDay ? [...new Set(itin.stopDays as number[])].sort((a, b) => a - b) : [0];
+  const groups = dayNums.map((d) => ({ day: d, stops: d === 0 ? stops : stops.filter((s) => dayOf.get(s.id) === d) }));
+
+  const openRoute = (list: Spot[]) => {
+    const url = googleMapsDirectionsUrl(toRoute(list));
     if (url) Linking.openURL(url).catch(() => {});
   };
   const openStop = (s: Spot) =>
@@ -150,23 +163,25 @@ export default function Trip() {
       <ScrollView className="flex-1 px-5 pt-5" contentContainerStyle={{ paddingBottom: 60 }} showsVerticalScrollIndicator={false}>
         <View className="flex-row items-center gap-2">
           <Icon name="route" size={14} color={COLORS.accent} strokeWidth={2.2} />
-          <Text className="font-mono text-[11px] tracking-[0.16em] text-accent">PUBLISHED TRIP</Text>
+          <Text className="font-mono text-[11px] tracking-[0.16em] text-accent">
+            {official ? "WHIM · EDITORS’ PICK" : 'PUBLISHED TRIP'}
+          </Text>
         </View>
         <Text className="mt-2 font-serif text-[27px] leading-[1.06] text-ink">{itin.title}</Text>
         <View className="mt-2 flex-row items-center gap-1.5">
-          {itin.vibe && <View className="h-2 w-2 rounded-full" style={{ backgroundColor: VIBE_DOT[itin.vibe] }} />}
+          {itin.vibe && !multiDay && <View className="h-2 w-2 rounded-full" style={{ backgroundColor: VIBE_DOT[itin.vibe] }} />}
           <Text className="font-mono text-[10.5px] uppercase tracking-wide text-muted">
             {itin.authorName ? `by ${itin.authorName} · ` : ''}
+            {multiDay ? `${dayNums.length} days · ` : ''}
             {stops.length} stops
             {itin.city ? ` · ${itin.city}` : ''}
-            {itin.vibe ? ` · ${VIBE_LABEL[itin.vibe]}` : ''}
           </Text>
         </View>
         {itin.note ? <Text className="mt-3 text-[14.5px] leading-6 text-ink/80">{itin.note}</Text> : null}
 
-        {mapStops.length > 0 && (
+        {!multiDay && mapStops.length > 0 && (
           <Pressable
-            onPress={openInMaps}
+            onPress={() => openRoute(stops)}
             style={press(SHADOWS.accent)}
             className="mt-4 h-[52px] flex-row items-center justify-center gap-2 rounded-2xl bg-ink"
           >
@@ -175,29 +190,47 @@ export default function Trip() {
           </Pressable>
         )}
 
-        <View className="mt-6">
-          {stops.map((s, idx) => (
-            <View key={s.id}>
-              {idx > 0 && <View className="my-1 ml-3.5 h-5 border-l-2 border-dashed border-[#D7D1C6]" />}
-              <Pressable
-                onPress={() => openStop(s)}
-                style={press(SHADOWS.soft)}
-                className="flex-row items-center gap-3 rounded-2xl bg-white p-3.5"
-              >
-                <View className="h-7 w-7 items-center justify-center rounded-full bg-accent">
-                  <Text className="text-[13px] font-bold text-white">{idx + 1}</Text>
-                </View>
-                <View className="flex-1">
-                  <Text className="font-serif text-[16.5px] text-ink" numberOfLines={1}>{s.title}</Text>
-                  <Text className="text-xs text-muted" numberOfLines={1}>
-                    {[s.kind, s.area].filter(Boolean).join(' · ')}
+        {groups.map((g) => (
+          <View key={g.day} className="mt-6">
+            {multiDay && (
+              <View className="mb-3 flex-row items-center justify-between">
+                <View className="flex-row items-center gap-2.5">
+                  <View className="rounded-lg bg-accent px-2.5 py-1">
+                    <Text className="font-mono text-[10.5px] font-bold tracking-[0.12em] text-white">DAY {g.day}</Text>
+                  </View>
+                  <Text className="font-serif text-[17px] text-ink">
+                    {g.stops[0]?.area || itin.city} & around
                   </Text>
                 </View>
-                <Icon name="arrowRight" size={15} color="#B6B1A9" strokeWidth={2} />
-              </Pressable>
-            </View>
-          ))}
-        </View>
+                <Pressable onPress={() => openRoute(g.stops)} hitSlop={8} className="flex-row items-center gap-1">
+                  <Text className="text-[12px] font-semibold text-accent">Maps</Text>
+                  <Icon name="arrowRight" size={13} color={COLORS.accent} strokeWidth={2.4} />
+                </Pressable>
+              </View>
+            )}
+            {g.stops.map((s, idx) => (
+              <View key={s.id}>
+                {idx > 0 && <View className="my-1 ml-3.5 h-5 border-l-2 border-dashed border-[#D7D1C6]" />}
+                <Pressable
+                  onPress={() => openStop(s)}
+                  style={press(SHADOWS.soft)}
+                  className="flex-row items-center gap-3 rounded-2xl bg-white p-3.5"
+                >
+                  <View className="h-7 w-7 items-center justify-center rounded-full bg-accent">
+                    <Text className="text-[13px] font-bold text-white">{(indexOf.get(s.id) ?? 0) + 1}</Text>
+                  </View>
+                  <View className="flex-1">
+                    <Text className="font-serif text-[16.5px] text-ink" numberOfLines={1}>{s.title}</Text>
+                    <Text className="text-xs text-muted" numberOfLines={1}>
+                      {[s.kind, s.area].filter(Boolean).join(' · ')}
+                    </Text>
+                  </View>
+                  <Icon name="arrowRight" size={15} color="#B6B1A9" strokeWidth={2} />
+                </Pressable>
+              </View>
+            ))}
+          </View>
+        ))}
       </ScrollView>
     </SafeAreaView>
   );

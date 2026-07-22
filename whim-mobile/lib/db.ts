@@ -283,6 +283,7 @@ export interface PublishedItinerary {
   city: string | null;
   vibe: VibeId | null;
   stopSpotIds: string[];
+  stopDays: number[] | null;
   stopCount: number;
   cover: string | null;
   createdAt: string;
@@ -298,6 +299,7 @@ function rowToItin(r: any): PublishedItinerary {
     city: r.city,
     vibe: r.vibe,
     stopSpotIds: r.stop_spot_ids ?? [],
+    stopDays: r.stop_days ?? null,
     stopCount: r.stop_count ?? (r.stop_spot_ids ?? []).length,
     cover: r.cover,
     createdAt: r.created_at,

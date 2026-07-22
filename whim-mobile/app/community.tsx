@@ -172,9 +172,14 @@ export default function Community() {
                         <Icon name="route" size={26} color={COLORS.accent} strokeWidth={1.8} />
                       </View>
                     )}
-                    <View className="absolute left-3 top-3 flex-row items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1">
+                    <View
+                      className="absolute left-3 top-3 flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
+                      style={{ backgroundColor: item.authorName === 'Whim' ? COLORS.accent : 'rgba(0,0,0,0.45)' }}
+                    >
                       <Icon name="route" size={12} color="#fff" strokeWidth={2.2} />
-                      <Text className="font-mono text-[9.5px] tracking-[0.12em] text-white">ITINERARY</Text>
+                      <Text className="font-mono text-[9.5px] tracking-[0.12em] text-white">
+                        {item.authorName === 'Whim' ? "EDITORS’ PICK" : 'ITINERARY'}
+                      </Text>
                     </View>
                   </View>
                   <View className="p-4">
