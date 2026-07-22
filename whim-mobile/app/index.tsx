@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as Location from 'expo-location';
 import { router } from 'expo-router';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { useAuth } from '@/lib/auth';
 import { fetchCoverPhoto } from '@/lib/db';
-import { CITIES, nearestCity } from '@/data/cities';
+import { CITIES } from '@/data/cities';
 import { VIBES, FEATURED, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import CityPicker from '@/components/CityPicker';
@@ -92,24 +91,9 @@ export default function Home() {
     router.push('/swipe');
   };
 
-  // "Near me" — jump to the closest city we have spots for and start discovering.
-  const nearMe = async () => {
-    try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Location needed', 'Turn on location access to discover spots near you.');
-        return;
-      }
-      const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-      const near = nearestCity(pos.coords.latitude, pos.coords.longitude);
-      setCity(near.name);
-      await setContext(near.name, vibe);
-      router.push('/swipe');
-    } catch (e) {
-      console.warn('[whim] near me failed:', e);
-      Alert.alert('Couldn’t get your location', 'Try again, or pick a city manually.');
-    }
-  };
+  // "Near me" — live discovery of real spots around the user's GPS (Places),
+  // shown alongside the curated decks. The nearby screen handles permission.
+  const nearMe = () => router.push('/nearby');
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
