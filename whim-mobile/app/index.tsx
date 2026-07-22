@@ -247,6 +247,24 @@ export default function Home() {
           <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
         </Pressable>
 
+        {/* community feed — what everyone is publishing */}
+        <Pressable
+          onPress={() => router.push('/community')}
+          style={press(SHADOWS.soft)}
+          className="mt-3 flex-row items-center gap-3.5 rounded-2xl bg-white p-4"
+        >
+          <View className="h-11 w-11 items-center justify-center rounded-full bg-accent-soft">
+            <Icon name="discover" size={20} color={COLORS.accent} strokeWidth={2} />
+          </View>
+          <View className="flex-1">
+            <Text className="text-[15px] font-bold text-ink">Community</Text>
+            <Text className="mt-0.5 text-[12.5px] text-muted">See the trips & spots people are publishing.</Text>
+          </View>
+          <View className="rotate-[-5deg] rounded-md border-[1.5px] border-accent px-1.5 py-0.5">
+            <Text className="font-mono text-[9px] tracking-[0.14em] text-accent">NEW ✦</Text>
+          </View>
+        </Pressable>
+
         {/* continue an existing collection */}
         {savedHere > 0 && (
           <Pressable

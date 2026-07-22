@@ -273,6 +273,187 @@ export async function fetchMyCommunitySpots(): Promise<CommunitySpot[]> {
   return (data ?? []) as CommunitySpot[];
 }
 
+// ── Published itineraries (users publish a whole day-plan for others) ─────
+export interface PublishedItinerary {
+  id: string;
+  authorId: string;
+  authorName: string | null;
+  title: string;
+  note: string | null;
+  city: string | null;
+  vibe: VibeId | null;
+  stopSpotIds: string[];
+  stopCount: number;
+  cover: string | null;
+  createdAt: string;
+}
+
+function rowToItin(r: any): PublishedItinerary {
+  return {
+    id: r.id,
+    authorId: r.author,
+    authorName: r.author_name,
+    title: r.title,
+    note: r.note,
+    city: r.city,
+    vibe: r.vibe,
+    stopSpotIds: r.stop_spot_ids ?? [],
+    stopCount: r.stop_count ?? (r.stop_spot_ids ?? []).length,
+    cover: r.cover,
+    createdAt: r.created_at,
+  };
+}
+
+/** Publish a saved collection as a shareable itinerary. */
+export async function publishItinerary(input: {
+  title: string;
+  note?: string;
+  city: string;
+  vibe: VibeId;
+  spotIds: string[];
+  cover?: string | null;
+}): Promise<void> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+  const ids = input.spotIds.slice(0, 30);
+  if (ids.length === 0) throw new Error('Add at least one spot before publishing.');
+  // snapshot the author's display name — profiles are read-own-only, so a feed
+  // can't join to it; this is how "by <name>" renders for other viewers.
+  const { data: prof } = await supabase.from('profiles').select('display_name').eq('id', user.id).maybeSingle();
+  const { error } = await supabase.from('published_itineraries').insert({
+    author: user.id,
+    author_name: prof?.display_name ?? null,
+    title: input.title.trim().slice(0, 80),
+    note: input.note?.trim().slice(0, 500) || null,
+    city: input.city,
+    vibe: input.vibe,
+    stop_spot_ids: ids,
+    stop_count: ids.length,
+    cover: input.cover ?? null,
+  });
+  if (error) throw error;
+}
+
+/** The current user's own published itineraries. */
+export async function fetchMyItineraries(): Promise<PublishedItinerary[]> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+  const { data, error } = await supabase
+    .from('published_itineraries')
+    .select('*')
+    .eq('author', user.id)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []).map(rowToItin);
+}
+
+/** Unpublish / delete one of your own itineraries. */
+export async function deleteMyItinerary(id: string): Promise<void> {
+  const { error } = await supabase.from('published_itineraries').delete().eq('id', id);
+  if (error) throw error;
+}
+
+/** A published itinerary + its stops resolved from the curated catalogue, in order. */
+export async function fetchPublishedItinerary(id: string): Promise<{ itin: PublishedItinerary; stops: Spot[] } | null> {
+  const { data, error } = await supabase.from('published_itineraries').select('*').eq('id', id).maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  const itin = rowToItin(data);
+  const spots = await fetchSpotsByIds(itin.stopSpotIds);
+  const order = new Map(itin.stopSpotIds.map((sid, i) => [sid, i] as const));
+  spots.sort((a, b) => (order.get(a.id) ?? 99) - (order.get(b.id) ?? 99));
+  return { itin, stops: spots };
+}
+
+/** Flag a published itinerary for review (App Store 1.2 UGC moderation). */
+export async function reportItinerary(id: string, reason: string): Promise<void> {
+  const { error } = await supabase.from('itinerary_reports').insert({ itinerary_id: id, reason });
+  if (error) throw error;
+}
+
+// ── Community feed (unified: published itineraries + community spots) ─────
+export type FeedItem =
+  | {
+      kind: 'itinerary';
+      id: string;
+      title: string;
+      authorId: string;
+      authorName: string | null;
+      city: string | null;
+      vibe: VibeId | null;
+      stopCount: number;
+      cover: string | null;
+      createdAt: string;
+    }
+  | {
+      kind: 'spot';
+      id: string; // google place_id
+      title: string;
+      authorId: string;
+      vibe: VibeId;
+      city: string | null;
+      area: string | null;
+      blurb: string | null;
+      createdAt: string;
+    };
+
+/** Everything the community is publishing — trips + spots — newest first,
+ *  with blocked authors filtered out. */
+export async function fetchCommunityFeed(): Promise<FeedItem[]> {
+  const [itins, spots, blocked] = await Promise.all([
+    supabase
+      .from('published_itineraries')
+      .select('*')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(60),
+    supabase
+      .from('community_spots')
+      .select('id, title, vibe, city, area, blurb, submitted_by, created_at')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(60),
+    fetchBlockedUserIds().catch(() => [] as string[]),
+  ]);
+  const blockedSet = new Set(blocked);
+  const items: FeedItem[] = [];
+  for (const r of itins.data ?? []) {
+    if (blockedSet.has(r.author)) continue;
+    items.push({
+      kind: 'itinerary',
+      id: r.id,
+      title: r.title,
+      authorId: r.author,
+      authorName: r.author_name,
+      city: r.city,
+      vibe: r.vibe,
+      stopCount: r.stop_count ?? 0,
+      cover: r.cover,
+      createdAt: r.created_at,
+    });
+  }
+  for (const r of spots.data ?? []) {
+    if (blockedSet.has(r.submitted_by)) continue;
+    items.push({
+      kind: 'spot',
+      id: r.id,
+      title: r.title,
+      authorId: r.submitted_by,
+      vibe: r.vibe,
+      city: r.city,
+      area: r.area,
+      blurb: r.blurb,
+      createdAt: r.created_at,
+    });
+  }
+  items.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+  return items;
+}
+
 // ── Room moderation (App Store Guideline 1.2 for UGC) ────────────────────
 
 /** Flag a room member for an offensive name or behaviour. */
