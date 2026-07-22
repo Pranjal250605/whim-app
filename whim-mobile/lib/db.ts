@@ -511,13 +511,14 @@ export async function leaveRoom(roomId: string): Promise<void> {
 // ── Profile ──────────────────────────────────────────────────────────────
 export interface Profile {
   displayName: string | null;
+  username: string | null;
 }
 
 /** The signed-in user's profile row (auto-created by the signup trigger). */
 export async function fetchProfile(): Promise<Profile | null> {
-  const { data, error } = await supabase.from('profiles').select('display_name').maybeSingle();
+  const { data, error } = await supabase.from('profiles').select('display_name, username').maybeSingle();
   if (error) throw error;
-  return data ? { displayName: data.display_name } : null;
+  return data ? { displayName: data.display_name, username: (data as any).username ?? null } : null;
 }
 
 export async function updateDisplayName(name: string): Promise<void> {
@@ -527,6 +528,190 @@ export async function updateDisplayName(name: string): Promise<void> {
   if (!user) throw new Error('Not signed in');
   const { error } = await supabase.from('profiles').update({ display_name: name }).eq('id', user.id);
   if (error) throw error;
+}
+
+// ── Social: usernames, follows, badges ───────────────────────────────────
+export interface UserLite {
+  id: string;
+  username: string | null;
+  displayName: string | null;
+}
+export interface Badge {
+  city: string;
+  spotCount: number;
+  tier: number;
+  earnedAt: string;
+  updatedAt: string;
+}
+const rowToBadge = (r: any): Badge => ({
+  city: r.city,
+  spotCount: r.spot_count,
+  tier: r.tier,
+  earnedAt: r.earned_at,
+  updatedAt: r.updated_at,
+});
+
+/** Claim / change your public @handle. Throws a friendly error if taken/invalid. */
+export async function setUsername(username: string): Promise<void> {
+  const u = username.trim().toLowerCase();
+  if (!/^[a-z0-9_]{3,20}$/.test(u)) throw new Error('Handles are 3–20 characters: letters, numbers or _.');
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+  const { error } = await supabase.from('profiles').update({ username: u }).eq('id', user.id);
+  if (error) {
+    if ((error as any).code === '23505' || /duplicate|unique/i.test(error.message)) throw new Error('That handle is taken — try another.');
+    throw error;
+  }
+}
+
+/** Find people by @handle prefix (excludes yourself). */
+export async function searchUsers(q: string): Promise<UserLite[]> {
+  const term = q.trim().replace(/^@/, '').toLowerCase();
+  if (term.length < 2) return [];
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const { data, error } = await supabase
+    .from('public_profiles')
+    .select('id, username, display_name')
+    .ilike('username', `${term}%`)
+    .limit(12);
+  if (error) throw error;
+  return (data ?? [])
+    .filter((r: any) => r.id !== user?.id)
+    .map((r: any) => ({ id: r.id, username: r.username, displayName: r.display_name }));
+}
+
+export async function followUser(id: string): Promise<void> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+  const { error } = await supabase.from('follows').upsert({ follower: user.id, followee: id }, { onConflict: 'follower,followee' });
+  if (error) throw error;
+}
+
+export async function unfollowUser(id: string): Promise<void> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+  const { error } = await supabase.from('follows').delete().eq('follower', user.id).eq('followee', id);
+  if (error) throw error;
+}
+
+export async function fetchFollowingIds(): Promise<string[]> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+  const { data, error } = await supabase.from('follows').select('followee').eq('follower', user.id);
+  if (error) throw error;
+  return (data ?? []).map((r: any) => r.followee);
+}
+
+export async function fetchSocialCounts(): Promise<{ following: number; followers: number }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { following: 0, followers: 0 };
+  const [a, b] = await Promise.all([
+    supabase.from('follows').select('followee', { count: 'exact', head: true }).eq('follower', user.id),
+    supabase.from('follows').select('follower', { count: 'exact', head: true }).eq('followee', user.id),
+  ]);
+  return { following: a.count ?? 0, followers: b.count ?? 0 };
+}
+
+export interface Friend extends UserLite {
+  badgeCount: number;
+  bestTier: number;
+  topCity: string | null;
+}
+
+/** People you follow, with a quick badge summary each. */
+export async function fetchFriends(): Promise<Friend[]> {
+  const ids = await fetchFollowingIds();
+  if (!ids.length) return [];
+  const [profs, badges] = await Promise.all([
+    supabase.from('public_profiles').select('id, username, display_name').in('id', ids),
+    supabase.from('badges').select('user_id, city, tier').in('user_id', ids),
+  ]);
+  const byUser = new Map<string, { city: string; tier: number }[]>();
+  (badges.data ?? []).forEach((b: any) => {
+    if (!byUser.has(b.user_id)) byUser.set(b.user_id, []);
+    byUser.get(b.user_id)!.push({ city: b.city, tier: b.tier });
+  });
+  return (profs.data ?? []).map((p: any) => {
+    const bs = (byUser.get(p.id) ?? []).slice().sort((x, y) => y.tier - x.tier);
+    return {
+      id: p.id,
+      username: p.username,
+      displayName: p.display_name,
+      badgeCount: bs.length,
+      bestTier: bs[0]?.tier ?? 0,
+      topCity: bs[0]?.city ?? null,
+    };
+  });
+}
+
+export interface Activity extends UserLite {
+  city: string;
+  tier: number;
+  at: string;
+}
+
+/** Recent badge earns / tier-ups from people you follow — newest first. */
+export async function fetchFriendsActivity(): Promise<Activity[]> {
+  const ids = await fetchFollowingIds();
+  if (!ids.length) return [];
+  const { data: badges, error } = await supabase
+    .from('badges')
+    .select('user_id, city, tier, updated_at')
+    .in('user_id', ids)
+    .order('updated_at', { ascending: false })
+    .limit(30);
+  if (error) throw error;
+  const uids = [...new Set((badges ?? []).map((b: any) => b.user_id))];
+  const { data: profs } = await supabase.from('public_profiles').select('id, username, display_name').in('id', uids);
+  const pm = new Map((profs ?? []).map((p: any) => [p.id, p]));
+  return (badges ?? []).map((b: any) => ({
+    id: b.user_id,
+    username: pm.get(b.user_id)?.username ?? null,
+    displayName: pm.get(b.user_id)?.display_name ?? null,
+    city: b.city,
+    tier: b.tier,
+    at: b.updated_at,
+  }));
+}
+
+export async function fetchMyBadges(): Promise<Badge[]> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+  const { data, error } = await supabase
+    .from('badges')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('tier', { ascending: false })
+    .order('spot_count', { ascending: false });
+  if (error) throw error;
+  return (data ?? []).map(rowToBadge);
+}
+
+/** A followed user's public profile + badges (RLS lets you read only if you follow them). */
+export async function fetchUserProfileWithBadges(userId: string): Promise<{ user: UserLite; badges: Badge[] } | null> {
+  const [{ data: prof }, { data: badges }] = await Promise.all([
+    supabase.from('public_profiles').select('id, username, display_name').eq('id', userId).maybeSingle(),
+    supabase.from('badges').select('*').eq('user_id', userId).order('tier', { ascending: false }).order('spot_count', { ascending: false }),
+  ]);
+  if (!prof) return null;
+  return {
+    user: { id: (prof as any).id, username: (prof as any).username, displayName: (prof as any).display_name },
+    badges: (badges ?? []).map(rowToBadge),
+  };
 }
 
 // ── Passport / check-ins ─────────────────────────────────────────────────

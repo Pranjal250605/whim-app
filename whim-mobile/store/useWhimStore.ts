@@ -115,7 +115,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   renameProfile: (name) => {
     const trimmed = name.trim().slice(0, 60);
     if (!trimmed) return;
-    set({ profile: { displayName: trimmed } });
+    set((s) => ({ profile: { displayName: trimmed, username: s.profile?.username ?? null } }));
     updateDisplayName(trimmed).catch((e) => {
       console.warn('[whim] updateDisplayName failed:', e);
       toast('Couldn’t save your name — check your connection.');
