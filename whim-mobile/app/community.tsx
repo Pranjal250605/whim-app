@@ -235,9 +235,15 @@ export default function Community() {
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
       <View className="px-5 pt-2">
-        <View className="flex-row items-center gap-2">
-          <View className="h-1.5 w-1.5 rounded-full bg-accent" />
-          <Text className="font-mono text-[11px] tracking-[0.16em] text-accent">COMMUNITY</Text>
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center gap-2">
+            <View className="h-1.5 w-1.5 rounded-full bg-accent" />
+            <Text className="font-mono text-[11px] tracking-[0.16em] text-accent">COMMUNITY</Text>
+          </View>
+          <Pressable onPress={() => router.push('/build-trip')} style={press(SHADOWS.accent)} className="h-9 flex-row items-center gap-1 rounded-full bg-accent px-3.5">
+            <Text className="text-[15px] font-bold text-white">＋</Text>
+            <Text className="text-[13px] font-bold text-white">Create a trip</Text>
+          </Pressable>
         </View>
         <Text className="mt-1 font-serif text-[32px] leading-[1.02] text-ink">What people are sharing</Text>
         <Text className="mt-1 text-[13.5px] text-muted">Real trips and spots, published by Whim travelers.</Text>
@@ -287,8 +293,11 @@ export default function Community() {
             <View className="items-center px-8 pt-16">
               <Text className="text-center font-serif text-[21px] text-ink">Nothing here yet</Text>
               <Text className="mt-2 text-center text-[13.5px] leading-5 text-muted">
-                Be the first — build an itinerary and hit Publish, or add your spots.
+                Be the first — build a trip for anywhere and publish it.
               </Text>
+              <Pressable onPress={() => router.push('/build-trip')} style={press(SHADOWS.accent)} className="mt-5 h-12 flex-row items-center justify-center gap-2 rounded-full bg-accent px-6">
+                <Text className="text-[15px] font-bold text-white">＋ Create a trip</Text>
+              </Pressable>
             </View>
           ) : (
             sections.map((section) => (

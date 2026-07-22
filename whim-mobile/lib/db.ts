@@ -284,9 +284,33 @@ export interface PublishedItinerary {
   vibe: VibeId | null;
   stopSpotIds: string[];
   stopDays: number[] | null;
+  embeddedStops: EmbeddedStop[] | null;
   stopCount: number;
   cover: string | null;
   createdAt: string;
+}
+
+// A stop stored inline on a custom (build-your-own) trip.
+export interface EmbeddedStop {
+  title: string;
+  placeId?: string;
+  spotId?: string;
+  lat: number | null;
+  lng: number | null;
+  kind?: string;
+  area?: string;
+  day?: number | null;
+}
+
+// The shape the trip view renders — works for both curated and custom stops.
+export interface TripStop {
+  id: string;
+  title: string;
+  kind: string;
+  area: string;
+  lat: number | null;
+  lng: number | null;
+  day: number | null;
 }
 
 function rowToItin(r: any): PublishedItinerary {
@@ -300,10 +324,65 @@ function rowToItin(r: any): PublishedItinerary {
     vibe: r.vibe,
     stopSpotIds: r.stop_spot_ids ?? [],
     stopDays: r.stop_days ?? null,
+    embeddedStops: r.stops ?? null,
     stopCount: r.stop_count ?? (r.stop_spot_ids ?? []).length,
     cover: r.cover,
     createdAt: r.created_at,
   };
+}
+
+export interface PlaceResult {
+  id: string;
+  title: string;
+  kind: string;
+  area: string;
+  city: string;
+  lat: number | null;
+  lng: number | null;
+}
+
+/** Search real locations for the trip builder ("add a location"). */
+export async function searchPlaces(query: string, near?: { lat: number; lng: number }): Promise<PlaceResult[]> {
+  const { data, error } = await supabase.functions.invoke('place-search', { body: { query, near } });
+  if (error) {
+    const msg = (await error.context?.json?.().catch(() => null))?.error;
+    throw new Error(msg || error.message);
+  }
+  return (data?.results ?? []) as PlaceResult[];
+}
+
+/** Publish a build-your-own trip of arbitrary locations (any city, e.g. Goa). */
+export async function publishCustomTrip(input: {
+  title: string;
+  city: string;
+  note?: string;
+  stops: EmbeddedStop[];
+}): Promise<string> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+  const stops = input.stops.slice(0, 30);
+  if (stops.length === 0) throw new Error('Add at least one location.');
+  if (!input.title.trim()) throw new Error('Give your trip a title.');
+  const { data: prof } = await supabase.from('profiles').select('display_name').eq('id', user.id).maybeSingle();
+  const { data, error } = await supabase
+    .from('published_itineraries')
+    .insert({
+      author: user.id,
+      author_name: prof?.display_name ?? null,
+      title: input.title.trim().slice(0, 80),
+      note: input.note?.trim().slice(0, 500) || null,
+      city: input.city.trim() || null,
+      vibe: null,
+      stops,
+      stop_count: stops.length,
+      cover: null,
+    })
+    .select('id')
+    .single();
+  if (error) throw error;
+  return data.id as string;
 }
 
 /** Publish a saved collection as a shareable itinerary. */
@@ -359,16 +438,42 @@ export async function deleteMyItinerary(id: string): Promise<void> {
   if (error) throw error;
 }
 
-/** A published itinerary + its stops resolved from the curated catalogue, in order. */
-export async function fetchPublishedItinerary(id: string): Promise<{ itin: PublishedItinerary; stops: Spot[] } | null> {
+/** A published itinerary + its stops in order — from embedded custom stops when
+ *  present, else resolved from the curated catalogue. */
+export async function fetchPublishedItinerary(id: string): Promise<{ itin: PublishedItinerary; stops: TripStop[] } | null> {
   const { data, error } = await supabase.from('published_itineraries').select('*').eq('id', id).maybeSingle();
   if (error) throw error;
   if (!data) return null;
   const itin = rowToItin(data);
-  const spots = await fetchSpotsByIds(itin.stopSpotIds);
+
+  if (itin.embeddedStops && itin.embeddedStops.length) {
+    const stops: TripStop[] = itin.embeddedStops.map((s, i) => ({
+      id: s.placeId ?? s.spotId ?? `stop-${i}`,
+      title: s.title,
+      kind: s.kind ?? '',
+      area: s.area ?? '',
+      lat: s.lat ?? null,
+      lng: s.lng ?? null,
+      day: s.day ?? null,
+    }));
+    return { itin, stops };
+  }
+
+  const resolved = await fetchSpotsByIds(itin.stopSpotIds);
   const order = new Map(itin.stopSpotIds.map((sid, i) => [sid, i] as const));
-  spots.sort((a, b) => (order.get(a.id) ?? 99) - (order.get(b.id) ?? 99));
-  return { itin, stops: spots };
+  resolved.sort((a, b) => (order.get(a.id) ?? 99) - (order.get(b.id) ?? 99));
+  const dayBy = new Map<string, number>();
+  if (itin.stopDays) itin.stopSpotIds.forEach((sid, i) => dayBy.set(sid, itin.stopDays![i] ?? 1));
+  const stops: TripStop[] = resolved.map((s) => ({
+    id: s.id,
+    title: s.title,
+    kind: s.kind,
+    area: s.area,
+    lat: s.lat ?? null,
+    lng: s.lng ?? null,
+    day: dayBy.get(s.id) ?? null,
+  }));
+  return { itin, stops };
 }
 
 /** Flag a published itinerary for review (App Store 1.2 UGC moderation). */
