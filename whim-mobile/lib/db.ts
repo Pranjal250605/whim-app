@@ -207,6 +207,45 @@ export async function fetchSpotsByIds(ids: string[]): Promise<Spot[]> {
   return (data ?? []).map(rowToSpot);
 }
 
+// ── Community spots (UGC — "dump your top places") ───────────────────────
+export interface CommunitySpot {
+  id: string;
+  title: string;
+  vibe: VibeId;
+  kind: string | null;
+  city: string | null;
+  area: string | null;
+  blurb: string | null;
+}
+
+/** Submit freeform favorite places → resolved + LLM-categorized + saved. */
+export async function submitPlaces(
+  text: string,
+): Promise<{ saved: { title: string; vibe: VibeId; blurb: string; city: string }[]; notFound: string[] }> {
+  const { data, error } = await supabase.functions.invoke('submit-places', { body: { places: text } });
+  if (error) {
+    // surface the function's own error message when present
+    const msg = (await error.context?.json?.().catch(() => null))?.error;
+    throw new Error(msg || error.message);
+  }
+  return data;
+}
+
+/** The current user's own submitted community spots. */
+export async function fetchMyCommunitySpots(): Promise<CommunitySpot[]> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+  const { data, error } = await supabase
+    .from('community_spots')
+    .select('id, title, vibe, kind, city, area, blurb')
+    .eq('submitted_by', user.id)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as CommunitySpot[];
+}
+
 // ── Room moderation (App Store Guideline 1.2 for UGC) ────────────────────
 
 /** Flag a room member for an offensive name or behaviour. */

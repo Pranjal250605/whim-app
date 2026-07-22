@@ -231,6 +231,22 @@ export default function Home() {
           </View>
         </Pressable>
 
+        {/* add your own spots (UGC) */}
+        <Pressable
+          onPress={() => router.push('/add-spots')}
+          style={press(SHADOWS.soft)}
+          className="mt-3 flex-row items-center gap-3.5 rounded-2xl bg-white p-4"
+        >
+          <View className="h-11 w-11 items-center justify-center rounded-full bg-accent-soft">
+            <Icon name="pin" size={20} color={COLORS.accent} strokeWidth={2} />
+          </View>
+          <View className="flex-1">
+            <Text className="text-[15px] font-bold text-ink">Add your spots</Text>
+            <Text className="mt-0.5 text-[12.5px] text-muted">Drop your favorite places — we sort them into vibes.</Text>
+          </View>
+          <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
+        </Pressable>
+
         {/* continue an existing collection */}
         {savedHere > 0 && (
           <Pressable
