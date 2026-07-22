@@ -1,10 +1,38 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Platform, Pressable, Text, TextInput, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Linking,
+  Platform,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { supabase } from '@/lib/supabase';
+import { COLORS, SHADOWS, press } from '@/lib/theme';
 
-type Mode = 'sign-in' | 'sign-up';
+type Mode = 'sign-in' | 'sign-up' | 'forgot';
+
+const TERMS_URL = 'https://pranjal250605.github.io/whim-app/terms.html';
+const PRIVACY_URL = 'https://pranjal250605.github.io/whim-app/privacy.html';
+const RESET_URL = 'https://pranjal250605.github.io/whim-app/reset.html';
+
+const MARK = require('../assets/splash-icon.png');
+const MARK_ASPECT = 678 / 518;
+
+// Copy per mode. The LAYOUT never changes between modes — email, password/CTA
+// and every tappable row keep identical positions so returning users can tap
+// through on muscle memory. Only the third field slot swaps its content.
+const COPY: Record<Mode, { headline: string; sub: string; cta: string }> = {
+  'sign-in': { headline: 'Welcome back,\ntraveller.', sub: 'Pick up where you left off.', cta: 'Sign in' },
+  'sign-up': { headline: 'Every trip\nstarts here.', sub: 'Make an account, start swiping.', cta: 'Create account' },
+  forgot: { headline: 'Lost your\npassword?', sub: 'We’ll email you a link to set a new one.', cta: 'Email me a reset link' },
+};
 
 export default function SignIn() {
   const [mode, setMode] = useState<Mode>('sign-in');
@@ -14,19 +42,33 @@ export default function SignIn() {
   const [busy, setBusy] = useState(false);
   const [appleAvailable, setAppleAvailable] = useState(false);
 
-  // Apple Sign-In is deferred until the paid Apple Developer account + Supabase
-  // Apple provider are configured (the entitlement requires code signing). Flip
-  // APPLE_ENABLED to true then to re-enable the button.
+  // Apple Sign-In ships once the Apple provider is configured in Supabase.
   const APPLE_ENABLED = false;
   useEffect(() => {
     if (APPLE_ENABLED && Platform.OS === 'ios') AppleAuthentication.isAvailableAsync().then(setAppleAvailable);
   }, []);
 
-  // Email + password. (In Supabase → Auth, you can turn off "Confirm email"
-  // during development so sign-up logs you in immediately.)
-  const submitEmail = async () => {
-    if (!email || !password) {
-      Alert.alert('Missing details', 'Enter your email and password.');
+  const submit = async () => {
+    const target = email.trim();
+    if (!target) {
+      Alert.alert('Missing email', 'Enter your email address.');
+      return;
+    }
+
+    if (mode === 'forgot') {
+      setBusy(true);
+      const { error } = await supabase.auth.resetPasswordForEmail(target, { redirectTo: RESET_URL });
+      setBusy(false);
+      // never reveal whether an address has an account
+      if (!error) {
+        Alert.alert('Check your email', 'If that address has an account, a reset link is on its way.');
+        setMode('sign-in');
+      } else Alert.alert('Couldn’t send', error.message);
+      return;
+    }
+
+    if (!password) {
+      Alert.alert('Missing password', 'Enter your password.');
       return;
     }
     if (mode === 'sign-up' && password.length < 8) {
@@ -37,12 +79,13 @@ export default function SignIn() {
       Alert.alert('What’s your name?', 'Friends will see it when you plan trips together.');
       return;
     }
+
     setBusy(true);
     const { error } =
       mode === 'sign-in'
-        ? await supabase.auth.signInWithPassword({ email, password })
+        ? await supabase.auth.signInWithPassword({ email: target, password })
         : await supabase.auth.signUp({
-            email,
+            email: target,
             password,
             // the signup trigger copies this into profiles.display_name
             options: { data: { display_name: name.trim().slice(0, 60) } },
@@ -51,43 +94,12 @@ export default function SignIn() {
 
     if (error) Alert.alert('Could not continue', error.message);
     else if (mode === 'sign-up') {
-      Alert.alert('Almost there', 'Check your email to confirm your account, then sign in.');
+      Alert.alert('Almost there ✦', 'Check your email to confirm your account, then sign in.');
       setMode('sign-in');
     }
-    // on success the auth listener flips the session and the guard routes us home
+    // on success the auth listener flips the session and the guard routes home
   };
 
-  // Sends the reset email; the link opens our hosted page (docs/reset.html on
-  // GitHub Pages) where the user sets the new password, then signs in here.
-  const forgotPassword = () => {
-    Alert.prompt(
-      'Reset password',
-      'We’ll email you a link to choose a new one.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Send link',
-          onPress: async (value) => {
-            const target = (value ?? '').trim();
-            if (!target) return;
-            const { error } = await supabase.auth.resetPasswordForEmail(target, {
-              redirectTo: 'https://pranjal250605.github.io/whim-app/reset.html',
-            });
-            // don't reveal whether the email exists — same message either way
-            if (!error) Alert.alert('Check your email', 'If that address has an account, a reset link is on its way.');
-            else Alert.alert('Couldn’t send', error.message);
-          },
-        },
-      ],
-      'plain-text',
-      email,
-      'email-address',
-    );
-  };
-
-  // Sign in with Apple — required by App Store Guideline 4.8 once we offer it.
-  // Needs the Apple provider configured in Supabase + a paid Apple account to
-  // fully work; the button is hidden on non-iOS.
   const signInWithApple = async () => {
     try {
       const credential = await AppleAuthentication.signInAsync({
@@ -97,101 +109,148 @@ export default function SignIn() {
         ],
       });
       if (!credential.identityToken) throw new Error('No identity token from Apple.');
-      const { error } = await supabase.auth.signInWithIdToken({
-        provider: 'apple',
-        token: credential.identityToken,
-      });
+      const { error } = await supabase.auth.signInWithIdToken({ provider: 'apple', token: credential.identityToken });
       if (error) Alert.alert('Apple sign-in failed', error.message);
     } catch (e: any) {
       if (e?.code !== 'ERR_REQUEST_CANCELED') Alert.alert('Apple sign-in failed', String(e?.message ?? e));
     }
   };
 
+  const c = COPY[mode];
+
   return (
     <SafeAreaView className="flex-1 bg-canvas">
-      <View className="flex-1 justify-center px-7">
-        <Text className="font-serif text-4xl font-bold text-ink">Whim</Text>
-        <Text className="mt-2 text-[15px] text-muted">
-          {mode === 'sign-in' ? 'Welcome back.' : 'Create your account to start swiping.'}
-        </Text>
-
-        <View className="mt-8 gap-3">
-          {mode === 'sign-up' && (
-            <TextInput
-              value={name}
-              onChangeText={setName}
-              placeholder="Your name"
-              placeholderTextColor="#B6B1A9"
-              autoCapitalize="words"
-              autoComplete="name"
-              maxLength={60}
-              className="rounded-2xl border border-ink/10 bg-white px-4 py-4 text-[16px] text-ink"
-            />
-          )}
-          <TextInput
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Email"
-            placeholderTextColor="#B6B1A9"
-            autoCapitalize="none"
-            keyboardType="email-address"
-            autoComplete="email"
-            className="rounded-2xl border border-ink/10 bg-white px-4 py-4 text-[16px] text-ink"
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} className="flex-1">
+        <View className="flex-1 justify-center px-7">
+          {/* ── header: postmark + eyebrow + headline (fixed heights) ── */}
+          <Image
+            source={MARK}
+            resizeMode="contain"
+            style={{ width: 76, height: 76 / MARK_ASPECT, tintColor: COLORS.accent, transform: [{ rotate: '-4deg' }] }}
           />
-          <TextInput
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Password"
-            placeholderTextColor="#B6B1A9"
-            secureTextEntry
-            autoComplete={mode === 'sign-in' ? 'current-password' : 'new-password'}
-            className="rounded-2xl border border-ink/10 bg-white px-4 py-4 text-[16px] text-ink"
-          />
-        </View>
-
-        <Pressable
-          onPress={submitEmail}
-          disabled={busy}
-          className="mt-5 h-14 items-center justify-center rounded-2xl bg-ink"
-        >
-          {busy ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text className="text-base font-semibold text-white">
-              {mode === 'sign-in' ? 'Sign in' : 'Create account'}
-            </Text>
-          )}
-        </Pressable>
-
-        <Pressable onPress={() => setMode(mode === 'sign-in' ? 'sign-up' : 'sign-in')} className="mt-4 items-center">
-          <Text className="text-[14px] font-medium text-muted">
-            {mode === 'sign-in' ? 'New here?  Create an account' : 'Already have an account?  Sign in'}
-          </Text>
-        </Pressable>
-
-        {mode === 'sign-in' && (
-          <Pressable onPress={forgotPassword} className="mt-3 items-center">
-            <Text className="text-[13.5px] font-semibold text-accent">Forgot password?</Text>
-          </Pressable>
-        )}
-
-        {appleAvailable && (
-          <View className="mt-8">
-            <View className="mb-5 flex-row items-center gap-3">
-              <View className="h-px flex-1 bg-ink/10" />
-              <Text className="text-[12px] text-muted">or</Text>
-              <View className="h-px flex-1 bg-ink/10" />
-            </View>
-            <AppleAuthentication.AppleAuthenticationButton
-              buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-              buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-              cornerRadius={16}
-              style={{ height: 52, width: '100%' }}
-              onPress={signInWithApple}
-            />
+          <View className="mt-5 flex-row items-center gap-2">
+            <View className="h-1.5 w-1.5 rounded-full bg-accent" />
+            <Text className="font-mono text-[11px] tracking-[0.18em] text-accent">PASSPORT CONTROL</Text>
           </View>
-        )}
-      </View>
+          <Text className="mt-2 font-serif text-[34px] leading-[1.04] text-ink" style={{ minHeight: 76 }}>
+            {c.headline}
+          </Text>
+          <Text className="mt-1 text-[15px] text-muted" style={{ minHeight: 22 }}>
+            {c.sub}
+          </Text>
+
+          {/* ── fields: three fixed 56pt slots — geometry never shifts ── */}
+          <View className="mt-6" style={{ gap: 12 }}>
+            {/* slot 1 — email, identical in every mode */}
+            <TextInput
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Email"
+              placeholderTextColor="#B6B1A9"
+              autoCapitalize="none"
+              keyboardType="email-address"
+              autoComplete="email"
+              className="h-14 rounded-2xl border border-ink/10 bg-white px-4 text-[16px] text-ink"
+            />
+            {/* slot 2 — password, or the forgot-mode helper */}
+            {mode === 'forgot' ? (
+              <View className="h-14 justify-center rounded-2xl border border-dashed border-ink/15 px-4">
+                <Text className="text-[13px] text-muted">The link opens a secure page to set a new password.</Text>
+              </View>
+            ) : (
+              <TextInput
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Password"
+                placeholderTextColor="#B6B1A9"
+                secureTextEntry
+                autoComplete={mode === 'sign-in' ? 'current-password' : 'new-password'}
+                className="h-14 rounded-2xl border border-ink/10 bg-white px-4 text-[16px] text-ink"
+              />
+            )}
+            {/* slot 3 — name (sign-up) / forgot link (sign-in) / spacer (forgot) */}
+            {mode === 'sign-up' ? (
+              <TextInput
+                value={name}
+                onChangeText={setName}
+                placeholder="Your name — friends will see it"
+                placeholderTextColor="#B6B1A9"
+                autoCapitalize="words"
+                autoComplete="name"
+                maxLength={60}
+                className="h-14 rounded-2xl border border-ink/10 bg-white px-4 text-[16px] text-ink"
+              />
+            ) : mode === 'sign-in' ? (
+              <View className="h-14 flex-row items-center justify-end px-1">
+                <Pressable onPress={() => setMode('forgot')} hitSlop={10}>
+                  <Text className="text-[13.5px] font-semibold text-accent">Forgot password?</Text>
+                </Pressable>
+              </View>
+            ) : (
+              <View className="h-14" />
+            )}
+          </View>
+
+          {/* ── CTA: cobalt pill, same position in every mode ── */}
+          <Pressable
+            onPress={submit}
+            disabled={busy}
+            style={press(SHADOWS.accent)}
+            className="mt-4 h-14 items-center justify-center rounded-full bg-accent"
+          >
+            {busy ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text className="text-[16px] font-bold text-white">{c.cta}</Text>
+            )}
+          </Pressable>
+
+          {/* ── mode switch: fixed row ── */}
+          <Pressable
+            onPress={() => setMode(mode === 'sign-in' ? 'sign-up' : 'sign-in')}
+            hitSlop={8}
+            className="mt-4 h-8 items-center justify-center"
+          >
+            <Text className="text-[14px] font-medium text-muted">
+              {mode === 'sign-in' ? (
+                <>New here?  <Text className="font-semibold text-ink">Create an account</Text></>
+              ) : (
+                <>Already have an account?  <Text className="font-semibold text-ink">Sign in</Text></>
+              )}
+            </Text>
+          </Pressable>
+
+          {/* ── legal consent (App Store: shown at account creation) ── */}
+          <View className="mt-2 h-9 flex-row flex-wrap items-center justify-center">
+            <Text className="text-[12px] text-muted">By continuing you agree to the </Text>
+            <Pressable onPress={() => Linking.openURL(TERMS_URL)} hitSlop={6}>
+              <Text className="text-[12px] font-semibold text-accent">Terms</Text>
+            </Pressable>
+            <Text className="text-[12px] text-muted"> and </Text>
+            <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} hitSlop={6}>
+              <Text className="text-[12px] font-semibold text-accent">Privacy Policy</Text>
+            </Pressable>
+            <Text className="text-[12px] text-muted">.</Text>
+          </View>
+
+          {appleAvailable && (
+            <View className="mt-6">
+              <View className="mb-5 flex-row items-center gap-3">
+                <View className="h-px flex-1 bg-ink/10" />
+                <Text className="text-[12px] text-muted">or</Text>
+                <View className="h-px flex-1 bg-ink/10" />
+              </View>
+              <AppleAuthentication.AppleAuthenticationButton
+                buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+                cornerRadius={28}
+                style={{ height: 52, width: '100%' }}
+                onPress={signInWithApple}
+              />
+            </View>
+          )}
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

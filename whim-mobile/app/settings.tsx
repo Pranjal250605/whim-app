@@ -102,10 +102,15 @@ export default function Settings() {
           <Row label="Sign out" onPress={confirmSignOut} />
         </Section>
 
+        <Section title="Support & legal">
+          <Row label="Contact support" onPress={() => Linking.openURL('mailto:hello@bewhimsy.app')} />
+          <Row label="Terms of Service" onPress={() => Linking.openURL('https://pranjal250605.github.io/whim-app/terms.html')} />
+          <Row label="Privacy Policy" onPress={() => Linking.openURL('https://pranjal250605.github.io/whim-app/privacy.html')} />
+        </Section>
+
         <Section title="About">
           <Row label="Photos via Pexels" onPress={() => Linking.openURL('https://www.pexels.com')} />
           <Row label="Maps © Mapbox / OpenStreetMap" onPress={() => Linking.openURL('https://www.mapbox.com/about/maps/')} />
-          <Row label="Privacy Policy" onPress={() => Linking.openURL('https://pranjal250605.github.io/whim-app/privacy.html')} />
           <Row label="Version" value="1.0.0" />
         </Section>
 
