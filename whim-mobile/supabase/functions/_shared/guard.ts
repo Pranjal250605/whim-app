@@ -26,6 +26,25 @@ export async function underDailyCap(
   return data === true;
 }
 
+/**
+ * Global (all-users) daily circuit-breaker for the paid-AI functions. Counts
+ * one call for `fn` across every user (per UTC day) and says whether the day
+ * is still under `cap` — a catastrophe brake against account-farming that the
+ * per-user cap can't see. Fails OPEN if migration 0011 isn't applied yet.
+ */
+export async function underGlobalDailyCap(
+  admin: SupabaseClient,
+  fn: string,
+  cap: number,
+): Promise<boolean> {
+  const { data, error } = await admin.rpc('bump_global_usage', { p_fn: fn, p_cap: cap });
+  if (error) {
+    console.warn(`bump_global_usage unavailable (apply 0011_llm_global_cap.sql): ${error.message}`);
+    return true;
+  }
+  return data === true;
+}
+
 /** Opportunistically purge expired cache rows (~2% of requests). */
 export async function maybePurgeCaches(admin: SupabaseClient): Promise<void> {
   if (Math.random() >= 0.02) return;

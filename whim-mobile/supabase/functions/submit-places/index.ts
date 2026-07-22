@@ -11,9 +11,10 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts';
-import { underDailyCap } from '../_shared/guard.ts';
+import { underDailyCap, underGlobalDailyCap } from '../_shared/guard.ts';
 
 const DAILY_CAP = 60; // submissions per user per day (each = places + 1 LLM call)
+const GLOBAL_CAP = 2000; // all-users ceiling per day — brake on account-farming the LLM
 const MAX_PLACES = 15; // per submission
 
 const json = (b: unknown, s = 200) =>
@@ -110,6 +111,10 @@ Deno.serve(async (req) => {
   const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
   if (!(await underDailyCap(admin, user.id, 'submit-places', DAILY_CAP)))
     return json({ error: 'Daily limit reached — try again tomorrow.' }, 429);
+  // global circuit-breaker: stop many farmed accounts from running up the
+  // Anthropic/Places bill even while each stays under its own per-user cap.
+  if (!(await underGlobalDailyCap(admin, 'submit-places', GLOBAL_CAP)))
+    return json({ error: 'This feature is taking a breather — please try again tomorrow.' }, 429);
 
   const placesKey = Deno.env.get('GOOGLE_PLACES_API_KEY');
   const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY');
