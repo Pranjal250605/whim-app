@@ -2,7 +2,9 @@ import { useCallback, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from 'expo-router';
+import { Image } from 'expo-image';
 import { fetchMyCommunitySpots, submitPlaces, type CommunitySpot } from '@/lib/db';
+import { placePhotoSource } from '@/lib/placePhoto';
 import { VIBE_LABEL, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
@@ -86,19 +88,33 @@ export default function AddSpots() {
               <Text className="mb-3 mt-9 text-[12px] font-bold uppercase tracking-wide text-muted">
                 Your spots · {mine.length}
               </Text>
-              {mine.map((s) => (
-                <View key={s.id} className="mb-3 rounded-[18px] bg-white p-4" style={SHADOWS.soft}>
-                  <View className="flex-row items-center gap-2">
-                    <View className="h-2 w-2 rounded-full" style={{ backgroundColor: VIBE_DOT[s.vibe] }} />
-                    <Text className="font-mono text-[10px] uppercase tracking-wide text-muted">
-                      {VIBE_LABEL[s.vibe]}
-                      {s.city ? ` · ${s.city}` : ''}
-                    </Text>
+              {mine.map((s) => {
+                const photo = placePhotoSource({ placeId: s.id, w: 300 });
+                return (
+                  <View key={s.id} className="mb-3 flex-row items-center gap-3.5 rounded-[18px] bg-white p-3" style={SHADOWS.soft}>
+                    <View className="h-[58px] w-[58px] overflow-hidden rounded-[14px]" style={{ backgroundColor: COLORS.accentSoft }}>
+                      {photo ? (
+                        <Image source={photo} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={200} />
+                      ) : (
+                        <View className="flex-1 items-center justify-center">
+                          <View className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: VIBE_DOT[s.vibe] }} />
+                        </View>
+                      )}
+                    </View>
+                    <View className="flex-1">
+                      <View className="flex-row items-center gap-1.5">
+                        <View className="h-2 w-2 rounded-full" style={{ backgroundColor: VIBE_DOT[s.vibe] }} />
+                        <Text className="font-mono text-[9.5px] uppercase tracking-wide text-muted">
+                          {VIBE_LABEL[s.vibe]}
+                          {s.city ? ` · ${s.city}` : ''}
+                        </Text>
+                      </View>
+                      <Text className="mt-1 font-serif text-[17px] text-ink" numberOfLines={1}>{s.title}</Text>
+                      {s.blurb ? <Text className="mt-0.5 text-[12.5px] leading-5 text-muted" numberOfLines={2}>{s.blurb}</Text> : null}
+                    </View>
                   </View>
-                  <Text className="mt-1.5 font-serif text-[18px] text-ink">{s.title}</Text>
-                  {s.blurb ? <Text className="mt-0.5 text-[13px] leading-5 text-muted">{s.blurb}</Text> : null}
-                </View>
-              ))}
+                );
+              })}
             </>
           )}
         </ScrollView>

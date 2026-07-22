@@ -1,11 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Linking, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Image } from 'expo-image';
 import * as Location from 'expo-location';
 import { fetchNearby, spotMeta, type NearbyResult, type NearbySpot } from '@/lib/nearby';
+import { fetchNearbyCommunitySpots, reportCommunitySpot } from '@/lib/db';
+import { placePhotoSource } from '@/lib/placePhoto';
 import { VIBES, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
+import { toast } from '@/lib/toast';
 import type { VibeId } from '@/lib/types';
+import { distanceKm } from '@/lib/route';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
 
@@ -30,12 +35,57 @@ export default function Nearby() {
     }
     try {
       const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-      const data = await fetchNearby(pos.coords.latitude, pos.coords.longitude);
-      setState(data ? { kind: 'ready', data } : { kind: 'error' });
+      const { latitude: lat, longitude: lng } = pos.coords;
+      const [data, community] = await Promise.all([
+        fetchNearby(lat, lng),
+        fetchNearbyCommunitySpots(lat, lng).catch(() => []),
+      ]);
+      if (!data) {
+        setState({ kind: 'error' });
+        return;
+      }
+      // merge community "local picks" to the TOP of their vibe, deduped by id
+      for (const c of community) {
+        const bucket = data.vibes[c.vibe as VibeId];
+        if (!bucket || bucket.some((s) => s.id === c.id)) continue;
+        bucket.unshift({
+          id: c.id, title: c.title, kind: c.kind ?? '', area: c.area ?? '',
+          lat: c.lat, lng: c.lng, rating: null, ratingCount: 0, photoName: null,
+          km: distanceKm({ lat, lng }, { lat: c.lat, lng: c.lng }),
+          community: true, blurb: c.blurb,
+        });
+      }
+      setState({ kind: 'ready', data });
     } catch {
       setState({ kind: 'error' });
     }
   }, []);
+
+  const reportSpot = (s: NearbySpot) =>
+    Alert.alert('Report this spot?', 'We review reports within 24 hours and remove violations.', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Report',
+        style: 'destructive',
+        onPress: () => {
+          reportCommunitySpot(s.id, 'reported from nearby').catch(() => {});
+          setState((prev) =>
+            prev.kind === 'ready'
+              ? {
+                  kind: 'ready',
+                  data: {
+                    ...prev.data,
+                    vibes: Object.fromEntries(
+                      Object.entries(prev.data.vibes).map(([k, list]) => [k, list.filter((x) => x.id !== s.id)]),
+                    ) as typeof prev.data.vibes,
+                  },
+                }
+              : prev,
+          );
+          toast('Thanks — we’ll review this within 24 hours.');
+        },
+      },
+    ]);
 
   useEffect(() => {
     load();
@@ -132,33 +182,49 @@ export default function Nearby() {
               <Text className="mt-2 text-center text-[13.5px] leading-5 text-muted">Try another vibe, or refresh.</Text>
             </View>
           ) : (
-            list.map((s) => (
-              <Pressable
-                key={s.id}
-                onPress={() => openInMaps(s)}
-                style={press(SHADOWS.soft)}
-                className="mb-3 flex-row items-center gap-3.5 rounded-[18px] bg-white p-3.5"
-              >
-                <View className="h-11 w-11 items-center justify-center rounded-full" style={{ backgroundColor: COLORS.accentSoft }}>
-                  <View className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: VIBE_DOT[vibe] }} />
-                </View>
-                <View className="flex-1">
-                  <Text className="text-[15.5px] font-bold text-ink" numberOfLines={1}>
-                    {s.title}
-                  </Text>
-                  <Text className="mt-0.5 text-[12.5px] text-muted" numberOfLines={1}>
-                    {s.kind}
-                    {spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}
-                  </Text>
-                </View>
-                <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
-              </Pressable>
-            ))
+            list.map((s) => {
+              const photo = placePhotoSource({ photoName: s.photoName, placeId: s.id, w: 200 });
+              return (
+                <Pressable
+                  key={s.id}
+                  onPress={() => openInMaps(s)}
+                  onLongPress={s.community ? () => reportSpot(s) : undefined}
+                  style={press(SHADOWS.soft)}
+                  className="mb-3 flex-row items-center gap-3.5 rounded-[18px] bg-white p-3"
+                >
+                  <View className="h-[52px] w-[52px] overflow-hidden rounded-[13px]" style={{ backgroundColor: COLORS.accentSoft }}>
+                    {photo ? (
+                      <Image source={photo} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={200} />
+                    ) : (
+                      <View className="flex-1 items-center justify-center">
+                        <View className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: VIBE_DOT[vibe] }} />
+                      </View>
+                    )}
+                  </View>
+                  <View className="flex-1">
+                    <View className="flex-row items-center gap-1.5">
+                      <Text className="flex-shrink text-[15.5px] font-bold text-ink" numberOfLines={1}>
+                        {s.title}
+                      </Text>
+                      {s.community && (
+                        <View className="rounded-full bg-accent/12 px-1.5 py-0.5">
+                          <Text className="font-mono text-[8.5px] tracking-wide text-accent">LOCAL ✦</Text>
+                        </View>
+                      )}
+                    </View>
+                    <Text className="mt-0.5 text-[12.5px] text-muted" numberOfLines={1}>
+                      {s.community && s.blurb ? s.blurb : `${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`}
+                    </Text>
+                  </View>
+                  <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
+                </Pressable>
+              );
+            })
           ))}
 
         {state.kind === 'ready' && (
           <Text className="mt-4 text-center font-mono text-[10.5px] tracking-[0.08em] text-muted">
-            LIVE ✦ tap a spot to open it in Maps
+            LIVE ✦ tap to open in Maps · long-press a LOCAL pick to report
           </Text>
         )}
       </ScrollView>

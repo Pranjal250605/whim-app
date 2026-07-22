@@ -16,6 +16,8 @@ export interface NearbySpot {
   ratingCount: number;
   photoName: string | null;
   km?: number; // distance from the user, filled client-side
+  community?: boolean; // true = a user-submitted local pick, not a live Places result
+  blurb?: string | null;
 }
 
 export type NearbyVibes = Record<VibeId, NearbySpot[]>;

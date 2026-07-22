@@ -231,6 +231,33 @@ export async function submitPlaces(
   return data;
 }
 
+/** Approved community spots near a point (for surfacing in "Around you"). */
+export async function fetchNearbyCommunitySpots(
+  lat: number,
+  lng: number,
+  radiusKm = 3,
+): Promise<(CommunitySpot & { lat: number; lng: number })[]> {
+  const dLat = radiusKm / 111;
+  const dLng = radiusKm / (111 * Math.cos((lat * Math.PI) / 180));
+  const { data, error } = await supabase
+    .from('community_spots')
+    .select('id, title, vibe, kind, city, area, blurb, lat, lng')
+    .eq('status', 'approved')
+    .gte('lat', lat - dLat)
+    .lte('lat', lat + dLat)
+    .gte('lng', lng - dLng)
+    .lte('lng', lng + dLng)
+    .limit(60);
+  if (error) throw error;
+  return (data ?? []) as (CommunitySpot & { lat: number; lng: number })[];
+}
+
+/** Flag a community spot for review (App Store 1.2 UGC moderation). */
+export async function reportCommunitySpot(spotId: string, reason: string): Promise<void> {
+  const { error } = await supabase.from('community_reports').insert({ spot_id: spotId, reason });
+  if (error) throw error;
+}
+
 /** The current user's own submitted community spots. */
 export async function fetchMyCommunitySpots(): Promise<CommunitySpot[]> {
   const {
