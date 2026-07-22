@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import * as Location from 'expo-location';
@@ -145,48 +145,54 @@ export default function Nearby() {
         })}
       </ScrollView>
 
-      <ScrollView className="flex-1 px-5 pt-4" contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
-        {state.kind === 'loading' && (
-          <View className="items-center pt-20">
-            <ActivityIndicator color={COLORS.accent} />
-            <Text className="mt-3 text-[13px] text-muted">Finding what’s around you…</Text>
-          </View>
-        )}
+      {state.kind === 'loading' && (
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator color={COLORS.accent} />
+          <Text className="mt-3 text-[13px] text-muted">Finding what’s around you…</Text>
+        </View>
+      )}
 
-        {state.kind === 'denied' && (
-          <View className="items-center px-8 pt-16">
-            <Text className="text-center font-serif text-[22px] text-ink">Location is off</Text>
-            <Text className="mt-2.5 text-center text-[14px] leading-6 text-muted">
-              Turn on location access to discover spots right around you.
-            </Text>
-            <Pressable onPress={() => Linking.openSettings()} className="mt-6 rounded-2xl bg-ink px-6 py-3.5">
-              <Text className="text-[15px] font-semibold text-white">Open Settings</Text>
-            </Pressable>
-          </View>
-        )}
+      {state.kind === 'denied' && (
+        <View className="flex-1 items-center justify-center px-8">
+          <Text className="text-center font-serif text-[22px] text-ink">Location is off</Text>
+          <Text className="mt-2.5 text-center text-[14px] leading-6 text-muted">
+            Turn on location access to discover spots right around you.
+          </Text>
+          <Pressable onPress={() => Linking.openSettings()} className="mt-6 rounded-2xl bg-ink px-6 py-3.5">
+            <Text className="text-[15px] font-semibold text-white">Open Settings</Text>
+          </Pressable>
+        </View>
+      )}
 
-        {state.kind === 'error' && (
-          <View className="items-center px-8 pt-16">
-            <Text className="text-center font-serif text-[22px] text-ink">Couldn’t load nearby</Text>
-            <Text className="mt-2.5 text-center text-[14px] leading-6 text-muted">Check your connection and try again.</Text>
-            <Pressable onPress={load} className="mt-6 rounded-2xl bg-ink px-6 py-3.5">
-              <Text className="text-[15px] font-semibold text-white">Retry</Text>
-            </Pressable>
-          </View>
-        )}
+      {state.kind === 'error' && (
+        <View className="flex-1 items-center justify-center px-8">
+          <Text className="text-center font-serif text-[22px] text-ink">Couldn’t load nearby</Text>
+          <Text className="mt-2.5 text-center text-[14px] leading-6 text-muted">Check your connection and try again.</Text>
+          <Pressable onPress={load} className="mt-6 rounded-2xl bg-ink px-6 py-3.5">
+            <Text className="text-[15px] font-semibold text-white">Retry</Text>
+          </Pressable>
+        </View>
+      )}
 
-        {state.kind === 'ready' &&
-          (list.length === 0 ? (
-            <View className="items-center px-8 pt-14">
-              <Text className="text-center font-serif text-[20px] text-ink">Nothing in this vibe nearby</Text>
-              <Text className="mt-2 text-center text-[13.5px] leading-5 text-muted">Try another vibe, or refresh.</Text>
-            </View>
-          ) : (
-            list.map((s) => {
+      {state.kind === 'ready' &&
+        (list.length === 0 ? (
+          <View className="flex-1 items-center justify-center px-8">
+            <Text className="text-center font-serif text-[20px] text-ink">Nothing in this vibe nearby</Text>
+            <Text className="mt-2 text-center text-[13.5px] leading-5 text-muted">Try another vibe, or refresh.</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={list}
+            keyExtractor={(s) => s.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 40 }}
+            initialNumToRender={8}
+            maxToRenderPerBatch={8}
+            windowSize={7}
+            renderItem={({ item: s }) => {
               const photo = placePhotoSource({ photoName: s.photoName, placeId: s.id, w: 200 });
               return (
                 <Pressable
-                  key={s.id}
                   onPress={() => openInMaps(s)}
                   onLongPress={s.community ? () => reportSpot(s) : undefined}
                   style={press(SHADOWS.soft)}
@@ -219,15 +225,14 @@ export default function Nearby() {
                   <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
                 </Pressable>
               );
-            })
-          ))}
-
-        {state.kind === 'ready' && (
-          <Text className="mt-4 text-center font-mono text-[10.5px] tracking-[0.08em] text-muted">
-            LIVE ✦ tap to open in Maps · long-press a LOCAL pick to report
-          </Text>
-        )}
-      </ScrollView>
+            }}
+            ListFooterComponent={
+              <Text className="mt-4 text-center font-mono text-[10.5px] tracking-[0.08em] text-muted">
+                LIVE ✦ tap to open in Maps · long-press a LOCAL pick to report
+              </Text>
+            }
+          />
+        ))}
     </SafeAreaView>
   );
 }

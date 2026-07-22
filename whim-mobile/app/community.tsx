@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Linking, Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Linking, Pressable, RefreshControl, ScrollView, SectionList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
@@ -265,59 +265,60 @@ export default function Community() {
         })}
       </ScrollView>
 
-      <ScrollView
-        className="flex-1 px-5 pt-4"
-        contentContainerStyle={{ paddingBottom: 120 }}
-        showsVerticalScrollIndicator={false}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={COLORS.accent} />}
-      >
-        {state.kind === 'loading' && (
-          <View className="items-center pt-20">
-            <ActivityIndicator color={COLORS.accent} />
-            <Text className="mt-3 text-[13px] text-muted">Loading the community…</Text>
-          </View>
-        )}
+      {state.kind === 'loading' && (
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator color={COLORS.accent} />
+          <Text className="mt-3 text-[13px] text-muted">Loading the community…</Text>
+        </View>
+      )}
 
-        {state.kind === 'error' && (
-          <View className="items-center px-8 pt-16">
-            <Text className="text-center font-serif text-[22px] text-ink">Couldn’t load the feed</Text>
-            <Text className="mt-2.5 text-center text-[14px] leading-6 text-muted">Check your connection and try again.</Text>
-            <Pressable onPress={load} className="mt-6 rounded-2xl bg-ink px-6 py-3.5">
-              <Text className="text-[15px] font-semibold text-white">Retry</Text>
+      {state.kind === 'error' && (
+        <View className="flex-1 items-center justify-center px-8">
+          <Text className="text-center font-serif text-[22px] text-ink">Couldn’t load the feed</Text>
+          <Text className="mt-2.5 text-center text-[14px] leading-6 text-muted">Check your connection and try again.</Text>
+          <Pressable onPress={load} className="mt-6 rounded-2xl bg-ink px-6 py-3.5">
+            <Text className="text-[15px] font-semibold text-white">Retry</Text>
+          </Pressable>
+        </View>
+      )}
+
+      {state.kind === 'ready' &&
+        (sections.length === 0 ? (
+          <View className="flex-1 items-center justify-center px-8">
+            <Text className="text-center font-serif text-[21px] text-ink">Nothing here yet</Text>
+            <Text className="mt-2 text-center text-[13.5px] leading-5 text-muted">
+              Be the first — build a trip for anywhere and publish it.
+            </Text>
+            <Pressable onPress={() => router.push('/build-trip')} style={press(SHADOWS.accent)} className="mt-5 h-12 flex-row items-center justify-center gap-2 rounded-full bg-accent px-6">
+              <Text className="text-[15px] font-bold text-white">＋ Create a trip</Text>
             </Pressable>
           </View>
-        )}
-
-        {state.kind === 'ready' &&
-          (sections.length === 0 ? (
-            <View className="items-center px-8 pt-16">
-              <Text className="text-center font-serif text-[21px] text-ink">Nothing here yet</Text>
-              <Text className="mt-2 text-center text-[13.5px] leading-5 text-muted">
-                Be the first — build a trip for anywhere and publish it.
-              </Text>
-              <Pressable onPress={() => router.push('/build-trip')} style={press(SHADOWS.accent)} className="mt-5 h-12 flex-row items-center justify-center gap-2 rounded-full bg-accent px-6">
-                <Text className="text-[15px] font-bold text-white">＋ Create a trip</Text>
-              </Pressable>
-            </View>
-          ) : (
-            sections.map((section) => (
-              <View key={section.key} className="mb-2">
-                <View className="mb-2.5 mt-1 flex-row items-center gap-2.5">
-                  <Text className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink">{section.title}</Text>
-                  <View className="h-px flex-1 bg-ink/10" />
-                  <Text className="font-mono text-[10.5px] text-muted">{section.items.length}</Text>
-                </View>
-                {section.items.map(card)}
+        ) : (
+          <SectionList
+            sections={sections.map((s) => ({ title: s.title, count: s.items.length, data: s.items }))}
+            keyExtractor={(item) => `${item.kind}-${item.id}`}
+            renderItem={({ item }) => card(item)}
+            renderSectionHeader={({ section }) => (
+              <View className="mb-2.5 mt-1 flex-row items-center gap-2.5 bg-canvas pt-1">
+                <Text className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink">{section.title}</Text>
+                <View className="h-px flex-1 bg-ink/10" />
+                <Text className="font-mono text-[10.5px] text-muted">{section.count}</Text>
               </View>
-            ))
-          ))}
-
-        {state.kind === 'ready' && sections.length > 0 && (
-          <Text className="mt-3 text-center font-mono text-[10.5px] tracking-[0.08em] text-muted">
-            ✦ tap to open · long-press to {viewer.isAdmin ? 'approve or report' : 'report'}
-          </Text>
-        )}
-      </ScrollView>
+            )}
+            stickySectionHeadersEnabled={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 120 }}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={COLORS.accent} />}
+            initialNumToRender={6}
+            maxToRenderPerBatch={6}
+            windowSize={7}
+            ListFooterComponent={
+              <Text className="mt-3 text-center font-mono text-[10.5px] tracking-[0.08em] text-muted">
+                ✦ tap to open · long-press to {viewer.isAdmin ? 'approve or report' : 'report'}
+              </Text>
+            }
+          />
+        ))}
 
       <GlassNav active="community" />
     </SafeAreaView>
