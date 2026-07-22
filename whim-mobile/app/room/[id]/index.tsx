@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, Share, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, ScrollView, Share, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useRoomStore } from '@/store/useRoomStore';
+import { useAuth } from '@/lib/auth';
 import { VIBE_LABEL, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import BackButton from '@/components/BackButton';
@@ -26,12 +27,54 @@ export default function RoomLobby() {
   const loading = useRoomStore((s) => s.loading);
   const enter = useRoomStore((s) => s.enter);
   const leave = useRoomStore((s) => s.leave);
+  const reportMember = useRoomStore((s) => s.reportMember);
+  const blockMember = useRoomStore((s) => s.blockMember);
+  const leaveCurrentRoom = useRoomStore((s) => s.leaveCurrentRoom);
+  const { session } = useAuth();
+  const myId = session?.user?.id;
 
   useEffect(() => {
     if (id) enter(id);
     return () => leave();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  // Tap another member → report / block (App Store 1.2 UGC moderation).
+  const memberActions = (userId: string, name: string) => {
+    Alert.alert(name, undefined, [
+      {
+        text: 'Report name or behaviour',
+        onPress: () =>
+          Alert.alert('Report this person?', 'We review reports within 24 hours and act on violations.', [
+            { text: 'Cancel', style: 'cancel' },
+            { text: 'Report', style: 'destructive', onPress: () => reportMember(userId, 'reported from room lobby') },
+          ]),
+      },
+      {
+        text: 'Block',
+        style: 'destructive',
+        onPress: () =>
+          Alert.alert('Block this person?', 'You won’t see them or their activity again.', [
+            { text: 'Cancel', style: 'cancel' },
+            { text: 'Block', style: 'destructive', onPress: () => blockMember(userId) },
+          ]),
+      },
+      { text: 'Cancel', style: 'cancel' },
+    ]);
+  };
+
+  const confirmLeave = () =>
+    Alert.alert('Leave this room?', 'You’ll stop swiping with this group. You can re-join later with the code.', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Leave',
+        style: 'destructive',
+        onPress: async () => {
+          await leaveCurrentRoom();
+          router.back();
+        },
+      },
+    ]);
 
   const shareInvite = () => {
     if (!room) return;
@@ -98,18 +141,28 @@ export default function RoomLobby() {
           Who’s in · {members.length}
         </Text>
         <View className="flex-row flex-wrap" style={{ gap: 10 }}>
-          {members.map((m) => (
-            <View key={m.userId} className="flex-row items-center gap-2 rounded-full bg-white py-1.5 pl-1.5 pr-3.5" style={SHADOWS.soft}>
-              <View className="h-8 w-8 items-center justify-center rounded-full bg-accent-soft">
-                <Text className="text-[12px] font-bold text-accent">{memberInitials(m.displayName)}</Text>
-              </View>
-              <Text className="text-[13.5px] font-semibold text-ink">
-                {(m.displayName ?? 'Traveller').split(/\s+/)[0]}
-              </Text>
-              {m.isHost && <Text className="font-mono text-[9px] tracking-[0.12em] text-muted">HOST</Text>}
-            </View>
-          ))}
+          {members.map((m) => {
+            const isMe = m.userId === myId;
+            const name = (m.displayName ?? 'Traveller').split(/\s+/)[0];
+            return (
+              <Pressable
+                key={m.userId}
+                onPress={isMe ? undefined : () => memberActions(m.userId, m.displayName ?? 'This traveller')}
+                className="flex-row items-center gap-2 rounded-full bg-white py-1.5 pl-1.5 pr-3.5"
+                style={SHADOWS.soft}
+              >
+                <View className="h-8 w-8 items-center justify-center rounded-full bg-accent-soft">
+                  <Text className="text-[12px] font-bold text-accent">{memberInitials(m.displayName)}</Text>
+                </View>
+                <Text className="text-[13.5px] font-semibold text-ink">{isMe ? 'You' : name}</Text>
+                {m.isHost && <Text className="font-mono text-[9px] tracking-[0.12em] text-muted">HOST</Text>}
+              </Pressable>
+            );
+          })}
         </View>
+        {members.length > 1 && (
+          <Text className="mt-2 text-[11.5px] text-muted">Tap a member to report or block.</Text>
+        )}
 
         {/* start swiping */}
         <Pressable
@@ -160,6 +213,11 @@ export default function RoomLobby() {
           </Pressable>
           </>
         )}
+
+        {/* leave room */}
+        <Pressable onPress={confirmLeave} className="mt-8 items-center py-2">
+          <Text className="text-[13px] font-semibold text-destructive">Leave room</Text>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );

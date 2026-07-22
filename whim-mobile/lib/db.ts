@@ -207,6 +207,38 @@ export async function fetchSpotsByIds(ids: string[]): Promise<Spot[]> {
   return (data ?? []).map(rowToSpot);
 }
 
+// ── Room moderation (App Store Guideline 1.2 for UGC) ────────────────────
+
+/** Flag a room member for an offensive name or behaviour. */
+export async function reportRoomMember(roomId: string, reportedUserId: string, reason: string): Promise<void> {
+  const { error } = await supabase
+    .from('room_reports')
+    .insert({ room_id: roomId, reported_user_id: reportedUserId, reason });
+  if (error) throw error;
+}
+
+/** Block a user — you stop seeing their name/content anywhere. */
+export async function blockUser(blockedId: string): Promise<void> {
+  const { error } = await supabase.from('blocked_users').upsert({ blocked_id: blockedId }, { onConflict: 'blocker_id,blocked_id' });
+  if (error) throw error;
+}
+
+export async function fetchBlockedUserIds(): Promise<string[]> {
+  const { data, error } = await supabase.from('blocked_users').select('blocked_id');
+  if (error) throw error;
+  return (data ?? []).map((r: any) => r.blocked_id);
+}
+
+/** Remove yourself from a room. */
+export async function leaveRoom(roomId: string): Promise<void> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+  const { error } = await supabase.from('room_members').delete().eq('room_id', roomId).eq('user_id', user.id);
+  if (error) throw error;
+}
+
 // ── Profile ──────────────────────────────────────────────────────────────
 export interface Profile {
   displayName: string | null;
