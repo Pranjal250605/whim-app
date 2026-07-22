@@ -250,6 +250,262 @@
           }
         ],
         "geocodeQuery": "Moulin Rouge, Paris, France"
+      },
+      {
+        "id": "musee-d-orsay",
+        "title": "Musée d’Orsay",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Orsay · 7th",
+        "hours": "Opens morning",
+        "tags": [
+          "Impressionists",
+          "Riverside"
+        ],
+        "description": "Impressionist heavyweights hung inside a converted Beaux-Arts railway station, under that giant golden clock."
+      },
+      {
+        "id": "sainte-chapelle",
+        "title": "Sainte-Chapelle",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Chapel",
+        "area": "Île de la Cité · 1st",
+        "hours": "Opens morning",
+        "tags": [
+          "Stained glass",
+          "Gothic"
+        ],
+        "description": "Fifteen towering walls of 13th-century stained glass that turn the whole room to jewelled light by afternoon."
+      },
+      {
+        "id": "arc-de-triomphe",
+        "title": "Arc de Triomphe",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Monument",
+        "area": "Champs-Élysées · 8th",
+        "hours": "Opens morning",
+        "tags": [
+          "Rooftop",
+          "Viewpoint"
+        ],
+        "description": "Climb the spiral to the roof for twelve grand avenues radiating out like spokes over the city."
+      },
+      {
+        "id": "pantheon",
+        "title": "Panthéon",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Monument",
+        "area": "Latin Quarter · 5th",
+        "hours": "Opens morning",
+        "tags": [
+          "Crypt",
+          "Dome"
+        ],
+        "description": "A neoclassical dome over the crypt of France’s greats — Voltaire, Curie, Hugo — with a Foucault pendulum still swinging beneath."
+      },
+      {
+        "id": "palais-garnier",
+        "title": "Palais Garnier",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Opera house",
+        "area": "Opéra · 9th",
+        "hours": "Opens morning",
+        "tags": [
+          "Gilded",
+          "Grand staircase"
+        ],
+        "description": "The wedding-cake opera house that inspired the Phantom — gold leaf, red velvet, and a Chagall ceiling."
+      },
+      {
+        "id": "cafe-de-flore",
+        "title": "Café de Flore",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Saint-Germain · 6th",
+        "hours": "Opens morning",
+        "tags": [
+          "Literary",
+          "People-watching"
+        ],
+        "description": "The old Left Bank literary café — take the terrace, order a café crème, and watch Saint-Germain drift past."
+      },
+      {
+        "id": "du-pain-et-des-idees",
+        "title": "Du Pain et des Idées",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bakery",
+        "area": "Canal · 10th",
+        "hours": "Opens morning",
+        "tags": [
+          "Pastry",
+          "Escargot roll"
+        ],
+        "description": "A jewel-box 1870s boulangerie famous for its pistachio escargot rolls and pain des amis."
+      },
+      {
+        "id": "merci",
+        "title": "Merci",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Concept store",
+        "area": "Haut Marais · 3rd",
+        "hours": "Opens morning",
+        "tags": [
+          "Design",
+          "Café"
+        ],
+        "description": "Three floors of considered design behind a little red Fiat, with a used-book café tucked in the corner."
+      },
+      {
+        "id": "shakespeare-and-company",
+        "title": "Shakespeare and Company",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bookshop",
+        "area": "Latin Quarter · 5th",
+        "hours": "Opens morning",
+        "tags": [
+          "Literary",
+          "Riverside"
+        ],
+        "description": "The rambling English-language bookshop across from Notre-Dame, with reading nooks upstairs and a café next door."
+      },
+      {
+        "id": "fragments",
+        "title": "Fragments",
+        "geocodeQuery": "Fragments, 76 Rue des Tournelles, 75003 Paris, France",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Marais · 4th",
+        "hours": "Opens morning",
+        "tags": [
+          "Specialty",
+          "Small"
+        ],
+        "description": "A tiny specialty coffee counter locals queue for — get it to go and wander the Marais."
+      },
+      {
+        "id": "parc-des-buttes-chaumont",
+        "title": "Parc des Buttes-Chaumont",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "19th",
+        "hours": "Opens morning",
+        "tags": [
+          "Cliffs",
+          "Temple"
+        ],
+        "description": "The city’s most dramatic park — cliffs, a suspension bridge, and a temple on a crag above the lake."
+      },
+      {
+        "id": "coulee-verte-rene-dumont",
+        "title": "Coulée verte René-Dumont",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Elevated walk",
+        "area": "12th",
+        "hours": "Opens morning",
+        "tags": [
+          "Viaduct",
+          "Walk"
+        ],
+        "description": "A planted walkway along an old railway viaduct — the original that inspired New York’s High Line."
+      },
+      {
+        "id": "le-comptoir-general",
+        "title": "Le Comptoir Général",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar",
+        "area": "Canal · 10th",
+        "hours": "Opens morning",
+        "tags": [
+          "Hidden",
+          "Eclectic"
+        ],
+        "description": "A gloriously ramshackle ‘ghetto museum’ bar off the canal — plants, oddities, and ginger punch."
+      },
+      {
+        "id": "little-red-door",
+        "title": "Little Red Door",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Marais · 3rd",
+        "hours": "Opens morning",
+        "tags": [
+          "Craft cocktails",
+          "Intimate"
+        ],
+        "description": "A perennially world-ranked cocktail bar behind an unmarked red door in the Marais."
+      },
+      {
+        "id": "le-perchoir",
+        "title": "Le Perchoir",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop bar",
+        "area": "Ménilmontant · 11th",
+        "hours": "Opens morning",
+        "tags": [
+          "Rooftop",
+          "Sunset"
+        ],
+        "description": "A rooftop bar with a full sweep of the zinc rooftops — come for sundown, stay for the crowd."
+      },
+      {
+        "id": "bar-hemingway",
+        "title": "Bar Hemingway",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Ritz · 1st",
+        "hours": "Opens morning",
+        "tags": [
+          "Classic",
+          "Legendary"
+        ],
+        "description": "Colin Field’s clubby bar inside the Ritz, where the martini is treated like a sacrament."
+      },
+      {
+        "id": "candelaria",
+        "title": "Candelaria",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Taquería & bar",
+        "area": "Marais · 3rd",
+        "hours": "Opens morning",
+        "tags": [
+          "Speakeasy",
+          "Mezcal"
+        ],
+        "description": "Order tacos at the counter, then slip through the back door into one of Paris’s best agave bars."
       }
     ]
   },
@@ -482,6 +738,171 @@
           }
         ],
         "geocodeQuery": "Cours Saleya, Nice, France"
+      },
+      {
+        "id": "musee-matisse",
+        "title": "Musée Matisse",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Cimiez",
+        "hours": "Opens morning",
+        "tags": [
+          "Art",
+          "Villa"
+        ],
+        "description": "Matisse’s own collection in a red-ochre villa among the olive trees of Cimiez."
+      },
+      {
+        "id": "fenocchio",
+        "title": "Fenocchio",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Gelato",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Gelato",
+          "Wild flavours"
+        ],
+        "description": "The Old Town institution with a hundred-odd flavours — violet to tomato-basil — since 1966."
+      },
+      {
+        "id": "maison-auer",
+        "title": "Maison Auer",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Confiserie",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Chocolate",
+          "Historic"
+        ],
+        "description": "A candied-fruit and chocolate shop unchanged since 1820, all mirrors and gilt."
+      },
+      {
+        "id": "malongo-cafe",
+        "title": "Malongo Café",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Place Garibaldi",
+        "hours": "Opens morning",
+        "tags": [
+          "Roaster",
+          "Local"
+        ],
+        "description": "The Nice roaster’s own café off Garibaldi — a proper espresso in a city that runs on it."
+      },
+      {
+        "id": "chez-pipo",
+        "title": "Chez Pipo",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Socca",
+        "area": "Port",
+        "hours": "Opens morning",
+        "tags": [
+          "Socca",
+          "Local"
+        ],
+        "description": "The legendary hole-in-the-wall for socca — Nice’s chickpea pancake — near the old port."
+      },
+      {
+        "id": "promenade-du-paillon",
+        "title": "Promenade du Paillon",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Centre",
+        "hours": "Opens morning",
+        "tags": [
+          "Fountains",
+          "Green"
+        ],
+        "description": "A ribbon of green and mirror-fountains running from the sea into the city — misting jets in summer."
+      },
+      {
+        "id": "mont-boron",
+        "title": "Mont Boron",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Hill walk",
+        "area": "East",
+        "hours": "Opens morning",
+        "tags": [
+          "Trail",
+          "Views"
+        ],
+        "description": "A pine-forest trail above the port with knockout views back over Nice and out to Villefranche."
+      },
+      {
+        "id": "plage-beau-rivage",
+        "title": "Plage Beau Rivage",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Beach",
+        "area": "Seafront",
+        "hours": "Opens morning",
+        "tags": [
+          "Pebbles",
+          "Swim"
+        ],
+        "description": "A pebble beach for a midday swim straight off the Prom."
+      },
+      {
+        "id": "les-distilleries-ideales",
+        "title": "Les Distilleries Idéales",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Apéro",
+          "Buzzy"
+        ],
+        "description": "A cozy corner bar at the crossroads of the Old Town lanes — the go-to for a buzzy apéro."
+      },
+      {
+        "id": "movida",
+        "title": "Movida",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Late",
+          "Lively"
+        ],
+        "description": "A loud, friendly late bar in the thick of the Old Town nightlife knot."
+      },
+      {
+        "id": "ma-nolan-s",
+        "title": "Ma Nolan’s",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Irish pub",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Pub",
+          "Sport"
+        ],
+        "description": "The reliable Irish pub for a pint and a match, with branches across town."
       }
     ]
   }

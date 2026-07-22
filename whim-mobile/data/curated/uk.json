@@ -2,224 +2,967 @@
   {
     "city": "London",
     "country": "United Kingdom",
-    "center": [-0.1276, 51.5072],
+    "center": [
+      -0.1276,
+      51.5072
+    ],
     "spots": [
       {
         "id": "tower-of-london",
         "title": "Tower of London",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Castle",
         "area": "Tower Hill",
         "hours": "Opens morning",
-        "tags": ["Iconic", "History"],
+        "tags": [
+          "Iconic",
+          "History"
+        ],
         "description": "A 1,000-year-old fortress on the Thames guarding the Crown Jewels, with Tower Bridge right alongside.",
         "nearby": [
-          { "title": "Tower Bridge walk", "kind": "Landmark", "mins": 6 },
-          { "title": "St Katharine Docks", "kind": "Stroll", "mins": 9 }
+          {
+            "title": "Tower Bridge walk",
+            "kind": "Landmark",
+            "mins": 6
+          },
+          {
+            "title": "St Katharine Docks",
+            "kind": "Stroll",
+            "mins": 9
+          }
         ]
       },
       {
         "id": "british-museum",
         "title": "British Museum",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Museum",
         "area": "Bloomsbury",
         "hours": "Opens morning",
-        "tags": ["Culture", "Free entry"],
+        "tags": [
+          "Culture",
+          "Free entry"
+        ],
         "description": "From the Rosetta Stone to the Parthenon marbles, under a soaring glass-roofed Great Court.",
         "nearby": [
-          { "title": "Kaffeine (Store St)", "kind": "Coffee", "mins": 8 },
-          { "title": "Coal Drops Yard", "kind": "Shopping", "mins": 14 }
+          {
+            "title": "Kaffeine (Store St)",
+            "kind": "Coffee",
+            "mins": 8
+          },
+          {
+            "title": "Coal Drops Yard",
+            "kind": "Shopping",
+            "mins": 14
+          }
         ]
       },
       {
         "id": "hyde-park",
         "title": "Hyde Park",
-        "vibes": ["nature"],
+        "vibes": [
+          "nature"
+        ],
         "kind": "Park",
         "area": "Westminster",
         "hours": "Anytime",
-        "tags": ["Calm", "Lakeside"],
+        "tags": [
+          "Calm",
+          "Lakeside"
+        ],
         "description": "350 acres of central greenery — row on the Serpentine, then drift into Kensington Gardens.",
         "nearby": [
-          { "title": "Serpentine Lido", "kind": "Nature", "mins": 5 },
-          { "title": "Kensington Gardens", "kind": "Garden", "mins": 8 }
+          {
+            "title": "Serpentine Lido",
+            "kind": "Nature",
+            "mins": 5
+          },
+          {
+            "title": "Kensington Gardens",
+            "kind": "Garden",
+            "mins": 8
+          }
         ]
       },
       {
         "id": "hampstead-heath",
         "title": "Hampstead Heath",
-        "vibes": ["nature"],
+        "vibes": [
+          "nature"
+        ],
         "kind": "Park",
         "area": "Hampstead",
         "hours": "Daytime",
-        "tags": ["Wild", "Viewpoint"],
+        "tags": [
+          "Wild",
+          "Viewpoint"
+        ],
         "description": "A wild, hilly heath with swimming ponds and the Parliament Hill view across the entire London skyline.",
         "nearby": [
-          { "title": "Parliament Hill viewpoint", "kind": "Viewpoint", "mins": 6 },
-          { "title": "Kenwood House", "kind": "Landmark", "mins": 12 }
+          {
+            "title": "Parliament Hill viewpoint",
+            "kind": "Viewpoint",
+            "mins": 6
+          },
+          {
+            "title": "Kenwood House",
+            "kind": "Landmark",
+            "mins": 12
+          }
         ]
       },
       {
         "id": "borough-market",
         "title": "Borough Market",
-        "vibes": ["classics", "matcha"],
+        "vibes": [
+          "classics",
+          "matcha"
+        ],
         "kind": "Food market",
         "area": "Southwark",
         "hours": "Daytime",
-        "tags": ["Foodie", "Iconic"],
+        "tags": [
+          "Foodie",
+          "Iconic"
+        ],
         "description": "London's most loved food market — cheese, fresh oysters, sizzling griddles and the original Monmouth coffee.",
         "nearby": [
-          { "title": "Monmouth Coffee", "kind": "Coffee", "mins": 2 },
-          { "title": "Southwark Cathedral", "kind": "Landmark", "mins": 4 }
+          {
+            "title": "Monmouth Coffee",
+            "kind": "Coffee",
+            "mins": 2
+          },
+          {
+            "title": "Southwark Cathedral",
+            "kind": "Landmark",
+            "mins": 4
+          }
         ]
       },
       {
         "id": "shoreditch",
         "title": "Shoreditch",
-        "vibes": ["matcha", "nightlife"],
+        "vibes": [
+          "matcha",
+          "nightlife"
+        ],
         "kind": "Neighbourhood",
         "area": "Hackney",
         "hours": "Daytime",
-        "tags": ["Street art", "Coffee"],
+        "tags": [
+          "Street art",
+          "Coffee"
+        ],
         "description": "East London's creative heart — street-art lanes and flat-white roasters by day, buzzing bars by night.",
         "nearby": [
-          { "title": "Allpress Espresso", "kind": "Coffee", "mins": 4 },
-          { "title": "Brick Lane", "kind": "Street food", "mins": 7 }
+          {
+            "title": "Allpress Espresso",
+            "kind": "Coffee",
+            "mins": 4
+          },
+          {
+            "title": "Brick Lane",
+            "kind": "Street food",
+            "mins": 7
+          }
         ]
       },
       {
         "id": "soho",
         "title": "Soho",
-        "vibes": ["nightlife"],
+        "vibes": [
+          "nightlife"
+        ],
         "kind": "Nightlife district",
         "area": "West End",
         "hours": "Evenings",
-        "tags": ["Bars", "Theatre"],
+        "tags": [
+          "Bars",
+          "Theatre"
+        ],
         "description": "London's neon-lit nightlife core — theatres, jazz cellars, cocktail dens and late-night Chinatown noodles.",
         "nearby": [
-          { "title": "Chinatown", "kind": "Street food", "mins": 3 },
-          { "title": "Ronnie Scott's jazz", "kind": "Live music", "mins": 4 }
+          {
+            "title": "Chinatown",
+            "kind": "Street food",
+            "mins": 3
+          },
+          {
+            "title": "Ronnie Scott's jazz",
+            "kind": "Live music",
+            "mins": 4
+          }
         ]
+      },
+      {
+        "id": "westminster-abbey",
+        "title": "Westminster Abbey",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Abbey",
+        "area": "Westminster",
+        "hours": "Opens morning",
+        "tags": [
+          "Coronations",
+          "Gothic"
+        ],
+        "description": "The coronation church of monarchs since 1066, wall-to-wall with the tombs of the famous."
+      },
+      {
+        "id": "st-paul-s-cathedral",
+        "title": "St Paul’s Cathedral",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cathedral",
+        "area": "City",
+        "hours": "Opens morning",
+        "tags": [
+          "Dome",
+          "Whispering Gallery"
+        ],
+        "description": "Wren’s dome over the City — climb to the Whispering Gallery and out to the Golden Gallery view."
+      },
+      {
+        "id": "tower-bridge",
+        "title": "Tower Bridge",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Bridge",
+        "area": "Tower Hill",
+        "hours": "Opens morning",
+        "tags": [
+          "Icon",
+          "Glass floor"
+        ],
+        "description": "The Victorian bascule bridge everyone mistakes for London Bridge — walk the high glass-floor deck."
+      },
+      {
+        "id": "sir-john-soane-s-museum",
+        "title": "Sir John Soane’s Museum",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "House museum",
+        "area": "Holborn",
+        "hours": "Opens morning",
+        "tags": [
+          "Free",
+          "Curiosities"
+        ],
+        "description": "An architect’s crammed, candle-lit house of antiquities kept exactly as he left it — free and magical."
+      },
+      {
+        "id": "monmouth-coffee",
+        "title": "Monmouth Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Borough",
+        "hours": "Opens morning",
+        "tags": [
+          "Roaster",
+          "Market"
+        ],
+        "description": "The Borough Market roaster locals swear by — a proper filter and a pastry, then into the market."
+      },
+      {
+        "id": "daunt-books",
+        "title": "Daunt Books",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bookshop",
+        "area": "Marylebone",
+        "hours": "Opens morning",
+        "tags": [
+          "Edwardian",
+          "Travel"
+        ],
+        "description": "An Edwardian galleried bookshop arranged by country under a long oak skylight — the prettiest in London."
+      },
+      {
+        "id": "maison-bertaux",
+        "title": "Maison Bertaux",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Patisserie",
+        "area": "Soho",
+        "hours": "Opens morning",
+        "tags": [
+          "Since 1871",
+          "Old Soho"
+        ],
+        "description": "London’s oldest patisserie — wonky, charming, unchanged, for a cream slice and a pot of tea."
+      },
+      {
+        "id": "kaffeine",
+        "title": "Kaffeine",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Fitzrovia",
+        "hours": "Opens morning",
+        "tags": [
+          "Antipodean",
+          "Brunch"
+        ],
+        "description": "An Aussie-style café that set the bar for London flat whites and brunch off Oxford Street."
+      },
+      {
+        "id": "neal-s-yard",
+        "title": "Neal’s Yard",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Courtyard",
+        "area": "Covent Garden",
+        "hours": "Opens morning",
+        "tags": [
+          "Colourful",
+          "Hidden"
+        ],
+        "description": "A tiny riot of rainbow-painted buildings hidden in the alleys of Covent Garden — cafés and remedies."
+      },
+      {
+        "id": "sketch-the-gallery",
+        "title": "Sketch (The Gallery)",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea room",
+        "area": "Mayfair",
+        "hours": "Opens morning",
+        "tags": [
+          "Pink",
+          "Afternoon tea"
+        ],
+        "description": "The famously pink, pod-lined tea room in Mayfair — afternoon tea as a full-blown art installation."
+      },
+      {
+        "id": "regent-s-park-primrose-hill",
+        "title": "Regent’s Park & Primrose Hill",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Regent’s Park",
+        "hours": "Opens morning",
+        "tags": [
+          "Rose garden",
+          "Skyline"
+        ],
+        "description": "Formal rose gardens below, and up Primrose Hill for the postcard skyline panorama."
+      },
+      {
+        "id": "hyde-park-the-serpentine",
+        "title": "Hyde Park & the Serpentine",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Centre",
+        "hours": "Opens morning",
+        "tags": [
+          "Boating",
+          "Lido"
+        ],
+        "description": "Row the Serpentine, swim the lido, or just sprawl — the green lung of central London."
+      },
+      {
+        "id": "kew-gardens",
+        "title": "Kew Gardens",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Botanic garden",
+        "area": "Kew",
+        "hours": "Opens morning",
+        "tags": [
+          "Glasshouses",
+          "Treetop walk"
+        ],
+        "description": "Vast botanic gardens with Victorian glasshouses and a treetop walkway — a day trip in itself."
+      },
+      {
+        "id": "richmond-park",
+        "title": "Richmond Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Richmond",
+        "hours": "Opens morning",
+        "tags": [
+          "Deer",
+          "Wild"
+        ],
+        "description": "A medieval deer park on the city’s edge — 600 red and fallow deer roam free."
+      },
+      {
+        "id": "sky-garden",
+        "title": "Sky Garden",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Viewpoint bar",
+        "area": "City",
+        "hours": "Opens morning",
+        "tags": [
+          "Free",
+          "Rooftop jungle"
+        ],
+        "description": "A free rooftop jungle atop the ‘Walkie-Talkie’ — book a slot, come for sunset, stay for a drink."
+      },
+      {
+        "id": "nightjar",
+        "title": "Nightjar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Shoreditch",
+        "hours": "Opens morning",
+        "tags": [
+          "Live jazz",
+          "Speakeasy"
+        ],
+        "description": "A basement speakeasy with nightly live jazz and theatrically garnished cocktails — book ahead."
+      },
+      {
+        "id": "gordon-s-wine-bar",
+        "title": "Gordon’s Wine Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Wine bar",
+        "area": "Embankment",
+        "hours": "Opens morning",
+        "tags": [
+          "Candlelit",
+          "Oldest"
+        ],
+        "description": "London’s oldest wine bar — a candlelit, cave-like cellar by the river, unchanged since 1890."
+      },
+      {
+        "id": "ronnie-scott-s",
+        "title": "Ronnie Scott’s",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Jazz club",
+        "area": "Soho",
+        "hours": "Opens morning",
+        "tags": [
+          "Live jazz",
+          "Legendary"
+        ],
+        "description": "The legendary Soho jazz club — red booths, late sets, and a century of names on the wall."
+      },
+      {
+        "id": "frank-s-cafe",
+        "title": "Frank’s Café",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop bar",
+        "area": "Peckham",
+        "hours": "Opens morning",
+        "tags": [
+          "Summer only",
+          "Car park"
+        ],
+        "description": "A summer-only rooftop bar on a Peckham car park with a cult following and a killer view."
+      },
+      {
+        "id": "swift",
+        "title": "Swift",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Soho",
+        "hours": "Opens morning",
+        "tags": [
+          "Upstairs & down",
+          "Oysters"
+        ],
+        "description": "Quick aperitivo upstairs, deep whisky den downstairs — a Soho all-rounder that never misses."
       }
     ]
   },
   {
     "city": "Edinburgh",
     "country": "United Kingdom",
-    "center": [-3.1883, 55.9533],
+    "center": [
+      -3.1883,
+      55.9533
+    ],
     "spots": [
       {
         "id": "edinburgh-castle",
         "title": "Edinburgh Castle",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Castle",
         "area": "Old Town",
         "hours": "Opens morning",
-        "tags": ["Iconic", "Hilltop"],
+        "tags": [
+          "Iconic",
+          "Hilltop"
+        ],
         "description": "A fortress on an extinct volcano above the city, anchoring the length of the Royal Mile.",
         "nearby": [
-          { "title": "Royal Mile walk", "kind": "Stroll", "mins": 4 },
-          { "title": "Victoria Street", "kind": "Photo stop", "mins": 7 }
+          {
+            "title": "Royal Mile walk",
+            "kind": "Stroll",
+            "mins": 4
+          },
+          {
+            "title": "Victoria Street",
+            "kind": "Photo stop",
+            "mins": 7
+          }
         ]
       },
       {
         "id": "royal-mile",
         "title": "The Royal Mile",
-        "vibes": ["classics"],
+        "vibes": [
+          "classics"
+        ],
         "kind": "Historic street",
         "area": "Old Town",
         "hours": "Anytime",
-        "tags": ["History", "Closes"],
+        "tags": [
+          "History",
+          "Closes"
+        ],
         "description": "The cobbled spine of the Old Town from castle to palace, threaded with hidden closes and stone tenements.",
         "nearby": [
-          { "title": "St Giles' Cathedral", "kind": "Landmark", "mins": 3 },
-          { "title": "Writers' Museum close", "kind": "Museum", "mins": 5 }
+          {
+            "title": "St Giles' Cathedral",
+            "kind": "Landmark",
+            "mins": 3
+          },
+          {
+            "title": "Writers' Museum close",
+            "kind": "Museum",
+            "mins": 5
+          }
         ]
       },
       {
         "id": "arthurs-seat",
         "title": "Arthur's Seat",
-        "vibes": ["nature"],
+        "vibes": [
+          "nature"
+        ],
         "kind": "Hill walk",
         "area": "Holyrood",
         "hours": "Daytime",
-        "tags": ["Viewpoint", "Hike"],
+        "tags": [
+          "Viewpoint",
+          "Hike"
+        ],
         "description": "An ancient volcano in the middle of the city — a short climb for the best panorama in Edinburgh.",
         "nearby": [
-          { "title": "Holyrood Palace", "kind": "Landmark", "mins": 10 },
-          { "title": "Salisbury Crags loop", "kind": "Walk", "mins": 5 }
+          {
+            "title": "Holyrood Palace",
+            "kind": "Landmark",
+            "mins": 10
+          },
+          {
+            "title": "Salisbury Crags loop",
+            "kind": "Walk",
+            "mins": 5
+          }
         ]
       },
       {
         "id": "calton-hill",
         "title": "Calton Hill",
-        "vibes": ["nature"],
+        "vibes": [
+          "nature"
+        ],
         "kind": "Hill viewpoint",
         "area": "New Town",
         "hours": "Anytime",
-        "tags": ["Viewpoint", "Monuments"],
+        "tags": [
+          "Viewpoint",
+          "Monuments"
+        ],
         "description": "An easy climb to neoclassical monuments and the postcard view over the city to the castle and the Firth.",
         "nearby": [
-          { "title": "Dugald Stewart Monument", "kind": "Photo stop", "mins": 2 },
-          { "title": "Princes Street", "kind": "Shopping", "mins": 8 }
+          {
+            "title": "Dugald Stewart Monument",
+            "kind": "Photo stop",
+            "mins": 2
+          },
+          {
+            "title": "Princes Street",
+            "kind": "Shopping",
+            "mins": 8
+          }
         ]
       },
       {
         "id": "dean-village",
         "title": "Dean Village",
-        "vibes": ["matcha"],
+        "vibes": [
+          "matcha"
+        ],
         "kind": "Neighbourhood",
         "area": "Dean",
         "hours": "Daytime",
-        "tags": ["Dreamy", "Riverside"],
+        "tags": [
+          "Dreamy",
+          "Riverside"
+        ],
         "description": "A storybook pocket of old millworkers' houses along the Water of Leith, minutes from the centre.",
         "nearby": [
-          { "title": "Water of Leith walk", "kind": "Stroll", "mins": 2 },
-          { "title": "Modern Art Gallery", "kind": "Museum", "mins": 9 }
+          {
+            "title": "Water of Leith walk",
+            "kind": "Stroll",
+            "mins": 2
+          },
+          {
+            "title": "Modern Art Gallery",
+            "kind": "Museum",
+            "mins": 9
+          }
         ]
       },
       {
         "id": "fortitude-coffee",
         "title": "Fortitude Coffee",
-        "vibes": ["matcha"],
+        "vibes": [
+          "matcha"
+        ],
         "kind": "Coffee",
         "area": "New Town",
         "hours": "Daytime",
-        "tags": ["Specialty", "Cosy"],
+        "tags": [
+          "Specialty",
+          "Cosy"
+        ],
         "description": "A small, much-loved independent roaster pulling Edinburgh's best espresso just off the city centre.",
         "nearby": [
-          { "title": "St Andrew Square", "kind": "Square", "mins": 4 },
-          { "title": "Scottish Portrait Gallery", "kind": "Museum", "mins": 5 }
+          {
+            "title": "St Andrew Square",
+            "kind": "Square",
+            "mins": 4
+          },
+          {
+            "title": "Scottish Portrait Gallery",
+            "kind": "Museum",
+            "mins": 5
+          }
         ]
       },
       {
         "id": "grassmarket",
         "title": "Grassmarket",
-        "vibes": ["nightlife"],
+        "vibes": [
+          "nightlife"
+        ],
         "kind": "Pub square",
         "area": "Old Town",
         "hours": "Evenings",
-        "tags": ["Pubs", "Historic"],
+        "tags": [
+          "Pubs",
+          "Historic"
+        ],
         "description": "A historic square below the castle crag, ringed by traditional pubs and lively terraces after dark.",
         "nearby": [
-          { "title": "Victoria Street bars", "kind": "Bars", "mins": 3 },
-          { "title": "Greyfriars Kirkyard", "kind": "Landmark", "mins": 6 }
+          {
+            "title": "Victoria Street bars",
+            "kind": "Bars",
+            "mins": 3
+          },
+          {
+            "title": "Greyfriars Kirkyard",
+            "kind": "Landmark",
+            "mins": 6
+          }
         ]
       },
       {
         "id": "cowgate",
         "title": "Cowgate",
-        "vibes": ["nightlife"],
+        "vibes": [
+          "nightlife"
+        ],
         "kind": "Nightlife street",
         "area": "Old Town",
         "hours": "Evenings",
-        "tags": ["Clubs", "Late"],
+        "tags": [
+          "Clubs",
+          "Late"
+        ],
         "description": "The Old Town's late-night artery under the bridges — clubs, music venues and dive bars that run till dawn.",
         "nearby": [
-          { "title": "Grassmarket", "kind": "Pubs", "mins": 4 },
-          { "title": "Royal Mile", "kind": "Stroll", "mins": 5 }
+          {
+            "title": "Grassmarket",
+            "kind": "Pubs",
+            "mins": 4
+          },
+          {
+            "title": "Royal Mile",
+            "kind": "Stroll",
+            "mins": 5
+          }
         ]
+      },
+      {
+        "id": "palace-of-holyroodhouse",
+        "title": "Palace of Holyroodhouse",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Palace",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Royal",
+          "Ruined abbey"
+        ],
+        "description": "The King’s official Scottish residence at the foot of the Mile, with a romantic ruined abbey."
+      },
+      {
+        "id": "st-giles-cathedral",
+        "title": "St Giles’ Cathedral",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cathedral",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Crown spire",
+          "Gothic"
+        ],
+        "description": "The High Kirk with its distinctive crown spire and the jewel-like Thistle Chapel."
+      },
+      {
+        "id": "scott-monument",
+        "title": "Scott Monument",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Monument",
+        "area": "New Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Gothic",
+          "Climb"
+        ],
+        "description": "A blackened Gothic rocket on Princes Street — 287 steps up for a view through the spires."
+      },
+      {
+        "id": "national-museum-of-scotland",
+        "title": "National Museum of Scotland",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Free",
+          "Rooftop"
+        ],
+        "description": "A brilliant free museum from Dolly the sheep to a roof terrace over the Old Town."
+      },
+      {
+        "id": "the-milkman",
+        "title": "The Milkman",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Specialty",
+          "Cozy"
+        ],
+        "description": "A tiny specialty café in a heritage shopfront on Cockburn Street — flat white and a cookie."
+      },
+      {
+        "id": "lovecrumbs",
+        "title": "Lovecrumbs",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Cake shop",
+        "area": "West End",
+        "hours": "Opens morning",
+        "tags": [
+          "Cake",
+          "Window seats"
+        ],
+        "description": "Cake in a former electrical shop with window-ledge seating — very Edinburgh."
+      },
+      {
+        "id": "soderberg",
+        "title": "Söderberg",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bakery",
+        "area": "West End",
+        "hours": "Opens morning",
+        "tags": [
+          "Cardamom buns",
+          "Swedish"
+        ],
+        "description": "Swedish-style bakery for a cardamom bun and a coffee — the Pavilion café is a stunner."
+      },
+      {
+        "id": "cairngorm-coffee",
+        "title": "Cairngorm Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "New Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Basement",
+          "Toasties"
+        ],
+        "description": "A snug basement café off Charlotte Square known for cheese toasties and its own roast."
+      },
+      {
+        "id": "princes-street-gardens",
+        "title": "Princes Street Gardens",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Gardens",
+        "area": "Centre",
+        "hours": "Opens morning",
+        "tags": [
+          "Castle view",
+          "Green"
+        ],
+        "description": "A green valley below the castle in a drained loch — deckchairs and the floral clock."
+      },
+      {
+        "id": "dean-village-water-of-leith",
+        "title": "Dean Village & Water of Leith",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Walk",
+        "area": "West End",
+        "hours": "Opens morning",
+        "tags": [
+          "Riverside",
+          "Storybook"
+        ],
+        "description": "A storybook former mill village on a wooded river path five minutes from the West End."
+      },
+      {
+        "id": "royal-botanic-garden",
+        "title": "Royal Botanic Garden",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "Inverleith",
+        "hours": "Opens morning",
+        "tags": [
+          "Glasshouses",
+          "Skyline"
+        ],
+        "description": "70 acres of glasshouses and rockery with a sudden skyline view from the top lawn."
+      },
+      {
+        "id": "the-bow-bar",
+        "title": "The Bow Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Whisky bar",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Whisky",
+          "Real ale"
+        ],
+        "description": "A no-frills Old Town bar with a back wall of whisky and cask ales — no music, just chat."
+      },
+      {
+        "id": "panda-sons",
+        "title": "Panda & Sons",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Speakeasy",
+        "area": "New Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Hidden",
+          "Cocktails"
+        ],
+        "description": "A cocktail bar behind a fake barbershop door — push through for the basement."
+      },
+      {
+        "id": "sandy-bell-s",
+        "title": "Sandy Bell’s",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Folk pub",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Live folk",
+          "Trad"
+        ],
+        "description": "The spiritual home of Scottish folk music — nightly trad sessions, elbow room only."
+      },
+      {
+        "id": "bramble",
+        "title": "Bramble",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "New Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Basement",
+          "Award-winning"
+        ],
+        "description": "A dim, brilliant basement cocktail bar under a Queen Street shopfront — no sign, just descend."
+      },
+      {
+        "id": "the-devil-s-advocate",
+        "title": "The Devil’s Advocate",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Whisky",
+          "Vaults"
+        ],
+        "description": "A stone-vaulted bar-restaurant down a close off the Mile, big on whisky flights."
       }
     ]
   }

@@ -225,6 +225,217 @@
             "mins": 4
           }
         ]
+      },
+      {
+        "id": "reichstag-dome",
+        "title": "Reichstag Dome",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Parliament",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Glass dome",
+          "Free"
+        ],
+        "description": "Book ahead to spiral up Norman Foster’s glass dome over parliament — free, and best at dusk."
+      },
+      {
+        "id": "east-side-gallery",
+        "title": "East Side Gallery",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Wall art",
+        "area": "Friedrichshain",
+        "hours": "Opens morning",
+        "tags": [
+          "Murals",
+          "History"
+        ],
+        "description": "The longest surviving stretch of the Wall, painted end to end — including the Fraternal Kiss."
+      },
+      {
+        "id": "memorial-to-the-murdered-jews-of-europe",
+        "title": "Memorial to the Murdered Jews of Europe",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Memorial",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Reflective",
+          "Stelae"
+        ],
+        "description": "2,711 grey stelae you walk down into until the city disappears — sobering and essential."
+      },
+      {
+        "id": "berliner-dom",
+        "title": "Berliner Dom",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cathedral",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Dome",
+          "Riverside"
+        ],
+        "description": "The bombastic cathedral on Museum Island — climb the dome for the rooftop walk."
+      },
+      {
+        "id": "the-barn",
+        "title": "The Barn",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Specialty",
+          "Purist"
+        ],
+        "description": "One of the roasters that put Berlin on the specialty map — purist, no laptops, great beans."
+      },
+      {
+        "id": "father-carpenter",
+        "title": "Father Carpenter",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Brunch",
+          "Courtyard"
+        ],
+        "description": "A hidden courtyard café for antipodean brunch a step off the Mitte grid."
+      },
+      {
+        "id": "voo-store",
+        "title": "Voo Store",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Concept store",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Fashion",
+          "Café"
+        ],
+        "description": "A former locksmith’s yard turned fashion concept store, with Companion Coffee at the back."
+      },
+      {
+        "id": "distrikt-coffee",
+        "title": "Distrikt Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Brunch",
+          "Bright"
+        ],
+        "description": "A bright, busy brunch café near the Naturkundemuseum — go early on weekends."
+      },
+      {
+        "id": "mauerpark",
+        "title": "Mauerpark",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Prenzlauer Berg",
+        "hours": "Opens morning",
+        "tags": [
+          "Flea market",
+          "Karaoke"
+        ],
+        "description": "Sunday flea market and legendary open-air ‘Bearpit’ karaoke on the old death strip."
+      },
+      {
+        "id": "viktoriapark",
+        "title": "Viktoriapark",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Waterfall",
+          "Hilltop"
+        ],
+        "description": "A hillside park with an actual waterfall and a monument-topped view over Kreuzberg."
+      },
+      {
+        "id": "berghain",
+        "title": "Berghain",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Friedrichshain",
+        "hours": "Opens morning",
+        "tags": [
+          "Techno",
+          "Legendary"
+        ],
+        "description": "The temple of techno in a former power plant — infamous door, cathedral sound, no phones."
+      },
+      {
+        "id": "clarchens-ballhaus",
+        "title": "Clärchens Ballhaus",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Ballroom",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Dancing",
+          "Historic"
+        ],
+        "description": "A 110-year-old dance hall with mirror rooms and live bands — waltz or tango with strangers."
+      },
+      {
+        "id": "prater-garten",
+        "title": "Prater Garten",
+        "geocodeQuery": "Prater Garten, Kastanienallee 7-9, 10435 Berlin, Germany",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Beer garden",
+        "area": "Prenzlauer Berg",
+        "hours": "Opens morning",
+        "tags": [
+          "Beer garden",
+          "Chestnuts"
+        ],
+        "description": "Berlin’s oldest beer garden — long benches under chestnut trees, steins and pretzels."
+      },
+      {
+        "id": "monkey-bar",
+        "title": "Monkey Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Rooftop bar",
+        "area": "City West",
+        "hours": "Opens morning",
+        "tags": [
+          "Rooftop",
+          "Zoo view"
+        ],
+        "description": "A tenth-floor bar looking straight into the Zoo and over the West — cocktails at golden hour."
       }
     ]
   },
@@ -453,6 +664,217 @@
           }
         ],
         "geocodeQuery": "Vits der Kaffee, Rumfordstrasse 49, Munich, Germany"
+      },
+      {
+        "id": "frauenkirche",
+        "title": "Frauenkirche",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cathedral",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Twin domes",
+          "Icon"
+        ],
+        "description": "Munich’s twin onion-domed landmark — climb the tower for an Alps-on-a-clear-day view."
+      },
+      {
+        "id": "residenz",
+        "title": "Residenz",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Palace",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Royal",
+          "Treasury"
+        ],
+        "description": "The former royal palace — ornate halls, a grotto courtyard, and a jaw-dropping treasury."
+      },
+      {
+        "id": "viktualienmarkt",
+        "title": "Viktualienmarkt",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Market",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Food",
+          "Maypole"
+        ],
+        "description": "The daily food market behind Marienplatz — cheese, wurst, and a beer garden round the maypole."
+      },
+      {
+        "id": "bmw-welt-museum",
+        "title": "BMW Welt & Museum",
+        "geocodeQuery": "BMW Welt, Am Olympiapark 1, 80809 München, Germany",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Milbertshofen",
+        "hours": "Opens morning",
+        "tags": [
+          "Cars",
+          "Architecture"
+        ],
+        "description": "A swooping glass showroom and the silver ‘four-cylinder’ museum by the Olympic park."
+      },
+      {
+        "id": "man-versus-machine",
+        "title": "Man Versus Machine",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Glockenbach",
+        "hours": "Opens morning",
+        "tags": [
+          "Roaster",
+          "Specialty"
+        ],
+        "description": "The specialty roaster that woke Munich up — minimal, precise, seriously good espresso."
+      },
+      {
+        "id": "cafe-frischhut",
+        "title": "Café Frischhut",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bakery café",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Schmalznudel",
+          "Old-school"
+        ],
+        "description": "The ‘Schmalznudel’ — a stand-up spot for hot fried dough since 1973, best before noon."
+      },
+      {
+        "id": "vits",
+        "title": "Vits",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Roaster",
+          "Classic"
+        ],
+        "description": "A long-running roaster-café near the Viktualienmarkt for an old-school Munich coffee."
+      },
+      {
+        "id": "cafe-luitpold",
+        "title": "Café Luitpold",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Grand café",
+        "area": "Brienner Str.",
+        "hours": "Opens morning",
+        "tags": [
+          "Konditorei",
+          "Cakes"
+        ],
+        "description": "A grand Viennese-style café and pastry salon — order a torte under the glass atrium."
+      },
+      {
+        "id": "eisbach-wave",
+        "title": "Eisbach Wave",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "River wave",
+        "area": "Englischer Garten",
+        "hours": "Opens morning",
+        "tags": [
+          "Surfers",
+          "Free"
+        ],
+        "description": "A standing river wave where wetsuited surfers queue and ride year-round, in the middle of town."
+      },
+      {
+        "id": "isar-riverbanks",
+        "title": "Isar Riverbanks",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "River",
+        "area": "Flaucher",
+        "hours": "Opens morning",
+        "tags": [
+          "Gravel banks",
+          "Swim"
+        ],
+        "description": "Locals decamp to the gravel banks and shallows of the Isar to swim, grill, and laze in summer."
+      },
+      {
+        "id": "augustiner-keller",
+        "title": "Augustiner-Keller",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Beer garden",
+        "area": "Marsfeld",
+        "hours": "Opens morning",
+        "tags": [
+          "Chestnuts",
+          "Local"
+        ],
+        "description": "A vast, chestnut-shaded beer garden where Müncheners actually go — Augustiner from the wood barrel."
+      },
+      {
+        "id": "chinesischer-turm",
+        "title": "Chinesischer Turm",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Beer garden",
+        "area": "Englischer Garten",
+        "hours": "Opens morning",
+        "tags": [
+          "Pagoda",
+          "In the park"
+        ],
+        "description": "A beer garden around a five-storey wooden pagoda in the middle of the English Garden."
+      },
+      {
+        "id": "rote-sonne",
+        "title": "Rote Sonne",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Maxvorstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Techno",
+          "No frills"
+        ],
+        "description": "A well-loved club off Stiglmaierplatz for techno and indie without the velvet-rope drama."
+      },
+      {
+        "id": "zephyr-bar",
+        "title": "Zephyr Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Glockenbach",
+        "hours": "Opens morning",
+        "tags": [
+          "Craft cocktails",
+          "Small"
+        ],
+        "description": "An inventive, award-winning cocktail bar in the Glockenbachviertel — book, it’s tiny and beloved."
       }
     ]
   }
