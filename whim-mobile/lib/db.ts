@@ -403,6 +403,26 @@ export type FeedItem =
       createdAt: string;
     };
 
+/** Who's viewing — their id and whether they're an admin (can approve UGC into
+ *  the official curated catalogue). */
+export async function fetchViewer(): Promise<{ id: string | null; isAdmin: boolean }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { id: null, isAdmin: false };
+  const { data } = await supabase.from('profiles').select('is_admin').eq('id', user.id).maybeSingle();
+  return { id: user.id, isAdmin: !!(data as any)?.is_admin };
+}
+
+/** Admin-only: promote a community spot into the official curated `spots` deck. */
+export async function promoteSpot(placeId: string): Promise<void> {
+  const { error } = await supabase.functions.invoke('promote-spot', { body: { place_id: placeId } });
+  if (error) {
+    const msg = (await error.context?.json?.().catch(() => null))?.error;
+    throw new Error(msg || error.message);
+  }
+}
+
 /** Everything the community is publishing — trips + spots — newest first,
  *  with blocked authors filtered out. */
 export async function fetchCommunityFeed(): Promise<FeedItem[]> {

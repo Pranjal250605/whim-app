@@ -5,6 +5,7 @@ import { COLORS } from '@/lib/theme';
 // so they tint to any color (active nav = accent, etc.).
 export type IconName =
   | 'discover'
+  | 'community'
   | 'heart'
   | 'heartFilled'
   | 'route'
@@ -41,6 +42,15 @@ export default function Icon({ name, size = 24, color = COLORS.ink, strokeWidth 
         <>
           <Circle cx={12} cy={12} r={9} stroke={color} strokeWidth={strokeWidth} fill="none" />
           <Path d="M15.5 8.5l-2.2 5.3-5.3 2.2 2.2-5.3 5.3-2.2z" fill={color} />
+        </>,
+      );
+    case 'community':
+      return svg(
+        <>
+          <Circle cx={9} cy={8} r={3.1} stroke={color} strokeWidth={strokeWidth} fill="none" />
+          <Path d="M3.5 20c0-3.1 2.6-4.9 5.5-4.9s5.5 1.8 5.5 4.9" {...s} />
+          <Path d="M15.5 5.3a3 3 0 0 1 0 5.7" {...s} />
+          <Path d="M17.2 20c0-2.9-1.4-4.5-3-5.2" {...s} />
         </>,
       );
     case 'heart':
