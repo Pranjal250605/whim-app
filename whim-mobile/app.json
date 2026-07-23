@@ -48,10 +48,16 @@
       ]
     ],
     "extra": {
-      "router": {}
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "2cc279c4-3cde-4d2e-9b9c-df7bd96134b8"
+      }
     },
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "owner": "pranjal2506"
   }
 }
