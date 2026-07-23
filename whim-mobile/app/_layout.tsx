@@ -1,6 +1,7 @@
 import '../global.css';
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, AppState, View } from 'react-native';
+import { QueryClient, QueryClientProvider, focusManager } from '@tanstack/react-query';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -23,6 +24,20 @@ import '@/lib/mapbox'; // sets the Mapbox access token once at startup
 
 // keep the native splash up until the animated overlay is ready to take over
 SplashScreen.preventAutoHideAsync().catch(() => {});
+
+// React Query: cache server data so revisiting a screen is instant, identical
+// in-flight requests are deduped, and we refetch in the background rather than
+// re-querying everything on every open. Refresh stale data when the app returns
+// to the foreground.
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { staleTime: 30_000, gcTime: 5 * 60_000, retry: 1, refetchOnWindowFocus: false },
+  },
+});
+focusManager.setEventListener((handleFocus) => {
+  const sub = AppState.addEventListener('change', (s) => handleFocus(s === 'active'));
+  return () => sub.remove();
+});
 
 // Redirects between the app and the sign-in screen based on auth state.
 function RootNavigator() {
@@ -102,16 +117,18 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <BottomSheetModalProvider>
-          <StatusBar style="dark" />
-          <AuthProvider>
-            <RootNavigator />
-            <ToastHost />
-            {!splashDone && <AnimatedSplash onDone={() => setSplashDone(true)} />}
-          </AuthProvider>
-        </BottomSheetModalProvider>
-      </SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <BottomSheetModalProvider>
+            <StatusBar style="dark" />
+            <AuthProvider>
+              <RootNavigator />
+              <ToastHost />
+              {!splashDone && <AnimatedSplash onDone={() => setSplashDone(true)} />}
+            </AuthProvider>
+          </BottomSheetModalProvider>
+        </SafeAreaProvider>
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }

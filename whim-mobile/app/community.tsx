@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Pressable, RefreshControl, ScrollView, SectionList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   fetchCommunityFeed,
   fetchViewer,
@@ -42,33 +43,23 @@ function ago(iso: string): string {
 // Yours / Editors' picks / From the community. Admins can approve a community
 // spot straight into the official curated deck (closing the UGC loop).
 export default function Community() {
-  const [state, setState] = useState<State>({ kind: 'loading' });
   const [filter, setFilter] = useState<Filter>('all');
-  const [refreshing, setRefreshing] = useState(false);
-  const [viewer, setViewer] = useState<{ id: string | null; isAdmin: boolean }>({ id: null, isAdmin: false });
+  const qc = useQueryClient();
+  const feed = useQuery({ queryKey: ['communityFeed'], queryFn: fetchCommunityFeed });
+  const { data: viewer = { id: null, isAdmin: false } } = useQuery({
+    queryKey: ['viewer'],
+    queryFn: fetchViewer,
+    staleTime: 5 * 60_000,
+  });
 
-  const load = useCallback(async () => {
-    try {
-      const [items, who] = await Promise.all([fetchCommunityFeed(), fetchViewer()]);
-      setViewer(who);
-      setState({ kind: 'ready', items });
-    } catch {
-      setState({ kind: 'error' });
-    }
-  }, []);
-
-  useEffect(() => {
-    load();
-  }, [load]);
-
-  const refresh = async () => {
-    setRefreshing(true);
-    await load();
-    setRefreshing(false);
-  };
+  const items = feed.data ?? [];
+  const state: State = feed.isLoading ? { kind: 'loading' } : feed.isError ? { kind: 'error' } : { kind: 'ready', items };
+  const refreshing = feed.isRefetching;
+  const load = () => feed.refetch();
+  const refresh = () => feed.refetch();
 
   const removeLocally = (id: string) =>
-    setState((prev) => (prev.kind === 'ready' ? { kind: 'ready', items: prev.items.filter((i) => i.id !== id) } : prev));
+    qc.setQueryData<FeedItem[]>(['communityFeed'], (old) => (old ?? []).filter((i) => i.id !== id));
 
   const moderate = (item: FeedItem) => {
     const mine = item.authorId === viewer.id;

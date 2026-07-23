@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Pressable, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router, useFocusEffect } from 'expo-router';
+import { router } from 'expo-router';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   searchUsers,
   followUser,
@@ -43,24 +44,19 @@ export default function Friends() {
   const [q, setQ] = useState('');
   const [results, setResults] = useState<UserLite[]>([]);
   const [searching, setSearching] = useState(false);
-  const [followingIds, setFollowingIds] = useState<Set<string>>(new Set());
-  const [friends, setFriends] = useState<Friend[]>([]);
-  const [activity, setActivity] = useState<Activity[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  const loadMine = useCallback(async () => {
-    try {
+  const qc = useQueryClient();
+  const mine = useQuery({
+    queryKey: ['friends'],
+    queryFn: async () => {
       const [ids, fr, act] = await Promise.all([fetchFollowingIds(), fetchFriends(), fetchFriendsActivity()]);
-      setFollowingIds(new Set(ids));
-      setFriends(fr);
-      setActivity(act);
-    } catch {
-      /* ignore */
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-  useFocusEffect(useCallback(() => void loadMine(), [loadMine]));
+      return { ids: new Set(ids), friends: fr, activity: act };
+    },
+  });
+  const followingIds = mine.data?.ids ?? new Set<string>();
+  const friends: Friend[] = mine.data?.friends ?? [];
+  const activity: Activity[] = mine.data?.activity ?? [];
+  const loading = mine.isLoading;
 
   // debounced search
   useEffect(() => {
@@ -82,18 +78,19 @@ export default function Friends() {
 
   const toggleFollow = async (u: UserLite) => {
     const isFollowing = followingIds.has(u.id);
-    // optimistic
-    setFollowingIds((prev) => {
-      const next = new Set(prev);
-      isFollowing ? next.delete(u.id) : next.add(u.id);
-      return next;
+    // optimistic: flip the id in the cached follow set
+    qc.setQueryData<{ ids: Set<string>; friends: Friend[]; activity: Activity[] }>(['friends'], (old) => {
+      if (!old) return old;
+      const ids = new Set(old.ids);
+      isFollowing ? ids.delete(u.id) : ids.add(u.id);
+      return { ...old, ids };
     });
     try {
       isFollowing ? await unfollowUser(u.id) : await followUser(u.id);
-      loadMine();
     } catch {
       toast('Couldn’t update — try again.');
-      loadMine();
+    } finally {
+      qc.invalidateQueries({ queryKey: ['friends'] });
     }
   };
 
