@@ -14,7 +14,6 @@ import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { estimateTransitMins, googleMapsDirectionsUrl, orderByProximity } from '@/lib/route';
 import { getTransit, legText, type TransitResult } from '@/lib/transit';
 import RouteMap from '@/components/RouteMap';
-import GlassNav from '@/components/GlassNav';
 
 // Phase 4 — Itinerary. Orders the saved anchors, maps them, lists them as a
 // timeline, and shows the transit connection (real line names via Google, or a
@@ -233,7 +232,6 @@ export default function ItineraryScreen() {
         })}
       </ScrollView>
 
-      <GlassNav active="route" />
 
       {/* off-screen card captured for sharing */}
       <View ref={shareRef} collapsable={false} style={{ position: 'absolute', left: -9999, top: 0 }}>

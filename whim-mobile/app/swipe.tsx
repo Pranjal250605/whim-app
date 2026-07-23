@@ -37,7 +37,7 @@ export default function SwipeScreen() {
           {VIBE_LABEL[vibe]} in {city}
         </Text>
         <Pressable
-          onPress={() => router.push('/hitlist')}
+          onPress={() => router.navigate('/hitlist')}
           accessibilityLabel="Saved spots"
           className="h-10 min-w-10 items-center justify-center rounded-full bg-white px-3 shadow-sm shadow-black/5"
         >
@@ -52,7 +52,7 @@ export default function SwipeScreen() {
           sourceCount={deckSourceCount}
           loading={deckLoading}
           onSwipe={handleSwipe}
-          doneAction={{ label: 'Review your hitlist', onPress: () => router.push('/hitlist') }}
+          doneAction={{ label: 'Review your hitlist', onPress: () => router.navigate('/hitlist') }}
         />
       </View>
 

@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Text, View } from 'react-native';
-import { useFocusEffect } from 'expo-router';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import Mapbox, { Camera, CircleLayer, LineLayer, MapView, ShapeSource, SymbolLayer } from '@/lib/mapbox';
 import type { RouteStop } from '@/lib/route';
@@ -16,18 +15,6 @@ interface RouteMapProps {
 
 export default function RouteMap({ stops, height = 280 }: RouteMapProps) {
   const cameraRef = useRef<any>(null);
-
-  // The native Mapbox map holds a heavy GL context. Screens stay mounted in the
-  // router stack when you navigate forward, so without this every map you opened
-  // would keep its context alive and pile up memory pressure (app-wide stutter).
-  // Render the map only while its screen is focused; free it otherwise.
-  const [focused, setFocused] = useState(true);
-  useFocusEffect(
-    useCallback(() => {
-      setFocused(true);
-      return () => setFocused(false);
-    }, []),
-  );
 
   const coords = stops.map((s) => [s.lng, s.lat] as [number, number]);
   const lngs = coords.map((c) => c[0]);
@@ -72,8 +59,6 @@ export default function RouteMap({ stops, height = 280 }: RouteMapProps) {
     );
   }
 
-  // screen not visible → drop the native map so its GL context is released
-  if (!focused) return <View className="bg-[#ECEBE7]" style={{ height }} />;
 
   const routeLine = {
     type: 'Feature' as const,

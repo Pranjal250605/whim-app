@@ -7,7 +7,6 @@ import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { VIBE_LABEL } from '@/data/vibes';
 import { SHADOWS } from '@/lib/theme';
 import SpotImage from '@/components/SpotImage';
-import GlassNav from '@/components/GlassNav';
 import Icon from '@/components/Icon';
 
 // Phase 4 input — the Hitlist, scoped to the current city + vibe. A TAB ROOT
@@ -115,7 +114,7 @@ export default function Hitlist() {
       {!empty && (
         <View className="absolute bottom-[104px] left-0 right-0 px-5">
           <Pressable
-            onPress={() => router.push('/itinerary')}
+            onPress={() => router.navigate('/itinerary')}
             className="flex-row items-center justify-center gap-2 rounded-2xl bg-ink py-[17px]"
             style={{ shadowColor: '#17150F', shadowOpacity: 0.2, shadowRadius: 26, shadowOffset: { width: 0, height: 10 } }}
           >
@@ -125,7 +124,6 @@ export default function Hitlist() {
         </View>
       )}
 
-      <GlassNav active="hitlist" />
     </SafeAreaView>
   );
 }

@@ -19,7 +19,6 @@ import { sizedPhoto } from '@/lib/img';
 import { VIBE_DOT, VIBE_LABEL } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
-import GlassNav from '@/components/GlassNav';
 import Icon from '@/components/Icon';
 
 type State = { kind: 'loading' } | { kind: 'error' } | { kind: 'ready'; items: FeedItem[] };
@@ -312,7 +311,6 @@ export default function Community() {
           />
         ))}
 
-      <GlassNav active="community" />
     </SafeAreaView>
   );
 }

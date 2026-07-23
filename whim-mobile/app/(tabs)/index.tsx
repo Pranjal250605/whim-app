@@ -9,7 +9,6 @@ import { CITIES } from '@/data/cities';
 import { VIBES, FEATURED, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import CityPicker from '@/components/CityPicker';
-import GlassNav from '@/components/GlassNav';
 import SpotImage from '@/components/SpotImage';
 import Icon from '@/components/Icon';
 
@@ -250,7 +249,7 @@ export default function Home() {
         {/* continue an existing collection */}
         {savedHere > 0 && (
           <Pressable
-            onPress={() => router.push('/hitlist')}
+            onPress={() => router.navigate('/hitlist')}
             style={press()}
             className="mt-4 flex-row items-center justify-between rounded-2xl border border-accent/25 bg-accent/10 px-4 py-3.5"
           >
@@ -269,7 +268,6 @@ export default function Home() {
         )}
       </ScrollView>
 
-      <GlassNav active="discover" />
 
       <CityPicker
         visible={pickerOpen}

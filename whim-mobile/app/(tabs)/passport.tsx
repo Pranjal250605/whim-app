@@ -15,7 +15,6 @@ import {
   type Profile,
 } from '@/lib/db';
 import { TIER, MILESTONES, tierOf, nextTier, tierProgress, type Tier } from '@/data/badges';
-import GlassNav from '@/components/GlassNav';
 import SpotImage from '@/components/SpotImage';
 import PassportCard from '@/components/PassportCard';
 import Icon from '@/components/Icon';
@@ -219,7 +218,6 @@ export default function Passport() {
         }
       />
 
-      <GlassNav active="profile" />
 
       <HandleModal
         visible={handleOpen}
