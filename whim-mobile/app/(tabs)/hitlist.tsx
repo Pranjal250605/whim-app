@@ -79,7 +79,7 @@ export default function Hitlist() {
             >
               <View className="flex-row items-center gap-3.5 rounded-[20px] bg-white p-3.5" style={SHADOWS.soft}>
                 <View className="h-[60px] w-[60px] overflow-hidden rounded-[14px]" style={{ backgroundColor: b.anchor.tone }}>
-                  <SpotImage uri={b.anchor.photo} width={80} />
+                  <SpotImage uri={b.anchor.photo} placeId={b.anchor.placeId} width={80} />
                 </View>
                 <View className="flex-1">
                   <Text className="font-serif text-[18px] text-ink">{b.anchor.title}</Text>

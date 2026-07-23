@@ -15,6 +15,8 @@ import {
   type Profile,
 } from '@/lib/db';
 import { getDeck as getMockDeck } from '@/data/mockDeck';
+import { track } from '@/lib/analytics';
+import { notifyBadgeEarned } from '@/lib/push';
 import { toast } from '@/lib/toast';
 import { isNearSpot } from '@/lib/verifyLocation';
 
@@ -78,6 +80,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
 
   setContext: async (city, vibe) => {
     set({ city, vibe, deck: [], deckIndex: 0, deckLoading: true });
+    track('deck_started', { city, vibe });
     let all: Spot[] = [];
     try {
       all = await fetchDeck(city, vibe);
@@ -154,10 +157,17 @@ export const useWhimStore = create<WhimState>((set, get) => ({
         photo: spot.photo,
       };
       set((s) => ({ checkins: [item, ...s.checkins] }));
-      checkIn(spot.id, city, verified).catch((e) => {
-        console.warn('[whim] checkIn failed:', e);
-        toast('Couldn’t stamp that check-in — check your connection.');
-      });
+      checkIn(spot.id, city, verified)
+        .then(() => {
+          // crossing 1 / 3 / 5 spots in a city earns Bronze / Silver / Gold —
+          // let this user's followers know (server verifies the badge).
+          const n = get().checkins.filter((c) => c.city === city).length;
+          if (n === 1 || n === 3 || n === 5) notifyBadgeEarned(city);
+        })
+        .catch((e) => {
+          console.warn('[whim] checkIn failed:', e);
+          toast('Couldn’t stamp that check-in — check your connection.');
+        });
     }
   },
 

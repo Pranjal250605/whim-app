@@ -17,6 +17,8 @@ import {
 import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider, useAuth } from '@/lib/auth';
+import { installErrorLogging, track } from '@/lib/analytics';
+import { registerForPush } from '@/lib/push';
 import { getOnboarded } from '@/lib/onboarding';
 import ToastHost from '@/components/Toast';
 import AnimatedSplash from '@/components/AnimatedSplash';
@@ -24,6 +26,9 @@ import '@/lib/mapbox'; // sets the Mapbox access token once at startup
 
 // keep the native splash up until the animated overlay is ready to take over
 SplashScreen.preventAutoHideAsync().catch(() => {});
+
+// route uncaught JS errors to error_logs
+installErrorLogging();
 
 // React Query: cache server data so revisiting a screen is instant, identical
 // in-flight requests are deduped, and we refetch in the background rather than
@@ -44,6 +49,16 @@ function RootNavigator() {
   const { session, loading } = useAuth();
   const segments = useSegments();
   const router = useRouter();
+
+  // one "app_open" per launch, once we know who the user is
+  const openTracked = useRef(false);
+  useEffect(() => {
+    if (session && !openTracked.current) {
+      openTracked.current = true;
+      track('app_open');
+      registerForPush();
+    }
+  }, [session]);
 
   // Tapping a local reminder deep-links to the route it points at. Only routes
   // on this allowlist are followed — if we ever add remote push, a spoofed

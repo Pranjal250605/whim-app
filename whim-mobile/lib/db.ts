@@ -1,4 +1,5 @@
 import { supabase } from './supabase';
+import { track } from './analytics';
 import type { BucketAnchor, MicroActivity, Spot, VibeId } from './types';
 
 // Thin data-access layer over Supabase. All reads/writes are scoped to the
@@ -14,6 +15,7 @@ function rowToSpot(row: any): Spot {
     hours: row.hours,
     tone: row.tone,
     photo: row.photo,
+    placeId: row.place_id ?? undefined,
     tags: row.tags ?? [],
     desc: row.description ?? '',
     lat: row.lat ?? undefined,
@@ -84,6 +86,7 @@ export async function saveSpot(
       { onConflict: 'user_id,spot_id' },
     );
   if (error) throw error;
+  track('spot_saved', { city, vibe });
 }
 
 export async function removeSavedSpot(spotId: string): Promise<void> {
@@ -382,6 +385,7 @@ export async function publishCustomTrip(input: {
     .select('id')
     .single();
   if (error) throw error;
+  track('trip_published', { kind: 'custom', city: input.city, stops: stops.length });
   return data.id as string;
 }
 
@@ -415,6 +419,7 @@ export async function publishItinerary(input: {
     cover: input.cover ?? null,
   });
   if (error) throw error;
+  track('trip_published', { kind: 'curated', city: input.city, stops: ids.length });
 }
 
 /** The current user's own published itineraries. */
@@ -696,6 +701,7 @@ export async function followUser(id: string): Promise<void> {
   if (!user) throw new Error('Not signed in');
   const { error } = await supabase.from('follows').upsert({ follower: user.id, followee: id }, { onConflict: 'follower,followee' });
   if (error) throw error;
+  track('user_followed');
 }
 
 export async function unfollowUser(id: string): Promise<void> {
@@ -854,6 +860,7 @@ export async function checkIn(spotId: string, city: string, verified: boolean): 
     .from('checkins')
     .upsert({ spot_id: spotId, city, verified }, { onConflict: 'user_id,spot_id' });
   if (error) throw error;
+  track('checkin', { city, verified });
 }
 
 export async function removeCheckin(spotId: string): Promise<void> {

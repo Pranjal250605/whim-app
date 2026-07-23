@@ -28,7 +28,8 @@ export interface Spot {
   area: string;
   hours: string;
   tone: string;
-  photo: string;
+  photo: string; // stock fallback photo (Pexels)
+  placeId?: string; // Google place_id → live real photo via the cached proxy
   tags: string[];
   desc: string;
   lat?: number;
