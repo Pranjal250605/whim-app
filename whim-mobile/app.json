@@ -15,7 +15,7 @@
         "ITSAppUsesNonExemptEncryption": false,
         "NSLocationWhenInUseUsageDescription": "Whim uses your location to find the closest city and surface spots near you."
       },
-      "buildNumber": "5"
+      "buildNumber": "6"
     },
     "android": {
       "package": "com.pranjalrai.whim",
