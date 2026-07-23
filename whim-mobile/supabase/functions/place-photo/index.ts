@@ -17,6 +17,10 @@ const DAILY_CAP = 1000; // per-user function calls per day (cache hits are cheap
 const BUCKET = 'place-photos';
 const CACHE_HEADERS = { 'Content-Type': 'image/jpeg', 'Cache-Control': 'public, max-age=604800' };
 
+// Coalesce concurrent misses for the same photo within this isolate: a burst of
+// requests for one uncached photo makes a single Google fetch, not one each.
+const INFLIGHT = new Map<string, Promise<Uint8Array>>();
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
@@ -49,29 +53,39 @@ Deno.serve(async (req) => {
     });
   }
 
-  // 2. cache miss → this is a real Google fetch, so it counts against the cap
-  if (!(await underDailyCap(admin, user.id, 'place-photo', DAILY_CAP)))
-    return new Response('Daily photo limit reached', { status: 429, headers: corsHeaders });
+  // 2. cache miss — join an in-flight fetch for this photo if one exists, else
+  //    become the leader (which is the one that spends the cap + hits Google).
+  let job = INFLIGHT.get(cacheKey);
+  const coalesced = !!job;
+  if (!job) {
+    if (!(await underDailyCap(admin, user.id, 'place-photo', DAILY_CAP)))
+      return new Response('Daily photo limit reached', { status: 429, headers: corsHeaders });
 
-  const key = Deno.env.get('GOOGLE_PLACES_API_KEY');
-  if (!key) return new Response('Server missing key', { status: 500, headers: corsHeaders });
-
-  // resolve a photo resource name
-  let photoName = photoNameIn;
-  if (!photoName && placeId) {
-    const det = await fetch(`https://places.googleapis.com/v1/places/${placeId}`, {
-      headers: { 'X-Goog-Api-Key': key, 'X-Goog-FieldMask': 'photos' },
-    });
-    photoName = (await det.json()).photos?.[0]?.name ?? null;
+    job = (async () => {
+      const key = Deno.env.get('GOOGLE_PLACES_API_KEY');
+      if (!key) throw new Error('server missing key');
+      let photoName = photoNameIn;
+      if (!photoName && placeId) {
+        const det = await fetch(`https://places.googleapis.com/v1/places/${placeId}`, {
+          headers: { 'X-Goog-Api-Key': key, 'X-Goog-FieldMask': 'photos' },
+        });
+        photoName = (await det.json()).photos?.[0]?.name ?? null;
+      }
+      if (!photoName) throw new Error('no photo');
+      const media = await fetch(`https://places.googleapis.com/v1/${photoName}/media?maxWidthPx=${w}&key=${key}`);
+      if (!media.ok) throw new Error('photo fetch failed');
+      const bytes = new Uint8Array(await media.arrayBuffer());
+      admin.storage.from(BUCKET).upload(cacheKey, bytes, { contentType: 'image/jpeg', upsert: true }).catch(() => {});
+      return bytes;
+    })();
+    INFLIGHT.set(cacheKey, job);
+    job.finally(() => INFLIGHT.delete(cacheKey));
   }
-  if (!photoName) return new Response('No photo', { status: 404, headers: corsHeaders });
 
-  const media = await fetch(`https://places.googleapis.com/v1/${photoName}/media?maxWidthPx=${w}&key=${key}`);
-  if (!media.ok) return new Response('Photo fetch failed', { status: 502, headers: corsHeaders });
-  const bytes = new Uint8Array(await media.arrayBuffer());
-
-  // populate the cache for everyone after this viewer (best-effort)
-  admin.storage.from(BUCKET).upload(cacheKey, bytes, { contentType: 'image/jpeg', upsert: true }).catch(() => {});
-
-  return new Response(bytes, { status: 200, headers: { ...corsHeaders, ...CACHE_HEADERS, 'X-Cache': 'MISS' } });
+  try {
+    const bytes = await job;
+    return new Response(bytes, { status: 200, headers: { ...corsHeaders, ...CACHE_HEADERS, 'X-Cache': coalesced ? 'COALESCED' : 'MISS' } });
+  } catch {
+    return new Response('Photo unavailable', { status: 502, headers: corsHeaders });
+  }
 });

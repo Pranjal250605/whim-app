@@ -52,7 +52,7 @@ function RootNavigator() {
     const allowedRoutes = new Set(['/', '/swipe', '/hitlist', '/itinerary', '/passport', '/notifications']);
     const sub = Notifications.addNotificationResponseReceivedListener((res) => {
       const route = res.notification.request.content.data?.route;
-      if (typeof route === 'string' && allowedRoutes.has(route)) router.push(route as never);
+      if (typeof route === 'string' && allowedRoutes.has(route)) router.navigate(route as never);
     });
     return () => sub.remove();
   }, []);
@@ -70,7 +70,8 @@ function RootNavigator() {
     if (loading || onboarded === null) return;
     const inAuthArea = segments[0] === 'sign-in' || segments[0] === 'onboarding';
     if (!session && !inAuthArea) {
-      pendingRoute.current = '/' + segments.join('/');
+      // drop route-group names like "(tabs)" so the resumed path is a real URL
+      pendingRoute.current = '/' + segments.filter((s) => !s.startsWith('(')).join('/');
       // fresh installs get the intro once, then the sign-in gate
       router.replace(onboarded ? '/sign-in' : ('/onboarding' as never));
     } else if (session && inAuthArea) {

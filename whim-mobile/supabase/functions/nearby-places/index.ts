@@ -11,9 +11,10 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts';
-import { underDailyCap } from '../_shared/guard.ts';
+import { maybePurgeCaches, underDailyCap } from '../_shared/guard.ts';
 
 const DAILY_CAP = 200; // Places calls are billed — per-user searches per UTC day
+const ONE_HOUR_MS = 60 * 60 * 1000;
 
 type Vibe = 'classics' | 'matcha' | 'nature' | 'nightlife';
 
@@ -60,6 +61,17 @@ Deno.serve(async (req) => {
     return json({ error: 'lat/lng required (valid coordinates)' }, 400);
 
   const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+  await maybePurgeCaches(admin);
+
+  // cache hit → serve without a Google call or spending the daily cap. Keyed by
+  // a ~1 km grid so nearby users share one result; kept fresh for an hour.
+  const cacheKey = `nb:${lat.toFixed(2)}:${lng.toFixed(2)}:${radius}`;
+  const { data: cached } = await admin.from('nearby_cache').select('result, fetched_at').eq('key', cacheKey).maybeSingle();
+  if (cached && Date.now() - new Date(cached.fetched_at).getTime() < ONE_HOUR_MS) {
+    return json({ source: 'cache', center: [lat, lng], vibes: (cached.result as any).vibes });
+  }
+
+  // cache miss → this one costs Google credits, so meter it per user
   if (!(await underDailyCap(admin, user.id, 'nearby-places', DAILY_CAP)))
     return json({ error: 'Daily nearby limit reached — try again tomorrow.', vibes: {} }, 429);
 
@@ -101,6 +113,9 @@ Deno.serve(async (req) => {
     });
   }
   for (const v of Object.keys(vibes) as Vibe[]) vibes[v].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+
+  // populate the cache for everyone near this grid cell (best-effort)
+  admin.from('nearby_cache').upsert({ key: cacheKey, result: { vibes }, fetched_at: new Date().toISOString() }).then(() => {});
 
   return json({ source: 'places', center: [lat, lng], vibes });
 });
