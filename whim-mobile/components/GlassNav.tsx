@@ -20,7 +20,7 @@ export default function GlassNav({ active }: { active: string }) {
     <View pointerEvents="box-none" className="absolute bottom-7 left-0 right-0 items-center">
       <View
         className="flex-row gap-0.5 rounded-full p-1.5"
-        style={{ backgroundColor: 'rgba(255,255,255,0.82)', ...SHADOWS.nav }}
+        style={{ backgroundColor: 'rgba(255,255,255,0.96)', ...SHADOWS.nav }}
       >
         {ITEMS.map((it) => {
           const on = it.key === active;

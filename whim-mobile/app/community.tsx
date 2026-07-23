@@ -232,9 +232,9 @@ export default function Community() {
             <View className="h-1.5 w-1.5 rounded-full bg-accent" />
             <Text className="font-mono text-[11px] tracking-[0.16em] text-accent">COMMUNITY</Text>
           </View>
-          <Pressable onPress={() => router.push('/build-trip')} style={press(SHADOWS.accent)} className="h-9 flex-row items-center gap-1 rounded-full bg-accent px-3.5">
-            <Text className="text-[15px] font-bold text-white">＋</Text>
-            <Text className="text-[13px] font-bold text-white">Create a trip</Text>
+          <Pressable onPress={() => router.push('/build-trip')} style={press(SHADOWS.accent)} className="h-8 flex-row items-center gap-1 rounded-full bg-accent pl-2.5 pr-3.5">
+            <Icon name="route" size={13} color="#fff" strokeWidth={2.4} />
+            <Text className="text-[12.5px] font-bold text-white">New trip</Text>
           </Pressable>
         </View>
         <Text className="mt-1 font-serif text-[32px] leading-[1.02] text-ink">What people are sharing</Text>
@@ -299,7 +299,7 @@ export default function Community() {
             )}
             stickySectionHeadersEnabled={false}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 120 }}
+            contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 150 }}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={COLORS.accent} />}
             initialNumToRender={6}
             maxToRenderPerBatch={6}
