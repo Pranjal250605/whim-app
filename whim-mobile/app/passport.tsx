@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, FlatList, KeyboardAvoidingView, Modal, Platform, Pressable, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { captureRef } from 'react-native-view-shot';
@@ -80,7 +80,34 @@ export default function Passport() {
         </Pressable>
       </View>
 
-      <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 130 }} showsVerticalScrollIndicator={false}>
+      <FlatList
+        data={spotCount > 0 ? byCity : []}
+        keyExtractor={(item) => item[0]}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 130 }}
+        initialNumToRender={2}
+        maxToRenderPerBatch={2}
+        windowSize={5}
+        renderItem={({ item: [cityName, stamps] }) => (
+          <View className="mt-3 px-5">
+            <Text className="mb-2.5 font-mono text-[11px] uppercase tracking-wide text-muted">{cityName} · {stamps.length}</Text>
+            <View className="flex-row flex-wrap" style={{ gap: 10 }}>
+              {stamps.map((s) => (
+                <View key={s.spotId} style={{ width: '31.5%' }}>
+                  <View className="aspect-square overflow-hidden rounded-2xl" style={{ backgroundColor: s.tone }}>
+                    <SpotImage uri={s.photo} width={130} />
+                    <View className="absolute right-1.5 top-1.5 h-6 w-6 items-center justify-center rounded-full bg-accent">
+                      <Icon name="check" size={13} color="#fff" strokeWidth={3} />
+                    </View>
+                  </View>
+                  <Text numberOfLines={2} className="mt-1.5 text-[11.5px] font-semibold leading-4 text-ink">{s.title}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
+        ListHeaderComponent={
+          <View>
         {/* identity */}
         <View className="flex-row items-center gap-3.5 px-5 pt-2">
           <View className="h-16 w-16 items-center justify-center rounded-full bg-accent" style={SHADOWS.accent}>
@@ -182,31 +209,15 @@ export default function Passport() {
           </View>
         </View>
 
-        {/* stamps */}
+        {/* stamps title (the grids themselves are the virtualized list below) */}
         {spotCount > 0 && (
           <View className="mt-7 px-5">
             <Text className="font-serif text-[20px] text-ink">Stamps</Text>
-            {byCity.map(([cityName, stamps]) => (
-              <View key={cityName} className="mt-3">
-                <Text className="mb-2.5 font-mono text-[11px] uppercase tracking-wide text-muted">{cityName} · {stamps.length}</Text>
-                <View className="flex-row flex-wrap" style={{ gap: 10 }}>
-                  {stamps.map((s) => (
-                    <View key={s.spotId} style={{ width: '31.5%' }}>
-                      <View className="aspect-square overflow-hidden rounded-2xl" style={{ backgroundColor: s.tone }}>
-                        <SpotImage uri={s.photo} />
-                        <View className="absolute right-1.5 top-1.5 h-6 w-6 items-center justify-center rounded-full bg-accent">
-                          <Icon name="check" size={13} color="#fff" strokeWidth={3} />
-                        </View>
-                      </View>
-                      <Text numberOfLines={2} className="mt-1.5 text-[11.5px] font-semibold leading-4 text-ink">{s.title}</Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-            ))}
           </View>
         )}
-      </ScrollView>
+          </View>
+        }
+      />
 
       <GlassNav active="profile" />
 

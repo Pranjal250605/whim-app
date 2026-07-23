@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import {
@@ -128,88 +128,98 @@ export default function Friends() {
         {searching && <ActivityIndicator size="small" color={COLORS.accent} />}
       </View>
 
-      <ScrollView className="flex-1 px-5 pt-4" contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
-        {isSearching ? (
-          results.length === 0 && !searching ? (
-            <Text className="mt-8 text-center text-[13.5px] text-muted">No one found for “@{q.replace(/^@/, '')}”.</Text>
-          ) : (
-            results.map((u) => {
-              const following = followingIds.has(u.id);
-              return (
-                <View key={u.id} className="mb-2.5 flex-row items-center gap-3 rounded-2xl bg-white p-3" style={SHADOWS.soft}>
-                  <Avatar name={u.displayName || u.username || '?'} />
-                  <View className="flex-1">
-                    <Text className="text-[15px] font-bold text-ink" numberOfLines={1}>{u.displayName || u.username}</Text>
-                    {u.username && <Text className="font-mono text-[11.5px] text-muted">@{u.username}</Text>}
-                  </View>
-                  <Pressable
-                    onPress={() => toggleFollow(u)}
-                    style={press()}
-                    className={`rounded-full border px-4 py-2 ${following ? 'border-ink/15 bg-white' : 'border-accent bg-accent'}`}
-                  >
-                    <Text className={`text-[13px] font-bold ${following ? 'text-muted' : 'text-white'}`}>{following ? 'Following' : 'Follow'}</Text>
-                  </Pressable>
+      {isSearching ? (
+        <FlatList
+          data={results}
+          keyExtractor={(u) => u.id}
+          className="flex-1"
+          contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 40 }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          ListEmptyComponent={
+            !searching ? <Text className="mt-8 text-center text-[13.5px] text-muted">No one found for “@{q.replace(/^@/, '')}”.</Text> : null
+          }
+          renderItem={({ item: u }) => {
+            const following = followingIds.has(u.id);
+            return (
+              <View className="mb-2.5 flex-row items-center gap-3 rounded-2xl bg-white p-3" style={SHADOWS.soft}>
+                <Avatar name={u.displayName || u.username || '?'} />
+                <View className="flex-1">
+                  <Text className="text-[15px] font-bold text-ink" numberOfLines={1}>{u.displayName || u.username}</Text>
+                  {u.username && <Text className="font-mono text-[11.5px] text-muted">@{u.username}</Text>}
                 </View>
-              );
-            })
-          )
-        ) : loading ? (
-          <View className="items-center pt-16">
-            <ActivityIndicator color={COLORS.accent} />
-          </View>
-        ) : (
-          <>
-            {/* activity */}
-            {activity.length > 0 && (
-              <View className="mb-6">
-                <Text className="mb-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ink">Recent activity</Text>
-                {activity.map((a, i) => {
-                  const tier = TIER[(a.tier as Tier)] ?? TIER[1];
-                  const who = a.displayName || (a.username ? `@${a.username}` : 'Someone');
-                  return (
-                    <Pressable key={`${a.id}-${a.city}-${i}`} onPress={() => router.push(`/u/${a.id}`)} style={press(SHADOWS.soft)} className="mb-2.5 flex-row items-center gap-3 rounded-2xl bg-white p-3">
-                      <View className="h-10 w-10 items-center justify-center rounded-full" style={{ backgroundColor: tier.soft, borderWidth: 2, borderColor: tier.color }}>
-                        <Text className="font-serif text-[13px]" style={{ color: tier.color }}>{initialsOf(a.city)}</Text>
-                      </View>
-                      <View className="flex-1">
-                        <Text className="text-[14px] text-ink" numberOfLines={2}>
-                          <Text className="font-bold">{who}</Text> earned the <Text className="font-bold">{a.city}</Text> badge
-                        </Text>
-                        <Text className="mt-0.5 font-mono text-[10px] uppercase tracking-wide" style={{ color: tier.color }}>{tier.label}</Text>
-                      </View>
-                      <Text className="font-mono text-[10px] text-muted">{ago(a.at)}</Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            )}
-
-            {/* following */}
-            <Text className="mb-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ink">Following · {friends.length}</Text>
-            {friends.length === 0 ? (
-              <View className="items-center px-6 pt-6">
-                <Text className="text-center font-serif text-[18px] text-ink">Follow your friends</Text>
-                <Text className="mt-1.5 text-center text-[13px] leading-5 text-muted">Search a handle above to follow someone and watch their badges roll in.</Text>
-              </View>
-            ) : (
-              friends.map((f) => (
-                <Pressable key={f.id} onPress={() => router.push(`/u/${f.id}`)} style={press(SHADOWS.soft)} className="mb-2.5 flex-row items-center gap-3 rounded-2xl bg-white p-3">
-                  <Avatar name={f.displayName || f.username || '?'} tier={f.bestTier} />
-                  <View className="flex-1">
-                    <Text className="text-[15px] font-bold text-ink" numberOfLines={1}>{f.displayName || f.username}</Text>
-                    <Text className="font-mono text-[11.5px] text-muted">
-                      {f.username ? `@${f.username} · ` : ''}
-                      {f.badgeCount} badge{f.badgeCount === 1 ? '' : 's'}
-                      {f.topCity ? ` · top: ${f.topCity}` : ''}
-                    </Text>
-                  </View>
-                  <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
+                <Pressable
+                  onPress={() => toggleFollow(u)}
+                  style={press()}
+                  className={`rounded-full border px-4 py-2 ${following ? 'border-ink/15 bg-white' : 'border-accent bg-accent'}`}
+                >
+                  <Text className={`text-[13px] font-bold ${following ? 'text-muted' : 'text-white'}`}>{following ? 'Following' : 'Follow'}</Text>
                 </Pressable>
-              ))
-            )}
-          </>
-        )}
-      </ScrollView>
+              </View>
+            );
+          }}
+        />
+      ) : loading ? (
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator color={COLORS.accent} />
+        </View>
+      ) : (
+        <FlatList
+          data={friends}
+          keyExtractor={(f) => f.id}
+          className="flex-1"
+          contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 40 }}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={
+            <View>
+              {activity.length > 0 && (
+                <View className="mb-6">
+                  <Text className="mb-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ink">Recent activity</Text>
+                  {activity.map((a, i) => {
+                    const tier = TIER[(a.tier as Tier)] ?? TIER[1];
+                    const who = a.displayName || (a.username ? `@${a.username}` : 'Someone');
+                    return (
+                      <Pressable key={`${a.id}-${a.city}-${i}`} onPress={() => router.push(`/u/${a.id}`)} style={press(SHADOWS.soft)} className="mb-2.5 flex-row items-center gap-3 rounded-2xl bg-white p-3">
+                        <View className="h-10 w-10 items-center justify-center rounded-full" style={{ backgroundColor: tier.soft, borderWidth: 2, borderColor: tier.color }}>
+                          <Text className="font-serif text-[13px]" style={{ color: tier.color }}>{initialsOf(a.city)}</Text>
+                        </View>
+                        <View className="flex-1">
+                          <Text className="text-[14px] text-ink" numberOfLines={2}>
+                            <Text className="font-bold">{who}</Text> earned the <Text className="font-bold">{a.city}</Text> badge
+                          </Text>
+                          <Text className="mt-0.5 font-mono text-[10px] uppercase tracking-wide" style={{ color: tier.color }}>{tier.label}</Text>
+                        </View>
+                        <Text className="font-mono text-[10px] text-muted">{ago(a.at)}</Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              )}
+              <Text className="mb-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ink">Following · {friends.length}</Text>
+            </View>
+          }
+          ListEmptyComponent={
+            <View className="items-center px-6 pt-6">
+              <Text className="text-center font-serif text-[18px] text-ink">Follow your friends</Text>
+              <Text className="mt-1.5 text-center text-[13px] leading-5 text-muted">Search a handle above to follow someone and watch their badges roll in.</Text>
+            </View>
+          }
+          renderItem={({ item: f }) => (
+            <Pressable onPress={() => router.push(`/u/${f.id}`)} style={press(SHADOWS.soft)} className="mb-2.5 flex-row items-center gap-3 rounded-2xl bg-white p-3">
+              <Avatar name={f.displayName || f.username || '?'} tier={f.bestTier} />
+              <View className="flex-1">
+                <Text className="text-[15px] font-bold text-ink" numberOfLines={1}>{f.displayName || f.username}</Text>
+                <Text className="font-mono text-[11.5px] text-muted">
+                  {f.username ? `@${f.username} · ` : ''}
+                  {f.badgeCount} badge{f.badgeCount === 1 ? '' : 's'}
+                  {f.topCity ? ` · top: ${f.topCity}` : ''}
+                </Text>
+              </View>
+              <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
+            </Pressable>
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 }

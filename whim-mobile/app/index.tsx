@@ -179,7 +179,7 @@ export default function Home() {
           <View className="absolute left-2 right-2 -top-1.5 h-8 rounded-3xl bg-white" style={{ opacity: 0.85, ...SHADOWS.soft }} />
           <View className="overflow-hidden rounded-[28px] bg-white" style={SHADOWS.card}>
             <View className="h-[196px] justify-end overflow-hidden" style={{ backgroundColor: f.tone }}>
-              <SpotImage uri={isTokyo ? f.photo : coverPhoto} />
+              <SpotImage uri={isTokyo ? f.photo : coverPhoto} width={440} />
               {/* no vibe badge here — the active pill above already says it */}
               {/* postmark stamp — the signature element, grounded in travel documents */}
               <View className="absolute right-3.5 top-3.5" style={{ transform: [{ rotate: '-5deg' }] }}>

@@ -14,6 +14,7 @@ import {
   type FeedItem,
 } from '@/lib/db';
 import { placePhotoSource } from '@/lib/placePhoto';
+import { sizedPhoto } from '@/lib/img';
 import { VIBE_DOT, VIBE_LABEL } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
@@ -152,7 +153,7 @@ export default function Community() {
       >
         <View className="h-[116px] w-full bg-accent-soft">
           {item.cover ? (
-            <Image source={{ uri: item.cover }} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={200} />
+            <Image source={sizedPhoto(item.cover, 380)} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={200} recyclingKey={item.id} />
           ) : (
             <View className="flex-1 items-center justify-center">
               <Icon name="route" size={26} color={COLORS.accent} strokeWidth={1.8} />

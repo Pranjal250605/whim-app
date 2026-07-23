@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
+import { Alert, FlatList, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Swipeable } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
@@ -47,8 +47,16 @@ export default function Hitlist() {
         )}
       </View>
 
-      <ScrollView className="flex-1 px-[18px] pt-3" contentContainerStyle={{ paddingBottom: 210 }} showsVerticalScrollIndicator={false}>
-        {empty ? (
+      <FlatList
+        data={scoped}
+        keyExtractor={(b) => b.anchor.id}
+        className="flex-1"
+        contentContainerStyle={{ paddingHorizontal: 18, paddingTop: 12, paddingBottom: 210 }}
+        showsVerticalScrollIndicator={false}
+        initialNumToRender={6}
+        maxToRenderPerBatch={6}
+        windowSize={7}
+        ListEmptyComponent={
           <View className="items-center px-8 pt-16">
             <Text className="font-serif text-[23px] text-ink">Nothing saved yet</Text>
             <Text className="mt-2.5 text-center text-[14px] leading-5 text-muted">
@@ -58,51 +66,50 @@ export default function Hitlist() {
               <Text className="text-[15px] font-semibold text-white">Find spots</Text>
             </Pressable>
           </View>
-        ) : (
-          scoped.map((b) => (
-            <View key={b.anchor.id} className="mb-4">
-              <Swipeable
-                renderRightActions={() => (
-                  <View className="my-0.5 ml-2 flex-row items-center justify-end gap-2 rounded-[20px] bg-destructive px-6">
-                    <Icon name="trash" size={16} color="#fff" strokeWidth={2} />
-                    <Text className="text-[14px] font-semibold text-white">Remove</Text>
-                  </View>
-                )}
-                onSwipeableOpen={() => removeAnchor(b.anchor.id)}
-              >
-                <View className="flex-row items-center gap-3.5 rounded-[20px] bg-white p-3.5" style={SHADOWS.soft}>
-                  <View className="h-[60px] w-[60px] overflow-hidden rounded-[14px]" style={{ backgroundColor: b.anchor.tone }}>
-                    <SpotImage uri={b.anchor.photo} />
-                  </View>
-                  <View className="flex-1">
-                    <Text className="font-serif text-[18px] text-ink">{b.anchor.title}</Text>
-                    <Text className="mt-0.5 text-[12.5px] text-muted">{b.anchor.kind} · {b.anchor.area}</Text>
-                  </View>
-                  <View className="rounded-full bg-[#F4EFE7] px-2.5 py-1">
-                    <Text className="text-[10.5px] font-bold uppercase tracking-wide text-[#9c7a52]">Anchor</Text>
-                  </View>
+        }
+        renderItem={({ item: b }) => (
+          <View className="mb-4">
+            <Swipeable
+              renderRightActions={() => (
+                <View className="my-0.5 ml-2 flex-row items-center justify-end gap-2 rounded-[20px] bg-destructive px-6">
+                  <Icon name="trash" size={16} color="#fff" strokeWidth={2} />
+                  <Text className="text-[14px] font-semibold text-white">Remove</Text>
                 </View>
-              </Swipeable>
+              )}
+              onSwipeableOpen={() => removeAnchor(b.anchor.id)}
+            >
+              <View className="flex-row items-center gap-3.5 rounded-[20px] bg-white p-3.5" style={SHADOWS.soft}>
+                <View className="h-[60px] w-[60px] overflow-hidden rounded-[14px]" style={{ backgroundColor: b.anchor.tone }}>
+                  <SpotImage uri={b.anchor.photo} width={80} />
+                </View>
+                <View className="flex-1">
+                  <Text className="font-serif text-[18px] text-ink">{b.anchor.title}</Text>
+                  <Text className="mt-0.5 text-[12.5px] text-muted">{b.anchor.kind} · {b.anchor.area}</Text>
+                </View>
+                <View className="rounded-full bg-[#F4EFE7] px-2.5 py-1">
+                  <Text className="text-[10.5px] font-bold uppercase tracking-wide text-[#9c7a52]">Anchor</Text>
+                </View>
+              </View>
+            </Swipeable>
 
-              {b.microActivities.map((a) => (
-                <View
-                  key={a.id}
-                  className="ml-8 mt-2 flex-row items-center gap-3 rounded-[15px] border border-[#F0ECE3] bg-white px-3.5 py-2.5"
-                >
-                  <View className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  <View className="h-9 w-9 overflow-hidden rounded-[9px]" style={{ backgroundColor: a.tone }}>
-                    <SpotImage uri={a.photo} />
-                  </View>
-                  <View className="flex-1">
-                    <Text className="text-[14px] font-semibold text-ink">{a.title}</Text>
-                    <Text className="mt-0.5 text-[11.5px] text-muted">{a.kind} · {a.mins} min away</Text>
-                  </View>
+            {b.microActivities.map((a) => (
+              <View
+                key={a.id}
+                className="ml-8 mt-2 flex-row items-center gap-3 rounded-[15px] border border-[#F0ECE3] bg-white px-3.5 py-2.5"
+              >
+                <View className="h-1.5 w-1.5 rounded-full bg-accent" />
+                <View className="h-9 w-9 overflow-hidden rounded-[9px]" style={{ backgroundColor: a.tone }}>
+                  <SpotImage uri={a.photo} width={60} />
                 </View>
-              ))}
-            </View>
-          ))
+                <View className="flex-1">
+                  <Text className="text-[14px] font-semibold text-ink">{a.title}</Text>
+                  <Text className="mt-0.5 text-[11.5px] text-muted">{a.kind} · {a.mins} min away</Text>
+                </View>
+              </View>
+            ))}
+          </View>
         )}
-      </ScrollView>
+      />
 
       {/* generate route — sits above the floating tab bar */}
       {!empty && (

@@ -85,7 +85,7 @@ export default function SwipeCard({ spot, depth, isTop, onSwipe }: SwipeCardProp
         <View className="flex-1 overflow-hidden rounded-card bg-white shadow-xl shadow-black/15">
           {/* image area — real photo when available, tone as the placeholder */}
           <View className="relative h-[54%] overflow-hidden" style={{ backgroundColor: spot.tone }}>
-            <SpotImage uri={spot.photo} />
+            <SpotImage uri={spot.photo} width={460} />
             <View className="absolute left-3.5 top-3.5 flex-row gap-2">
               {spot.tags.map((tag) => (
                 <View key={tag} className="rounded-full bg-white/85 px-2.5 py-1">
