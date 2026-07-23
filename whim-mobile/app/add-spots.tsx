@@ -8,12 +8,14 @@ import { placePhotoSource } from '@/lib/placePhoto';
 import { VIBE_LABEL, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
+import { useQueryClient } from '@tanstack/react-query';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
 
 // UGC — paste your favorite places; we resolve each, an LLM sorts it into a
 // Whim vibe + writes a blurb, and it's saved to your spots.
 export default function AddSpots() {
+  const qc = useQueryClient();
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [mine, setMine] = useState<CommunitySpot[]>([]);
@@ -31,6 +33,7 @@ export default function AddSpots() {
       const { saved, notFound } = await submitPlaces(text);
       setText('');
       setMine(await fetchMyCommunitySpots());
+      qc.invalidateQueries({ queryKey: ['communityFeed'] });
       if (saved.length) toast(`Added ${saved.length} spot${saved.length > 1 ? 's' : ''} ✦`);
       if (notFound.length) toast(`Couldn’t find: ${notFound.slice(0, 2).join(', ')}`);
     } catch (e: any) {

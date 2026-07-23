@@ -8,6 +8,7 @@ import ShareCard from '@/components/ShareCard';
 import { scheduleTripReminder } from '@/lib/notify';
 import { publishItinerary } from '@/lib/db';
 import { toast } from '@/lib/toast';
+import { useQueryClient } from '@tanstack/react-query';
 import { VIBE_LABEL } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
@@ -69,6 +70,7 @@ export default function ItineraryScreen() {
   };
 
   // ── publish this trip to the community feed ──────────────────────────────
+  const qc = useQueryClient();
   const [pubOpen, setPubOpen] = useState(false);
   const [pubTitle, setPubTitle] = useState('');
   const [pubNote, setPubNote] = useState('');
@@ -90,6 +92,7 @@ export default function ItineraryScreen() {
         spotIds: stops.map((s) => s.id),
         cover: byId[stops[0]?.id]?.anchor.photo ?? null,
       });
+      qc.invalidateQueries({ queryKey: ['communityFeed'] });
       setPubOpen(false);
       setPubTitle('');
       setPubNote('');

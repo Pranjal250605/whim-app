@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   searchPlaces,
   publishCustomTrip,
@@ -18,6 +19,7 @@ import Icon from '@/components/Icon';
 // publish. Also the "remix" target — ?from=<id> pre-fills from a sample.
 export default function BuildTrip() {
   const { from } = useLocalSearchParams<{ from?: string }>();
+  const qc = useQueryClient();
   const [title, setTitle] = useState('');
   const [city, setCity] = useState('');
   const [note, setNote] = useState('');
@@ -107,6 +109,7 @@ export default function BuildTrip() {
     setBusy(true);
     try {
       const id = await publishCustomTrip({ title, city, note, stops });
+      qc.invalidateQueries({ queryKey: ['communityFeed'] });
       toast('Trip published ✦');
       router.replace(`/trip/${id}`);
     } catch (e: any) {

@@ -9,6 +9,7 @@ import RouteMap from '@/components/RouteMap';
 import { VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
+import { useQueryClient } from '@tanstack/react-query';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
 
@@ -22,6 +23,7 @@ type State =
 // ids back to full spots, maps the route, and lists the stops in order.
 export default function Trip() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const qc = useQueryClient();
   const [state, setState] = useState<State>({ kind: 'loading' });
 
   const load = useCallback(async () => {
@@ -111,6 +113,7 @@ export default function Trip() {
           onPress: async () => {
             try {
               await deleteMyItinerary(itin.id);
+              qc.invalidateQueries({ queryKey: ['communityFeed'] });
               toast('Trip unpublished.');
               router.back();
             } catch {
