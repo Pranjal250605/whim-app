@@ -13,9 +13,9 @@ import { supabase } from './supabase';
 
 export async function registerForPush(): Promise<void> {
   try {
-    const existing = await Notifications.getPermissionsAsync();
-    let granted = existing.granted;
-    if (!granted && existing.canAskAgain) granted = (await Notifications.requestPermissionsAsync()).granted;
+    // Register silently only if notifications are already allowed — don't pop a
+    // permission prompt on app open (the trip-reminder flow asks in context).
+    const { granted } = await Notifications.getPermissionsAsync();
     if (!granted) return;
 
     const projectId = (Constants.expoConfig as any)?.extra?.eas?.projectId ?? (Constants as any)?.easConfig?.projectId;
