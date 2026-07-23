@@ -150,10 +150,10 @@ export default function Community() {
             </View>
           )}
           <View
-            className="absolute left-3 top-3 flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
+            className="absolute left-3 top-3 flex-row items-center gap-1.5 rounded-full px-3 py-1.5"
             style={{ backgroundColor: official ? COLORS.accent : 'rgba(0,0,0,0.45)' }}
           >
-            <Icon name="route" size={12} color="#fff" strokeWidth={2.2} />
+            <Text className="text-[10px] leading-none text-white">✦</Text>
             <Text className="font-mono text-[9.5px] tracking-[0.12em] text-white">{official ? "EDITORS’ PICK" : 'ITINERARY'}</Text>
           </View>
         </View>
