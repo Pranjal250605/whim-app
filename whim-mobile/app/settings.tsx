@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 import { useAuth } from '@/lib/auth';
+import { fetchViewer } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
 import { useWhimStore } from '@/store/useWhimStore';
 import BackButton from '@/components/BackButton';
@@ -44,6 +46,10 @@ export default function Settings() {
   const profile = useWhimStore((s) => s.profile);
   const renameProfile = useWhimStore((s) => s.renameProfile);
   const [busy, setBusy] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    fetchViewer().then((v) => setIsAdmin(v.isAdmin)).catch(() => {});
+  }, []);
 
   // Alert.prompt is iOS-only — fine for now, Whim targets the App Store.
   const editName = () =>
@@ -101,6 +107,12 @@ export default function Settings() {
           <Row label="Signed in as" value={email} />
           <Row label="Sign out" onPress={confirmSignOut} />
         </Section>
+
+        {isAdmin && (
+          <Section title="Admin">
+            <Row label="Analytics" onPress={() => router.push('/admin-analytics')} />
+          </Section>
+        )}
 
         <Section title="Support & legal">
           <Row label="Contact support" onPress={() => Linking.openURL('mailto:hello@bewhimsy.app')} />

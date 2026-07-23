@@ -524,6 +524,22 @@ export async function fetchViewer(): Promise<{ id: string | null; isAdmin: boole
   return { id: user.id, isAdmin: !!(data as any)?.is_admin };
 }
 
+export interface AdminAnalytics {
+  events: { event: string; count: number; users: number }[];
+  dau: { day: string; users: number }[];
+  errors: number;
+  users: number;
+  days: number;
+}
+
+/** Admin-only funnel summary for the in-app dashboard. Returns null if not admin. */
+export async function fetchAdminAnalytics(days = 30): Promise<AdminAnalytics | null> {
+  const { data, error } = await supabase.rpc('admin_analytics', { p_days: days });
+  if (error) throw error;
+  if (!data || (data as any).error) return null;
+  return data as AdminAnalytics;
+}
+
 /** Admin-only: promote a community spot into the official curated `spots` deck. */
 export async function promoteSpot(placeId: string): Promise<void> {
   const { error } = await supabase.functions.invoke('promote-spot', { body: { place_id: placeId } });
