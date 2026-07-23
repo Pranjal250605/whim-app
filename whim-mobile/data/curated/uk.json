@@ -497,6 +497,307 @@
           "Oysters"
         ],
         "description": "Quick aperitivo upstairs, deep whisky den downstairs — a Soho all-rounder that never misses."
+      },
+      {
+        "id": "buckingham-palace",
+        "title": "Buckingham Palace",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Palace",
+        "area": "Westminster",
+        "hours": "Opens morning",
+        "tags": [
+          "Royal",
+          "Guard"
+        ],
+        "description": "The King’s London residence — the Changing of the Guard out front, State Rooms in summer."
+      },
+      {
+        "id": "houses-of-parliament",
+        "title": "Houses of Parliament",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "Westminster",
+        "hours": "Opens morning",
+        "tags": [
+          "Big Ben",
+          "Gothic"
+        ],
+        "description": "Gothic Parliament on the Thames with Big Ben chiming over Westminster Bridge."
+      },
+      {
+        "id": "tate-modern",
+        "title": "Tate Modern",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Bankside",
+        "hours": "Opens morning",
+        "tags": [
+          "Modern art",
+          "Free",
+          "View"
+        ],
+        "description": "A former power station of modern art — free galleries and a top-floor river view."
+      },
+      {
+        "id": "national-gallery",
+        "title": "National Gallery",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Trafalgar Square",
+        "hours": "Opens morning",
+        "tags": [
+          "Old masters",
+          "Free"
+        ],
+        "description": "Free floors of Western masterpieces overlooking Trafalgar Square."
+      },
+      {
+        "id": "natural-history-museum",
+        "title": "Natural History Museum",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "South Kensington",
+        "hours": "Opens morning",
+        "tags": [
+          "Dinosaurs",
+          "Free"
+        ],
+        "description": "A cathedral of nature — the blue whale in Hintze Hall, dinosaurs, free entry."
+      },
+      {
+        "id": "victoria-albert-museum",
+        "title": "Victoria & Albert Museum",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "South Kensington",
+        "hours": "Opens morning",
+        "tags": [
+          "Design",
+          "Free"
+        ],
+        "description": "The world’s great museum of art and design — fashion, ceramics, a garden café. Free."
+      },
+      {
+        "id": "the-shard",
+        "title": "The Shard",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Viewpoint",
+        "area": "London Bridge",
+        "hours": "Opens morning",
+        "tags": [
+          "View",
+          "Tallest"
+        ],
+        "description": "Western Europe’s tallest tower — the View from the Shard sweeps the whole city."
+      },
+      {
+        "id": "ozone-coffee",
+        "title": "Ozone Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Shoreditch",
+        "hours": "Opens morning",
+        "tags": [
+          "Roaster",
+          "Brunch"
+        ],
+        "description": "A roastery-café with a serious brunch just off Old Street."
+      },
+      {
+        "id": "fortnum-mason",
+        "title": "Fortnum & Mason",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea & food hall",
+        "area": "Piccadilly",
+        "hours": "Opens morning",
+        "tags": [
+          "Tea",
+          "Afternoon tea"
+        ],
+        "description": "The eau-de-nil food hall and grand afternoon tea, purveyors to the palace."
+      },
+      {
+        "id": "dishoom",
+        "title": "Dishoom",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Covent Garden",
+        "hours": "Opens morning",
+        "tags": [
+          "Bombay café",
+          "Chai"
+        ],
+        "description": "A Bombay-Irani café for bacon naan, chai and all-day queues worth joining."
+      },
+      {
+        "id": "attendant",
+        "title": "Attendant",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Fitzrovia",
+        "hours": "Opens morning",
+        "tags": [
+          "Quirky",
+          "Victorian loo"
+        ],
+        "description": "Specialty coffee served in a converted Victorian public toilet — genuinely charming."
+      },
+      {
+        "id": "prufrock-coffee",
+        "title": "Prufrock Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Clerkenwell",
+        "hours": "Opens morning",
+        "tags": [
+          "Specialty",
+          "Pioneer"
+        ],
+        "description": "A pioneer of London specialty coffee, still a barista’s favourite."
+      },
+      {
+        "id": "st-james-s-park",
+        "title": "St James’s Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Westminster",
+        "hours": "Opens morning",
+        "tags": [
+          "Pelicans",
+          "Palace view"
+        ],
+        "description": "The prettiest royal park — a lake of pelicans and a storybook view to the palace."
+      },
+      {
+        "id": "greenwich-park",
+        "title": "Greenwich Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Greenwich",
+        "hours": "Opens morning",
+        "tags": [
+          "Hilltop view",
+          "Observatory"
+        ],
+        "description": "A hilltop royal park over the Thames, the Observatory and the Meridian line."
+      },
+      {
+        "id": "holland-park",
+        "title": "Holland Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Kensington",
+        "hours": "Opens morning",
+        "tags": [
+          "Kyoto Garden",
+          "Peacocks"
+        ],
+        "description": "A leafy park hiding a serene Kyoto Garden with peacocks and a waterfall."
+      },
+      {
+        "id": "victoria-park",
+        "title": "Victoria Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Hackney",
+        "hours": "Opens morning",
+        "tags": [
+          "East London",
+          "Lakes"
+        ],
+        "description": "East London’s favourite park — lakes, cafés and a weekend market."
+      },
+      {
+        "id": "the-american-bar",
+        "title": "The American Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Savoy · Strand",
+        "hours": "Opens morning",
+        "tags": [
+          "Classic",
+          "Legendary"
+        ],
+        "description": "The Savoy’s art-deco bar — the birthplace of countless classic cocktails."
+      },
+      {
+        "id": "callooh-callay",
+        "title": "Callooh Callay",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Shoreditch",
+        "hours": "Opens morning",
+        "tags": [
+          "Hidden",
+          "Wonderland"
+        ],
+        "description": "An award-winning cocktail bar with a hidden room through a wardrobe."
+      },
+      {
+        "id": "bar-termini",
+        "title": "Bar Termini",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Soho",
+        "hours": "Opens morning",
+        "tags": [
+          "Negroni",
+          "Tiny"
+        ],
+        "description": "A tiny Soho counter serving some of the best Negronis and espresso in London."
+      },
+      {
+        "id": "the-churchill-arms",
+        "title": "The Churchill Arms",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Pub",
+        "area": "Kensington",
+        "hours": "Opens morning",
+        "tags": [
+          "Flowers",
+          "Thai food"
+        ],
+        "description": "The flower-smothered pub — a full pint out front and surprising Thai food in the back."
       }
     ]
   },
@@ -963,6 +1264,336 @@
           "Vaults"
         ],
         "description": "A stone-vaulted bar-restaurant down a close off the Mile, big on whisky flights."
+      },
+      {
+        "id": "real-mary-king-s-close",
+        "title": "Real Mary King’s Close",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic site",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Underground",
+          "History"
+        ],
+        "description": "Guided walks through hidden 17th-century streets buried beneath the Royal Mile."
+      },
+      {
+        "id": "camera-obscura",
+        "title": "Camera Obscura",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Attraction",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Illusions",
+          "View"
+        ],
+        "description": "A Victorian rooftop camera and five floors of optical illusions by the castle."
+      },
+      {
+        "id": "scottish-national-gallery",
+        "title": "Scottish National Gallery",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "The Mound",
+        "hours": "Opens morning",
+        "tags": [
+          "Art",
+          "Free"
+        ],
+        "description": "Scotland’s national art collection — free, from Titian to the Scottish colourists."
+      },
+      {
+        "id": "greyfriars-kirkyard",
+        "title": "Greyfriars Kirkyard",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cemetery",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Bobby",
+          "Atmospheric"
+        ],
+        "description": "An atmospheric old graveyard of loyal Bobby the dog and names said to inspire Harry Potter."
+      },
+      {
+        "id": "surgeons-hall-museums",
+        "title": "Surgeons’ Hall Museums",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Southside",
+        "hours": "Opens morning",
+        "tags": [
+          "Anatomy",
+          "Macabre"
+        ],
+        "description": "A gloriously macabre museum of surgical history and anatomical specimens."
+      },
+      {
+        "id": "gladstone-s-land",
+        "title": "Gladstone’s Land",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Historic house",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "17th century",
+          "Restored"
+        ],
+        "description": "A restored 17th-century merchant’s tenement on the Royal Mile, ice-cream shop below."
+      },
+      {
+        "id": "brew-lab",
+        "title": "Brew Lab",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Specialty",
+          "Industrial"
+        ],
+        "description": "A stripped-back specialty coffee lab beloved by students and remote workers."
+      },
+      {
+        "id": "artisan-roast",
+        "title": "Artisan Roast",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Broughton",
+        "hours": "Opens morning",
+        "tags": [
+          "Roaster",
+          "Cosy"
+        ],
+        "description": "A dark, cosy roaster café that helped start Edinburgh’s coffee scene."
+      },
+      {
+        "id": "twelve-triangles",
+        "title": "Twelve Triangles",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bakery",
+        "area": "Leith",
+        "hours": "Opens morning",
+        "tags": [
+          "Pastries",
+          "Doughnuts"
+        ],
+        "description": "A cult bakery for sourdough, cardamom buns and its famous doughnuts."
+      },
+      {
+        "id": "williams-johnson",
+        "title": "Williams & Johnson",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Leith",
+        "hours": "Opens morning",
+        "tags": [
+          "Roaster",
+          "Custom Lane"
+        ],
+        "description": "An in-house roaster serving sharp coffee in Leith’s Custom Lane."
+      },
+      {
+        "id": "mimi-s-bakehouse",
+        "title": "Mimi’s Bakehouse",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bakery café",
+        "area": "Leith",
+        "hours": "Opens morning",
+        "tags": [
+          "Cakes",
+          "Afternoon tea"
+        ],
+        "description": "A pastel bakehouse near the shore piled with towering cakes and afternoon tea."
+      },
+      {
+        "id": "the-meadows",
+        "title": "The Meadows",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Southside",
+        "hours": "Opens morning",
+        "tags": [
+          "Cherry blossom",
+          "Students"
+        ],
+        "description": "A big flat park of tree-lined paths — cherry blossom in spring, students all year."
+      },
+      {
+        "id": "blackford-hill",
+        "title": "Blackford Hill",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Hill",
+        "area": "South",
+        "hours": "Opens morning",
+        "tags": [
+          "View",
+          "Observatory"
+        ],
+        "description": "An easy hill climb for a quieter panorama over the city and out to the sea."
+      },
+      {
+        "id": "portobello-beach",
+        "title": "Portobello Beach",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Beach",
+        "area": "Portobello",
+        "hours": "Opens morning",
+        "tags": [
+          "Seaside",
+          "Promenade"
+        ],
+        "description": "A proper sandy beach and promenade a short bus ride from the centre."
+      },
+      {
+        "id": "water-of-leith-walkway",
+        "title": "Water of Leith Walkway",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Walk",
+        "area": "Stockbridge",
+        "hours": "Opens morning",
+        "tags": [
+          "Riverside",
+          "Green"
+        ],
+        "description": "A wooded river path threading the city from Balerno down to Leith."
+      },
+      {
+        "id": "cramond",
+        "title": "Cramond",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Coastal walk",
+        "area": "Cramond",
+        "hours": "Opens morning",
+        "tags": [
+          "Tidal island",
+          "Foreshore"
+        ],
+        "description": "A pretty foreshore village with a causeway to a tidal island at low tide."
+      },
+      {
+        "id": "the-jazz-bar",
+        "title": "The Jazz Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Live music",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Live jazz",
+          "Late"
+        ],
+        "description": "A basement bar with live jazz, funk and soul nightly until late."
+      },
+      {
+        "id": "hoot-the-redeemer",
+        "title": "Hoot the Redeemer",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Speakeasy",
+          "Fairground"
+        ],
+        "description": "A fairground-themed speakeasy with a fortune-teller booth and boozy slushies."
+      },
+      {
+        "id": "the-last-word-saloon",
+        "title": "The Last Word Saloon",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Stockbridge",
+        "hours": "Opens morning",
+        "tags": [
+          "Cocktails",
+          "Candlelit"
+        ],
+        "description": "A dark, candlelit cocktail den in Stockbridge from the Bramble team."
+      },
+      {
+        "id": "nauticus",
+        "title": "Nauticus",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Leith",
+        "hours": "Opens morning",
+        "tags": [
+          "Scottish spirits",
+          "Award-winning"
+        ],
+        "description": "An award-winning Leith bar telling the port’s story through Scottish spirits."
+      },
+      {
+        "id": "dragonfly",
+        "title": "Dragonfly",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Grassmarket",
+        "hours": "Opens morning",
+        "tags": [
+          "Cocktails",
+          "Grand"
+        ],
+        "description": "A grand, dimly-lit cocktail bar just off the Grassmarket."
+      },
+      {
+        "id": "whistlebinkies",
+        "title": "Whistlebinkies",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Live music",
+        "area": "Old Town",
+        "hours": "Opens morning",
+        "tags": [
+          "Live bands",
+          "Late"
+        ],
+        "description": "A cavernous underground live-music bar with bands every night."
       }
     ]
   }

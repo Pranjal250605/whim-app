@@ -506,6 +506,366 @@
           "Mezcal"
         ],
         "description": "Order tacos at the counter, then slip through the back door into one of Paris’s best agave bars."
+      },
+      {
+        "id": "notre-dame-cathedral",
+        "title": "Notre-Dame Cathedral",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cathedral",
+        "area": "Île de la Cité · 4th",
+        "hours": "Opens morning",
+        "tags": [
+          "Gothic",
+          "Icon"
+        ],
+        "description": "The great Gothic cathedral on the Seine — gargoyles, rose windows and the reborn spire after the fire."
+      },
+      {
+        "id": "centre-pompidou",
+        "title": "Centre Pompidou",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Beaubourg · 4th",
+        "hours": "Opens morning",
+        "tags": [
+          "Modern art",
+          "Architecture"
+        ],
+        "description": "The inside-out building of coloured pipes holding Europe’s biggest modern-art collection and a rooftop view."
+      },
+      {
+        "id": "musee-rodin",
+        "title": "Musée Rodin",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Invalides · 7th",
+        "hours": "Opens morning",
+        "tags": [
+          "Sculpture",
+          "Garden"
+        ],
+        "description": "The Thinker broods in a rose garden around the mansion where Rodin worked."
+      },
+      {
+        "id": "musee-de-l-orangerie",
+        "title": "Musée de l’Orangerie",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Tuileries · 1st",
+        "hours": "Opens morning",
+        "tags": [
+          "Monet",
+          "Water Lilies"
+        ],
+        "description": "Two oval rooms wrapped in Monet’s giant Water Lilies — a quiet counterpoint to the Louvre."
+      },
+      {
+        "id": "les-invalides",
+        "title": "Les Invalides",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Monument",
+        "area": "7th",
+        "hours": "Opens morning",
+        "tags": [
+          "Golden dome",
+          "Napoleon"
+        ],
+        "description": "The golden-domed veterans’ complex housing an army museum and Napoleon’s grand tomb."
+      },
+      {
+        "id": "pere-lachaise-cemetery",
+        "title": "Père Lachaise Cemetery",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cemetery",
+        "area": "20th",
+        "hours": "Opens morning",
+        "tags": [
+          "Wander",
+          "Famous graves"
+        ],
+        "description": "A leafy hillside city of the dead — Jim Morrison, Chopin, Wilde — you wander it like a park."
+      },
+      {
+        "id": "catacombs-of-paris",
+        "title": "Catacombs of Paris",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "Denfert · 14th",
+        "hours": "Opens morning",
+        "tags": [
+          "Underground",
+          "Bones"
+        ],
+        "description": "Kilometres of tunnels lined with the bones of six million Parisians. Book ahead; not for the faint-hearted."
+      },
+      {
+        "id": "place-des-vosges",
+        "title": "Place des Vosges",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Square",
+        "area": "Le Marais · 4th",
+        "hours": "Opens morning",
+        "tags": [
+          "Arcades",
+          "Oldest square"
+        ],
+        "description": "Paris’s oldest planned square — matching pink arcades around a garden, Victor Hugo’s house in the corner."
+      },
+      {
+        "id": "angelina",
+        "title": "Angelina",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Tea room",
+        "area": "Rivoli · 1st",
+        "hours": "Opens morning",
+        "tags": [
+          "Hot chocolate",
+          "Belle Époque"
+        ],
+        "description": "The Belle Époque tea room famous for a jug of thick “l’Africain” hot chocolate and the Mont-Blanc pastry."
+      },
+      {
+        "id": "laduree-champs-elysees",
+        "title": "Ladurée Champs-Élysées",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Patisserie",
+        "area": "8th",
+        "hours": "Opens morning",
+        "tags": [
+          "Macarons",
+          "Pastel"
+        ],
+        "description": "The pastel macaron house — pistachio, rose, salted caramel in a jewel-box salon."
+      },
+      {
+        "id": "pierre-herme",
+        "title": "Pierre Hermé",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Patisserie",
+        "area": "Saint-Germain · 6th",
+        "hours": "Opens morning",
+        "tags": [
+          "Macarons",
+          "Ispahan"
+        ],
+        "description": "The “Picasso of pastry” — the rose-lychee Ispahan and macarons worth the queue."
+      },
+      {
+        "id": "berthillon",
+        "title": "Berthillon",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Ice cream",
+        "area": "Île Saint-Louis · 4th",
+        "hours": "Opens morning",
+        "tags": [
+          "Sorbet",
+          "Institution"
+        ],
+        "description": "The island institution for artisan ice cream and sorbet — get a cone and stroll the quay."
+      },
+      {
+        "id": "ten-belles",
+        "title": "Ten Belles",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Canal · 10th",
+        "hours": "Opens morning",
+        "tags": [
+          "Specialty",
+          "Small"
+        ],
+        "description": "A tiny canal-side coffee bar that helped kick off Paris’s specialty scene."
+      },
+      {
+        "id": "le-bon-marche",
+        "title": "Le Bon Marché",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Concept store",
+        "area": "Sèvres · 7th",
+        "hours": "Opens morning",
+        "tags": [
+          "Design",
+          "La Grande Épicerie"
+        ],
+        "description": "The world’s first department store — beautifully merchandised, with a legendary food hall next door."
+      },
+      {
+        "id": "jardin-des-tuileries",
+        "title": "Jardin des Tuileries",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "1st",
+        "hours": "Opens morning",
+        "tags": [
+          "Green chairs",
+          "Fountains"
+        ],
+        "description": "The formal gardens between the Louvre and Place de la Concorde — green chairs by the round ponds."
+      },
+      {
+        "id": "parc-monceau",
+        "title": "Parc Monceau",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "8th",
+        "hours": "Opens morning",
+        "tags": [
+          "Follies",
+          "Elegant"
+        ],
+        "description": "An elegant English-style park of follies, a rotunda and a little Roman colonnade round a pond."
+      },
+      {
+        "id": "jardin-des-plantes",
+        "title": "Jardin des Plantes",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "5th",
+        "hours": "Opens morning",
+        "tags": [
+          "Botanical",
+          "Museum"
+        ],
+        "description": "The city’s botanical garden with glasshouses, a small zoo and the Natural History museum."
+      },
+      {
+        "id": "champ-de-mars",
+        "title": "Champ de Mars",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "7th",
+        "hours": "Opens morning",
+        "tags": [
+          "Eiffel view",
+          "Picnic"
+        ],
+        "description": "The long lawns under the Eiffel Tower — the picnic-and-sparkle spot at dusk."
+      },
+      {
+        "id": "parc-de-la-villette",
+        "title": "Parc de la Villette",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "19th",
+        "hours": "Opens morning",
+        "tags": [
+          "Modern",
+          "Canal"
+        ],
+        "description": "A vast modern park of red follies, canal-side lawns and open-air cinema in summer."
+      },
+      {
+        "id": "square-du-vert-galant",
+        "title": "Square du Vert-Galant",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Île de la Cité · 1st",
+        "hours": "Opens morning",
+        "tags": [
+          "Riverside",
+          "Tip of the island"
+        ],
+        "description": "A willow-shaded triangle at the tip of the island — the Seine wraps around you."
+      },
+      {
+        "id": "experimental-cocktail-club",
+        "title": "Experimental Cocktail Club",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Montorgueil · 2nd",
+        "hours": "Opens morning",
+        "tags": [
+          "Craft cocktails",
+          "Speakeasy"
+        ],
+        "description": "The bar that reset Paris cocktails — dim, buzzy and behind an easy-to-miss door."
+      },
+      {
+        "id": "le-syndicat",
+        "title": "Le Syndicat",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "10th",
+        "hours": "Opens morning",
+        "tags": [
+          "French spirits",
+          "Hidden"
+        ],
+        "description": "A poster-plastered front hiding a bar devoted entirely to French spirits."
+      },
+      {
+        "id": "rex-club",
+        "title": "Rex Club",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Grands Boulevards · 2nd",
+        "hours": "Opens morning",
+        "tags": [
+          "Techno",
+          "Legendary"
+        ],
+        "description": "The techno institution under the Grand Rex cinema, famed for its sound system."
+      },
+      {
+        "id": "chez-jeannette",
+        "title": "Chez Jeannette",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar",
+        "area": "10th",
+        "hours": "Opens morning",
+        "tags": [
+          "Retro",
+          "Buzzy"
+        ],
+        "description": "A retro-glam corner café-bar that spills onto the pavement of the buzzy 10th."
       }
     ]
   },
@@ -903,6 +1263,325 @@
           "Sport"
         ],
         "description": "The reliable Irish pub for a pint and a match, with branches across town."
+      },
+      {
+        "id": "place-massena",
+        "title": "Place Masséna",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Square",
+        "area": "Centre",
+        "hours": "Opens morning",
+        "tags": [
+          "Red facades",
+          "Fountains"
+        ],
+        "description": "The grand red-ochre square with checkerboard paving and the mirror-fountains of the Sun."
+      },
+      {
+        "id": "cathedrale-sainte-reparate",
+        "title": "Cathédrale Sainte-Réparate",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cathedral",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Baroque",
+          "Tiled dome"
+        ],
+        "description": "The baroque cathedral at the heart of the Old Town, under a glazed-tile dome."
+      },
+      {
+        "id": "russian-orthodox-cathedral",
+        "title": "Russian Orthodox Cathedral",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Cathedral",
+        "area": "Tzarewitch",
+        "hours": "Opens morning",
+        "tags": [
+          "Onion domes",
+          "Unexpected"
+        ],
+        "description": "A jewel-box of colourful onion domes — the grandest Russian church outside Russia.",
+        "geocodeQuery": "Cathédrale Saint-Nicolas, Nice, France"
+      },
+      {
+        "id": "musee-marc-chagall",
+        "title": "Musée Marc Chagall",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Cimiez",
+        "hours": "Opens morning",
+        "tags": [
+          "Art",
+          "Biblical"
+        ],
+        "description": "A light-filled museum built around Chagall’s dreamlike biblical canvases."
+      },
+      {
+        "id": "mamac",
+        "title": "MAMAC",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Garibaldi",
+        "hours": "Opens morning",
+        "tags": [
+          "Modern art",
+          "Rooftop"
+        ],
+        "description": "The modern-and-contemporary art museum — Niki de Saint Phalle, Yves Klein, and a roof terrace."
+      },
+      {
+        "id": "opera-de-nice",
+        "title": "Opéra de Nice",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Opera house",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Gilded",
+          "Historic"
+        ],
+        "description": "A red-and-gold 19th-century opera house tucked into the Old Town lanes."
+      },
+      {
+        "id": "palais-lascaris",
+        "title": "Palais Lascaris",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Baroque palace",
+          "Instruments"
+        ],
+        "description": "A frescoed baroque palace of old instruments and painted ceilings in the Old Town."
+      },
+      {
+        "id": "lou-pilha-leva",
+        "title": "Lou Pilha Leva",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Street food",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Socca",
+          "Cheap eats"
+        ],
+        "description": "A stand-up Old Town window for socca, pissaladière and Niçois street snacks."
+      },
+      {
+        "id": "patisserie-lac",
+        "title": "Pâtisserie LAC",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Chocolatier",
+        "area": "Centre",
+        "hours": "Opens morning",
+        "tags": [
+          "Chocolate",
+          "Pastry"
+        ],
+        "description": "A master chocolatier-pâtissier’s jewel-box of pralines and picture-perfect cakes."
+      },
+      {
+        "id": "la-fabrique-givree",
+        "title": "La Fabrique Givrée",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Ice cream",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Gelato",
+          "Artisan"
+        ],
+        "description": "Artisan ice cream in bold seasonal flavours, a step off the Cours Saleya."
+      },
+      {
+        "id": "oliviera",
+        "title": "Oliviera",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café & shop",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Olive oil",
+          "Slow"
+        ],
+        "description": "Part olive-oil shop, part tiny table — tastings and simple Provençal plates.",
+        "geocodeQuery": "Oliviera, Rue du Collet, Nice, France"
+      },
+      {
+        "id": "cafe-de-la-bourse",
+        "title": "Café de la Bourse",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Garibaldi",
+        "hours": "Opens morning",
+        "tags": [
+          "Terrace",
+          "People-watching"
+        ],
+        "description": "A sunny Place Garibaldi terrace for a slow morning coffee under the arcades."
+      },
+      {
+        "id": "jardin-albert-1er",
+        "title": "Jardin Albert 1er",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Centre",
+        "hours": "Opens morning",
+        "tags": [
+          "Central",
+          "Fountain"
+        ],
+        "description": "The oldest public garden in Nice, linking Place Masséna to the sea."
+      },
+      {
+        "id": "jardins-de-cimiez",
+        "title": "Jardins de Cimiez",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "Cimiez",
+        "hours": "Opens morning",
+        "tags": [
+          "Olive grove",
+          "Roman ruins"
+        ],
+        "description": "Ancient olive trees and Roman ruins on the hill above town — shady and calm."
+      },
+      {
+        "id": "cap-de-nice",
+        "title": "Cap de Nice",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Coastal walk",
+        "area": "East",
+        "hours": "Opens morning",
+        "tags": [
+          "Sea path",
+          "Views"
+        ],
+        "description": "A rocky coastal path east of the port with swimming coves and open-sea views."
+      },
+      {
+        "id": "parc-de-la-grande-corniche",
+        "title": "Parc de la Grande Corniche",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Above Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Panorama",
+          "Hiking"
+        ],
+        "description": "A hilltop nature park with sweeping views down the whole coastline."
+      },
+      {
+        "id": "cascade-du-chateau",
+        "title": "Cascade du Château",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Waterfall",
+        "area": "Castle Hill",
+        "hours": "Opens morning",
+        "tags": [
+          "Waterfall",
+          "Viewpoint"
+        ],
+        "description": "The man-made waterfall crowning Castle Hill, with the bay laid out below."
+      },
+      {
+        "id": "wayne-s-bar",
+        "title": "Wayne’s Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Live music",
+          "Lively"
+        ],
+        "description": "A rowdy Old Town live-music bar — the anchor of the after-dark crowd."
+      },
+      {
+        "id": "high-club",
+        "title": "High Club",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Promenade",
+        "hours": "Opens morning",
+        "tags": [
+          "Clubbing",
+          "Big nights"
+        ],
+        "description": "The big seafront club on the Prom for late DJ nights."
+      },
+      {
+        "id": "el-merkado",
+        "title": "El Merkado",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar",
+        "area": "Vieux Nice",
+        "hours": "Opens morning",
+        "tags": [
+          "Tapas",
+          "Apéro"
+        ],
+        "description": "A tapas-and-cocktails spot that fills the lanes with an easy apéro crowd.",
+        "geocodeQuery": "El Merkado, Rue Saint-François de Paule, Nice, France"
+      },
+      {
+        "id": "beau-rivage-plage",
+        "title": "Beau Rivage Plage",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Beach",
+        "area": "Seafront",
+        "hours": "Opens morning",
+        "tags": [
+          "Pebbles",
+          "Beach club"
+        ],
+        "description": "A central pebble beach and club for a swim right off the Promenade.",
+        "geocodeQuery": "Plage Beau Rivage, Nice, France"
       }
     ]
   }

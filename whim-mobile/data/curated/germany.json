@@ -436,6 +436,354 @@
           "Zoo view"
         ],
         "description": "A tenth-floor bar looking straight into the Zoo and over the West — cocktails at golden hour."
+      },
+      {
+        "id": "checkpoint-charlie",
+        "title": "Checkpoint Charlie",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Cold War",
+          "Icon"
+        ],
+        "description": "The famous former Wall crossing between East and West — history-heavy, tourist-busy."
+      },
+      {
+        "id": "fernsehturm-tv-tower",
+        "title": "Fernsehturm (TV Tower)",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Landmark",
+        "area": "Alexanderplatz",
+        "hours": "Opens morning",
+        "tags": [
+          "View",
+          "Icon"
+        ],
+        "description": "The needle over Berlin — ride up for a revolving view across the whole city."
+      },
+      {
+        "id": "charlottenburg-palace",
+        "title": "Charlottenburg Palace",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Palace",
+        "area": "Charlottenburg",
+        "hours": "Opens morning",
+        "tags": [
+          "Baroque",
+          "Gardens"
+        ],
+        "description": "The city’s grandest baroque palace and its formal riverside gardens."
+      },
+      {
+        "id": "gendarmenmarkt",
+        "title": "Gendarmenmarkt",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Square",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Twin cathedrals",
+          "Concert hall"
+        ],
+        "description": "Berlin’s most elegant square — twin domed cathedrals flanking the concert hall."
+      },
+      {
+        "id": "topography-of-terror",
+        "title": "Topography of Terror",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Memorial",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "History",
+          "Free"
+        ],
+        "description": "A sobering free museum on the site of the Gestapo HQ, beside a surviving Wall stretch."
+      },
+      {
+        "id": "berlin-wall-memorial",
+        "title": "Berlin Wall Memorial",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Memorial",
+        "area": "Bernauer Str.",
+        "hours": "Opens morning",
+        "tags": [
+          "History",
+          "Death strip"
+        ],
+        "description": "The best place to understand the Wall — a preserved section with the death strip intact."
+      },
+      {
+        "id": "jewish-museum-berlin",
+        "title": "Jewish Museum Berlin",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Libeskind",
+          "Architecture"
+        ],
+        "description": "Daniel Libeskind’s jagged zinc building is as moving as the history it holds."
+      },
+      {
+        "id": "five-elephant",
+        "title": "Five Elephant",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Roaster",
+          "Cheesecake"
+        ],
+        "description": "A beloved roastery-café famous for its Philadelphia-style cheesecake."
+      },
+      {
+        "id": "roamers",
+        "title": "Roamers",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Neukölln",
+        "hours": "Opens morning",
+        "tags": [
+          "Brunch",
+          "Plants"
+        ],
+        "description": "A plant-filled Neukölln café with a cult brunch and long weekend queues.",
+        "geocodeQuery": "Roamers, Pannierstraße 64, Berlin, Germany"
+      },
+      {
+        "id": "silo-coffee",
+        "title": "Silo Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Friedrichshain",
+        "hours": "Opens morning",
+        "tags": [
+          "Antipodean",
+          "Brunch"
+        ],
+        "description": "An Aussie-run brunch-and-coffee favourite near the RAW grounds."
+      },
+      {
+        "id": "zeit-fur-brot",
+        "title": "Zeit für Brot",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Bakery",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Cinnamon rolls",
+          "Organic"
+        ],
+        "description": "Organic bakery worth it for the warm cinnamon rolls alone."
+      },
+      {
+        "id": "companion-coffee",
+        "title": "Companion Coffee",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Coffee",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Specialty",
+          "Courtyard"
+        ],
+        "description": "A calm specialty coffee bar tucked in the Voo Store courtyard."
+      },
+      {
+        "id": "gorlitzer-park",
+        "title": "Görlitzer Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Local",
+          "Sunday"
+        ],
+        "description": "A scruffy, lively Kreuzberg park — locals, grills and a Sunday buzz."
+      },
+      {
+        "id": "treptower-park",
+        "title": "Treptower Park",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Treptow",
+        "hours": "Opens morning",
+        "tags": [
+          "Riverside",
+          "Monument"
+        ],
+        "description": "A big riverside park with boat rentals and the vast Soviet War Memorial."
+      },
+      {
+        "id": "schlachtensee",
+        "title": "Schlachtensee",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Lake",
+        "area": "Zehlendorf",
+        "hours": "Opens morning",
+        "tags": [
+          "Swimming",
+          "Forest"
+        ],
+        "description": "A clear forest lake at the end of the U-Bahn — Berliners’ summer swim spot."
+      },
+      {
+        "id": "botanical-garden-berlin",
+        "title": "Botanical Garden Berlin",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "Lichterfelde",
+        "hours": "Opens morning",
+        "tags": [
+          "Glasshouses",
+          "Huge"
+        ],
+        "description": "One of the world’s largest botanic gardens, with grand Victorian glasshouses.",
+        "geocodeQuery": "Botanischer Garten Berlin, Königin-Luise-Straße, Berlin, Germany"
+      },
+      {
+        "id": "volkspark-friedrichshain",
+        "title": "Volkspark Friedrichshain",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Friedrichshain",
+        "hours": "Opens morning",
+        "tags": [
+          "Fairytale fountain",
+          "Hills"
+        ],
+        "description": "A rambling park with a fairytale fountain, open-air cinema and rubble hills."
+      },
+      {
+        "id": "sisyphos",
+        "title": "Sisyphos",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Lichtenberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Techno",
+          "Festival vibe"
+        ],
+        "description": "A former dog-biscuit factory turned open-air, all-weekend festival of a club."
+      },
+      {
+        "id": "watergate",
+        "title": "Watergate",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Techno",
+          "River view"
+        ],
+        "description": "A riverside club with a floor of LED ceiling and windows onto the Spree at dawn."
+      },
+      {
+        "id": "tresor",
+        "title": "Tresor",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Techno",
+          "Legendary"
+        ],
+        "description": "The vault-deep techno institution in a former power plant."
+      },
+      {
+        "id": "salon-zur-wilden-renate",
+        "title": "Salon zur Wilden Renate",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Friedrichshain",
+        "hours": "Opens morning",
+        "tags": [
+          "Maze",
+          "Eclectic"
+        ],
+        "description": "A rambling old apartment block turned maze-like club with themed rooms."
+      },
+      {
+        "id": "buck-and-breck",
+        "title": "Buck and Breck",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Mitte",
+        "hours": "Opens morning",
+        "tags": [
+          "Craft cocktails",
+          "Intimate"
+        ],
+        "description": "A tiny, ring-the-bell cocktail bar around a single communal counter.",
+        "geocodeQuery": "Buck and Breck, Brunnenstraße 177, Berlin, Germany"
+      },
+      {
+        "id": "hopfenreich",
+        "title": "Hopfenreich",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Craft beer",
+        "area": "Kreuzberg",
+        "hours": "Opens morning",
+        "tags": [
+          "Craft beer",
+          "Taproom"
+        ],
+        "description": "Berlin’s first dedicated craft-beer bar, with a rotating wall of taps."
       }
     ]
   },
@@ -875,6 +1223,353 @@
           "Small"
         ],
         "description": "An inventive, award-winning cocktail bar in the Glockenbachviertel — book, it’s tiny and beloved."
+      },
+      {
+        "id": "asamkirche",
+        "title": "Asamkirche",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Church",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Baroque",
+          "Ornate"
+        ],
+        "description": "A tiny, insanely ornate rococo church the Asam brothers built as their private chapel."
+      },
+      {
+        "id": "deutsches-museum",
+        "title": "Deutsches Museum",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Isarinsel",
+        "hours": "Opens morning",
+        "tags": [
+          "Science",
+          "Huge"
+        ],
+        "description": "One of the world’s biggest science-and-tech museums — mines, planes, a lightning show."
+      },
+      {
+        "id": "alte-pinakothek",
+        "title": "Alte Pinakothek",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Maxvorstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Old masters",
+          "Art"
+        ],
+        "description": "Old-master heavyweights — Dürer, Rubens, Rembrandt — in a grand gallery."
+      },
+      {
+        "id": "pinakothek-der-moderne",
+        "title": "Pinakothek der Moderne",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Museum",
+        "area": "Maxvorstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Modern art",
+          "Design"
+        ],
+        "description": "Modern art, design and architecture under a soaring white rotunda."
+      },
+      {
+        "id": "st-peter-s-church",
+        "title": "St. Peter’s Church",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Church",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Tower climb",
+          "View"
+        ],
+        "description": "Munich’s oldest church — climb “Alter Peter” for the best view over Marienplatz."
+      },
+      {
+        "id": "odeonsplatz",
+        "title": "Odeonsplatz",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Square",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Italianate",
+          "Feldherrnhalle"
+        ],
+        "description": "An Italianate square of the Feldherrnhalle loggia and the yellow Theatine Church."
+      },
+      {
+        "id": "sendlinger-tor",
+        "title": "Sendlinger Tor",
+        "vibes": [
+          "classics"
+        ],
+        "kind": "Gate",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Medieval gate",
+          "Landmark"
+        ],
+        "description": "A medieval city gate marking the start of a lively shopping street."
+      },
+      {
+        "id": "aroma-kaffeebar",
+        "title": "Aroma Kaffeebar",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Glockenbach",
+        "hours": "Opens morning",
+        "tags": [
+          "Coffee",
+          "Bohemian"
+        ],
+        "description": "A bohemian corner café in the Glockenbach for coffee, cake and people-watching.",
+        "geocodeQuery": "Aroma Kaffeebar, Pestalozzistraße, München, Germany"
+      },
+      {
+        "id": "cotidiano",
+        "title": "Cotidiano",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Gärtnerplatz",
+        "hours": "Opens morning",
+        "tags": [
+          "Brunch",
+          "Bright"
+        ],
+        "description": "A bright all-day café on Gärtnerplatz beloved for a long weekend brunch."
+      },
+      {
+        "id": "ballabeni-icecream",
+        "title": "Ballabeni Icecream",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Ice cream",
+        "area": "Isarvorstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Gelato",
+          "Artisan"
+        ],
+        "description": "Artisan Italian gelato that draws a queue down the block in summer."
+      },
+      {
+        "id": "rischart-am-marienplatz",
+        "title": "Rischart am Marienplatz",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café bakery",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Cakes",
+          "View"
+        ],
+        "description": "A classic Munich bakery-café with cakes and a terrace over the Marienplatz bustle."
+      },
+      {
+        "id": "lost-weekend",
+        "title": "Lost Weekend",
+        "vibes": [
+          "matcha"
+        ],
+        "kind": "Café",
+        "area": "Maxvorstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Bookshop café",
+          "Students"
+        ],
+        "description": "A bookshop-café near the university — coffee, wifi and a student hum."
+      },
+      {
+        "id": "westpark",
+        "title": "Westpark",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Sendling",
+        "hours": "Opens morning",
+        "tags": [
+          "Lakes",
+          "Beer garden"
+        ],
+        "description": "A rolling park of lakes, an Asian garden and a summer open-air cinema."
+      },
+      {
+        "id": "hirschgarten",
+        "title": "Hirschgarten",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Neuhausen",
+        "hours": "Opens morning",
+        "tags": [
+          "Beer garden",
+          "Deer"
+        ],
+        "description": "Home to Europe’s largest beer garden — and a real deer enclosure beside it."
+      },
+      {
+        "id": "luitpoldpark",
+        "title": "Luitpoldpark",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Park",
+        "area": "Schwabing",
+        "hours": "Opens morning",
+        "tags": [
+          "Hill",
+          "Views"
+        ],
+        "description": "A calm park with a rubble hill giving a quiet view over the north of the city."
+      },
+      {
+        "id": "botanical-garden-munich",
+        "title": "Botanical Garden Munich",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Garden",
+        "area": "Nymphenburg",
+        "hours": "Opens morning",
+        "tags": [
+          "Glasshouses",
+          "Alpine"
+        ],
+        "description": "Beautiful glasshouses and an alpine section beside Nymphenburg’s park."
+      },
+      {
+        "id": "alter-sudfriedhof",
+        "title": "Alter Südfriedhof",
+        "vibes": [
+          "nature"
+        ],
+        "kind": "Cemetery",
+        "area": "Isarvorstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Wander",
+          "Overgrown"
+        ],
+        "description": "A romantic, overgrown old cemetery-park where locals stroll among grand tombs."
+      },
+      {
+        "id": "schumann-s-bar",
+        "title": "Schumann’s Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Classic",
+          "Legendary"
+        ],
+        "description": "Munich’s most famous bar — a legendary bartender and impeccable classics."
+      },
+      {
+        "id": "harry-klein",
+        "title": "Harry Klein",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Techno",
+          "Visuals"
+        ],
+        "description": "A club known for wall-to-wall live visuals over the dance floor.",
+        "geocodeQuery": "Harry Klein, Sonnenstraße 8, München, Germany"
+      },
+      {
+        "id": "blitz-club",
+        "title": "Blitz Club",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Club",
+        "area": "Isarinsel",
+        "hours": "Opens morning",
+        "tags": [
+          "Techno",
+          "Sound system"
+        ],
+        "description": "A serious techno club by the Deutsches Museum with an audiophile sound system."
+      },
+      {
+        "id": "milla-club",
+        "title": "Milla Club",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Live music",
+        "area": "Glockenbach",
+        "hours": "Opens morning",
+        "tags": [
+          "Live music",
+          "Intimate"
+        ],
+        "description": "A snug basement for live bands, DJs and readings in the Glockenbach."
+      },
+      {
+        "id": "import-export",
+        "title": "Import Export",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Bar & venue",
+        "area": "Schwabing",
+        "hours": "Opens morning",
+        "tags": [
+          "Riverside",
+          "Eclectic"
+        ],
+        "description": "A riverside cultural venue with a courtyard bar, concerts and film nights."
+      },
+      {
+        "id": "ory-bar",
+        "title": "Ory Bar",
+        "vibes": [
+          "nightlife"
+        ],
+        "kind": "Cocktail bar",
+        "area": "Altstadt",
+        "hours": "Opens morning",
+        "tags": [
+          "Craft cocktails",
+          "Design"
+        ],
+        "description": "A sleek hotel cocktail bar with inventive, design-led drinks."
       }
     ]
   }
