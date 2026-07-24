@@ -5,7 +5,8 @@ import { Swipeable } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
 import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { VIBE_LABEL } from '@/data/vibes';
-import { SHADOWS } from '@/lib/theme';
+import { SHADOWS, COLORS } from '@/lib/theme';
+import { openDirections } from '@/lib/maps';
 import SpotImage from '@/components/SpotImage';
 import Icon from '@/components/Icon';
 
@@ -85,9 +86,14 @@ export default function Hitlist() {
                   <Text className="font-serif text-[18px] text-ink">{b.anchor.title}</Text>
                   <Text className="mt-0.5 text-[12.5px] text-muted">{b.anchor.kind} · {b.anchor.area}</Text>
                 </View>
-                <View className="rounded-full bg-[#F4EFE7] px-2.5 py-1">
-                  <Text className="text-[10.5px] font-bold uppercase tracking-wide text-[#9c7a52]">Anchor</Text>
-                </View>
+                <Pressable
+                  onPress={() => openDirections(b.anchor)}
+                  accessibilityLabel={`Directions to ${b.anchor.title}`}
+                  hitSlop={8}
+                  className="h-11 w-11 items-center justify-center rounded-full bg-accent-soft"
+                >
+                  <Icon name="pin" size={18} color={COLORS.accent} strokeWidth={2} />
+                </Pressable>
               </View>
             </Swipeable>
 
