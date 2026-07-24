@@ -1,4 +1,6 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { BucketAnchor, MicroActivity, Spot, SwipeDirection, VibeId } from '@/lib/types';
 import {
   checkIn,
@@ -66,7 +68,9 @@ interface WhimState {
   reset: () => void;
 }
 
-export const useWhimStore = create<WhimState>((set, get) => ({
+export const useWhimStore = create<WhimState>()(
+  persist(
+    (set, get) => ({
   city: 'Tokyo',
   vibe: 'classics',
   deck: [],
@@ -300,7 +304,24 @@ export const useWhimStore = create<WhimState>((set, get) => ({
 
   reset: () =>
     set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: {}, history: [], pendingMatch: null, bucketList: [], checkins: [], profile: null, hydrated: false, notificationsSeen: false }),
-}));
+    }),
+    {
+      name: 'whim-store',
+      storage: createJSONStorage(() => AsyncStorage),
+      // Persist only the user's own content so the Hitlist, Passport and profile
+      // are available with no connection (offline / abroad). Deck + session state
+      // stay transient; hydrate() reconciles with Supabase when back online.
+      partialize: (s) => ({
+        city: s.city,
+        vibe: s.vibe,
+        bucketList: s.bucketList,
+        checkins: s.checkins,
+        profile: s.profile,
+        passedIds: s.passedIds,
+      }),
+    },
+  ),
+);
 
 // Derived selectors (kept here so components don't recompute):
 export const selectActiveSpot = (s: WhimState): Spot | undefined => s.deck[s.deckIndex];
