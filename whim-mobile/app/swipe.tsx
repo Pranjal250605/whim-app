@@ -20,6 +20,9 @@ export default function SwipeScreen() {
   const deckLoading = useWhimStore((s) => s.deckLoading);
   const swipeLeft = useWhimStore((s) => s.swipeLeft);
   const swipeRight = useWhimStore((s) => s.swipeRight);
+  const superSave = useWhimStore((s) => s.superSave);
+  const undoLast = useWhimStore((s) => s.undoLast);
+  const canUndo = useWhimStore((s) => s.history.length > 0 && s.deckIndex > 0);
   const bucketList = useWhimStore((s) => s.bucketList);
   // count only what's saved in this city + vibe collection
   const matchCount = useMemo(() => scopedBucket(bucketList, city, vibe).length, [bucketList, city, vibe]);
@@ -52,6 +55,9 @@ export default function SwipeScreen() {
           sourceCount={deckSourceCount}
           loading={deckLoading}
           onSwipe={handleSwipe}
+          onSuperSave={superSave}
+          onUndo={undoLast}
+          canUndo={canUndo}
           doneAction={{ label: 'Review your hitlist', onPress: () => router.navigate('/hitlist') }}
         />
       </View>

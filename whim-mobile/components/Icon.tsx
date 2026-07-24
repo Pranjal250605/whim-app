@@ -19,7 +19,10 @@ export type IconName =
   | 'check'
   | 'share'
   | 'pin'
-  | 'trash';
+  | 'trash'
+  | 'undo'
+  | 'star'
+  | 'starFilled';
 
 interface IconProps {
   name: IconName;
@@ -117,6 +120,21 @@ export default function Icon({ name, size = 24, color = COLORS.ink, strokeWidth 
           <Path d="M6 7l1 13a1.5 1.5 0 0 0 1.5 1.4h7A1.5 1.5 0 0 0 17 20l1-13" {...s} />
           <Path d="M10 11v6M14 11v6" {...s} />
         </>,
+      );
+    case 'undo':
+      return svg(
+        <>
+          <Path d="M9 14L4 9l5-5" {...s} />
+          <Path d="M4 9h11a5 5 0 0 1 0 10h-4" {...s} />
+        </>,
+      );
+    case 'star':
+      return svg(
+        <Path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.14 1 5.86L12 17.9l-5.25 2.76 1-5.86L3.5 9.7l5.9-.9L12 3.5z" {...s} />,
+      );
+    case 'starFilled':
+      return svg(
+        <Path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.14 1 5.86L12 17.9l-5.25 2.76 1-5.86L3.5 9.7l5.9-.9L12 3.5z" fill={color} />,
       );
   }
 }

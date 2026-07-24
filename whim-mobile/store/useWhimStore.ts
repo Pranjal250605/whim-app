@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { BucketAnchor, MicroActivity, Spot, VibeId } from '@/lib/types';
+import type { BucketAnchor, MicroActivity, Spot, SwipeDirection, VibeId } from '@/lib/types';
 import {
   checkIn,
   clearSavedSpots,
@@ -39,6 +39,7 @@ interface WhimState {
   deckSourceCount: number; // spots available for this context, before filtering decided ones
   deckLoading: boolean;
   passedIds: Record<string, string[]>; // per-collection swipe-away history (session only)
+  history: { spotId: string; direction: SwipeDirection }[]; // this deck session, for Undo
   pendingMatch: Spot | null;
   bucketList: BucketAnchor[];
   checkins: CheckinItem[];
@@ -55,6 +56,8 @@ interface WhimState {
   hydrate: () => Promise<void>;
   swipeLeft: () => void;
   swipeRight: () => void;
+  superSave: () => void;
+  undoLast: () => void;
   dismissMatch: () => void;
   saveAnchorOnly: () => void;
   saveAnchorWithActivities: (activities: MicroActivity[]) => void;
@@ -71,6 +74,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   deckSourceCount: 0,
   deckLoading: false,
   passedIds: {},
+  history: [],
   pendingMatch: null,
   bucketList: [],
   checkins: [],
@@ -79,7 +83,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   notificationsSeen: false,
 
   setContext: async (city, vibe) => {
-    set({ city, vibe, deck: [], deckIndex: 0, deckLoading: true });
+    set({ city, vibe, deck: [], deckIndex: 0, history: [], deckLoading: true });
     track('deck_started', { city, vibe });
     let all: Spot[] = [];
     try {
@@ -179,6 +183,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
       return {
         deckIndex: s.deckIndex + 1,
         passedIds: { ...s.passedIds, [key]: [...(s.passedIds[key] ?? []), spot.id] },
+        history: [...s.history, { spotId: spot.id, direction: 'left' }],
       };
     }),
 
@@ -186,7 +191,52 @@ export const useWhimStore = create<WhimState>((set, get) => ({
     set((s) => {
       const spot = s.deck[s.deckIndex];
       if (!spot) return s;
-      return { deckIndex: s.deckIndex + 1, pendingMatch: spot };
+      return {
+        deckIndex: s.deckIndex + 1,
+        pendingMatch: spot,
+        history: [...s.history, { spotId: spot.id, direction: 'right' }],
+      };
+    }),
+
+  // Quick-save: a "super save" that adds the top card straight to the hitlist
+  // without opening the Micro-Discovery modal — for spots you're already sure of.
+  superSave: () => {
+    const { deck, deckIndex, city, vibe } = get();
+    const spot = deck[deckIndex];
+    if (!spot) return;
+    set((s) => ({
+      deckIndex: s.deckIndex + 1,
+      history: [...s.history, { spotId: spot.id, direction: 'right' }],
+      bucketList: [...s.bucketList, { anchor: spot, microActivities: [], city, vibe }],
+      notificationsSeen: false,
+    }));
+    track('spot_saved', { via: 'super', city, vibe });
+    saveSpot(spot, [], city, vibe).catch((e) => {
+      console.warn('[whim] superSave failed:', e);
+      toast('Couldn’t save that spot — check your connection.');
+    });
+  },
+
+  // Undo the last swipe: step the deck back one and reverse its effect —
+  // a pass is un-remembered; a save (right / super) is removed again.
+  undoLast: () =>
+    set((s) => {
+      const last = s.history[s.history.length - 1];
+      if (!last || s.deckIndex === 0) return s;
+      const key = ctxKey(s.city, s.vibe);
+      const patch: Partial<WhimState> = {
+        deckIndex: s.deckIndex - 1,
+        history: s.history.slice(0, -1),
+        pendingMatch: null,
+      };
+      if (last.direction === 'left') {
+        patch.passedIds = { ...s.passedIds, [key]: (s.passedIds[key] ?? []).filter((id) => id !== last.spotId) };
+      } else if (s.bucketList.some((b) => b.anchor.id === last.spotId)) {
+        // it was actually saved (super-save, or right-swipe confirmed in the modal)
+        patch.bucketList = s.bucketList.filter((b) => b.anchor.id !== last.spotId);
+        removeSavedSpot(last.spotId).catch((e) => console.warn('[whim] undo removeSavedSpot failed:', e));
+      }
+      return patch;
     }),
 
   dismissMatch: () => set({ pendingMatch: null }),
@@ -249,7 +299,7 @@ export const useWhimStore = create<WhimState>((set, get) => ({
   },
 
   reset: () =>
-    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: {}, pendingMatch: null, bucketList: [], checkins: [], profile: null, hydrated: false, notificationsSeen: false }),
+    set({ vibe: 'classics', deck: [], deckIndex: 0, deckSourceCount: 0, deckLoading: false, passedIds: {}, history: [], pendingMatch: null, bucketList: [], checkins: [], profile: null, hydrated: false, notificationsSeen: false }),
 }));
 
 // Derived selectors (kept here so components don't recompute):

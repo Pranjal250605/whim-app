@@ -15,6 +15,11 @@ export interface SwipeDeckProps {
   sourceCount: number;
   loading: boolean;
   onSwipe: (direction: SwipeDirection) => void;
+  /** Optional: quick-save the top card straight to the hitlist (skips the detail modal). */
+  onSuperSave?: () => void;
+  /** Optional: undo the last swipe. Button only shows when `canUndo`. */
+  onUndo?: () => void;
+  canUndo?: boolean;
   /** Shown on the all-done state (e.g. review the hitlist / see group matches). */
   doneAction?: { label: string; onPress: () => void };
   /** Copy overrides so group decks can speak in "we" instead of "you". */
@@ -33,6 +38,9 @@ export default function SwipeDeck({
   sourceCount,
   loading,
   onSwipe,
+  onSuperSave,
+  onUndo,
+  canUndo,
   doneAction,
   emptyCopy,
   doneCopy,
@@ -41,6 +49,16 @@ export default function SwipeDeck({
     if (direction === 'right') hapticMedium();
     else hapticLight();
     onSwipe(direction);
+  };
+
+  const handleSuperSave = () => {
+    hapticMedium();
+    onSuperSave?.();
+  };
+
+  const handleUndo = () => {
+    hapticLight();
+    onUndo?.();
   };
 
   if (loading && deck.length === 0) {
@@ -107,7 +125,18 @@ export default function SwipeDeck({
       <View className="relative flex-1">{cards}</View>
 
       {/* explicit action buttons (mirror the swipe gestures, a11y-friendly) */}
-      <View className="flex-row items-center justify-center gap-8 py-6">
+      <View className="flex-row items-center justify-center gap-5 py-6">
+        {onUndo && (
+          <Pressable
+            accessibilityLabel="Undo last swipe"
+            onPress={handleUndo}
+            disabled={!canUndo}
+            style={{ opacity: canUndo ? 1 : 0.35 }}
+            className="h-14 w-14 items-center justify-center rounded-full bg-white shadow-md shadow-black/5"
+          >
+            <Icon name="undo" size={22} color="#9A9A9A" strokeWidth={2.4} />
+          </Pressable>
+        )}
         <Pressable
           accessibilityLabel="Pass"
           onPress={() => handleSwipe('left')}
@@ -122,6 +151,15 @@ export default function SwipeDeck({
         >
           <Icon name="heartFilled" size={32} color="#fff" />
         </Pressable>
+        {onSuperSave && (
+          <Pressable
+            accessibilityLabel="Quick save to hitlist"
+            onPress={handleSuperSave}
+            className="h-14 w-14 items-center justify-center rounded-full bg-white shadow-md shadow-black/5"
+          >
+            <Icon name="star" size={23} color={COLORS.accent} strokeWidth={2.2} />
+          </Pressable>
+        )}
       </View>
     </View>
   );
