@@ -9,8 +9,10 @@ import { CITIES } from '@/data/cities';
 import { VIBES, FEATURED, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import CityPicker from '@/components/CityPicker';
+import CollectionsShelf from '@/components/CollectionsShelf';
 import SpotImage from '@/components/SpotImage';
 import Icon from '@/components/Icon';
+import type { Collection } from '@/data/collections';
 
 // Phase 1 — Context & Vibe. Bold editorial-meets-playful home.
 
@@ -87,6 +89,14 @@ export default function Home() {
 
   const start = async () => {
     await setContext(city, vibe);
+    router.push('/swipe');
+  };
+
+  // A collection is a curated (city, vibe) deck — set that context and swipe.
+  const startCollection = async (c: Collection) => {
+    setCity(c.city);
+    setVibe(c.vibe);
+    await setContext(c.city, c.vibe);
     router.push('/swipe');
   };
 
@@ -211,6 +221,9 @@ export default function Home() {
             </View>
           </View>
         </View>
+
+        {/* seasonal & editorial collections */}
+        <CollectionsShelf onPick={startCollection} />
 
         {/* group rooms entry */}
         <Pressable
