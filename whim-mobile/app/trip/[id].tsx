@@ -78,7 +78,7 @@ export default function Trip() {
   }
 
   const { itin, stops, mine } = state;
-  const official = itin.authorName === 'Whim';
+  const official = itin.authorName === 'BeWhim';
 
   // global stop number (matches the map pins) is the position in the full list
   const indexOf = new Map(stops.map((s, i) => [s.id, i] as const));
@@ -178,7 +178,7 @@ export default function Trip() {
         <View className="flex-row items-center gap-2">
           <Icon name="route" size={14} color={COLORS.accent} strokeWidth={2.2} />
           <Text className="font-mono text-[11px] tracking-[0.16em] text-accent">
-            {official ? "WHIM · EDITORS’ PICK" : 'PUBLISHED TRIP'}
+            {official ? "BEWHIM · EDITORS’ PICK" : 'PUBLISHED TRIP'}
           </Text>
         </View>
         <Text className="mt-2 font-serif text-[27px] leading-[1.06] text-ink">{itin.title}</Text>

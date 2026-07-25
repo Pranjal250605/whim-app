@@ -108,7 +108,7 @@ export default function Home() {
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
       {/* header */}
       <View className="flex-row items-center justify-between px-5 pt-1">
-        <Text style={{ fontFamily: 'BricolageGrotesque_800ExtraBold', fontSize: 26, color: COLORS.ink, letterSpacing: -0.8 }}>Whim</Text>
+        <Text style={{ fontFamily: 'BricolageGrotesque_800ExtraBold', fontSize: 26, color: COLORS.ink, letterSpacing: -0.8 }}>BeWhim</Text>
         <View className="flex-row items-center gap-4">
           <Pressable
             onPress={() => {
@@ -197,7 +197,7 @@ export default function Home() {
                     className="font-mono text-[9px] tracking-[0.15em] text-white"
                     style={{ textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } }}
                   >
-                    WHIM ✦ {city.toUpperCase()}
+                    BEWHIM ✦ {city.toUpperCase()}
                   </Text>
                 </View>
               </View>

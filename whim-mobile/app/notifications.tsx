@@ -56,7 +56,7 @@ export default function Notifications() {
     list.push({
       id: 'welcome',
       icon: 'discover',
-      title: 'Welcome to Whim ✨',
+      title: 'Welcome to BeWhim ✨',
       body: 'Swipe right to save a spot, left to skip. Build a day, then open the whole route in Maps.',
       time: 'Getting started',
       onPress: () => router.replace('/'),

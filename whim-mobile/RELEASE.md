@@ -79,3 +79,4 @@ The dSYM "Upload Symbols Failed" warnings for Mapbox/hermes frameworks are benig
 | 5 | Jul 23 | European decks to Japan/USA depth (~45/city) + stress fixes |
 | 6 | Jul 24 | Analytics + crash logging, real Google photos, push (APNs) live, analytics dashboard |
 | 7 | Jul 24 | Smarter deck (undo + super-save), seasonal collections, directions to saved spots, offline mode, nav fade fix |
+| 8 | Jul 25 | Rebrand in-app wordmark Whim → BeWhim (name/UI/editors' author); icon artwork unchanged |

@@ -109,7 +109,7 @@ export default function ItineraryScreen() {
     try {
       const uri = await captureRef(shareRef, { format: 'png', quality: 1, result: 'tmpfile' });
       if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'Share your Whim day' });
+        await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'Share your BeWhim day' });
       }
     } catch (e) {
       console.warn('[whim] share failed:', e);
@@ -179,7 +179,7 @@ export default function ItineraryScreen() {
               <Text className="text-[15px] font-semibold text-white">Publish this trip ✦</Text>
             </Pressable>
             <Text className="mt-1.5 text-center text-[11.5px] text-muted">
-              Share your route with the Whim community
+              Share your route with the BeWhim community
             </Text>
             <Pressable onPress={confirmClear} className="mb-5 mt-3 items-center py-1">
               <Text className="text-[13px] font-semibold text-[#D23B2C]">Delete itinerary & start fresh</Text>
@@ -253,7 +253,7 @@ export default function ItineraryScreen() {
             </View>
             <Text className="mt-2 font-serif text-[24px] text-ink">Name your trip</Text>
             <Text className="mt-1 text-[13px] text-muted">
-              {city} · {stops.length} stops · visible to everyone on Whim.
+              {city} · {stops.length} stops · visible to everyone on BeWhim.
             </Text>
 
             <TextInput

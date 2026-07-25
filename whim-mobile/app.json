@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Whim",
+    "name": "BeWhim",
     "slug": "whim",
     "scheme": "whim",
     "version": "1.0.0",
@@ -15,7 +15,7 @@
         "ITSAppUsesNonExemptEncryption": false,
         "NSLocationWhenInUseUsageDescription": "Whim uses your location to find the closest city and surface spots near you."
       },
-      "buildNumber": "7"
+      "buildNumber": "8"
     },
     "android": {
       "package": "com.pranjalrai.whim",

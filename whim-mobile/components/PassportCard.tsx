@@ -20,7 +20,7 @@ export default function PassportCard({
     <View style={{ width: 380, backgroundColor: COLORS.canvas, paddingHorizontal: 30, paddingVertical: 34 }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <Text style={{ fontFamily: 'BricolageGrotesque_800ExtraBold', fontSize: 24, color: COLORS.ink, letterSpacing: -0.5 }}>
-          Whim
+          BeWhim
         </Text>
         <View
           style={{
@@ -80,7 +80,7 @@ export default function PassportCard({
       </View>
 
       <Text style={{ marginTop: 20, fontFamily: 'IBMPlexMono_400Regular', fontSize: 11, color: 'rgba(23,21,15,0.4)' }}>
-        stamped with Whim ✦ swipe. save. go.
+        stamped with BeWhim ✦ swipe. save. go.
       </Text>
     </View>
   );

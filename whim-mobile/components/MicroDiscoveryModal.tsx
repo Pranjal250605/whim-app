@@ -69,7 +69,7 @@ export default function MicroDiscoveryModal() {
           <View className="h-5 w-5 items-center justify-center rounded-full bg-accent">
             <Icon name="check" size={12} color="#fff" strokeWidth={3} />
           </View>
-          <Text className="text-xs font-bold uppercase tracking-wider text-accent">Added to your Whim</Text>
+          <Text className="text-xs font-bold uppercase tracking-wider text-accent">Added to your hitlist</Text>
         </View>
 
         <Text className="mt-3.5 font-serif text-[23px] font-semibold text-ink">{pendingMatch.title}</Text>

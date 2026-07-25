@@ -132,7 +132,7 @@ export default function Community() {
   };
 
   const tripCard = (item: Extract<FeedItem, { kind: 'itinerary' }>) => {
-    const official = item.authorName === 'Whim';
+    const official = item.authorName === 'BeWhim';
     return (
       <Pressable
         key={item.id}
@@ -219,8 +219,8 @@ export default function Community() {
   const filtered = state.kind === 'ready' ? state.items.filter((i) => filter === 'all' || i.kind === filter) : [];
   const sections = [
     { key: 'mine', title: 'Yours', items: filtered.filter((i) => i.authorId === viewer.id) },
-    { key: 'editors', title: "Editors’ picks", items: filtered.filter((i) => nameOf(i) === 'Whim' && i.authorId !== viewer.id) },
-    { key: 'others', title: 'From the community', items: filtered.filter((i) => i.authorId !== viewer.id && nameOf(i) !== 'Whim') },
+    { key: 'editors', title: "Editors’ picks", items: filtered.filter((i) => nameOf(i) === 'BeWhim' && i.authorId !== viewer.id) },
+    { key: 'others', title: 'From the community', items: filtered.filter((i) => i.authorId !== viewer.id && nameOf(i) !== 'BeWhim') },
   ].filter((s) => s.items.length > 0);
 
   return (
@@ -237,7 +237,7 @@ export default function Community() {
           </Pressable>
         </View>
         <Text className="mt-1 font-serif text-[32px] leading-[1.02] text-ink">What people are sharing</Text>
-        <Text className="mt-1 text-[13.5px] text-muted">Real trips and spots, published by Whim travelers.</Text>
+        <Text className="mt-1 text-[13.5px] text-muted">Real trips and spots, published by BeWhim travelers.</Text>
       </View>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-4 max-h-12" contentContainerStyle={{ paddingHorizontal: 20, gap: 10 }}>

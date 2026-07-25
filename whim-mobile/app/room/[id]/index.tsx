@@ -80,7 +80,7 @@ export default function RoomLobby() {
     if (!room) return;
     Share.share({
       message:
-        `Help me plan our ${room.city} day on Whim ✦ swipe with me!\n` +
+        `Help me plan our ${room.city} day on BeWhim ✦ swipe with me!\n` +
         `Room code: ${room.code}\n` +
         `Open: whim://room/join?code=${room.code}`,
     }).catch(() => {});
