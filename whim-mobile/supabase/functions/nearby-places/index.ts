@@ -22,7 +22,8 @@ import { maybePurgeCaches, underDailyCap, underGlobalDailyCap } from '../_shared
 const DAILY_CAP = 200; // per-user Places+LLM searches per UTC day
 const GLOBAL_CAP = 6000; // all-users LLM-enrichment ceiling per day (bill brake)
 const ONE_HOUR_MS = 60 * 60 * 1000;
-const MIN_RATINGS = 10; // needs some real local traction to be a candidate
+const MIN_RATINGS = 5; // low bar — great small local spots have few reviews
+const MIN_PER_VIBE = 5; // backfill target so a vibe is never near-empty
 const PER_VIBE_CAP = 12; // spots returned per vibe
 
 type Vibe = 'classics' | 'matcha' | 'nature' | 'nightlife';
@@ -46,6 +47,7 @@ const VIBE_TYPES: Record<Vibe, string[]> = {
 };
 const TYPE_TO_VIBE = new Map<string, Vibe>();
 for (const [vibe, types] of Object.entries(VIBE_TYPES)) for (const t of types) TYPE_TO_VIBE.set(t, vibe as Vibe);
+const ALL_TYPES = [...TYPE_TO_VIBE.keys()];
 
 function fallbackVibe(place: any, hint: Vibe): Vibe {
   if (place.primaryType && TYPE_TO_VIBE.has(place.primaryType)) return TYPE_TO_VIBE.get(place.primaryType)!;
@@ -73,7 +75,7 @@ async function searchVibe(vibe: Vibe, lat: number, lng: number, radius: number, 
       headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': key, 'X-Goog-FieldMask': FIELD_MASK },
       body: JSON.stringify({
         textQuery: VIBE_QUERIES[vibe],
-        maxResultCount: 12,
+        maxResultCount: 18,
         locationBias: { circle: { center: { latitude: lat, longitude: lng }, radius } },
       }),
     });
@@ -92,6 +94,28 @@ function distMeters(aLat: number, aLng: number, bLat: number, bLng: number): num
   const dLat = (bLat - aLat) * toRad, dLng = (bLng - aLng) * toRad;
   const s = Math.sin(dLat / 2) ** 2 + Math.cos(aLat * toRad) * Math.cos(bLat * toRad) * Math.sin(dLng / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+// Broad nearby sweep (by type, popularity-ranked) — complements the per-vibe
+// text queries so sparse vibes (few landmarks/parks) still fill out.
+async function searchNearbyAll(lat: number, lng: number, radius: number, key: string): Promise<any[]> {
+  try {
+    const res = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': key, 'X-Goog-FieldMask': FIELD_MASK },
+      body: JSON.stringify({
+        includedTypes: ALL_TYPES,
+        maxResultCount: 20,
+        rankPreference: 'POPULARITY',
+        locationRestriction: { circle: { center: { latitude: lat, longitude: lng }, radius } },
+      }),
+    });
+    if (!res.ok) return [];
+    const places = (await res.json()).places ?? [];
+    return places.map((p: any) => ({ ...p, _hint: fallbackVibe(p, 'classics') }));
+  } catch {
+    return [];
+  }
 }
 
 // Weighted score so a 5.0 with 12 reviews doesn't beat a loved, busy 4.6.
@@ -141,7 +165,7 @@ async function enrich(candidates: any[], apiKey: string): Promise<Map<string, En
       `- blurb: max 16 words, specific and evocative, grounded in the note, no clichés, no "a must-visit", no emoji, sentence case\n` +
       `- tags: 1–2 short lowercase labels a traveler would filter by (e.g. "hidden gem", "rooftop", "cash only", "great for rainy days", "late night")\n` +
       `- tip: one practical insider tip, max 12 words (best time, what to order, how to get in), or "" if none\n` +
-      `- keep: false for generic chains, fast food, gas stations, parking, transit stops, offices, forgettable spots; true only for real character\n` +
+      `- keep: default TRUE. Only set false for clearly generic spots — big chains, fast food, gas stations, parking, ATMs, transit stops, offices. When unsure, keep it.\n` +
       `- score: 1–10 for how special / worth-a-detour it is\n\n` +
       `Vibes:\n` +
       `- classics: iconic must-sees, landmarks, temples/shrines, museums, historic sites\n` +
@@ -156,7 +180,7 @@ async function enrich(candidates: any[], apiKey: string): Promise<Map<string, En
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 4096, messages: [{ role: 'user', content: prompt }] }),
+      body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 6000, messages: [{ role: 'user', content: prompt }] }),
     });
     if (!res.ok) return null;
     const data = await res.json();
@@ -222,8 +246,13 @@ Deno.serve(async (req) => {
   const key = Deno.env.get('GOOGLE_PLACES_API_KEY');
   if (!key) return json({ error: 'Server missing GOOGLE_PLACES_API_KEY' }, 500);
 
-  // 1. gather characterful candidates via per-vibe Text Search (parallel)
-  const found = (await Promise.all(VIBES.map((v) => searchVibe(v, lat, lng, radius, key)))).flat();
+  // 1. gather candidates: per-vibe Text Search (characterful) + a broad nearby
+  // sweep (coverage), all in parallel.
+  const [textResults, nearbyResults] = await Promise.all([
+    Promise.all(VIBES.map((v) => searchVibe(v, lat, lng, radius, key))).then((r) => r.flat()),
+    searchNearbyAll(lat, lng, radius, key),
+  ]);
+  const found = [...textResults, ...nearbyResults];
   const seen = new Set<string>();
   const candidates: any[] = [];
   for (const p of found) {
@@ -239,28 +268,36 @@ Deno.serve(async (req) => {
   // 2. LLM enrichment (skipped past the global bill brake → deterministic path)
   const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY');
   const allowLLM = anthropicKey && (await underGlobalDailyCap(admin, 'nearby-llm', GLOBAL_CAP));
-  const enriched = allowLLM ? await enrich(candidates.slice(0, 40), anthropicKey!) : null;
+  const enriched = allowLLM ? await enrich(candidates.slice(0, 60), anthropicKey!) : null;
 
-  // 3. assemble vibes — enriched when we have it, deterministic otherwise
-  const vibes = emptyVibes();
+  // 3. assemble vibes. Keep the model's picks first; hold its rejects as backfill
+  // so a vibe is never near-empty when real candidates exist.
+  const kept = emptyVibes();
+  const spare = emptyVibes();
   for (const p of candidates) {
-    const e = enriched?.get(p.id);
     if (enriched) {
-      if (!e || !e.keep) continue; // model pruned it (or wasn't returned)
-      vibes[e.vibe].push({ ...toSpot(p, e.vibe, e), _score: e.score });
+      const e = enriched.get(p.id);
+      if (e) {
+        const spot = { ...toSpot(p, e.vibe, e), _score: e.score };
+        (e.keep ? kept : spare)[e.vibe].push(spot);
+      } else {
+        // model omitted it → usable as last-resort backfill, deterministic vibe
+        const v = fallbackVibe(p, p._hint);
+        spare[v].push({ ...toSpot(p, v, null), _score: popularity(p) });
+      }
     } else {
       const v = fallbackVibe(p, p._hint);
-      vibes[v].push({ ...toSpot(p, v, null), _score: popularity(p) });
+      kept[v].push({ ...toSpot(p, v, null), _score: popularity(p) });
     }
   }
 
-  // rank each vibe, cap, and strip internal fields
+  // rank, backfill toward MIN_PER_VIBE, cap, strip internal fields
   const clean = emptyVibes();
   for (const v of VIBES) {
-    clean[v] = vibes[v]
-      .sort((a: any, b: any) => (b._score ?? 0) - (a._score ?? 0))
-      .slice(0, PER_VIBE_CAP)
-      .map(({ _score, _vibe, ...s }: any) => s);
+    const byScore = (a: any, b: any) => (b._score ?? 0) - (a._score ?? 0);
+    const list = kept[v].sort(byScore);
+    if (list.length < MIN_PER_VIBE) list.push(...spare[v].sort(byScore).slice(0, MIN_PER_VIBE - list.length));
+    clean[v] = list.slice(0, PER_VIBE_CAP).map(({ _score, _vibe, ...s }: any) => s);
   }
 
   admin.from('nearby_cache').upsert({ key: cacheKey, result: { vibes: clean }, fetched_at: new Date().toISOString() }).then(() => {});

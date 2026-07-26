@@ -32,7 +32,7 @@ export interface NearbyResult {
 }
 
 /** Fetch nearby spots grouped by vibe. Returns null on any failure. */
-export async function fetchNearby(lat: number, lng: number, radius = 2000): Promise<NearbyResult | null> {
+export async function fetchNearby(lat: number, lng: number, radius = 3000): Promise<NearbyResult | null> {
   try {
     const { data, error } = await supabase.functions.invoke<{ center: [number, number]; vibes: NearbyVibes }>(
       'nearby-places',
