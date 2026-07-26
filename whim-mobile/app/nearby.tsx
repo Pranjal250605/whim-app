@@ -218,9 +218,20 @@ export default function Nearby() {
                         </View>
                       )}
                     </View>
-                    <Text className="mt-0.5 text-[12.5px] text-muted" numberOfLines={1}>
-                      {s.community && s.blurb ? s.blurb : `${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`}
-                    </Text>
+                    {s.blurb ? (
+                      <>
+                        <Text className="mt-0.5 text-[12.5px] leading-[16px] text-ink/70" numberOfLines={2}>
+                          {s.blurb}
+                        </Text>
+                        {spotMeta(s) ? (
+                          <Text className="mt-1 font-mono text-[10px] tracking-wide text-muted">{spotMeta(s)}</Text>
+                        ) : null}
+                      </>
+                    ) : (
+                      <Text className="mt-0.5 text-[12.5px] text-muted" numberOfLines={1}>
+                        {`${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`}
+                      </Text>
+                    )}
                   </View>
                   <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
                 </Pressable>
