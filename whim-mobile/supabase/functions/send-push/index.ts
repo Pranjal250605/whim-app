@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
   const { data: tokens } = await admin.from('push_tokens').select('token').in('user_id', ids);
   const messages = (tokens ?? []).map((t: any) => ({
     to: t.token,
-    title: 'Whim ✦',
+    title: 'BeWhim ✦',
     body: `${name} earned the ${city} badge${tier ? ` · ${tier}` : ''}`,
     data: { route: '/passport' },
   }));

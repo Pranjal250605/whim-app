@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState, type PropsWithChildren } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from './supabase';
+import { queryClient } from './queryClient';
 import { useWhimStore } from '@/store/useWhimStore';
 
 // App-wide auth state. Subscribes once to Supabase and exposes the session to
@@ -42,6 +43,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       if (userIdRef.current !== nextId) {
         userIdRef.current = nextId;
         useWhimStore.getState().reset();
+        queryClient.clear(); // drop the previous account's cached friends / viewer / feed
       }
       setSession(next);
     });

@@ -1,7 +1,7 @@
 import '../global.css';
 import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, AppState, View } from 'react-native';
-import { QueryClient, QueryClientProvider, focusManager } from '@tanstack/react-query';
+import { QueryClientProvider, focusManager } from '@tanstack/react-query';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -20,6 +20,7 @@ import { AuthProvider, useAuth } from '@/lib/auth';
 import { installErrorLogging, track } from '@/lib/analytics';
 import { registerForPush } from '@/lib/push';
 import { getOnboarded } from '@/lib/onboarding';
+import { queryClient } from '@/lib/queryClient';
 import ToastHost from '@/components/Toast';
 import AnimatedSplash from '@/components/AnimatedSplash';
 import '@/lib/mapbox'; // sets the Mapbox access token once at startup
@@ -30,15 +31,8 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 // route uncaught JS errors to error_logs
 installErrorLogging();
 
-// React Query: cache server data so revisiting a screen is instant, identical
-// in-flight requests are deduped, and we refetch in the background rather than
-// re-querying everything on every open. Refresh stale data when the app returns
-// to the foreground.
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { staleTime: 30_000, gcTime: 5 * 60_000, retry: 1, refetchOnWindowFocus: false },
-  },
-});
+// React Query client is shared from lib/queryClient so auth can clear it on
+// account switch. Refresh stale data when the app returns to the foreground.
 focusManager.setEventListener((handleFocus) => {
   const sub = AppState.addEventListener('change', (s) => handleFocus(s === 'active'));
   return () => sub.remove();

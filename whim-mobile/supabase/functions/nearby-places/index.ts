@@ -212,7 +212,7 @@ async function enrich(candidates: any[], apiKey: string): Promise<Map<string, En
       })
       .join('\n');
     const prompt =
-      `You are a sharp local travel editor for Whim. Below are real places near a traveler.\n` +
+      `You are a sharp local travel editor. Below are real places near a traveler.\n` +
       `For EACH place, using the "note" (Google's own description) and "reviews" (real visitor quotes) as GROUND TRUTH when present, produce:\n` +
       `- vibe: the single best of classics | matcha | nature | nightlife\n` +
       `- blurb: max 16 words, specific and evocative, grounded in the note, no clichés, no "a must-visit", no emoji, sentence case\n` +

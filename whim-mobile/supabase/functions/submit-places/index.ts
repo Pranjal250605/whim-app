@@ -54,7 +54,7 @@ async function resolvePlace(name: string, key: string) {
 async function categorize(places: any[], apiKey: string): Promise<Record<string, { vibe: Vibe; blurb: string }>> {
   const list = places.map((p, i) => `${i + 1}. ${p.title} — type: ${p.kind || 'unknown'} — ${p.area}`).join('\n');
   const prompt =
-    `Sort each place into exactly ONE Whim vibe and write a punchy one-sentence blurb (max 18 words).\n\n` +
+    `Sort each place into exactly ONE vibe and write a punchy one-sentence blurb (max 18 words).\n\n` +
     `Vibes:\n` +
     `- classics: iconic must-sees, landmarks, temples, shrines, museums, historic sites\n` +
     `- matcha: cafés, coffee, bakeries, bookstores, design/boutique shops, slow & photogenic spots\n` +
@@ -97,12 +97,14 @@ Deno.serve(async (req) => {
   if (!user) return json({ error: 'Invalid session' }, 401);
 
   let names: string[] = [];
+  let vibeOverride: Vibe | undefined;
   try {
     const b = await req.json();
     names = (Array.isArray(b.places) ? b.places : String(b.places ?? '').split(/[\n,]/))
       .map((s: string) => String(s).trim())
       .filter(Boolean)
       .slice(0, MAX_PLACES);
+    if (VIBES.includes(b.vibe)) vibeOverride = b.vibe; // caller (e.g. Near Me) can pin the vibe
   } catch {
     return json({ error: 'Invalid JSON body' }, 400);
   }
@@ -138,6 +140,8 @@ Deno.serve(async (req) => {
     console.warn('categorize failed:', e);
     return json({ error: 'Couldn’t categorize — try again.' }, 502);
   }
+  // honor a pinned vibe (Near Me save) so the spot lands where the user saw it
+  if (vibeOverride) for (const id of Object.keys(cats)) cats[id].vibe = vibeOverride;
 
   // 3. store (idempotent — re-submitting a place updates it)
   const rows = resolved.map((p) => ({

@@ -52,7 +52,7 @@ export default function Nearby() {
     if (saved.has(s.id) || saving) return;
     setSaving(s.id);
     const query = s.area ? `${s.title}, ${s.area}` : s.title;
-    const { data, error } = await supabase.functions.invoke<{ saved?: unknown[] }>('submit-places', { body: { places: [query] } });
+    const { data, error } = await supabase.functions.invoke<{ saved?: unknown[] }>('submit-places', { body: { places: [query], vibe } });
     setSaving(null);
     if (error || !data?.saved?.length) {
       toast('Couldn’t save that one — try again.');
