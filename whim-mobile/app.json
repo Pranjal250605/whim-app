@@ -13,9 +13,9 @@
       "supportsTablet": false,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
-        "NSLocationWhenInUseUsageDescription": "Whim uses your location to find the closest city and surface spots near you."
+        "NSLocationWhenInUseUsageDescription": "BeWhim uses your location to find the closest city and surface spots near you."
       },
-      "buildNumber": "8"
+      "buildNumber": "9"
     },
     "android": {
       "package": "com.pranjalrai.whim",
@@ -34,7 +34,7 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "Whim uses your location to find the closest city and surface spots near you."
+          "locationWhenInUsePermission": "BeWhim uses your location to find the closest city and surface spots near you."
         }
       ],
       "expo-notifications",
