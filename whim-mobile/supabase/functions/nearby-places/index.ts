@@ -1,11 +1,14 @@
 // Edge Function: nearby-places
 // Live "Near me" discovery via Google Places API (New) + a Claude enrichment
 // pass that makes the results feel curated instead of generic:
-//   1. per-vibe Text Search around the user's GPS → characterful candidates
-//      (not just the most popular chains a broad nearby-sweep returns)
-//   2. ONE batched Claude call re-sorts each place into the best vibe, writes an
-//      evocative one-line blurb, and DROPS generic / uninteresting spots
-//   3. graceful fallback to a deterministic type→vibe map if the LLM or a query
+//   1. per-vibe Text Search + a broad nearby sweep → characterful candidates
+//   2. real review snippets (Place Details) fetched for the top candidates
+//   3. ONE batched Claude call grounds an evocative blurb on the editorial note +
+//      reviews, assigns the best vibe, adds tags + an insider tip, dedupes
+//      near-identical spots, and drops the generic ones
+//   4. ranking = model score × distance decay × time-of-day boost, so nearer &
+//      time-appropriate spots lead; backfill keeps each vibe populated
+//   5. graceful fallback to a deterministic type→vibe map if the LLM or a query
 //      fails, so "Near me" never breaks
 //
 // LEGAL: Google Places content is returned LIVE and only the place_id is
@@ -25,6 +28,7 @@ const ONE_HOUR_MS = 60 * 60 * 1000;
 const MIN_RATINGS = 5; // low bar — great small local spots have few reviews
 const MIN_PER_VIBE = 5; // backfill target so a vibe is never near-empty
 const PER_VIBE_CAP = 12; // spots returned per vibe
+const DETAIL_TOP = 12; // fetch real reviews (Place Details, billed) for the top-N to ground blurbs
 
 type Vibe = 'classics' | 'matcha' | 'nature' | 'nightlife';
 const VIBES: Vibe[] = ['classics', 'matcha', 'nature', 'nightlife'];
@@ -59,7 +63,7 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
 const FIELD_MASK =
-  'places.id,places.displayName,places.primaryType,places.types,places.location,places.rating,places.userRatingCount,places.shortFormattedAddress,places.photos,places.currentOpeningHours.openNow,places.priceLevel,places.editorialSummary';
+  'places.id,places.displayName,places.primaryType,places.types,places.location,places.rating,places.userRatingCount,places.shortFormattedAddress,places.photos,places.currentOpeningHours.openNow,places.currentOpeningHours.nextCloseTime,places.utcOffsetMinutes,places.priceLevel,places.editorialSummary';
 
 // Google price enum → $ count (1–4); free/unknown → null.
 const PRICE: Record<string, number> = {
@@ -124,6 +128,53 @@ function popularity(p: any): number {
   return r * Math.log10(n + 10);
 }
 
+// Time-of-day: nudge each vibe up/down for the traveler's local hour so mornings
+// lean cafes/nature and nights lean bars.
+function daypartBoost(vibe: Vibe, hour: number): number {
+  const morning = hour >= 5 && hour < 11;
+  const midday = hour >= 11 && hour < 17;
+  const evening = hour >= 17 && hour < 23;
+  switch (vibe) {
+    case 'matcha': return morning ? 1.3 : midday ? 1.1 : 0.85;
+    case 'nature': return morning || midday ? 1.2 : 0.7;
+    case 'classics': return morning || midday ? 1.15 : 0.85;
+    case 'nightlife': return evening || !(morning || midday) ? 1.35 : 0.65;
+    default: return 1;
+  }
+}
+
+// Distance decay so a great spot 5 min away outranks an equally-great one far off.
+const distanceWeight = (km: number) => 0.5 + 0.5 / (1 + km * 0.5);
+
+// "closes 11pm" from Google's RFC3339 nextCloseTime + the place's UTC offset.
+function closesAtLabel(nextCloseTime?: string, utcOffsetMinutes?: number): string | null {
+  if (!nextCloseTime || utcOffsetMinutes == null) return null;
+  const t = Date.parse(nextCloseTime);
+  if (Number.isNaN(t)) return null;
+  const local = new Date(t + utcOffsetMinutes * 60000);
+  const h = local.getUTCHours(), m = local.getUTCMinutes();
+  const ampm = h >= 12 ? 'pm' : 'am';
+  const h12 = ((h + 11) % 12) + 1;
+  return m === 0 ? `${h12}${ampm}` : `${h12}:${String(m).padStart(2, '0')}${ampm}`;
+}
+
+// Real review snippets (Place Details — billed) to ground the top spots' blurbs.
+async function fetchReviews(placeId: string, key: string): Promise<string[]> {
+  try {
+    const res = await fetch(`https://places.googleapis.com/v1/places/${placeId}?languageCode=en`, {
+      headers: { 'X-Goog-Api-Key': key, 'X-Goog-FieldMask': 'reviews' },
+    });
+    if (!res.ok) return [];
+    const revs = (await res.json()).reviews ?? [];
+    return revs
+      .slice(0, 3)
+      .map((r: any) => (r.text?.text ?? r.originalText?.text ?? '').replace(/\s+/g, ' ').trim().slice(0, 200))
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
 interface Enrichment { blurb: string; tags: string[]; tip: string | null }
 
 function toSpot(p: any, vibe: Vibe, e: Enrichment | null) {
@@ -137,6 +188,7 @@ function toSpot(p: any, vibe: Vibe, e: Enrichment | null) {
     ratingCount: p.userRatingCount ?? 0,
     photoName: p.photos?.[0]?.name ?? null,
     openNow: p.currentOpeningHours?.openNow ?? null,
+    closesAt: p.currentOpeningHours?.openNow ? closesAtLabel(p.currentOpeningHours?.nextCloseTime, p.utcOffsetMinutes) : null,
     price: priceOf(p),
     blurb: e?.blurb ?? null,
     tags: e?.tags ?? [],
@@ -155,12 +207,13 @@ async function enrich(candidates: any[], apiKey: string): Promise<Map<string, En
     const list = candidates
       .map((p, i) => {
         const note = p.editorialSummary?.text ? ` — note: ${p.editorialSummary.text}` : '';
-        return `${i}. ${p.displayName?.text ?? 'Unnamed'} — ${(p.primaryType ?? 'place').replace(/_/g, ' ')} — ${p.rating ?? '?'}★ (${p.userRatingCount ?? 0}) — ${dollars(p)}${note}`;
+        const revs = (p._reviews?.length) ? ` — reviews: ${p._reviews.map((r: string) => `"${r}"`).join(' | ')}` : '';
+        return `${i}. ${p.displayName?.text ?? 'Unnamed'} — ${(p.primaryType ?? 'place').replace(/_/g, ' ')} — ${p.rating ?? '?'}★ (${p.userRatingCount ?? 0}) — ${dollars(p)}${note}${revs}`;
       })
       .join('\n');
     const prompt =
       `You are a sharp local travel editor for Whim. Below are real places near a traveler.\n` +
-      `For EACH place, using the "note" (Google's own description) as GROUND TRUTH when present, produce:\n` +
+      `For EACH place, using the "note" (Google's own description) and "reviews" (real visitor quotes) as GROUND TRUTH when present, produce:\n` +
       `- vibe: the single best of classics | matcha | nature | nightlife\n` +
       `- blurb: max 16 words, specific and evocative, grounded in the note, no clichés, no "a must-visit", no emoji, sentence case\n` +
       `- tags: 1–2 short lowercase labels a traveler would filter by (e.g. "hidden gem", "rooftop", "cash only", "great for rainy days", "late night")\n` +
@@ -172,7 +225,8 @@ async function enrich(candidates: any[], apiKey: string): Promise<Map<string, En
       `- matcha: cafes, specialty coffee, bakeries, bookshops, calm & photogenic little places\n` +
       `- nature: parks, gardens, waterfronts, viewpoints, outdoor & scenic spots\n` +
       `- nightlife: bars, cocktail/wine bars, pubs, clubs, lively after-dark spots\n\n` +
-      `Do NOT invent facts not supported by the name, type, or note.\n\n` +
+      `Do NOT invent facts not supported by the name, type, note, or reviews. Prefer specifics from the reviews (what to order, the standout dish, the vibe).\n` +
+      `Diversity: if several places are near-identical (e.g. many similar cafes), keep the best and set keep=false on the redundant ones.\n\n` +
       `Places:\n${list}\n\n` +
       `Reply with ONLY a JSON array, one object per place IN ORDER by index:\n` +
       `[{"i":0,"vibe":"matcha","blurb":"...","tags":["hidden gem"],"tip":"...","keep":true,"score":8}]`;
@@ -221,14 +275,22 @@ Deno.serve(async (req) => {
   const { data: { user } } = await userClient.auth.getUser();
   if (!user) return json({ error: 'Invalid session' }, 401);
 
-  let lat = NaN, lng = NaN, radius = 2000;
+  let lat = NaN, lng = NaN, radius = 2000, reqHour: unknown;
   try {
     const b = await req.json();
     lat = Number(b.lat); lng = Number(b.lng);
     if (b.radius) radius = Math.min(Math.max(Number(b.radius), 200), 8000);
+    reqHour = b.hour;
   } catch { return json({ error: 'Invalid JSON body' }, 400); }
   if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180)
     return json({ error: 'lat/lng required (valid coordinates)' }, 400);
+
+  // traveler's local hour for time-of-day biasing (client sends it; else derive
+  // roughly from longitude so the feature still adapts without a timezone lookup).
+  const h = Number(reqHour);
+  const localHour = Number.isFinite(h) && h >= 0 && h <= 23
+    ? Math.floor(h)
+    : Math.floor(((new Date().getUTCHours() + lng / 15) % 24 + 24) % 24);
 
   const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
   await maybePurgeCaches(admin);
@@ -259,35 +321,46 @@ Deno.serve(async (req) => {
     if (!p.id || seen.has(p.id)) continue;
     if ((p.userRatingCount ?? 0) < MIN_RATINGS) continue;
     // keep it genuinely near — Text Search bias can pull in far-but-famous spots
-    if (p.location && distMeters(lat, lng, p.location.latitude, p.location.longitude) > radius * 1.6) continue;
+    const km = p.location ? distMeters(lat, lng, p.location.latitude, p.location.longitude) / 1000 : 999;
+    if (km > (radius * 1.6) / 1000) continue;
+    p._km = km;
     seen.add(p.id);
     candidates.push(p);
   }
   if (candidates.length === 0) return json({ source: 'places', center: [lat, lng], vibes: emptyVibes() });
 
-  // 2. LLM enrichment (skipped past the global bill brake → deterministic path)
+  // 2. LLM enrichment (skipped past the global bill brake → deterministic path).
+  // Ground the most prominent candidates on real review snippets first.
   const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY');
   const allowLLM = anthropicKey && (await underGlobalDailyCap(admin, 'nearby-llm', GLOBAL_CAP));
-  const enriched = allowLLM ? await enrich(candidates.slice(0, 60), anthropicKey!) : null;
+  const toEnrich = candidates.slice(0, 60);
+  if (allowLLM) {
+    const top = [...toEnrich].sort((a, b) => popularity(b) - popularity(a)).slice(0, DETAIL_TOP);
+    await Promise.all(top.map(async (p) => { p._reviews = await fetchReviews(p.id, key); }));
+  }
+  const enriched = allowLLM ? await enrich(toEnrich, anthropicKey!) : null;
 
   // 3. assemble vibes. Keep the model's picks first; hold its rejects as backfill
   // so a vibe is never near-empty when real candidates exist.
+  // final rank = model score (or popularity) × distance decay × time-of-day boost
+  const rank = (base: number, vibe: Vibe, km: number) => base * distanceWeight(km) * daypartBoost(vibe, localHour);
   const kept = emptyVibes();
   const spare = emptyVibes();
   for (const p of candidates) {
+    const km = p._km ?? 0;
     if (enriched) {
       const e = enriched.get(p.id);
       if (e) {
-        const spot = { ...toSpot(p, e.vibe, e), _score: e.score };
+        const spot = { ...toSpot(p, e.vibe, e), _score: rank(e.score, e.vibe, km) };
         (e.keep ? kept : spare)[e.vibe].push(spot);
       } else {
         // model omitted it → usable as last-resort backfill, deterministic vibe
         const v = fallbackVibe(p, p._hint);
-        spare[v].push({ ...toSpot(p, v, null), _score: popularity(p) });
+        spare[v].push({ ...toSpot(p, v, null), _score: rank(popularity(p), v, km) });
       }
     } else {
       const v = fallbackVibe(p, p._hint);
-      kept[v].push({ ...toSpot(p, v, null), _score: popularity(p) });
+      kept[v].push({ ...toSpot(p, v, null), _score: rank(popularity(p), v, km) });
     }
   }
 

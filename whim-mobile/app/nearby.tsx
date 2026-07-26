@@ -6,9 +6,12 @@ import * as Location from 'expo-location';
 import { fetchNearby, spotMeta, richMeta, type NearbyResult, type NearbySpot } from '@/lib/nearby';
 import { fetchNearbyCommunitySpots, reportCommunitySpot } from '@/lib/db';
 import { placePhotoSource } from '@/lib/placePhoto';
+import { supabase } from '@/lib/supabase';
+import { useWhimStore } from '@/store/useWhimStore';
 import { VIBES, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
+import { hapticSuccess } from '@/lib/haptics';
 import type { VibeId } from '@/lib/types';
 import { distanceKm } from '@/lib/route';
 import BackButton from '@/components/BackButton';
@@ -25,6 +28,35 @@ type State =
 export default function Nearby() {
   const [state, setState] = useState<State>({ kind: 'loading' });
   const [vibe, setVibe] = useState<VibeId>('classics');
+  const [saved, setSaved] = useState<Set<string>>(new Set());
+  const [saving, setSaving] = useState<string | null>(null);
+  const bucketList = useWhimStore((s) => s.bucketList);
+
+  // Personalize: open the vibe this user saves the most (one-time, on mount).
+  useEffect(() => {
+    const counts: Partial<Record<VibeId, number>> = {};
+    for (const b of bucketList) counts[b.vibe] = (counts[b.vibe] ?? 0) + 1;
+    const fav = (Object.entries(counts) as [VibeId, number][]).sort((a, b) => b[1] - a[1])[0]?.[0];
+    if (fav) setVibe(fav);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Save a live nearby spot into "your spots" (compliant UGC path — resolves +
+  // categorizes it server-side; it then shows as a LOCAL pick and in Community).
+  const saveToSpots = async (s: NearbySpot) => {
+    if (saved.has(s.id) || saving) return;
+    setSaving(s.id);
+    const query = s.area ? `${s.title}, ${s.area}` : s.title;
+    const { data, error } = await supabase.functions.invoke<{ saved?: unknown[] }>('submit-places', { body: { places: [query] } });
+    setSaving(null);
+    if (error || !data?.saved?.length) {
+      toast('Couldn’t save that one — try again.');
+      return;
+    }
+    setSaved((prev) => new Set(prev).add(s.id));
+    hapticSuccess();
+    toast('Saved to your spots ✦');
+  };
 
   const load = useCallback(async () => {
     setState({ kind: 'loading' });
@@ -199,13 +231,13 @@ export default function Nearby() {
                   className="mb-3 flex-row items-start gap-3.5 rounded-[18px] bg-white p-3"
                 >
                   <View className="h-[52px] w-[52px] overflow-hidden rounded-[13px]" style={{ backgroundColor: COLORS.accentSoft }}>
+                    {/* vibe-dot placeholder sits behind, so a missing/blank photo still reads */}
+                    <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} className="items-center justify-center">
+                      <View className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: VIBE_DOT[vibe] }} />
+                    </View>
                     {photo ? (
                       <Image source={photo} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={200} />
-                    ) : (
-                      <View className="flex-1 items-center justify-center">
-                        <View className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: VIBE_DOT[vibe] }} />
-                      </View>
-                    )}
+                    ) : null}
                   </View>
                   <View className="flex-1">
                     <View className="flex-row items-center gap-1.5">
@@ -234,11 +266,15 @@ export default function Nearby() {
                       </Text>
                     ) : null}
 
-                    {(s.blurb ? richMeta(s) : `${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`) ? (
-                      <Text className="mt-1 font-mono text-[10px] tracking-wide text-muted" numberOfLines={1}>
-                        {s.blurb ? richMeta(s) : `${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`}
-                      </Text>
-                    ) : null}
+                    {(() => {
+                      const base = s.blurb ? richMeta(s) : `${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`;
+                      const meta = [base, s.openNow && s.closesAt ? `closes ${s.closesAt}` : ''].filter(Boolean).join('  ·  ');
+                      return meta ? (
+                        <Text className="mt-1 font-mono text-[10px] tracking-wide text-muted" numberOfLines={1}>
+                          {meta}
+                        </Text>
+                      ) : null;
+                    })()}
 
                     {s.tags && s.tags.length > 0 ? (
                       <View className="mt-1.5 flex-row flex-wrap gap-1.5">
@@ -256,7 +292,18 @@ export default function Nearby() {
                       </Text>
                     ) : null}
                   </View>
-                  <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
+                  <Pressable
+                    onPress={() => saveToSpots(s)}
+                    hitSlop={8}
+                    accessibilityLabel={saved.has(s.id) ? 'Saved to your spots' : 'Save to your spots'}
+                    className="p-1"
+                  >
+                    {saving === s.id ? (
+                      <ActivityIndicator size="small" color={COLORS.accent} />
+                    ) : (
+                      <Icon name={saved.has(s.id) ? 'starFilled' : 'star'} size={20} color={COLORS.accent} strokeWidth={2} />
+                    )}
+                  </Pressable>
                 </Pressable>
               );
             }}

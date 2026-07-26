@@ -19,6 +19,7 @@ export interface NearbySpot {
   community?: boolean; // true = a user-submitted local pick, not a live Places result
   blurb?: string | null;
   openNow?: boolean | null;
+  closesAt?: string | null; // e.g. "11pm", when open
   price?: number | null; // 1–4 → $–$$$$
   tags?: string[];
   tip?: string | null;
@@ -36,7 +37,7 @@ export async function fetchNearby(lat: number, lng: number, radius = 3000): Prom
   try {
     const { data, error } = await supabase.functions.invoke<{ center: [number, number]; vibes: NearbyVibes }>(
       'nearby-places',
-      { body: { lat, lng, radius } },
+      { body: { lat, lng, radius, hour: new Date().getHours() } },
     );
     if (error || !data?.vibes) return null;
     // annotate each spot with distance from the user for display + sorting
@@ -63,6 +64,13 @@ export function spotMeta(s: NearbySpot): string {
 /** "$$" price label, or '' when unknown. */
 export function priceLabel(s: NearbySpot): string {
   return s.price ? '$'.repeat(s.price) : '';
+}
+
+/** Open-state label: "Open · closes 11pm" / "Open" / "Closed" / '' when unknown. */
+export function hoursLabel(s: NearbySpot): { text: string; open: boolean } | null {
+  if (s.openNow == null) return null;
+  if (!s.openNow) return { text: 'Closed', open: false };
+  return { text: s.closesAt ? `Open · closes ${s.closesAt}` : 'Open', open: true };
 }
 
 /** Rough walk time from distance (~12 min/km), e.g. "6 min walk". Empty if unknown/far. */
