@@ -57,7 +57,13 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
 const FIELD_MASK =
-  'places.id,places.displayName,places.primaryType,places.types,places.location,places.rating,places.userRatingCount,places.shortFormattedAddress,places.photos';
+  'places.id,places.displayName,places.primaryType,places.types,places.location,places.rating,places.userRatingCount,places.shortFormattedAddress,places.photos,places.currentOpeningHours.openNow,places.priceLevel,places.editorialSummary';
+
+// Google price enum → $ count (1–4); free/unknown → null.
+const PRICE: Record<string, number> = {
+  PRICE_LEVEL_INEXPENSIVE: 1, PRICE_LEVEL_MODERATE: 2, PRICE_LEVEL_EXPENSIVE: 3, PRICE_LEVEL_VERY_EXPENSIVE: 4,
+};
+const priceOf = (p: any): number | null => (p.priceLevel ? PRICE[p.priceLevel] ?? null : null);
 
 // One vibe → up to N candidate places via Text Search, biased to the user.
 async function searchVibe(vibe: Vibe, lat: number, lng: number, radius: number, key: string): Promise<any[]> {
@@ -94,7 +100,9 @@ function popularity(p: any): number {
   return r * Math.log10(n + 10);
 }
 
-function toSpot(p: any, vibe: Vibe, blurb: string | null) {
+interface Enrichment { blurb: string; tags: string[]; tip: string | null }
+
+function toSpot(p: any, vibe: Vibe, e: Enrichment | null) {
   return {
     id: p.id, // place_id — the only Places field retained long-term
     title: p.displayName?.text ?? 'Unnamed',
@@ -104,33 +112,46 @@ function toSpot(p: any, vibe: Vibe, blurb: string | null) {
     rating: p.rating ?? null,
     ratingCount: p.userRatingCount ?? 0,
     photoName: p.photos?.[0]?.name ?? null,
-    blurb,
+    openNow: p.currentOpeningHours?.openNow ?? null,
+    price: priceOf(p),
+    blurb: e?.blurb ?? null,
+    tags: e?.tags ?? [],
+    tip: e?.tip ?? null,
     _vibe: vibe,
   };
 }
 
-// Claude re-sorts + blurbs + prunes. Returns null on any failure (→ fallback).
-async function enrich(candidates: any[], apiKey: string): Promise<Map<string, { vibe: Vibe; blurb: string; keep: boolean; score: number }> | null> {
+type EnrichRow = { vibe: Vibe; blurb: string; tags: string[]; tip: string | null; keep: boolean; score: number };
+
+// Claude re-sorts, grounds a blurb on Google's editorial note, adds tags + a
+// practical tip, and prunes the generic. Returns null on any failure (→ fallback).
+async function enrich(candidates: any[], apiKey: string): Promise<Map<string, EnrichRow> | null> {
   try {
+    const dollars = (p: any) => { const n = priceOf(p); return n ? '$'.repeat(n) : '?'; };
     const list = candidates
-      .map((p, i) => `${i}. ${p.displayName?.text ?? 'Unnamed'} — ${(p.primaryType ?? 'place').replace(/_/g, ' ')} — ${p.rating ?? '?'}★ (${p.userRatingCount ?? 0}) — ${p.shortFormattedAddress ?? ''}`)
+      .map((p, i) => {
+        const note = p.editorialSummary?.text ? ` — note: ${p.editorialSummary.text}` : '';
+        return `${i}. ${p.displayName?.text ?? 'Unnamed'} — ${(p.primaryType ?? 'place').replace(/_/g, ' ')} — ${p.rating ?? '?'}★ (${p.userRatingCount ?? 0}) — ${dollars(p)}${note}`;
+      })
       .join('\n');
     const prompt =
       `You are a sharp local travel editor for Whim. Below are real places near a traveler.\n` +
-      `For EACH, decide the single best vibe, write a vivid one-line blurb, and judge whether it's worth featuring.\n\n` +
+      `For EACH place, using the "note" (Google's own description) as GROUND TRUTH when present, produce:\n` +
+      `- vibe: the single best of classics | matcha | nature | nightlife\n` +
+      `- blurb: max 16 words, specific and evocative, grounded in the note, no clichés, no "a must-visit", no emoji, sentence case\n` +
+      `- tags: 1–2 short lowercase labels a traveler would filter by (e.g. "hidden gem", "rooftop", "cash only", "great for rainy days", "late night")\n` +
+      `- tip: one practical insider tip, max 12 words (best time, what to order, how to get in), or "" if none\n` +
+      `- keep: false for generic chains, fast food, gas stations, parking, transit stops, offices, forgettable spots; true only for real character\n` +
+      `- score: 1–10 for how special / worth-a-detour it is\n\n` +
       `Vibes:\n` +
       `- classics: iconic must-sees, landmarks, temples/shrines, museums, historic sites\n` +
       `- matcha: cafes, specialty coffee, bakeries, bookshops, calm & photogenic little places\n` +
       `- nature: parks, gardens, waterfronts, viewpoints, outdoor & scenic spots\n` +
       `- nightlife: bars, cocktail/wine bars, pubs, clubs, lively after-dark spots\n\n` +
-      `Rules for "keep":\n` +
-      `- keep=false for generic chains, fast food, gas stations, parking, transit stops, offices, and bland/forgettable spots.\n` +
-      `- keep=true only for places with genuine character a curious traveler would enjoy.\n` +
-      `Blurb: max 16 words, specific and evocative, no clichés, no "a must-visit", no emoji, sentence case.\n` +
-      `score: 1–10 for how special/worth-a-detour it is.\n\n` +
+      `Do NOT invent facts not supported by the name, type, or note.\n\n` +
       `Places:\n${list}\n\n` +
       `Reply with ONLY a JSON array, one object per place IN ORDER by index:\n` +
-      `[{"i":0,"vibe":"matcha","blurb":"...","keep":true,"score":8}]`;
+      `[{"i":0,"vibe":"matcha","blurb":"...","tags":["hidden gem"],"tip":"...","keep":true,"score":8}]`;
 
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -141,14 +162,18 @@ async function enrich(candidates: any[], apiKey: string): Promise<Map<string, { 
     const data = await res.json();
     const text = (data.content ?? [])[0]?.text ?? '';
     const arr = JSON.parse(text.slice(text.indexOf('['), text.lastIndexOf(']') + 1));
-    const out = new Map<string, { vibe: Vibe; blurb: string; keep: boolean; score: number }>();
+    const out = new Map<string, EnrichRow>();
     for (const item of arr) {
       const p = candidates[item?.i];
       if (!p) continue;
       const vibe: Vibe = VIBES.includes(item?.vibe) ? item.vibe : p._hint;
+      const tags = Array.isArray(item?.tags) ? item.tags.slice(0, 2).map((t: any) => String(t).toLowerCase().slice(0, 22)) : [];
+      const tip = String(item?.tip ?? '').trim().slice(0, 90) || null;
       out.set(p.id, {
         vibe,
         blurb: String(item?.blurb ?? '').trim().slice(0, 160),
+        tags,
+        tip,
         keep: item?.keep !== false,
         score: Number(item?.score) || 5,
       });
@@ -222,7 +247,7 @@ Deno.serve(async (req) => {
     const e = enriched?.get(p.id);
     if (enriched) {
       if (!e || !e.keep) continue; // model pruned it (or wasn't returned)
-      vibes[e.vibe].push({ ...toSpot(p, e.vibe, e.blurb || null), _score: e.score });
+      vibes[e.vibe].push({ ...toSpot(p, e.vibe, e), _score: e.score });
     } else {
       const v = fallbackVibe(p, p._hint);
       vibes[v].push({ ...toSpot(p, v, null), _score: popularity(p) });

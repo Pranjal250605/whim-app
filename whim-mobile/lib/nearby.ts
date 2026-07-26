@@ -18,6 +18,10 @@ export interface NearbySpot {
   km?: number; // distance from the user, filled client-side
   community?: boolean; // true = a user-submitted local pick, not a live Places result
   blurb?: string | null;
+  openNow?: boolean | null;
+  price?: number | null; // 1–4 → $–$$$$
+  tags?: string[];
+  tip?: string | null;
 }
 
 export type NearbyVibes = Record<VibeId, NearbySpot[]>;
@@ -53,5 +57,30 @@ export function spotMeta(s: NearbySpot): string {
   const bits: string[] = [];
   if (s.rating != null) bits.push(`${s.rating}★`);
   if (s.km != null) bits.push(s.km < 1 ? `${Math.round(s.km * 1000)}m` : `${s.km.toFixed(1)}km`);
+  return bits.join('  ·  ');
+}
+
+/** "$$" price label, or '' when unknown. */
+export function priceLabel(s: NearbySpot): string {
+  return s.price ? '$'.repeat(s.price) : '';
+}
+
+/** Rough walk time from distance (~12 min/km), e.g. "6 min walk". Empty if unknown/far. */
+export function walkTime(s: NearbySpot): string {
+  if (s.km == null) return '';
+  const mins = Math.round(s.km * 12);
+  if (mins < 1) return 'right here';
+  if (mins > 60) return '';
+  return `${mins} min walk`;
+}
+
+/** Rich meta line: "4.6★ · $$ · 6 min walk". */
+export function richMeta(s: NearbySpot): string {
+  const bits: string[] = [];
+  if (s.rating != null) bits.push(`${s.rating}★`);
+  const p = priceLabel(s);
+  if (p) bits.push(p);
+  const w = walkTime(s);
+  if (w) bits.push(w);
   return bits.join('  ·  ');
 }

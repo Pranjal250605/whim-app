@@ -3,7 +3,7 @@ import { ActivityIndicator, Alert, FlatList, Linking, Pressable, ScrollView, Tex
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import * as Location from 'expo-location';
-import { fetchNearby, spotMeta, type NearbyResult, type NearbySpot } from '@/lib/nearby';
+import { fetchNearby, spotMeta, richMeta, type NearbyResult, type NearbySpot } from '@/lib/nearby';
 import { fetchNearbyCommunitySpots, reportCommunitySpot } from '@/lib/db';
 import { placePhotoSource } from '@/lib/placePhoto';
 import { VIBES, VIBE_DOT } from '@/data/vibes';
@@ -196,7 +196,7 @@ export default function Nearby() {
                   onPress={() => openInMaps(s)}
                   onLongPress={s.community ? () => reportSpot(s) : undefined}
                   style={press(SHADOWS.soft)}
-                  className="mb-3 flex-row items-center gap-3.5 rounded-[18px] bg-white p-3"
+                  className="mb-3 flex-row items-start gap-3.5 rounded-[18px] bg-white p-3"
                 >
                   <View className="h-[52px] w-[52px] overflow-hidden rounded-[13px]" style={{ backgroundColor: COLORS.accentSoft }}>
                     {photo ? (
@@ -212,26 +212,49 @@ export default function Nearby() {
                       <Text className="flex-shrink text-[15.5px] font-bold text-ink" numberOfLines={1}>
                         {s.title}
                       </Text>
+                      {s.openNow === true && (
+                        <View className="flex-row items-center gap-1 rounded-full bg-[#E7F5EC] px-1.5 py-0.5">
+                          <View className="h-1.5 w-1.5 rounded-full bg-[#1F9D57]" />
+                          <Text className="font-mono text-[8.5px] tracking-wide text-[#1F9D57]">OPEN</Text>
+                        </View>
+                      )}
+                      {s.openNow === false && (
+                        <Text className="font-mono text-[8.5px] tracking-wide text-muted">CLOSED</Text>
+                      )}
                       {s.community && (
                         <View className="rounded-full bg-accent/12 px-1.5 py-0.5">
                           <Text className="font-mono text-[8.5px] tracking-wide text-accent">LOCAL ✦</Text>
                         </View>
                       )}
                     </View>
+
                     {s.blurb ? (
-                      <>
-                        <Text className="mt-0.5 text-[12.5px] leading-[16px] text-ink/70" numberOfLines={2}>
-                          {s.blurb}
-                        </Text>
-                        {spotMeta(s) ? (
-                          <Text className="mt-1 font-mono text-[10px] tracking-wide text-muted">{spotMeta(s)}</Text>
-                        ) : null}
-                      </>
-                    ) : (
-                      <Text className="mt-0.5 text-[12.5px] text-muted" numberOfLines={1}>
-                        {`${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`}
+                      <Text className="mt-0.5 text-[12.5px] leading-[16px] text-ink/70" numberOfLines={2}>
+                        {s.blurb}
                       </Text>
-                    )}
+                    ) : null}
+
+                    {(s.blurb ? richMeta(s) : `${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`) ? (
+                      <Text className="mt-1 font-mono text-[10px] tracking-wide text-muted" numberOfLines={1}>
+                        {s.blurb ? richMeta(s) : `${s.kind}${spotMeta(s) ? `  ·  ${spotMeta(s)}` : ''}`}
+                      </Text>
+                    ) : null}
+
+                    {s.tags && s.tags.length > 0 ? (
+                      <View className="mt-1.5 flex-row flex-wrap gap-1.5">
+                        {s.tags.map((t) => (
+                          <View key={t} className="rounded-full bg-ink/[0.06] px-2 py-0.5">
+                            <Text className="text-[10.5px] text-muted">{t}</Text>
+                          </View>
+                        ))}
+                      </View>
+                    ) : null}
+
+                    {s.tip ? (
+                      <Text className="mt-1.5 text-[11.5px] leading-[15px] text-accent" numberOfLines={2}>
+                        ✦ {s.tip}
+                      </Text>
+                    ) : null}
                   </View>
                   <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
                 </Pressable>
