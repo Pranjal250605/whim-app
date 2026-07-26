@@ -7,6 +7,8 @@ import { fetchNearby, spotMeta, richMeta, type NearbyResult, type NearbySpot } f
 import { fetchNearbyCommunitySpots, reportCommunitySpot } from '@/lib/db';
 import { placePhotoSource } from '@/lib/placePhoto';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/lib/auth';
+import { useQueryClient } from '@tanstack/react-query';
 import { useWhimStore } from '@/store/useWhimStore';
 import { VIBES, VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
@@ -31,6 +33,9 @@ export default function Nearby() {
   const [saved, setSaved] = useState<Set<string>>(new Set());
   const [saving, setSaving] = useState<string | null>(null);
   const bucketList = useWhimStore((s) => s.bucketList);
+  const { session } = useAuth();
+  const viewerId = session?.user?.id ?? null;
+  const qc = useQueryClient();
 
   // Personalize: open the vibe this user saves the most (one-time, on mount).
   useEffect(() => {
@@ -55,7 +60,25 @@ export default function Nearby() {
     }
     setSaved((prev) => new Set(prev).add(s.id));
     hapticSuccess();
-    toast('Saved to your spots ✦');
+    // show it as a LOCAL pick right away, and refresh Community → "Yours"
+    setState((prev) =>
+      prev.kind === 'ready'
+        ? {
+            kind: 'ready',
+            data: {
+              ...prev.data,
+              vibes: Object.fromEntries(
+                Object.entries(prev.data.vibes).map(([k, list]) => [
+                  k,
+                  list.map((x) => (x.id === s.id ? { ...x, community: true } : x)),
+                ]),
+              ) as typeof prev.data.vibes,
+            },
+          }
+        : prev,
+    );
+    qc.invalidateQueries({ queryKey: ['communityFeed'] });
+    toast('Saved to your spots ✦ — find it in Community › Yours');
   };
 
   const load = useCallback(async () => {
@@ -76,10 +99,19 @@ export default function Nearby() {
         setState({ kind: 'error' });
         return;
       }
-      // merge community "local picks" to the TOP of their vibe, deduped by id
+      // merge community "local picks". If a spot is already in the live results,
+      // badge it as LOCAL instead of dropping it; otherwise add it to the top.
+      const mine = new Set<string>();
       for (const c of community) {
         const bucket = data.vibes[c.vibe as VibeId];
-        if (!bucket || bucket.some((s) => s.id === c.id)) continue;
+        if (!bucket) continue;
+        if (c.submittedBy && c.submittedBy === viewerId) mine.add(c.id);
+        const existing = bucket.find((s) => s.id === c.id);
+        if (existing) {
+          existing.community = true;
+          if (c.blurb && !existing.blurb) existing.blurb = c.blurb;
+          continue;
+        }
         bucket.unshift({
           id: c.id, title: c.title, kind: c.kind ?? '', area: c.area ?? '',
           lat: c.lat, lng: c.lng, rating: null, ratingCount: 0, photoName: null,
@@ -87,6 +119,7 @@ export default function Nearby() {
           community: true, blurb: c.blurb,
         });
       }
+      if (mine.size) setSaved((prev) => new Set([...prev, ...mine]));
       setState({ kind: 'ready', data });
     } catch {
       setState({ kind: 'error' });

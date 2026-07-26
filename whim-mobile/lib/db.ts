@@ -239,12 +239,12 @@ export async function fetchNearbyCommunitySpots(
   lat: number,
   lng: number,
   radiusKm = 3,
-): Promise<(CommunitySpot & { lat: number; lng: number })[]> {
+): Promise<(CommunitySpot & { lat: number; lng: number; submittedBy: string | null })[]> {
   const dLat = radiusKm / 111;
   const dLng = radiusKm / (111 * Math.cos((lat * Math.PI) / 180));
   const { data, error } = await supabase
     .from('community_spots')
-    .select('id, title, vibe, kind, city, area, blurb, lat, lng')
+    .select('id, title, vibe, kind, city, area, blurb, lat, lng, submitted_by')
     .eq('status', 'approved')
     .gte('lat', lat - dLat)
     .lte('lat', lat + dLat)
@@ -252,7 +252,7 @@ export async function fetchNearbyCommunitySpots(
     .lte('lng', lng + dLng)
     .limit(60);
   if (error) throw error;
-  return (data ?? []) as (CommunitySpot & { lat: number; lng: number })[];
+  return (data ?? []).map((r: any) => ({ ...r, submittedBy: r.submitted_by ?? null }));
 }
 
 /** Flag a community spot for review (App Store 1.2 UGC moderation). */
