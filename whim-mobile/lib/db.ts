@@ -255,6 +255,39 @@ export async function fetchNearbyCommunitySpots(
   return (data ?? []).map((r: any) => ({ ...r, submittedBy: r.submitted_by ?? null }));
 }
 
+// ── "Your spots" — the user's own saved / added places ──────────────────────
+export interface MySpot {
+  id: string;
+  title: string;
+  vibe: VibeId;
+  kind: string | null;
+  city: string | null;
+  area: string | null;
+  blurb: string | null;
+  lat: number | null;
+  lng: number | null;
+  createdAt: string;
+}
+
+/** Everything this user has saved from Near Me or added via "Add your spots". */
+export async function fetchMySpots(): Promise<MySpot[]> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return [];
+  const { data, error } = await supabase
+    .from('community_spots')
+    .select('id, title, vibe, kind, city, area, blurb, lat, lng, created_at')
+    .eq('submitted_by', user.id)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []).map((r: any) => ({ ...r, createdAt: r.created_at }));
+}
+
+/** Remove one of your saved spots (owner-only, enforced by RLS). */
+export async function removeMySpot(id: string): Promise<void> {
+  const { error } = await supabase.from('community_spots').delete().eq('id', id);
+  if (error) throw error;
+}
+
 /** Flag a community spot for review (App Store 1.2 UGC moderation). */
 export async function reportCommunitySpot(spotId: string, reason: string): Promise<void> {
   const { error } = await supabase.from('community_reports').insert({ spot_id: spotId, reason });

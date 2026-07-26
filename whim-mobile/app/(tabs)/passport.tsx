@@ -152,6 +152,17 @@ export default function Passport() {
           <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
         </Pressable>
 
+        <Pressable onPress={() => router.push('/my-spots')} style={press(SHADOWS.soft)} className="mx-5 mt-3 flex-row items-center gap-3 rounded-2xl bg-white p-3.5">
+          <View className="h-10 w-10 items-center justify-center rounded-full bg-accent-soft">
+            <Icon name="starFilled" size={19} color={COLORS.accent} />
+          </View>
+          <View className="flex-1">
+            <Text className="text-[15px] font-bold text-ink">Your spots</Text>
+            <Text className="mt-0.5 text-[12.5px] text-muted">Places you’ve saved from Near me &amp; added yourself.</Text>
+          </View>
+          <Icon name="arrowRight" size={16} color="#B6B1A9" strokeWidth={2} />
+        </Pressable>
+
         {/* badges showcase */}
         <View className="mt-7 px-5">
           <Text className="font-serif text-[20px] text-ink">City badges</Text>

@@ -77,8 +77,9 @@ export default function Nearby() {
           }
         : prev,
     );
+    qc.invalidateQueries({ queryKey: ['mySpots'] });
     qc.invalidateQueries({ queryKey: ['communityFeed'] });
-    toast('Saved to your spots ✦ — find it in Community › Yours');
+    toast('Saved ✦ — find it in Profile › Your spots');
   };
 
   const load = useCallback(async () => {

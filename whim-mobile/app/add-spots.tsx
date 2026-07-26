@@ -33,6 +33,7 @@ export default function AddSpots() {
       const { saved, notFound } = await submitPlaces(text);
       setText('');
       setMine(await fetchMyCommunitySpots());
+      qc.invalidateQueries({ queryKey: ['mySpots'] });
       qc.invalidateQueries({ queryKey: ['communityFeed'] });
       if (saved.length) toast(`Added ${saved.length} spot${saved.length > 1 ? 's' : ''} ✦`);
       if (notFound.length) toast(`Couldn’t find: ${notFound.slice(0, 2).join(', ')}`);
