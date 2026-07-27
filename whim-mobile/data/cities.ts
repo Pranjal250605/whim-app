@@ -32,6 +32,12 @@ export const CITIES: City[] = [
   { name: 'Stockholm', country: 'Sweden', flag: '🇸🇪', lat: 59.3293, lng: 18.0686 },
   { name: 'Dublin', country: 'Ireland', flag: '🇮🇪', lat: 53.3498, lng: -6.2603 },
   { name: 'Budapest', country: 'Hungary', flag: '🇭🇺', lat: 47.4979, lng: 19.0402 },
+  { name: 'Milan', country: 'Italy', flag: '🇮🇹', lat: 45.4642, lng: 9.19 },
+  { name: 'Florence', country: 'Italy', flag: '🇮🇹', lat: 43.7696, lng: 11.2558 },
+  { name: 'Venice', country: 'Italy', flag: '🇮🇹', lat: 45.4408, lng: 12.3155 },
+  // NOTE: Naples + Seville/Valencia/Porto/Zurich/Geneva/Brussels/Athens/Warsaw/
+  // Krakow/Helsinki/Reykjavik/Lyon/Marseille/Manchester/Glasgow are seeded and
+  // ready to re-add here once the Anthropic balance is topped up (seed-city).
   { name: 'Paris', country: 'France', flag: '🇫🇷', lat: 48.8566, lng: 2.3522 },
   { name: 'Nice', country: 'France', flag: '🇫🇷', lat: 43.7102, lng: 7.262 },
   { name: 'London', country: 'United Kingdom', flag: '🇬🇧', lat: 51.5072, lng: -0.1276 },
