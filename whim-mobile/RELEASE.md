@@ -82,3 +82,4 @@ The dSYM "Upload Symbols Failed" warnings for Mapbox/hermes frameworks are benig
 | 8 | Jul 25 | Rebrand in-app wordmark Whim → BeWhim (name/UI/editors' author); icon artwork unchanged |
 | 9 | Jul 26 | Super-rich Near Me (grounded blurbs, open/price/walk, tags, tips, distance+time ranking, personalized, save-to-spots); BeWhim permission strings |
 | 10 | Jul 27 | "Your spots" space; saved-spots surfacing fix; audit fixes (cross-user cache clear, push rebrand, save-vibe pin) |
+| 11 | Jul 28 | Catalogue 13→48 cities / 2,160 spots (seed-city engine); European expansion for beta |

@@ -136,10 +136,12 @@ Deno.serve(async (req) => {
 
   // 2. reviews for the most prominent, then enrich (skipped in noLLM fallback mode)
   let enriched = new Map<string, Row>();
+  let enrichErr: string[] = [];
   if (!noLLM) {
     const top = [...cands].sort((a, b) => popularity(b) - popularity(a)).slice(0, 28);
     await Promise.all(top.map(async (p) => { p._reviews = await fetchReviews(p.id, key); }));
-    ({ map: enriched } = await enrich(cands.slice(0, 80), anthropicKey));
+    const r = await enrich(cands.slice(0, 80), anthropicKey);
+    enriched = r.map; enrichErr = r.errors;
   }
   // Fallback: if the LLM is unavailable (e.g. no Anthropic credit), still seed
   // real spots using Google's own editorial summary + the vibe they were found
@@ -191,5 +193,5 @@ Deno.serve(async (req) => {
   if (error) return new Response(JSON.stringify({ city, error: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
 
   const counts = Object.fromEntries(VIBES.map((v) => [v, rows.filter((r) => r.vibes[0] === v).length]));
-  return new Response(JSON.stringify({ city, inserted: rows.length, counts, candidates: cands.length, mode: llm ? 'llm' : 'fallback' }), { headers: { 'Content-Type': 'application/json' } });
+  return new Response(JSON.stringify({ city, inserted: rows.length, counts, candidates: cands.length, mode: llm ? 'llm' : 'fallback', enrichErr: enrichErr.slice(0, 1) }), { headers: { 'Content-Type': 'application/json' } });
 });
