@@ -115,7 +115,7 @@ Deno.serve(async (req) => {
   if (req.headers.get('x-seed-secret') !== Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'))
     return new Response('forbidden', { status: 403 });
 
-  const { city, lat, lng, perVibe = 12, radius = 11000, minRatings = 60 } = await req.json();
+  const { city, lat, lng, perVibe = 12, radius = 11000, minRatings = 60, noLLM = false } = await req.json();
   if (!city || !Number.isFinite(lat) || !Number.isFinite(lng)) return new Response('city, lat, lng required', { status: 400 });
 
   const key = Deno.env.get('GOOGLE_PLACES_API_KEY')!;
@@ -134,37 +134,51 @@ Deno.serve(async (req) => {
   }
   if (!cands.length) return new Response(JSON.stringify({ city, inserted: 0, note: 'no candidates' }), { headers: { 'Content-Type': 'application/json' } });
 
-  // 2. reviews for the most prominent, then enrich
-  const top = [...cands].sort((a, b) => popularity(b) - popularity(a)).slice(0, 28);
-  await Promise.all(top.map(async (p) => { p._reviews = await fetchReviews(p.id, key); }));
-  const { map: enriched, errors } = await enrich(cands.slice(0, 80), anthropicKey);
-  if (enriched.size === 0) return new Response(JSON.stringify({ city, inserted: 0, error: 'enrich produced nothing', detail: errors.slice(0, 2) }), { status: 502, headers: { 'Content-Type': 'application/json' } });
+  // 2. reviews for the most prominent, then enrich (skipped in noLLM fallback mode)
+  let enriched = new Map<string, Row>();
+  if (!noLLM) {
+    const top = [...cands].sort((a, b) => popularity(b) - popularity(a)).slice(0, 28);
+    await Promise.all(top.map(async (p) => { p._reviews = await fetchReviews(p.id, key); }));
+    ({ map: enriched } = await enrich(cands.slice(0, 80), anthropicKey));
+  }
+  // Fallback: if the LLM is unavailable (e.g. no Anthropic credit), still seed
+  // real spots using Google's own editorial summary + the vibe they were found
+  // under. Lower fidelity, but populated now; re-seed later upgrades the voice.
+  const llm = enriched.size > 0;
+  const cap = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
-  // 3. group by vibe, rank (score × popularity), cap
+  // 3. group by vibe, rank, cap
   const byVibe: Record<Vibe, any[]> = { classics: [], matcha: [], nature: [], nightlife: [] };
   for (const p of cands) {
-    const e = enriched.get(p.id);
-    if (!e || !e.keep) continue;
-    byVibe[e.vibe].push({ p, e, rank: e.score * Math.log10((p.userRatingCount ?? 0) + 10) });
+    if (llm) {
+      const e = enriched.get(p.id);
+      if (!e || !e.keep) continue;
+      byVibe[e.vibe].push({ p, e, rank: e.score * Math.log10((p.userRatingCount ?? 0) + 10) });
+    } else {
+      const v: Vibe = VIBES.includes(p._hint) ? p._hint : 'classics';
+      byVibe[v].push({ p, e: null, rank: popularity(p) });
+    }
   }
   let tone = 0;
   const rows: any[] = [];
   for (const v of VIBES) {
     byVibe[v].sort((a, b) => b.rank - a.rank);
     for (const { p, e } of byVibe[v].slice(0, perVibe)) {
+      const kind = (e?.kind || (p.primaryType ?? 'place').replace(/_/g, ' ')).trim();
+      const area = (e?.area || (p.shortFormattedAddress ?? '').split(',')[0] || '').trim();
       rows.push({
         id: p.id,
         place_id: p.id,
         city,
         vibes: [v],
         title: p.displayName?.text ?? 'Unnamed',
-        kind: e.kind || (p.primaryType ?? '').replace(/_/g, ' '),
-        area: e.area || (p.shortFormattedAddress ?? '').split(',')[0],
-        hours: e.when || 'Anytime',
+        kind,
+        area,
+        hours: e?.when || 'Anytime',
         tone: PALETTE[tone++ % PALETTE.length],
         photo: '',
-        tags: e.tags,
-        description: e.blurb,
+        tags: e?.tags ?? [],
+        description: e?.blurb || p.editorialSummary?.text || `${cap(kind)}${area ? ` in ${area}` : ''}.`,
         lat: p.location?.latitude ?? null,
         lng: p.location?.longitude ?? null,
         nearby: [],
@@ -177,5 +191,5 @@ Deno.serve(async (req) => {
   if (error) return new Response(JSON.stringify({ city, error: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
 
   const counts = Object.fromEntries(VIBES.map((v) => [v, rows.filter((r) => r.vibes[0] === v).length]));
-  return new Response(JSON.stringify({ city, inserted: rows.length, counts, candidates: cands.length, enrichErrors: errors.length }), { headers: { 'Content-Type': 'application/json' } });
+  return new Response(JSON.stringify({ city, inserted: rows.length, counts, candidates: cands.length, mode: llm ? 'llm' : 'fallback' }), { headers: { 'Content-Type': 'application/json' } });
 });
