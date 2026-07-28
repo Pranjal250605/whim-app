@@ -47,7 +47,7 @@ xcodebuild -workspace ios/Whim.xcworkspace -scheme Whim -configuration Release \
 
 # 4. export + upload (ExportOptions.plist: method=app-store-connect, destination=upload)
 xcodebuild -exportArchive -archivePath "$SCRATCH/Whim<N>.xcarchive" \
-  -exportOptionsPlist "$SCRATCH/ExportOptions.plist" -exportPath "$SCRATCH/export<N>" \
+  -exportOptionsPlist "whim-mobile/ExportOptions.plist" -exportPath "$SCRATCH/export<N>" \
   -allowProvisioningUpdates \
   -authenticationKeyPath /Users/pranjal/Downloads/AuthKey_UP3BMQ6R6Z.p8 \
   -authenticationKeyID UP3BMQ6R6Z \
