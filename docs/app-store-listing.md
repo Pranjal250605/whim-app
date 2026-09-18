@@ -24,7 +24,7 @@
 
 **Sign-In (demo account — required)**
 - User Name: `appreview@bewhimsy.app`
-- Password: `WhimBeta#2026`
+- Password: *(stored in App Store Connect → TestFlight → Test Information — do not commit)*
 
 **Feedback email:** `prai2702@gmail.com` (or `hello@bewhimsy.app`)
 **Contact:** Pranjal Rai · phone on file · `hello@bewhimsy.app`

@@ -5,7 +5,7 @@
 You swipe through hand-picked spots in a city, save the ones you love, and Whim turns them into a route you can actually walk. Plan solo, or swipe together with friends and let your mutual likes become the plan.
 
 - **Platform:** iOS (currently on TestFlight)
-- **Version:** 1.0.0 (Build 7)
+- **Version:** 1.0.0 (Build 11)
 - **One line:** Swipe. Save. Go.
 
 ---
@@ -60,17 +60,17 @@ You swipe through hand-picked spots in a city, save the ones you love, and Whim 
 
 ---
 
-## Coverage (as of Build 7)
+## Coverage (as of Build 11)
 
-**13 cities across 3 regions · 570+ hand-picked spots · 4 vibes per city**
+**48 cities across 24 countries · ~2,160 curated spots · 4 vibes per city**
 
 | Region | Cities |
 |--------|--------|
-| **Japan** | Tokyo, Kyoto, Osaka, Fukuoka, Hiroshima — 188 curated anchors |
-| **Europe** | Paris (50), London (47), Edinburgh (46), Berlin (45), Munich (45), Nice (40) |
-| **USA** | New York, San Francisco — reviewed, deep decks |
+| **Japan** | Tokyo, Kyoto, Osaka, Fukuoka, Hiroshima |
+| **USA** | New York, San Francisco |
+| **Europe** | 41 cities — London, Paris, Rome, Barcelona, Berlin, Amsterdam, Vienna, Prague, Lisbon, Copenhagen and more |
 
-570+ spots are matched to real Google place IDs, so imagery is live and real.
+New cities are curated server-side by the `seed-city` Edge Function (Google Places + an LLM editorial pass); spots are matched to real Google place IDs, so imagery is live and real.
 
 ---
 
@@ -106,4 +106,4 @@ Editorial-meets-playful, built on travel-document textures: a serif for headline
 
 ---
 
-*Whim ✦ swipe. save. go. — v1.0.0, Build 7 (TestFlight)*
+*Whim ✦ swipe. save. go. — v1.0.0, Build 11 (TestFlight)*
