@@ -107,6 +107,11 @@ together with friends and let your mutual likes become the plan.
 | **Nordics** | Copenhagen, Stockholm, Oslo, Helsinki, Reykjavik |
 | **Greece** | Athens |
 
+**Coming in the next build — +15 cities (63 total, ~2,770 spots):** Bruges, Antwerp,
+Rotterdam, Split, Zagreb, Bologna, Turin, Gothenburg, Bordeaux, Malaga, Bilbao, Cologne,
+Tallinn, Ljubljana, Bratislava. Already seeded in the database; they appear in the
+picker once the next build ships.
+
 New cities are seeded server-side with the `seed-city` Edge Function (Google Places
 search per vibe plus a review-grounded LLM curation pass). They go live in the database
 immediately, but only appear in the city picker once a build ships the updated
