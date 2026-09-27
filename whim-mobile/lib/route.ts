@@ -61,11 +61,64 @@ function nearestNeighbour<T extends Pt>(pts: T[], startFrom?: Pt): T[] {
   return ordered;
 }
 
+function pathKm(pts: Pt[]): number {
+  let km = 0;
+  for (let i = 1; i < pts.length; i++) km += distanceKm(pts[i - 1], pts[i]);
+  return km;
+}
+
+// 2-opt on an open path: keep reversing any stretch whose reversal shortens
+// the walk (i.e. untangle crossings) until nothing improves. `from` is a fixed
+// point the path must start next to (end of the previous block); it never moves.
+function twoOpt<T extends Pt>(path: T[], from?: Pt): T[] {
+  const p: Pt[] = from ? [from, ...path] : [...path];
+  const d = (a: Pt, b: Pt) => distanceKm(a, b);
+  let improved = true;
+  while (improved) {
+    improved = false;
+    for (let i = from ? 1 : 0; i < p.length - 1; i++) {
+      for (let k = i + 1; k < p.length; k++) {
+        const prev = i > 0 ? p[i - 1] : undefined;
+        const next = k + 1 < p.length ? p[k + 1] : undefined;
+        const before = (prev ? d(prev, p[i]) : 0) + (next ? d(p[k], next) : 0);
+        const after = (prev ? d(prev, p[k]) : 0) + (next ? d(p[i], next) : 0);
+        if (after < before - 1e-9) {
+          p.splice(i, k - i + 1, ...p.slice(i, k + 1).reverse());
+          improved = true;
+        }
+      }
+    }
+  }
+  return (from ? p.slice(1) : p) as T[];
+}
+
+// Walk the time blocks in order. Plain = the original behaviour (first saved
+// spot opens the day, nearest-neighbour only). Otherwise `first` picks the
+// day's opening stop and every block is nearest-neighbour + 2-opt.
+function walkBlocks<T extends Pt>(blocks: T[][], first?: number): T[] {
+  const out: T[] = [];
+  blocks.forEach((group, gi) => {
+    const last = out[out.length - 1];
+    if (first == null) {
+      out.push(...nearestNeighbour(group, last));
+    } else if (gi === 0) {
+      const [head, ...tail] = nearestNeighbour([group[first], ...group.filter((_, j) => j !== first)]);
+      out.push(head, ...twoOpt(tail, head));
+    } else {
+      out.push(...twoOpt(nearestNeighbour(group, last), last));
+    }
+  });
+  return out;
+}
+
 /**
  * Time-of-day-aware ordering: bucket the stops into morning / daytime / evening
  * from their opening hours, sequence those blocks in order, and walk each block
- * nearest-neighbour continuing from where the previous block ended. Keeps the
- * day both geographically sane and open-when-you-arrive.
+ * continuing from where the previous block ended. Tries every stop of the first
+ * block as the day's start (nearest-neighbour + 2-opt per block) and keeps the
+ * shortest total — the plain first-saved-spot walk stays a candidate, so the
+ * result is never longer than it was before. Keeps the day both geographically
+ * sane and open-when-you-arrive.
  */
 export function orderSmart(bucket: BucketAnchor[]): RouteStop[] {
   const points = bucket
@@ -80,14 +133,18 @@ export function orderSmart(bucket: BucketAnchor[]): RouteStop[] {
       slot: timeSlot(b.anchor.hours),
     }));
 
-  const ordered: typeof points = [];
-  let last: Pt | undefined;
-  for (const slot of [0, 1, 2] as const) {
-    const group = points.filter((p) => p.slot === slot);
-    if (!group.length) continue;
-    const walk = nearestNeighbour(group, last);
-    ordered.push(...walk);
-    last = walk[walk.length - 1];
+  const blocks = ([0, 1, 2] as const).map((slot) => points.filter((p) => p.slot === slot)).filter((g) => g.length);
+
+  // strict < keeps the original order on ties, so plans don't reshuffle for nothing
+  let ordered = walkBlocks(blocks);
+  let bestKm = pathKm(ordered);
+  for (let s = 0; s < (blocks[0]?.length ?? 0); s++) {
+    const candidate = walkBlocks(blocks, s);
+    const km = pathKm(candidate);
+    if (km < bestKm - 1e-9) {
+      ordered = candidate;
+      bestKm = km;
+    }
   }
 
   return ordered.map((p, i) => ({
