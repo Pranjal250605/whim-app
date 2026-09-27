@@ -72,7 +72,9 @@ const PRICE: Record<string, number> = {
 const priceOf = (p: any): number | null => (p.priceLevel ? PRICE[p.priceLevel] ?? null : null);
 
 // One vibe → up to N candidate places via Text Search, biased to the user.
-async function searchVibe(vibe: Vibe, lat: number, lng: number, radius: number, key: string): Promise<any[]> {
+// Returns null (not []) when Google itself fails, so the handler can tell a
+// broken key/quota apart from a genuinely empty area.
+async function searchVibe(vibe: Vibe, lat: number, lng: number, radius: number, key: string): Promise<any[] | null> {
   try {
     const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
       method: 'POST',
@@ -83,11 +85,15 @@ async function searchVibe(vibe: Vibe, lat: number, lng: number, radius: number, 
         locationBias: { circle: { center: { latitude: lat, longitude: lng }, radius } },
       }),
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.error(`[nearby] searchText ${vibe} failed: ${res.status} ${(await res.text()).slice(0, 300)}`);
+      return null;
+    }
     const places = (await res.json()).places ?? [];
     return places.map((p: any) => ({ ...p, _hint: vibe }));
-  } catch {
-    return [];
+  } catch (e) {
+    console.error(`[nearby] searchText ${vibe} threw:`, e);
+    return null;
   }
 }
 
@@ -102,7 +108,7 @@ function distMeters(aLat: number, aLng: number, bLat: number, bLng: number): num
 
 // Broad nearby sweep (by type, popularity-ranked) — complements the per-vibe
 // text queries so sparse vibes (few landmarks/parks) still fill out.
-async function searchNearbyAll(lat: number, lng: number, radius: number, key: string): Promise<any[]> {
+async function searchNearbyAll(lat: number, lng: number, radius: number, key: string): Promise<any[] | null> {
   try {
     const res = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
       method: 'POST',
@@ -114,11 +120,15 @@ async function searchNearbyAll(lat: number, lng: number, radius: number, key: st
         locationRestriction: { circle: { center: { latitude: lat, longitude: lng }, radius } },
       }),
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.error(`[nearby] searchNearby failed: ${res.status} ${(await res.text()).slice(0, 300)}`);
+      return null;
+    }
     const places = (await res.json()).places ?? [];
     return places.map((p: any) => ({ ...p, _hint: fallbackVibe(p, 'classics') }));
-  } catch {
-    return [];
+  } catch (e) {
+    console.error('[nearby] searchNearby threw:', e);
+    return null;
   }
 }
 
@@ -310,11 +320,15 @@ Deno.serve(async (req) => {
 
   // 1. gather candidates: per-vibe Text Search (characterful) + a broad nearby
   // sweep (coverage), all in parallel.
-  const [textResults, nearbyResults] = await Promise.all([
-    Promise.all(VIBES.map((v) => searchVibe(v, lat, lng, radius, key))).then((r) => r.flat()),
+  const [textBatches, nearbyResults] = await Promise.all([
+    Promise.all(VIBES.map((v) => searchVibe(v, lat, lng, radius, key))),
     searchNearbyAll(lat, lng, radius, key),
   ]);
-  const found = [...textResults, ...nearbyResults];
+  // every Google call failed → a key/billing/quota problem, not an empty area.
+  // Surface it as an error (the app shows Retry) instead of "nothing nearby".
+  if (nearbyResults === null && textBatches.every((b) => b === null))
+    return json({ error: 'Places lookup failed' }, 502);
+  const found = [...textBatches.flatMap((b) => b ?? []), ...(nearbyResults ?? [])];
   const seen = new Set<string>();
   const candidates: any[] = [];
   for (const p of found) {
