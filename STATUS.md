@@ -94,8 +94,11 @@ Measured on the simulator (uncached spot): list visible ≤6 s, tips by ~16–24
 No `phase` = old one-shot behaviour, so build 11 keeps working.
 LLM stage itself: parallel chunks (`2ef4d43`), ~10 s.
 
-Trade-off: when tips land the list can re-rank/re-bucket (the LLM re-vibes and
-drops generic spots). Reported spots stay hidden; saved spots keep LOCAL.
+Tips are filled INTO the list on screen — order and membership never change
+mid-scroll (reports/saves made meanwhile carry over). The LLM's re-ranking,
+re-vibing and generic-spot drops show on the next load (served from cache).
+Simulator note: after `simctl location set`, `simctl location clear` + set
+again if the app keeps seeing the old fix.
 
 Open lead: the app's first request in a burst sometimes stalls 10–30 s before
 reaching the server (server timings stay ~2–3 s; follow-up calls ~1 s; idle

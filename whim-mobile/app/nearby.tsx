@@ -84,9 +84,6 @@ export default function Nearby() {
 
   // bumps on every load/unmount so a stale enrichment poll never overwrites newer state
   const loadGen = useRef(0);
-  const hidden = useRef<Set<string>>(new Set()); // reported this session — keep out of the swapped-in list
-  const savedRef = useRef(saved);
-  savedRef.current = saved;
   useEffect(() => () => void loadGen.current++, []);
 
   const load = useCallback(async () => {
@@ -116,33 +113,31 @@ export default function Nearby() {
 
       // merge community "local picks". If a spot is already in the live results,
       // badge it as LOCAL instead of dropping it; otherwise add it to the top.
-      const withCommunity = (d: NearbyResult): NearbyResult => {
-        const mine = new Set<string>();
-        for (const c of community) {
-          const bucket = d.vibes[c.vibe as VibeId];
-          if (!bucket) continue;
-          if (c.submittedBy && c.submittedBy === viewerId) mine.add(c.id);
-          const existing = bucket.find((s) => s.id === c.id);
-          if (existing) {
-            existing.community = true;
-            if (c.blurb && !existing.blurb) existing.blurb = c.blurb;
-            continue;
-          }
-          bucket.unshift({
-            id: c.id, title: c.title, kind: c.kind ?? '', area: c.area ?? '',
-            lat: c.lat, lng: c.lng, rating: null, ratingCount: 0, photoName: null,
-            km: distanceKm({ lat, lng }, { lat: c.lat, lng: c.lng }),
-            community: true, blurb: c.blurb,
-          });
+      const mine = new Set<string>();
+      for (const c of community) {
+        const bucket = data.vibes[c.vibe as VibeId];
+        if (!bucket) continue;
+        if (c.submittedBy && c.submittedBy === viewerId) mine.add(c.id);
+        const existing = bucket.find((s) => s.id === c.id);
+        if (existing) {
+          existing.community = true;
+          if (c.blurb && !existing.blurb) existing.blurb = c.blurb;
+          continue;
         }
-        if (mine.size) setSaved((prev) => new Set([...prev, ...mine]));
-        for (const v of Object.keys(d.vibes) as VibeId[]) d.vibes[v] = d.vibes[v].filter((s) => !hidden.current.has(s.id));
-        return d;
-      };
-      setState({ kind: 'ready', data: withCommunity(data) });
+        bucket.unshift({
+          id: c.id, title: c.title, kind: c.kind ?? '', area: c.area ?? '',
+          lat: c.lat, lng: c.lng, rating: null, ratingCount: 0, photoName: null,
+          km: distanceKm({ lat, lng }, { lat: c.lat, lng: c.lng }),
+          community: true, blurb: c.blurb,
+        });
+      }
+      if (mine.size) setSaved((prev) => new Set([...prev, ...mine]));
+      setState({ kind: 'ready', data });
 
-      // phase 2: blurbs + tips are being written server-side — swap them in when
-      // ready (~10 s). If it never lands, the raw list simply stays.
+      // phase 2: blurbs + tips are being written server-side — fill them into the
+      // list already on screen (~10 s). Order and membership stay exactly as the
+      // user sees them — no reshuffle mid-scroll — and reports/saves made in the
+      // meantime carry over. The enriched ranking shows on the next (cached) load.
       if (!data.enriching) return;
       for (let i = 0; i < 12; i++) {
         await new Promise((r) => setTimeout(r, 2500));
@@ -151,10 +146,19 @@ export default function Nearby() {
         if (gen !== loadGen.current) return;
         if (full === 'pending') continue;
         if (!full) break;
-        // keep LOCAL badges on spots saved while the list was loading
-        for (const v of Object.keys(full.vibes) as VibeId[])
-          full.vibes[v] = full.vibes[v].map((s) => (savedRef.current.has(s.id) ? { ...s, community: true } : s));
-        setState({ kind: 'ready', data: withCommunity(full) });
+        const byId = new Map<string, NearbySpot>();
+        for (const list of Object.values(full.vibes)) for (const s of list) byId.set(s.id, s);
+        setState((prev) => {
+          if (prev.kind !== 'ready') return prev;
+          const vibes = { ...prev.data.vibes };
+          for (const v of Object.keys(vibes) as VibeId[])
+            vibes[v] = vibes[v].map((s) => {
+              const e = byId.get(s.id);
+              // only fill what's missing — a community pick's own blurb wins
+              return e ? { ...s, blurb: s.blurb || e.blurb, tags: s.tags?.length ? s.tags : e.tags, tip: s.tip || e.tip } : s;
+            });
+          return { kind: 'ready', data: { ...prev.data, vibes, enriching: false } };
+        });
         return;
       }
       setState((prev) => (prev.kind === 'ready' ? { kind: 'ready', data: { ...prev.data, enriching: false } } : prev));
@@ -171,7 +175,6 @@ export default function Nearby() {
         style: 'destructive',
         onPress: () => {
           reportCommunitySpot(s.id, 'reported from nearby').catch(() => {});
-          hidden.current.add(s.id);
           setState((prev) =>
             prev.kind === 'ready'
               ? {
