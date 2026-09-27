@@ -15,8 +15,8 @@ items get resolved — this file is a working log, not a spec.
   2-opt, Japan transit skip, nearby-places hardening (`e88e6be..66760a6`).
 - **`nearby-places` hardening deployed** 2026-09-27 and verified live (fresh
   Places lookup → 200 with results; no-JWT → 401).
-- **Near Me cold load ~42 s → ~12–14 s server-side** (parallel LLM
-  enrichment, deployed). One app-side stall lead open (§3.5).
+- **Near Me: list on screen in ≤6 s (was ~42 s)** — two-phase load, tips
+  swap in ~10–20 s later (§3.5). One app-side stall lead open.
 - **Route order fixed:** hours read as constraints + best start + 2-opt
   (Tokyo example 86 → 49 km). Dashed leg connector restored.
 - Near Me "showed nothing" earlier was **not a bug** — simulator location was
@@ -80,24 +80,30 @@ Notes: `transit-route` returns 200 + `segments: []` for "no route" but **502
 when Google errors** — the Supabase Invocations view distinguishes the two.
 No `departureTime` is sent, so late-night plans anywhere may get no transit.
 
-### 3.5 Near Me cold load — IMPROVED, one lead open
-Before: ~42 s cold (one Haiku call writing ~60 rows of JSON).
-Now (`2ef4d43`, deployed): parallel enrichment in vibe-grouped chunks of 12,
-15 s per-chunk timeout. Server-Timing on a cold Tokyo load: auth ~0.5 s,
-cache ~0.4–0.9 s, cap ~0.5 s, places ~1.2 s, reviews ~0.9 s, **llm ~10 s**
-→ server total ~12–14 s. Cache hit: ~1.4 s server, ~1–2 s in the app.
-Platform cold start is NOT the problem (idle functions boot in ~0.35 s).
+### 3.5 Near Me load time — two-phase (shipped 2026-09-27)
+Was ~42 s of spinner. Now:
+1. `phase: 'fast'` → server returns Google's results after the Places search
+   (server ~2.6 s) with `enriching: true`; reviews + LLM run after the
+   response via `EdgeRuntime.waitUntil` and write the enriched list to the cache.
+   The raw list is never cached.
+2. App shows the raw list immediately ("ADDING LOCAL TIPS" indicator), polls
+   `phase: 'poll'` (cache read only — no Google, no cap) every 2.5 s, swaps in
+   blurbs/tips/tags when ready. Gives up after ~30 s and keeps the raw list.
+3. Location: last-known fix (≤2 min, ≤500 m) before asking for a fresh one.
+Measured on the simulator (uncached spot): list visible ≤6 s, tips by ~16–24 s.
+No `phase` = old one-shot behaviour, so build 11 keeps working.
+LLM stage itself: parallel chunks (`2ef4d43`), ~10 s.
 
-Open lead: some first requests stalled 10–35 s *inside the app* before the
-request left, while the login token was near/at refresh (all concurrent
-invokes finished at the same instant). With a valid token, a post-idle call
-took 2.0 s. Re-test around a token refresh (tokens last 1 h) before chasing it.
+Trade-off: when tips land the list can re-rank/re-bucket (the LLM re-vibes and
+drops generic spots). Reported spots stay hidden; saved spots keep LOCAL.
 
-Next speed step (not built): two-phase load — return Places results at ~3 s,
-then fill blurbs/tips when the LLM finishes. Would make first paint ~4x faster.
+Open lead: the app's first request in a burst sometimes stalls 10–30 s before
+reaching the server (server timings stay ~2–3 s; follow-up calls ~1 s; idle
+functions boot in 0.35 s from the Mac). Seen mostly while driving the app via
+the debugger — confirm on a real device before chasing it.
 
-Measuring tip: the app's debugger (Metro `/json/list` → CDP) replays OLD
-console warnings on connect — compare timestamps before trusting counts.
+Measuring tip: Metro's debugger (CDP) replays OLD console warnings on connect —
+compare timestamps before trusting counts.
 
 ### 3.2 Smart-route stop order — RESOLVED
 Best start + 2-opt (`c2704dc`) and hours-as-constraints (`167b578`): only

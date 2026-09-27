@@ -32,6 +32,9 @@ const DETAIL_TOP = 12; // fetch real reviews (Place Details, billed) for the top
 const ENRICH_CHUNK = 12; // places per parallel LLM call
 const ENRICH_TIMEOUT_MS = 15_000; // per chunk; a slow chunk falls back instead of stalling the screen
 
+// Supabase Edge Runtime global: keeps the worker alive for post-response work.
+declare const EdgeRuntime: { waitUntil(p: Promise<unknown>): void } | undefined;
+
 type Vibe = 'classics' | 'matcha' | 'nature' | 'nightlife';
 const VIBES: Vibe[] = ['classics', 'matcha', 'nature', 'nightlife'];
 
@@ -316,12 +319,15 @@ Deno.serve(async (req) => {
   if (!user) return json({ error: 'Invalid session' }, 401);
   mark('auth');
 
-  let lat = NaN, lng = NaN, radius = 2000, reqHour: unknown;
+  // phase: omitted = one-shot (old builds) · 'fast' = Places now, enrich in the
+  // background · 'poll' = cache read only (no Google, no cap) while enriching
+  let lat = NaN, lng = NaN, radius = 2000, reqHour: unknown, phase: 'full' | 'fast' | 'poll' = 'full';
   try {
     const b = await req.json();
     lat = Number(b.lat); lng = Number(b.lng);
     if (b.radius) radius = Math.min(Math.max(Number(b.radius), 200), 8000);
     reqHour = b.hour;
+    if (b.phase === 'fast' || b.phase === 'poll') phase = b.phase;
   } catch { return json({ error: 'Invalid JSON body' }, 400); }
   if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180)
     return json({ error: 'lat/lng required (valid coordinates)' }, 400);
@@ -344,6 +350,7 @@ Deno.serve(async (req) => {
   if (cached && Date.now() - new Date(cached.fetched_at).getTime() < ONE_HOUR_MS) {
     return withTiming(json({ source: 'cache', center: [lat, lng], vibes: (cached.result as any).vibes }));
   }
+  if (phase === 'poll') return json({ pending: true });
 
   if (!(await underDailyCap(admin, user.id, 'nearby-places', DAILY_CAP)))
     return json({ error: 'Daily nearby limit reached — try again tomorrow.', vibes: {} }, 429);
@@ -378,54 +385,78 @@ Deno.serve(async (req) => {
   }
   if (candidates.length === 0) return json({ source: 'places', center: [lat, lng], vibes: emptyVibes() });
 
+  // 3. assemble vibes. Keep the model's picks first; hold its rejects as backfill
+  // so a vibe is never near-empty when real candidates exist.
+  // final rank = model score (or popularity) × distance decay × time-of-day boost
+  const rank = (base: number, vibe: Vibe, km: number) => base * distanceWeight(km) * daypartBoost(vibe, localHour);
+  const assemble = (enriched: Map<string, EnrichRow> | null) => {
+    const kept = emptyVibes();
+    const spare = emptyVibes();
+    for (const p of candidates) {
+      const km = p._km ?? 0;
+      if (enriched) {
+        const e = enriched.get(p.id);
+        if (e) {
+          const spot = { ...toSpot(p, e.vibe, e), _score: rank(e.score, e.vibe, km) };
+          (e.keep ? kept : spare)[e.vibe].push(spot);
+        } else {
+          // model omitted it → usable as last-resort backfill, deterministic vibe
+          const v = fallbackVibe(p, p._hint);
+          spare[v].push({ ...toSpot(p, v, null), _score: rank(popularity(p), v, km) });
+        }
+      } else {
+        const v = fallbackVibe(p, p._hint);
+        kept[v].push({ ...toSpot(p, v, null), _score: rank(popularity(p), v, km) });
+      }
+    }
+    // rank, backfill toward MIN_PER_VIBE, cap, strip internal fields
+    const clean = emptyVibes();
+    for (const v of VIBES) {
+      const byScore = (a: any, b: any) => (b._score ?? 0) - (a._score ?? 0);
+      const list = kept[v].sort(byScore);
+      if (list.length < MIN_PER_VIBE) list.push(...spare[v].sort(byScore).slice(0, MIN_PER_VIBE - list.length));
+      clean[v] = list.slice(0, PER_VIBE_CAP).map(({ _score, _vibe, ...s }: any) => s);
+    }
+    return clean;
+  };
+  const saveCache = (vibes: Record<Vibe, any[]>) =>
+    admin.from('nearby_cache').upsert({ key: cacheKey, result: { vibes }, fetched_at: new Date().toISOString() });
+
   // 2. LLM enrichment (skipped past the global bill brake → deterministic path).
   // Ground the most prominent candidates on real review snippets first.
   const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY');
   const allowLLM = anthropicKey && (await underGlobalDailyCap(admin, 'nearby-llm', GLOBAL_CAP));
   const toEnrich = candidates.slice(0, 60);
-  if (allowLLM) {
+  const enrichNow = async () => {
     const top = [...toEnrich].sort((a, b) => popularity(b) - popularity(a)).slice(0, DETAIL_TOP);
     await Promise.all(top.map(async (p) => { p._reviews = await fetchReviews(p.id, key); }));
     mark('reviews');
-  }
-  const enriched = allowLLM ? await enrichAll(toEnrich, anthropicKey!) : null;
-  if (allowLLM) mark('llm');
+    const enriched = await enrichAll(toEnrich, anthropicKey!);
+    mark('llm');
+    return enriched;
+  };
 
-  // 3. assemble vibes. Keep the model's picks first; hold its rejects as backfill
-  // so a vibe is never near-empty when real candidates exist.
-  // final rank = model score (or popularity) × distance decay × time-of-day boost
-  const rank = (base: number, vibe: Vibe, km: number) => base * distanceWeight(km) * daypartBoost(vibe, localHour);
-  const kept = emptyVibes();
-  const spare = emptyVibes();
-  for (const p of candidates) {
-    const km = p._km ?? 0;
-    if (enriched) {
-      const e = enriched.get(p.id);
-      if (e) {
-        const spot = { ...toSpot(p, e.vibe, e), _score: rank(e.score, e.vibe, km) };
-        (e.keep ? kept : spare)[e.vibe].push(spot);
-      } else {
-        // model omitted it → usable as last-resort backfill, deterministic vibe
-        const v = fallbackVibe(p, p._hint);
-        spare[v].push({ ...toSpot(p, v, null), _score: rank(popularity(p), v, km) });
-      }
-    } else {
-      const v = fallbackVibe(p, p._hint);
-      kept[v].push({ ...toSpot(p, v, null), _score: rank(popularity(p), v, km) });
-    }
+  if (!allowLLM) {
+    const vibes = assemble(null);
+    saveCache(vibes).then(() => {});
+    return withTiming(json({ source: 'places', center: [lat, lng], vibes }));
   }
 
-  // rank, backfill toward MIN_PER_VIBE, cap, strip internal fields
-  const clean = emptyVibes();
-  for (const v of VIBES) {
-    const byScore = (a: any, b: any) => (b._score ?? 0) - (a._score ?? 0);
-    const list = kept[v].sort(byScore);
-    if (list.length < MIN_PER_VIBE) list.push(...spare[v].sort(byScore).slice(0, MIN_PER_VIBE - list.length));
-    clean[v] = list.slice(0, PER_VIBE_CAP).map(({ _score, _vibe, ...s }: any) => s);
+  // two-phase: answer with Google's results now (deterministic vibes), finish the
+  // reviews + LLM pass after the response and cache it — the app polls for it.
+  // The un-enriched list is never cached, so later loads always get the full one.
+  if (phase === 'fast' && typeof EdgeRuntime !== 'undefined') {
+    EdgeRuntime.waitUntil(
+      enrichNow()
+        .then((enriched) => saveCache(assemble(enriched)))
+        .catch((e) => console.error('[nearby] background enrich failed:', e)),
+    );
+    return withTiming(json({ source: 'places', enriching: true, center: [lat, lng], vibes: assemble(null) }));
   }
 
-  admin.from('nearby_cache').upsert({ key: cacheKey, result: { vibes: clean }, fetched_at: new Date().toISOString() }).then(() => {});
-  return withTiming(json({ source: 'places', center: [lat, lng], vibes: clean }));
+  const vibes = assemble(await enrichNow());
+  saveCache(vibes).then(() => {});
+  return withTiming(json({ source: 'places', center: [lat, lng], vibes }));
 });
 
 function emptyVibes(): Record<Vibe, any[]> {

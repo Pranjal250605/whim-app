@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import * as Location from 'expo-location';
-import { fetchNearby, spotMeta, richMeta, type NearbyResult, type NearbySpot } from '@/lib/nearby';
+import { fetchNearby, pollNearby, spotMeta, richMeta, type NearbyResult, type NearbySpot } from '@/lib/nearby';
 import { fetchNearbyCommunitySpots, reportCommunitySpot } from '@/lib/db';
 import { placePhotoSource } from '@/lib/placePhoto';
 import { supabase } from '@/lib/supabase';
@@ -82,7 +82,15 @@ export default function Nearby() {
     toast('Saved ✦ — find it in Profile › Your spots');
   };
 
+  // bumps on every load/unmount so a stale enrichment poll never overwrites newer state
+  const loadGen = useRef(0);
+  const hidden = useRef<Set<string>>(new Set()); // reported this session — keep out of the swapped-in list
+  const savedRef = useRef(saved);
+  savedRef.current = saved;
+  useEffect(() => () => void loadGen.current++, []);
+
   const load = useCallback(async () => {
+    const gen = ++loadGen.current;
     setState({ kind: 'loading' });
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
@@ -90,40 +98,68 @@ export default function Nearby() {
       return;
     }
     try {
-      const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      // a fix from the last couple of minutes is plenty for "around you" and
+      // skips the GPS wait; otherwise ask for a fresh one
+      const pos =
+        (await Location.getLastKnownPositionAsync({ maxAge: 120_000, requiredAccuracy: 500 })) ??
+        (await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }));
       const { latitude: lat, longitude: lng } = pos.coords;
       const [data, community] = await Promise.all([
         fetchNearby(lat, lng),
         fetchNearbyCommunitySpots(lat, lng).catch(() => []),
       ]);
+      if (gen !== loadGen.current) return;
       if (!data) {
         setState({ kind: 'error' });
         return;
       }
+
       // merge community "local picks". If a spot is already in the live results,
       // badge it as LOCAL instead of dropping it; otherwise add it to the top.
-      const mine = new Set<string>();
-      for (const c of community) {
-        const bucket = data.vibes[c.vibe as VibeId];
-        if (!bucket) continue;
-        if (c.submittedBy && c.submittedBy === viewerId) mine.add(c.id);
-        const existing = bucket.find((s) => s.id === c.id);
-        if (existing) {
-          existing.community = true;
-          if (c.blurb && !existing.blurb) existing.blurb = c.blurb;
-          continue;
+      const withCommunity = (d: NearbyResult): NearbyResult => {
+        const mine = new Set<string>();
+        for (const c of community) {
+          const bucket = d.vibes[c.vibe as VibeId];
+          if (!bucket) continue;
+          if (c.submittedBy && c.submittedBy === viewerId) mine.add(c.id);
+          const existing = bucket.find((s) => s.id === c.id);
+          if (existing) {
+            existing.community = true;
+            if (c.blurb && !existing.blurb) existing.blurb = c.blurb;
+            continue;
+          }
+          bucket.unshift({
+            id: c.id, title: c.title, kind: c.kind ?? '', area: c.area ?? '',
+            lat: c.lat, lng: c.lng, rating: null, ratingCount: 0, photoName: null,
+            km: distanceKm({ lat, lng }, { lat: c.lat, lng: c.lng }),
+            community: true, blurb: c.blurb,
+          });
         }
-        bucket.unshift({
-          id: c.id, title: c.title, kind: c.kind ?? '', area: c.area ?? '',
-          lat: c.lat, lng: c.lng, rating: null, ratingCount: 0, photoName: null,
-          km: distanceKm({ lat, lng }, { lat: c.lat, lng: c.lng }),
-          community: true, blurb: c.blurb,
-        });
+        if (mine.size) setSaved((prev) => new Set([...prev, ...mine]));
+        for (const v of Object.keys(d.vibes) as VibeId[]) d.vibes[v] = d.vibes[v].filter((s) => !hidden.current.has(s.id));
+        return d;
+      };
+      setState({ kind: 'ready', data: withCommunity(data) });
+
+      // phase 2: blurbs + tips are being written server-side — swap them in when
+      // ready (~10 s). If it never lands, the raw list simply stays.
+      if (!data.enriching) return;
+      for (let i = 0; i < 12; i++) {
+        await new Promise((r) => setTimeout(r, 2500));
+        if (gen !== loadGen.current) return;
+        const full = await pollNearby(lat, lng);
+        if (gen !== loadGen.current) return;
+        if (full === 'pending') continue;
+        if (!full) break;
+        // keep LOCAL badges on spots saved while the list was loading
+        for (const v of Object.keys(full.vibes) as VibeId[])
+          full.vibes[v] = full.vibes[v].map((s) => (savedRef.current.has(s.id) ? { ...s, community: true } : s));
+        setState({ kind: 'ready', data: withCommunity(full) });
+        return;
       }
-      if (mine.size) setSaved((prev) => new Set([...prev, ...mine]));
-      setState({ kind: 'ready', data });
+      setState((prev) => (prev.kind === 'ready' ? { kind: 'ready', data: { ...prev.data, enriching: false } } : prev));
     } catch {
-      setState({ kind: 'error' });
+      if (gen === loadGen.current) setState({ kind: 'error' });
     }
   }, []);
 
@@ -135,6 +171,7 @@ export default function Nearby() {
         style: 'destructive',
         onPress: () => {
           reportCommunitySpot(s.id, 'reported from nearby').catch(() => {});
+          hidden.current.add(s.id);
           setState((prev) =>
             prev.kind === 'ready'
               ? {
@@ -186,6 +223,12 @@ export default function Nearby() {
         <View className="flex-row items-center gap-2">
           <View className="h-1.5 w-1.5 rounded-full bg-accent" />
           <Text className="font-mono text-[11px] tracking-[0.14em] text-accent">{coordLabel}</Text>
+          {state.kind === 'ready' && state.data.enriching && (
+            <View className="ml-1 flex-row items-center gap-1.5">
+              <ActivityIndicator size="small" color={COLORS.muted} style={{ transform: [{ scale: 0.7 }] }} />
+              <Text className="font-mono text-[11px] tracking-[0.14em] text-muted">ADDING LOCAL TIPS</Text>
+            </View>
+          )}
         </View>
         <Text className="mt-1 font-serif text-[32px] leading-[1.02] text-ink">Around you</Text>
         <Text className="mt-1 text-[13.5px] text-muted">Real spots near you right now — pick a vibe.</Text>
