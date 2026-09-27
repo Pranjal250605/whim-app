@@ -8,17 +8,17 @@ items get resolved — this file is a working log, not a spec.
 
 ## TL;DR
 
-- Every screen loads, no crashes, no app-log errors. One benign warning:
-  "Unsupported dashed / dotted border style" (leg connector,
-  `itinerary.tsx` `border-l-2 border-dashed` — iOS can't dash a single side).
+- Every screen loads, no crashes, no app-log errors or warnings.
 - **Transit "est." in Japan = Google coverage gap, not a bug** (confirmed §3.1).
   Japan legs now skip Google and show the estimate instantly.
 - **Committed + pushed 2026-09-27:** Open in Maps fix, smart-route best start +
   2-opt, Japan transit skip, nearby-places hardening (`e88e6be..66760a6`).
 - **`nearby-places` hardening deployed** 2026-09-27 and verified live (fresh
   Places lookup → 200 with results; no-JWT → 401).
-- **New finding:** an uncached Near Me lookup took **~42 s** end-to-end
-  (cache hit: ~1.4 s). Likely the LLM enrichment step — investigate (§3.5).
+- **Near Me cold load ~42 s → ~12–14 s server-side** (parallel LLM
+  enrichment, deployed). One app-side stall lead open (§3.5).
+- **Route order fixed:** hours read as constraints + best start + 2-opt
+  (Tokyo example 86 → 49 km). Dashed leg connector restored.
 - Near Me "showed nothing" earlier was **not a bug** — simulator location was
   unset/odd. Works fine with a real location (verified in Delhi).
 
@@ -26,7 +26,6 @@ items get resolved — this file is a working log, not a spec.
 
 ## 1. Pending actions
 
-- **Decide on the opening-hours interpretation** (§3.2).
 - `AGENTS.md` — untracked (pre-existing), left alone.
 
 JS changes need only a Metro reload — no native rebuild.
@@ -81,41 +80,32 @@ Notes: `transit-route` returns 200 + `segments: []` for "no route" but **502
 when Google errors** — the Supabase Invocations view distinguishes the two.
 No `departureTime` is sent, so late-night plans anywhere may get no transit.
 
-### 3.5 Near Me cold load is slow (~42 s) — OPEN
-Measured 2026-09-27 via the app session (Harajuku, radius 3 km, uncached):
-41.6 s to a 200 with 42 spots. Cache hit at Shibuya: 1.4 s. The Google calls
-run in parallel, so the prime suspect is the LLM enrichment (`enrich` step).
-Options: stream/return Places results first and enrich in the background,
-a faster model, or a tighter timeout that falls back to un-enriched results.
-Also: on the simulator the screen can stick on "LOCATING…" after
-`simctl location set` — a simulator GPS quirk, not the function.
+### 3.5 Near Me cold load — IMPROVED, one lead open
+Before: ~42 s cold (one Haiku call writing ~60 rows of JSON).
+Now (`2ef4d43`, deployed): parallel enrichment in vibe-grouped chunks of 12,
+15 s per-chunk timeout. Server-Timing on a cold Tokyo load: auth ~0.5 s,
+cache ~0.4–0.9 s, cap ~0.5 s, places ~1.2 s, reviews ~0.9 s, **llm ~10 s**
+→ server total ~12–14 s. Cache hit: ~1.4 s server, ~1–2 s in the app.
+Platform cold start is NOT the problem (idle functions boot in ~0.35 s).
 
-### 3.2 Smart-route stop order zig-zags (design, not a bug)
-`orderSmart()` in `lib/route.ts` buckets stops by time-of-day (regex over the
-freeform `hours` text), then nearest-neighbour **starting from the first saved
-spot**. Observed Tokyo plan: centre → east → far west (Showa Park, Tachikawa)
-→ back. Best start + 2-opt shipped (`c2704dc`). **Bigger remaining cause:**
-`timeSlot()` reads "Open morning" (= *opens* in the morning) as morning-only, so
-7/16 Tokyo nature spots incl. far-west Showa Park are forced into one morning
-block. Removing blocks entirely takes the example 69→49 km. Fixing the hours
-interpretation (only sunrise/early = morning) is a product call — pending Pranjal.
+Open lead: some first requests stalled 10–35 s *inside the app* before the
+request left, while the login token was near/at refresh (all concurrent
+invokes finished at the same instant). With a valid token, a post-idle call
+took 2.0 s. Re-test around a token refresh (tokens last 1 h) before chasing it.
 
-### 3.3 Open in Maps — root cause (fixed, see §1)
-Google Maps cannot route **transit through waypoints**: a multi-stop
-`travelmode=transit` URL opened a blank route and the mobile web also dropped
-stops. Reproduced on the simulator; the new URL (no travelmode for multi-stop)
-showed all 6 stops. Mobile browsers officially support ≤3 waypoints (Google
-docs) but 4 rendered fine in testing. Trade-off: multi-stop now defaults to
-driving; a per-leg "Directions" (transit to next stop) would restore transit.
+Next speed step (not built): two-phase load — return Places results at ~3 s,
+then fill blurbs/tips when the LLM finishes. Would make first paint ~4x faster.
 
-### 3.4 Near Me — earlier "nothing" (resolved, not a bug)
-Caused by simulator location. Set one with
-`xcrun simctl location booted set <lat>,<lng>` (e.g. Shibuya `35.6595,139.7005`).
-Note: before the §1 hardening, ANY Google failure in `nearby-places` looked
-identical to "Nothing in this vibe nearby" — deploy the hardening to make
-future failures visible.
+Measuring tip: the app's debugger (Metro `/json/list` → CDP) replays OLD
+console warnings on connect — compare timestamps before trusting counts.
 
----
+### 3.2 Smart-route stop order — RESOLVED
+Best start + 2-opt (`c2704dc`) and hours-as-constraints (`167b578`): only
+"best early" spots are Morning (6), opening >= 4 PM / after-dark spots are
+Evening (68), the rest (incl. 258 "open(s) morning") Daytime. Tokyo example
+86 → 49 km; 5,000 random plans −39%. Leg connector is now a real dashed line
+(`DashedRail`, `f90b254`) — the "Unsupported dashed / dotted border" warning
+is gone.
 
 ## 4. Code-quality items (lint warnings)
 - `app/friends.tsx:85,89`, `app/u/[id].tsx:52` — `no-unused-expressions`; can hide
