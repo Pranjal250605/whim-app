@@ -11,6 +11,7 @@ import RouteMap from '@/components/RouteMap';
 import ShareCard from '@/components/ShareCard';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
+import DashedRail from '@/components/DashedRail';
 import { toast } from '@/lib/toast';
 
 // The Rooms payoff — the group's matches sequenced into one shared day:
@@ -47,7 +48,8 @@ export default function RoomPlan() {
     else if (leg) label = legText(leg);
     else label = `🚇 ~${estimateTransitMins(stops[idx], stops[idx + 1])} min · est.`;
     return (
-      <View className="my-1 ml-3.5 flex-row items-center border-l-2 border-dashed border-[#D7D1C6] py-1 pl-4">
+      <View className="my-1 ml-3.5 flex-row items-center py-1 pl-4">
+        <DashedRail />
         <View className="rounded-full bg-[#EFEBE3] px-3 py-1.5">
           <Text className="text-[11.5px] font-medium text-muted">{label}</Text>
         </View>

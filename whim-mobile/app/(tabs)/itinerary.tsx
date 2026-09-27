@@ -15,6 +15,7 @@ import { useWhimStore, scopedBucket } from '@/store/useWhimStore';
 import { estimateTransitMins, googleMapsDirectionsUrl, orderByProximity } from '@/lib/route';
 import { getTransit, legText, type TransitResult } from '@/lib/transit';
 import RouteMap from '@/components/RouteMap';
+import DashedRail from '@/components/DashedRail';
 
 // Phase 4 — Itinerary. Orders the saved anchors, maps them, lists them as a
 // timeline, and shows the transit connection (real line names via Google, or a
@@ -56,7 +57,8 @@ export default function ItineraryScreen() {
     else if (leg) label = legText(leg);
     else label = `🚇 ~${estimateTransitMins(stops[idx], stops[idx + 1])} min · est.`;
     return (
-      <View className="my-1 ml-3.5 flex-row items-center border-l-2 border-dashed border-[#D7D1C6] py-1 pl-4">
+      <View className="my-1 ml-3.5 flex-row items-center py-1 pl-4">
+        <DashedRail />
         <View className="rounded-full bg-[#EFEBE3] px-3 py-1.5">
           <Text className="text-[11.5px] font-medium text-muted">{label}</Text>
         </View>

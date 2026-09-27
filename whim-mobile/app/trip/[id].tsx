@@ -12,6 +12,7 @@ import { toast } from '@/lib/toast';
 import { useQueryClient } from '@tanstack/react-query';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
+import DashedRail from '@/components/DashedRail';
 
 type State =
   | { kind: 'loading' }
@@ -224,7 +225,11 @@ export default function Trip() {
             )}
             {g.stops.map((s, idx) => (
               <View key={s.id}>
-                {idx > 0 && <View className="my-1 ml-3.5 h-5 border-l-2 border-dashed border-[#D7D1C6]" />}
+                {idx > 0 && (
+                  <View className="my-1 ml-3.5 h-5">
+                    <DashedRail />
+                  </View>
+                )}
                 <Pressable
                   onPress={() => openStop(s)}
                   style={press(SHADOWS.soft)}
