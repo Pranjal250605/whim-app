@@ -157,8 +157,10 @@ self-consistent with the Field Notes tokens.
   through the `design-taste-frontend` skill with Field Notes as the
   constraint. He is the taste filter — one accent (cobalt), no AI-default
   palettes, honest decks over padded ones.
-- Commit at each milestone with detailed messages; push when he says or per
-  established flow. He tests on the simulator — restart it for him when asked
+- Commit at each milestone with detailed messages. Since 2026-09-27 the repo
+  is shared by a team of 3 (site team works in `web/`): commit on a branch
+  named after the Linear issue and open a PR into `main`; never push to `main`
+  directly. Merge only with his go. He tests on the simulator — restart it for him when asked
   (`simctl shutdown/boot` + launch `com.whim.app`, check Metro on :8081).
 - Explain like a senior dev: trade-offs, why, checklists, next actions.
 
