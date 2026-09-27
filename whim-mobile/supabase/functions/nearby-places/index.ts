@@ -29,6 +29,8 @@ const MIN_RATINGS = 5; // low bar — great small local spots have few reviews
 const MIN_PER_VIBE = 5; // backfill target so a vibe is never near-empty
 const PER_VIBE_CAP = 12; // spots returned per vibe
 const DETAIL_TOP = 12; // fetch real reviews (Place Details, billed) for the top-N to ground blurbs
+const ENRICH_CHUNK = 12; // places per parallel LLM call
+const ENRICH_TIMEOUT_MS = 15_000; // per chunk; a slow chunk falls back instead of stalling the screen
 
 type Vibe = 'classics' | 'matcha' | 'nature' | 'nightlife';
 const VIBES: Vibe[] = ['classics', 'matcha', 'nature', 'nightlife'];
@@ -244,7 +246,8 @@ async function enrich(candidates: any[], apiKey: string): Promise<Map<string, En
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 6000, messages: [{ role: 'user', content: prompt }] }),
+      body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 120 * candidates.length + 200, messages: [{ role: 'user', content: prompt }] }),
+      signal: AbortSignal.timeout(ENRICH_TIMEOUT_MS),
     });
     if (!res.ok) return null;
     const data = await res.json();
@@ -273,9 +276,36 @@ async function enrich(candidates: any[], apiKey: string): Promise<Map<string, En
   }
 }
 
+// One big call made the model write ~60 rows of JSON back-to-back (~40 s cold).
+// Instead: group by the vibe each place was found under (so near-duplicates
+// still share a chunk and get deduped), split big groups, and enrich the chunks
+// in parallel — latency ≈ the slowest chunk. A chunk that fails or times out
+// just leaves its places un-enriched (deterministic backfill), not the request.
+async function enrichAll(candidates: any[], apiKey: string): Promise<Map<string, EnrichRow> | null> {
+  const groups = new Map<string, any[]>();
+  for (const p of candidates) groups.set(p._hint, [...(groups.get(p._hint) ?? []), p]);
+  const chunks: any[][] = [];
+  for (const g of groups.values()) for (let i = 0; i < g.length; i += ENRICH_CHUNK) chunks.push(g.slice(i, i + ENRICH_CHUNK));
+  const results = await Promise.all(chunks.map((c) => enrich(c, apiKey)));
+  if (results.every((r) => r === null)) return null;
+  const out = new Map<string, EnrichRow>();
+  for (const r of results) if (r) for (const [id, row] of r) out.set(id, row);
+  return out;
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
   if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+
+  // per-stage timings → Server-Timing header, so slow loads are diagnosable
+  const timings: string[] = [];
+  let tMark = Date.now();
+  const mark = (name: string) => { timings.push(`${name};dur=${Date.now() - tMark}`); tMark = Date.now(); };
+  const withTiming = (res: Response) => {
+    res.headers.set('Server-Timing', timings.join(', '));
+    res.headers.set('Access-Control-Expose-Headers', 'Server-Timing');
+    return res;
+  };
 
   const authHeader = req.headers.get('Authorization');
   if (!authHeader) return json({ error: 'Missing Authorization header' }, 401);
@@ -284,6 +314,7 @@ Deno.serve(async (req) => {
   });
   const { data: { user } } = await userClient.auth.getUser();
   if (!user) return json({ error: 'Invalid session' }, 401);
+  mark('auth');
 
   let lat = NaN, lng = NaN, radius = 2000, reqHour: unknown;
   try {
@@ -304,16 +335,19 @@ Deno.serve(async (req) => {
 
   const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
   await maybePurgeCaches(admin);
+  mark('purge');
 
   // cache hit → serve without a Google/LLM call. ~1 km grid, fresh for an hour.
   const cacheKey = `nb:${lat.toFixed(2)}:${lng.toFixed(2)}:${radius}`;
   const { data: cached } = await admin.from('nearby_cache').select('result, fetched_at').eq('key', cacheKey).maybeSingle();
+  mark('cache');
   if (cached && Date.now() - new Date(cached.fetched_at).getTime() < ONE_HOUR_MS) {
-    return json({ source: 'cache', center: [lat, lng], vibes: (cached.result as any).vibes });
+    return withTiming(json({ source: 'cache', center: [lat, lng], vibes: (cached.result as any).vibes }));
   }
 
   if (!(await underDailyCap(admin, user.id, 'nearby-places', DAILY_CAP)))
     return json({ error: 'Daily nearby limit reached — try again tomorrow.', vibes: {} }, 429);
+  mark('cap');
 
   const key = Deno.env.get('GOOGLE_PLACES_API_KEY');
   if (!key) return json({ error: 'Server missing GOOGLE_PLACES_API_KEY' }, 500);
@@ -324,6 +358,7 @@ Deno.serve(async (req) => {
     Promise.all(VIBES.map((v) => searchVibe(v, lat, lng, radius, key))),
     searchNearbyAll(lat, lng, radius, key),
   ]);
+  mark('places');
   // every Google call failed → a key/billing/quota problem, not an empty area.
   // Surface it as an error (the app shows Retry) instead of "nothing nearby".
   if (nearbyResults === null && textBatches.every((b) => b === null))
@@ -351,8 +386,10 @@ Deno.serve(async (req) => {
   if (allowLLM) {
     const top = [...toEnrich].sort((a, b) => popularity(b) - popularity(a)).slice(0, DETAIL_TOP);
     await Promise.all(top.map(async (p) => { p._reviews = await fetchReviews(p.id, key); }));
+    mark('reviews');
   }
-  const enriched = allowLLM ? await enrich(toEnrich, anthropicKey!) : null;
+  const enriched = allowLLM ? await enrichAll(toEnrich, anthropicKey!) : null;
+  if (allowLLM) mark('llm');
 
   // 3. assemble vibes. Keep the model's picks first; hold its rejects as backfill
   // so a vibe is never near-empty when real candidates exist.
@@ -388,7 +425,7 @@ Deno.serve(async (req) => {
   }
 
   admin.from('nearby_cache').upsert({ key: cacheKey, result: { vibes: clean }, fetched_at: new Date().toISOString() }).then(() => {});
-  return json({ source: 'places', center: [lat, lng], vibes: clean });
+  return withTiming(json({ source: 'places', center: [lat, lng], vibes: clean }));
 });
 
 function emptyVibes(): Record<Vibe, any[]> {
