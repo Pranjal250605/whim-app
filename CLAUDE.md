@@ -7,6 +7,8 @@ route on a map and share. Think "Tinder for places to go." Target: the App Store
 > **Continuing this project? Read `HANDOFF.md` next** — non-negotiable security
 > rules (with the incidents behind them), the App Store compliance map, pipeline
 > runbooks, and how the user likes to work. `ROADMAP.md` has the phased plan.
+> **`STATUS.md`** is the latest audit (what works / what's broken / uncommitted
+> changes / next steps) — read it before picking up open issues.
 
 > **Repo layout:** this git repo (`whim-app`) is a small monorepo. The Expo app
 > lives in **`whim-mobile/`** — that's where you run every command. `.agents/`
