@@ -24,10 +24,18 @@ export function distanceKm(a: { lat: number; lng: number }, b: { lat: number; ln
 
 // Classify a spot's freeform opening-hours into a part of day:
 // 0 = morning, 1 = daytime / anytime, 2 = evening.
+// Only a real constraint moves a stop out of daytime: "opens (in the) morning"
+// just says when the doors open, so it stays daytime — otherwise far-flung
+// gardens all pile into one morning block and the day zig-zags. Morning = best
+// early; evening = opens at 4 PM or later, or is explicitly an after-dark spot.
 function timeSlot(hours?: string): 0 | 1 | 2 {
   const h = (hours ?? '').toLowerCase();
-  if (/(sunrise|dawn|early morning|before noon|6:00 am|7:00 am|8:00 am|opens? morning)/.test(h)) return 0;
-  if (/(evening|after dark|night|dusk|dinner)/.test(h)) return 2;
+  if (/(best (at dawn|at sunrise|before noon|in the morning)|^start (early|by noon)|^mornings\b)/.test(h)) return 0;
+  // opening clock time: "Daily 6:00 PM - 2:00 AM", "From 8 PM", "Tue-Sat 6:00 PM…", "sets typically 8:30 PM"
+  const open = h.match(/(?:from|daily|sets(?: typically)?|mon|tue|wed|thu|fri|sat|sun)[,\s]+(\d{1,2})(?::\d\d)?\s*(am|pm)/);
+  if (open) return (Number(open[1]) % 12) + (open[2] === 'pm' ? 12 : 0) >= 16 ? 2 : 1;
+  if (/(till|until|to) (dusk|evening|sunset)/.test(h)) return 1; // "dawn to dusk", "open till evening"
+  if (/(^evenings?\b|after dark|at dusk|from dusk|comes alive|sunset|at night|all night|till dawn|dinner|afternoon-evening)/.test(h)) return 2;
   return 1;
 }
 const SLOT_LABEL = ['Morning', 'Daytime', 'Evening'] as const;
