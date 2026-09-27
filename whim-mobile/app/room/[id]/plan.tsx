@@ -11,6 +11,7 @@ import RouteMap from '@/components/RouteMap';
 import ShareCard from '@/components/ShareCard';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
+import { toast } from '@/lib/toast';
 
 // The Rooms payoff — the group's matches sequenced into one shared day:
 // hours-smart order, transit legs, map, Open in Maps, and a shareable card.
@@ -56,7 +57,7 @@ export default function RoomPlan() {
 
   const openInMaps = () => {
     const url = googleMapsDirectionsUrl(stops);
-    if (url) Linking.openURL(url).catch(() => {});
+    if (url) Linking.openURL(url).catch(() => toast('Couldn’t open Maps.'));
   };
 
   const shareRef = useRef<View>(null);

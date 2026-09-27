@@ -123,7 +123,8 @@ export function googleMapsDirectionsUrl(stops: RouteStop[]): string | null {
   const waypoints = stops.slice(1, -1).map(pt).join('|');
   return (
     `https://www.google.com/maps/dir/?api=1&origin=${pt(stops[0])}&destination=${pt(stops[stops.length - 1])}` +
-    (waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : '') +
-    `&travelmode=transit`
+    // Google Maps can't route transit through waypoints — a multi-stop transit
+    // link opens a blank route. Only force transit for a single A→B leg.
+    (waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : '&travelmode=transit')
   );
 }

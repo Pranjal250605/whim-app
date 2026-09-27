@@ -66,7 +66,7 @@ export default function ItineraryScreen() {
 
   const openInMaps = () => {
     const url = googleMapsDirectionsUrl(stops);
-    if (url) Linking.openURL(url).catch(() => {});
+    if (url) Linking.openURL(url).catch(() => toast('Couldn’t open Maps.'));
   };
 
   // ── publish this trip to the community feed ──────────────────────────────
