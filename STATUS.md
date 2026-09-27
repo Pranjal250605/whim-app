@@ -15,7 +15,10 @@ items get resolved — this file is a working log, not a spec.
   Japan legs now skip Google and show the estimate instantly.
 - **Committed + pushed 2026-09-27:** Open in Maps fix, smart-route best start +
   2-opt, Japan transit skip, nearby-places hardening (`e88e6be..66760a6`).
-- **Still to deploy:** `nearby-places` (needs `supabase login` first).
+- **`nearby-places` hardening deployed** 2026-09-27 and verified live (fresh
+  Places lookup → 200 with results; no-JWT → 401).
+- **New finding:** an uncached Near Me lookup took **~42 s** end-to-end
+  (cache hit: ~1.4 s). Likely the LLM enrichment step — investigate (§3.5).
 - Near Me "showed nothing" earlier was **not a bug** — simulator location was
   unset/odd. Works fine with a real location (verified in Delhi).
 
@@ -23,10 +26,6 @@ items get resolved — this file is a working log, not a spec.
 
 ## 1. Pending actions
 
-- **Deploy `nearby-places`** (committed in `ef4d31c`, not live). The CLI is not
-  logged in — run `supabase login` once (browser flow), then:
-  `cd whim-mobile && supabase functions deploy nearby-places --project-ref gvqldgkdtitueyijptmt`
-  Not Deno-typechecked locally (no deno installed) — watch the deploy output.
 - **Decide on the opening-hours interpretation** (§3.2).
 - `AGENTS.md` — untracked (pre-existing), left alone.
 
@@ -81,6 +80,15 @@ are in Japan → instant estimate, no wasted billed calls. A real Japan provider
 Notes: `transit-route` returns 200 + `segments: []` for "no route" but **502
 when Google errors** — the Supabase Invocations view distinguishes the two.
 No `departureTime` is sent, so late-night plans anywhere may get no transit.
+
+### 3.5 Near Me cold load is slow (~42 s) — OPEN
+Measured 2026-09-27 via the app session (Harajuku, radius 3 km, uncached):
+41.6 s to a 200 with 42 spots. Cache hit at Shibuya: 1.4 s. The Google calls
+run in parallel, so the prime suspect is the LLM enrichment (`enrich` step).
+Options: stream/return Places results first and enrich in the background,
+a faster model, or a tighter timeout that falls back to un-enriched results.
+Also: on the simulator the screen can stick on "LOCATING…" after
+`simctl location set` — a simulator GPS quirk, not the function.
 
 ### 3.2 Smart-route stop order zig-zags (design, not a bug)
 `orderSmart()` in `lib/route.ts` buckets stops by time-of-day (regex over the
