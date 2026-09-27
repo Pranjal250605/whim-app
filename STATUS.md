@@ -8,31 +8,27 @@ items get resolved — this file is a working log, not a spec.
 
 ## TL;DR
 
-- Every screen loads, no crashes, no app-log errors.
-- **Broken / degraded:** transit directions (Google Routes) — every leg shows
-  "est." fallback. Cause not yet confirmed (see §3.1).
-- **Fixed this session (uncommitted):** "Open in Maps" on the day plan.
-- **Hardened this session (uncommitted, NOT deployed):** `nearby-places` now
-  logs Google errors and returns 502 instead of silently empty results.
+- Every screen loads, no crashes, no app-log errors. One benign warning:
+  "Unsupported dashed / dotted border style" (leg connector,
+  `itinerary.tsx` `border-l-2 border-dashed` — iOS can't dash a single side).
+- **Transit "est." in Japan = Google coverage gap, not a bug** (confirmed §3.1).
+  Japan legs now skip Google and show the estimate instantly.
+- **Committed + pushed 2026-09-27:** Open in Maps fix, smart-route best start +
+  2-opt, Japan transit skip, nearby-places hardening (`e88e6be..66760a6`).
+- **Still to deploy:** `nearby-places` (needs `supabase login` first).
 - Near Me "showed nothing" earlier was **not a bug** — simulator location was
   unset/odd. Works fine with a real location (verified in Delhi).
 
 ---
 
-## 1. Uncommitted changes in the working tree
+## 1. Pending actions
 
-| File | Change | State |
-|---|---|---|
-| `whim-mobile/lib/route.ts` | `googleMapsDirectionsUrl`: only add `travelmode=transit` for a single A→B leg; multi-stop routes omit travelmode | Done, typechecks. Needs commit |
-| `whim-mobile/app/(tabs)/itinerary.tsx` | Open in Maps `.catch` now toasts "Couldn't open Maps." (was silent) | Done |
-| `whim-mobile/app/room/[id]/plan.tsx` | Same toast + added `toast` import | Done |
-| `whim-mobile/supabase/functions/nearby-places/index.ts` | `searchVibe` / `searchNearbyAll` return `null` on Google failure + `console.error` status/body; handler returns 502 `Places lookup failed` if **all** Google calls fail | Written, **not deployed**, not Deno-typechecked (no deno installed). Optional — Google was healthy, so this is hardening, not a fix |
-| `whim-mobile/lib/route.ts` (2) | `orderSmart`: tries every first-block stop as the day's start, nearest-neighbour + 2-opt per time block, keeps the shortest — the old walk stays a candidate, so never longer. 5,000 random Tokyo plans: −15% avg km; Tokyo example 86→69 km; ≤0.1 ms/plan | Done, tsc clean. Needs simulator check + commit |
-| `whim-mobile/lib/transit.ts` | `getTransit` skips the Edge Function when both stops are in Japan (Google Routes has no Japan transit; empty answers aren't cached, so each view re-billed Google) → straight to the "est." fallback | Done. **Ship only once §3.1 is confirmed** (dashboard shows 200s, not 502s) |
-| `AGENTS.md` | Untracked (pre-existing) | Left alone |
-
-Deploy command (user runs it, token must not go into a command string):
-`cd whim-mobile && supabase functions deploy nearby-places --project-ref gvqldgkdtitueyijptmt`
+- **Deploy `nearby-places`** (committed in `ef4d31c`, not live). The CLI is not
+  logged in — run `supabase login` once (browser flow), then:
+  `cd whim-mobile && supabase functions deploy nearby-places --project-ref gvqldgkdtitueyijptmt`
+  Not Deno-typechecked locally (no deno installed) — watch the deploy output.
+- **Decide on the opening-hours interpretation** (§3.2).
+- `AGENTS.md` — untracked (pre-existing), left alone.
 
 JS changes need only a Metro reload — no native rebuild.
 
@@ -65,34 +61,32 @@ Friends, Your spots, Add spots, Build trip, Rooms hub, Admin analytics
 
 ## 3. Open issues
 
-### 3.1 Transit directions not returning (Google Routes) — UNRESOLVED
+### 3.1 Transit "est." legs (Google Routes) — RESOLVED: Japan coverage gap
 Symptom: Route screen legs show `~16 min · est.` → `transit-route` returned no
 segments, app fell back to `estimateTransitMins`.
-Two hypotheses:
-1. **Google Routes API has no transit coverage for Japan** (believed, not
-   verified). Would explain HANDOFF §5's "sometimes empty for Tokyo". If so:
-   coverage gap, not a bug; fix = different transit provider for Japan, or
-   label as estimate by design.
-2. **`GOOGLE_MAPS_API_KEY` broken** (restricted/billing/quota).
 
-**Next step:** Google Cloud console → Google Maps Platform → Metrics → switch
-dropdown to **Routes API**. 2xx only → hypothesis 1. 4xx → key problem.
-Also useful: test a day plan in a non-Japan city (e.g. Paris/London) — if
-transit appears there, hypothesis 1 is confirmed.
+Evidence (2026-09-27):
+- `transit_cache` (read-only query): **0 Japan rows ever**, despite heavy Tokyo
+  use; 36 non-Japan rows (31 with real transit lines). Empty answers aren't
+  cached, so Japan never produced a single route.
+- Live call through the app's session (Paris, Louvre → Notre-Dame):
+  `source: "google"`, 22 min — **the key works**.
+- External reports (Google dev forum, other projects): Google exposes no Japan
+  transit via its APIs.
 
-Note `transit-route` returns HTTP 200 with `segments: []` when Google finds no
-route, but **502 when Google itself errors** (bad key/billing/quota). So the
-Supabase dashboard (Edge Functions → transit-route → Invocations) also decides
-it: mostly 200s → hypothesis 1; 502s → hypothesis 2. External reports (Google dev
-forum, other projects) say Google has no Japan transit via its APIs. Client-side
-Japan skip written (§1). Also: no `departureTime` is sent, so late-night plans
-anywhere may get no transit.
+Fix shipped (`7d2dae0`): `getTransit` skips the Edge Function when both stops
+are in Japan → instant estimate, no wasted billed calls. A real Japan provider
+(NAVITIME/Jorudan, paid) is a post-launch option.
+
+Notes: `transit-route` returns 200 + `segments: []` for "no route" but **502
+when Google errors** — the Supabase Invocations view distinguishes the two.
+No `departureTime` is sent, so late-night plans anywhere may get no transit.
 
 ### 3.2 Smart-route stop order zig-zags (design, not a bug)
 `orderSmart()` in `lib/route.ts` buckets stops by time-of-day (regex over the
 freeform `hours` text), then nearest-neighbour **starting from the first saved
 spot**. Observed Tokyo plan: centre → east → far west (Showa Park, Tachikawa)
-→ back. Best start + 2-opt now implemented (§1). **Bigger remaining cause:**
+→ back. Best start + 2-opt shipped (`c2704dc`). **Bigger remaining cause:**
 `timeSlot()` reads "Open morning" (= *opens* in the morning) as morning-only, so
 7/16 Tokyo nature spots incl. far-west Showa Park are forced into one morning
 block. Removing blocks entirely takes the example 69→49 km. Fixing the hours
