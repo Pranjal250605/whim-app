@@ -11,5 +11,6 @@ Quick orientation:
 - `whim-mobile/` — the Expo iOS app + Supabase backend (Pranjal).
 - `web/` — the marketing site (site team). See `web/README.md`.
 - `docs/` — live auth/privacy pages on GitHub Pages. Don't edit without Pranjal.
-- Work on branches named after the Linear issue (`name/WHM-12-short-title`) and
-  open a PR into `main` — never push to `main` directly.
+- Work on the branch Linear generates for the issue ("Copy git branch name",
+  e.g. `prai2702/whi-12-short-title`) and open a PR into `main` — never push to
+  `main` directly. Linear team key: `WHI` (workspace: linear.app/bewhim).

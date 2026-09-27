@@ -34,7 +34,9 @@ The App Store link, screenshots and privacy URL come from Pranjal.
 
 ## Workflow
 
-- Work on a branch named after the Linear issue: `yourname/WHM-12-hero-section`.
-  Linear links the branch and PR to the issue automatically.
+- Work on the branch Linear generates for your issue: open the issue →
+  "Copy git branch name" (Cmd/Ctrl+Shift+.), e.g. `yourname/whi-19-landing-page-v1`.
+  Linear then links the branch and PR to the issue automatically. Site issues
+  live in the **Website** project (label `Site`) at linear.app/bewhim.
 - Open a PR into `main`. Changes under `web/` are reviewed by the site team;
   anything outside `web/` needs Pranjal's review (see `.github/CODEOWNERS`).

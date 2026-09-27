@@ -22,8 +22,9 @@ route on a map and share. Think "Tinder for places to go." Target: the App Store
 
 > **Team workflow (3 people, tracked in Linear):** Pranjal owns the app and
 > backend; two teammates own `web/`. Work on a branch named after the Linear
-> issue (`name/WHM-12-short-title`) and open a PR into `main` — never push to
-> `main` directly. `.github/CODEOWNERS` routes reviews. `AGENTS.md` only points
+> issue — use Linear's "Copy git branch name" (e.g. `prai2702/whi-12-short-title`;
+> team key `WHI`, workspace linear.app/bewhim) — and open a PR into `main`; never
+> push to `main` directly. `.github/CODEOWNERS` routes reviews. `AGENTS.md` only points
 > here, so Codex and Claude read the same rules.
 
 ---
