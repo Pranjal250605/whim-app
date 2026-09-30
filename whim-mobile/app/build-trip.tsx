@@ -71,19 +71,26 @@ export default function BuildTrip() {
     // scope it to the trip's city when one is set and not already typed.
     const c = city.trim();
     const scoped = c && !q.toLowerCase().includes(c.toLowerCase()) ? `${q} ${c}` : q;
+    // a slower, older request must not overwrite a newer one's results
+    let current = true;
     const id = setTimeout(() => {
       searchPlaces(scoped)
-        .then(setResults)
+        .then((r) => current && setResults(r))
         .catch((e) => {
+          if (!current) return;
           setResults([]);
           if (e?.message) toast(e.message);
         })
         .finally(() => {
+          if (!current) return;
           setSearching(false);
           setSearchedFor(q);
         });
     }, 320);
-    return () => clearTimeout(id);
+    return () => {
+      current = false;
+      clearTimeout(id);
+    };
   }, [query, city]);
 
   const addPlace = (p: PlaceResult) => {
