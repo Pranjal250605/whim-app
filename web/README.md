@@ -1,6 +1,6 @@
-# Whim — website (`web/`)
+# BeWhim — website (`web/`)
 
-The marketing / landing site for the Whim iOS app. Everything for the site lives
+The marketing / landing site for the BeWhim iOS app. Everything for the site lives
 in this folder — pick the framework you like (Vite, Next.js, Astro…) and scaffold
 it here, e.g. `npm create vite@latest .` from inside `web/`.
 
@@ -19,11 +19,14 @@ it here, e.g. `npm create vite@latest .` from inside `web/`.
 - **Hosting:** deploy `web/` separately (Vercel / Netlify / Cloudflare Pages —
   set the project root to `web/`). Don't publish it through the `docs/` Pages site.
 - **No secrets.** This repo is public. The site shouldn't need any keys; if it
-  ever reads Whim data, the only key allowed is the public Supabase anon key via
+  ever reads BeWhim data, the only key allowed is the public Supabase anon key via
   env vars (`VITE_…` / `NEXT_PUBLIC_…`), never committed. Service keys, Google
   and Mapbox tokens stay with Pranjal.
 
 ## Brand — "Field Notes"
+
+The product name is **BeWhim** — use it everywhere on the site. ("Whim" is only an
+internal name: repo, bundle id, `whim://` links.)
 
 Match the app so the site and App Store listing feel like one product:
 - Type: **Bricolage Grotesque** (headings) + **IBM Plex Mono** (labels, coordinates).
