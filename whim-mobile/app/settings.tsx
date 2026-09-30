@@ -30,10 +30,19 @@ function Row({
     <Pressable
       onPress={onPress}
       disabled={!onPress}
-      className="flex-row items-center justify-between border-b border-hairline px-4 py-4"
+      className="flex-row items-center justify-between gap-4 border-b border-hairline px-4 py-4"
     >
-      <Text className={`text-[15px] font-medium ${destructive ? 'text-destructive' : 'text-ink'}`}>{label}</Text>
-      {value ? <Text className="text-[14px] text-muted">{value}</Text> : onPress ? <Text className="text-muted">›</Text> : null}
+      <Text className={`shrink-0 text-[15px] font-medium ${destructive ? 'text-destructive' : 'text-ink'}`}>{label}</Text>
+      {/* value takes the leftover width and truncates in the middle, so a long
+          email at large text sizes reads "name…@gmail.com" instead of running
+          into the label and off the screen */}
+      {value ? (
+        <Text numberOfLines={1} ellipsizeMode="middle" className="flex-1 text-right text-[14px] text-muted">
+          {value}
+        </Text>
+      ) : onPress ? (
+        <Text className="text-muted">›</Text>
+      ) : null}
     </Pressable>
   );
 }

@@ -46,7 +46,9 @@ export default function GlassNav({ state, navigation }: BottomTabBarProps) {
               className="w-[58px] items-center gap-1 py-2"
             >
               <Icon name={item.icon} size={23} color={color} strokeWidth={1.8} />
-              <Text className="text-[10px] font-semibold" style={{ color }}>
+              {/* fixed size like iOS's own tab bar: labels don't follow Dynamic Type —
+                  at large sizes "Community" wrapped to two lines in the pill */}
+              <Text allowFontScaling={false} numberOfLines={1} className="text-[10px] font-semibold" style={{ color }}>
                 {item.label}
               </Text>
             </Pressable>
