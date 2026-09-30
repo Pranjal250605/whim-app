@@ -137,9 +137,27 @@ node --env-file=.env.seed scripts/mirror-photos.mjs  # ALWAYS after seed (seed r
 - Schema changes = numbered migration file in `whim-mobile/supabase/migrations/`
   (source of truth), applied via the management API `database/query` endpoint
   with a user-provided token (temp-file pattern) or SQL editor.
-- Edge Function deploys: `SUPABASE_ACCESS_TOKEN=... supabase functions deploy
-  <name> --project-ref gvqldgkdtitueyijptmt`.
+- Edge Function deploys: `supabase login` once (browser flow; the CLI keeps
+  the token in its own store), then `supabase functions deploy <name>
+  --project-ref gvqldgkdtitueyijptmt`. Never put the token inline in the
+  command (§1). Without Docker the CLI bundles server-side — that's fine.
 - Project ref: `gvqldgkdtitueyijptmt`.
+
+### Backups (free tier has none)
+- **Backup** (read-only, run before every seed batch / migration / launch):
+  `cd whim-mobile && node --env-file=.env.seed scripts/backup-spots.mjs`
+  → `~/whim-backups/spots-<timestamp>.json` + `.sha256` (outside the public
+  repo on purpose). It verifies row count vs the live table and unique ids.
+  Keep a copy somewhere off this Mac (private drive).
+- **Restore** — production write, only with Pranjal's explicit go:
+  1. `shasum -a 256 -c <file>.sha256` — refuse a file that fails.
+  2. Take a fresh backup of the current state first.
+  3. Upsert `rows` in batches of ~500 with the service key:
+     `supabase.from('spots').upsert(batch, { onConflict: 'id' })`.
+     Upsert restores/overwrites rows; it does NOT delete rows added since.
+  4. Check counts per city against the file's `per_city`.
+- Last backup: 2026-09-30 — 2,892 spots, 64 cities, 1,377 micros.
+- Supabase Pro (daily backups) is tracked in Linear WHI-25.
 
 ### GitHub Pages (docs/)
 Auth/confirm/reset/privacy pages. Deploys on push from `main:/docs`; builds
