@@ -663,8 +663,17 @@ export async function leaveRoom(roomId: string): Promise<void> {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) throw new Error('Not signed in');
-  const { error } = await supabase.from('room_members').delete().eq('room_id', roomId).eq('user_id', user.id);
+  // RLS turns a disallowed delete into "0 rows, no error" — ask for the deleted
+  // row back so a silent no-op surfaces as a failure (toast) instead of the
+  // app acting as if you left while you're still a member.
+  const { data, error } = await supabase
+    .from('room_members')
+    .delete()
+    .eq('room_id', roomId)
+    .eq('user_id', user.id)
+    .select('user_id');
   if (error) throw error;
+  if (!data?.length) throw new Error('Leave had no effect (room_members delete policy missing?)');
 }
 
 // ── Profile ──────────────────────────────────────────────────────────────

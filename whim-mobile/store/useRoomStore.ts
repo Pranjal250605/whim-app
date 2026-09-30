@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { create } from 'zustand';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
@@ -49,7 +50,7 @@ interface RoomState {
   refreshMembers: () => Promise<void>;
   reportMember: (userId: string, reason: string) => void;
   blockMember: (userId: string) => void;
-  leaveCurrentRoom: () => Promise<void>;
+  leaveCurrentRoom: () => Promise<boolean>; // false = still a member (toast shown)
 }
 
 let channel: RealtimeChannel | null = null;
@@ -191,13 +192,31 @@ export const useRoomStore = create<RoomState>((set, get) => ({
 
   leaveCurrentRoom: async () => {
     const { room } = get();
-    if (!room) return;
+    if (!room) return false;
     try {
       await leaveRoom(room.id);
       get().leave();
+      return true;
     } catch (e) {
       console.warn('[whim] leaveRoom failed:', e);
       toast('Couldn’t leave the room — try again.');
+      return false;
     }
   },
 }));
+
+/**
+ * Make sure the room in the URL is loaded. The lobby normally enters the room
+ * before pushing the group deck or plan; opened any other way (shared link,
+ * notification, app restored on that screen) nothing was loaded and the plan
+ * rendered blank. Enters the room if needed, and leaves it again on the way
+ * out only when this screen was the one that entered.
+ */
+export function useEnsureRoom(roomId: string | undefined): void {
+  useEffect(() => {
+    const st = useRoomStore.getState();
+    if (!roomId || st.room?.id === roomId || st.loading) return;
+    st.enter(roomId);
+    return () => useRoomStore.getState().leave();
+  }, [roomId]);
+}

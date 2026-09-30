@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Linking, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
-import { useRoomStore } from '@/store/useRoomStore';
+import { useLocalSearchParams } from 'expo-router';
+import { useEnsureRoom, useRoomStore } from '@/store/useRoomStore';
 import { estimateTransitMins, googleMapsDirectionsUrl, orderSpots } from '@/lib/route';
 import { getTransit, legText, type TransitResult } from '@/lib/transit';
 import { VIBE_LABEL } from '@/data/vibes';
@@ -13,11 +14,14 @@ import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
 import DashedRail from '@/components/DashedRail';
 import { toast } from '@/lib/toast';
+import { COLORS } from '@/lib/theme';
 
 // The Rooms payoff — the group's matches sequenced into one shared day:
 // hours-smart order, transit legs, map, Open in Maps, and a shareable card.
 // Same engine as the solo itinerary; the input is what EVERYONE liked.
 export default function RoomPlan() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  useEnsureRoom(id);
   const room = useRoomStore((s) => s.room);
   const matches = useRoomStore((s) => s.matches);
   const members = useRoomStore((s) => s.members);
@@ -74,7 +78,13 @@ export default function RoomPlan() {
     }
   };
 
-  if (!room) return null;
+  if (!room) {
+    return (
+      <SafeAreaView className="flex-1 items-center justify-center bg-canvas">
+        <ActivityIndicator color={COLORS.accent} />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={[]}>
