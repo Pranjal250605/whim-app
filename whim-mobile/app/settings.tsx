@@ -2,11 +2,18 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import Constants from 'expo-constants';
 import { useAuth } from '@/lib/auth';
 import { fetchViewer } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
 import { useWhimStore } from '@/store/useWhimStore';
 import BackButton from '@/components/BackButton';
+
+// "1.0.0 (12)" — the build number lets testers say exactly which build a bug is on.
+// platform.ios.buildNumber is the installed binary's CFBundleVersion (the truth);
+// expoConfig is only the app.json snapshot, used as a fallback.
+const BUILD = Constants.platform?.ios?.buildNumber ?? Constants.expoConfig?.ios?.buildNumber;
+const APP_VERSION = `${Constants.expoConfig?.version ?? '1.0.0'}${BUILD ? ` (${BUILD})` : ''}`;
 
 function Row({
   label,
@@ -123,7 +130,7 @@ export default function Settings() {
         <Section title="About">
           <Row label="Photos via Pexels" onPress={() => Linking.openURL('https://www.pexels.com')} />
           <Row label="Maps © Mapbox / OpenStreetMap" onPress={() => Linking.openURL('https://www.mapbox.com/about/maps/')} />
-          <Row label="Version" value="1.0.0" />
+          <Row label="Version" value={APP_VERSION} />
         </Section>
 
         <Section title="Danger zone">

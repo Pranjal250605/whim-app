@@ -180,12 +180,9 @@ export default function ItineraryScreen() {
             >
               <Text className="text-[15px] font-semibold text-white">Publish this trip ✦</Text>
             </Pressable>
-            <Text className="mt-1.5 text-center text-[11.5px] text-muted">
+            <Text className="mb-5 mt-1.5 text-center text-[11.5px] text-muted">
               Share your route with the BeWhim community
             </Text>
-            <Pressable onPress={confirmClear} className="mb-5 mt-3 items-center py-1">
-              <Text className="text-[13px] font-semibold text-[#D23B2C]">Delete itinerary & start fresh</Text>
-            </Pressable>
           </View>
         )}
 
@@ -235,6 +232,13 @@ export default function ItineraryScreen() {
             </View>
           );
         })}
+
+        {/* destructive action lives below the plan, away from Publish */}
+        {stops.length > 0 && (
+          <Pressable onPress={confirmClear} className="mt-8 items-center py-2">
+            <Text className="text-[13px] font-semibold text-[#D23B2C]">Delete itinerary & start fresh</Text>
+          </Pressable>
+        )}
       </ScrollView>
 
 
