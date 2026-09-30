@@ -663,9 +663,10 @@ export async function leaveRoom(roomId: string): Promise<void> {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) throw new Error('Not signed in');
-  // RLS turns a disallowed delete into "0 rows, no error" — ask for the deleted
-  // row back so a silent no-op surfaces as a failure (toast) instead of the
-  // app acting as if you left while you're still a member.
+  // RLS turns a delete it doesn't allow (e.g. a request that went out without
+  // the session, mid token-refresh) into "0 rows, no error" — ask for the
+  // deleted row back so a silent no-op surfaces as a failure (toast) instead of
+  // the app acting as if you left while you're still a member.
   const { data, error } = await supabase
     .from('room_members')
     .delete()
@@ -673,7 +674,7 @@ export async function leaveRoom(roomId: string): Promise<void> {
     .eq('user_id', user.id)
     .select('user_id');
   if (error) throw error;
-  if (!data?.length) throw new Error('Leave had no effect (room_members delete policy missing?)');
+  if (!data?.length) throw new Error('Leave had no effect — nothing was deleted');
 }
 
 // ── Profile ──────────────────────────────────────────────────────────────
