@@ -50,6 +50,7 @@ export default function BuildTrip() {
             lng: s.lng,
             kind: s.kind,
             area: s.area,
+            day: s.day,
           })),
         );
       })
@@ -133,7 +134,7 @@ export default function BuildTrip() {
     } finally {
       setBusy(false);
     }
-  }, [title, city, note, stops]);
+  }, [title, city, note, stops, qc]);
 
   if (prefilling) {
     return (
@@ -238,7 +239,7 @@ export default function BuildTrip() {
                   </View>
                   <View className="flex-1">
                     <Text className="text-[15px] font-semibold text-ink" numberOfLines={1}>{s.title}</Text>
-                    {!!s.area && <Text className="text-[11.5px] text-muted" numberOfLines={1}>{s.area}</Text>}
+                    {(!!s.area || s.day != null) && <Text className="text-[11.5px] text-muted" numberOfLines={1}>{[s.day != null ? `Day ${s.day}` : null, s.area].filter(Boolean).join(' · ')}</Text>}
                   </View>
                   <Pressable onPress={() => move(i, -1)} disabled={i === 0} hitSlop={6} className="h-8 w-7 items-center justify-center">
                     <View className="rotate-180">

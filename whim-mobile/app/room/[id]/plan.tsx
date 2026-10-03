@@ -13,6 +13,8 @@ import ShareCard from '@/components/ShareCard';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
 import DashedRail from '@/components/DashedRail';
+import { track } from '@/lib/analytics';
+import { useRouteAnalytics } from '@/lib/useRouteAnalytics';
 import { toast } from '@/lib/toast';
 import { COLORS } from '@/lib/theme';
 
@@ -27,6 +29,8 @@ export default function RoomPlan() {
   const members = useRoomStore((s) => s.members);
 
   const stops = useMemo(() => orderSpots(matches.map((m) => m.spot)), [matches]);
+  useRouteAnalytics('room', room?.city, room?.vibe, stops.length, !!room, room?.id);
+
   const [legs, setLegs] = useState<Record<number, TransitResult | null>>({});
 
   useEffect(() => {
@@ -63,7 +67,9 @@ export default function RoomPlan() {
 
   const openInMaps = () => {
     const url = googleMapsDirectionsUrl(stops);
-    if (url) Linking.openURL(url).catch(() => toast('Couldn’t open Maps.'));
+    if (url) Linking.openURL(url)
+      .then(() => track('open_in_maps', { mode: 'room', room_id: room?.id, city: room?.city, vibe: room?.vibe, stop_count: stops.length }))
+      .catch(() => toast('Couldn’t open Maps.'));
   };
 
   const shareRef = useRef<View>(null);
@@ -71,6 +77,7 @@ export default function RoomPlan() {
     try {
       const uri = await captureRef(shareRef, { format: 'png', quality: 1, result: 'tmpfile' });
       if (await Sharing.isAvailableAsync()) {
+        track('plan_share_requested', { mode: 'room', room_id: room?.id, city: room?.city, vibe: room?.vibe, stop_count: stops.length });
         await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'Share your crew’s day' });
       }
     } catch (e) {

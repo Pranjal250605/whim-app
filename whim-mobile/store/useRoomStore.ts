@@ -20,6 +20,7 @@ import {
 } from '@/lib/db';
 import { toast } from '@/lib/toast';
 import { hapticSuccess } from '@/lib/haptics';
+import { track } from '@/lib/analytics';
 
 let blockedIds = new Set<string>();
 const visible = (members: RoomMember[]) => members.filter((m) => !blockedIds.has(m.userId));
@@ -59,6 +60,8 @@ let channel: RealtimeChannel | null = null;
 let enterGen = 0;
 // distinguishes "first matches fetch after entering" (quiet) from live updates
 let matchesHydrated = false;
+let matchesRequest = 0;
+let membersRequest = 0;
 
 export const useRoomStore = create<RoomState>((set, get) => ({
   room: null,
@@ -136,6 +139,9 @@ export const useRoomStore = create<RoomState>((set, get) => ({
     const spot = deck[deckIndex];
     if (!room || !spot) return;
     set({ deckIndex: deckIndex + 1 }); // optimistic — deck never waits
+    if (deckIndex + 1 === deck.length) {
+      track('deck_finished', { mode: 'room', room_id: room.id, city: room.city, vibe: room.vibe, card_count: deck.length });
+    }
     castRoomVote(room.id, spot.id, direction === 'right').catch((e) => {
       console.warn('[whim] castRoomVote failed:', e);
       toast('Couldn’t send your vote — check your connection.');
@@ -143,11 +149,15 @@ export const useRoomStore = create<RoomState>((set, get) => ({
   },
 
   refreshMatches: async () => {
-    const { room, matches: previous } = get();
+    const { room } = get();
     if (!room) return;
+    const gen = enterGen;
+    const request = ++matchesRequest;
     try {
       const raw = await fetchRoomMatches(room.id);
       const spots = await fetchSpotsByIds(raw.map((m) => m.spotId));
+      if (gen !== enterGen || request !== matchesRequest) return;
+      const previous = get().matches;
       const byId = new Map(spots.map((s) => [s.id, s]));
       const matches = raw
         .filter((m) => byId.has(m.spotId))
@@ -155,10 +165,11 @@ export const useRoomStore = create<RoomState>((set, get) => ({
       // celebrate matches that are new since the last refresh (quiet on the
       // initial fetch after entering, loud for live arrivals — even the first)
       const known = new Set(previous.map((m) => m.spot.id));
-      const fresh = matches.find((m) => !known.has(m.spot.id));
-      if (fresh && matchesHydrated) {
+      const fresh = matches.filter((m) => !known.has(m.spot.id));
+      if (fresh.length && matchesHydrated) {
+        track('room_match', { room_id: room.id, city: room.city, vibe: room.vibe, new_match_count: fresh.length, match_count: matches.length });
         hapticSuccess();
-        toast(`It’s a match ✦ ${fresh.spot.title}`);
+        toast(`It’s a match ✦ ${fresh[0].spot.title}`);
       }
       matchesHydrated = true;
       set({ matches });
@@ -171,7 +182,11 @@ export const useRoomStore = create<RoomState>((set, get) => ({
     const { room } = get();
     if (!room) return;
     try {
-      set({ members: visible(await fetchRoomMembers(room.id)) });
+      const gen = enterGen;
+      const request = ++membersRequest;
+      const members = await fetchRoomMembers(room.id);
+      if (gen !== enterGen || request !== membersRequest) return;
+      set({ members: visible(members) });
     } catch (e) {
       console.warn('[whim] refreshMembers failed:', e);
     }

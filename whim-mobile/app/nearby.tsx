@@ -18,6 +18,7 @@ import type { VibeId } from '@/lib/types';
 import { distanceKm } from '@/lib/route';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
+import { track } from '@/lib/analytics';
 
 type State =
   | { kind: 'loading' }
@@ -60,6 +61,7 @@ export default function Nearby() {
     }
     setSaved((prev) => new Set(prev).add(s.id));
     hapticSuccess();
+    track('nearby_saved', { vibe });
     // show it as a LOCAL pick right away, and refresh Community → "Yours"
     setState((prev) =>
       prev.kind === 'ready'
@@ -88,13 +90,17 @@ export default function Nearby() {
 
   const load = useCallback(async () => {
     const gen = ++loadGen.current;
+    const started = Date.now();
     setState({ kind: 'loading' });
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      setState({ kind: 'denied' });
-      return;
-    }
+    track('nearby_started');
     try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (gen !== loadGen.current) return;
+      if (status !== 'granted') {
+        track('nearby_failed', { reason: 'permission_denied', duration_ms: Date.now() - started });
+        setState({ kind: 'denied' });
+        return;
+      }
       // a fix from the last couple of minutes is plenty for "around you" and
       // skips the GPS wait; otherwise ask for a fresh one
       const pos =
@@ -107,6 +113,7 @@ export default function Nearby() {
       ]);
       if (gen !== loadGen.current) return;
       if (!data) {
+        track('nearby_failed', { reason: 'fetch_failed', duration_ms: Date.now() - started });
         setState({ kind: 'error' });
         return;
       }
@@ -133,6 +140,7 @@ export default function Nearby() {
       }
       if (mine.size) setSaved((prev) => new Set([...prev, ...mine]));
       setState({ kind: 'ready', data });
+      track('nearby_loaded', { duration_ms: Date.now() - started, spot_count: new Set(Object.values(data.vibes).flat().map((s) => s.id)).size, enriching: !!data.enriching });
 
       // phase 2: blurbs + tips are being written server-side — fill them into the
       // list already on screen (~10 s). Order and membership stay exactly as the
@@ -146,6 +154,7 @@ export default function Nearby() {
         if (gen !== loadGen.current) return;
         if (full === 'pending') continue;
         if (!full) break;
+        track('nearby_enriched', { duration_ms: Date.now() - started });
         const byId = new Map<string, NearbySpot>();
         for (const list of Object.values(full.vibes)) for (const s of list) byId.set(s.id, s);
         setState((prev) => {
@@ -163,9 +172,12 @@ export default function Nearby() {
       }
       setState((prev) => (prev.kind === 'ready' ? { kind: 'ready', data: { ...prev.data, enriching: false } } : prev));
     } catch {
-      if (gen === loadGen.current) setState({ kind: 'error' });
+      if (gen === loadGen.current) {
+        track('nearby_failed', { reason: 'location_or_network', duration_ms: Date.now() - started });
+        setState({ kind: 'error' });
+      }
     }
-  }, []);
+  }, [viewerId]);
 
   const reportSpot = (s: NearbySpot) =>
     Alert.alert('Report this spot?', 'We review reports within 24 hours and remove violations.', [

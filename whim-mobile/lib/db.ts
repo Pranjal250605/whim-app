@@ -78,6 +78,7 @@ export async function saveSpot(
   microActivityIds: string[],
   city: string,
   vibe: VibeId | null,
+  via: 'swipe' | 'super' = 'swipe',
 ): Promise<void> {
   const { error } = await supabase
     .from('saved_spots')
@@ -86,7 +87,7 @@ export async function saveSpot(
       { onConflict: 'user_id,spot_id' },
     );
   if (error) throw error;
-  track('spot_saved', { city, vibe });
+  track('spot_saved', { city, vibe, via });
 }
 
 export async function removeSavedSpot(spotId: string): Promise<void> {
@@ -142,13 +143,17 @@ export async function createRoom(city: string, vibe: VibeId, name?: string): Pro
     p_name: name ?? null,
   });
   if (error) throw error;
-  return rowToRoom(data);
+  const room = rowToRoom(data);
+  track('room_created', { room_id: room.id, city: room.city, vibe: room.vibe });
+  return room;
 }
 
 export async function joinRoom(code: string): Promise<Room> {
   const { data, error } = await supabase.rpc('join_room', { p_code: code });
   if (error) throw error;
-  return rowToRoom(data);
+  const room = rowToRoom(data);
+  track('room_joined', { room_id: room.id, city: room.city, vibe: room.vibe });
+  return room;
 }
 
 export async function fetchRoom(roomId: string): Promise<Room> {
@@ -582,6 +587,54 @@ export async function promoteSpot(placeId: string): Promise<void> {
   }
 }
 
+/** Creator storefront: approved guides only; blocked creators return no content.
+ * Fetch one extra row to decide whether another page exists. */
+export async function fetchCreatorGuides(authorId: string, page = 0): Promise<{ items: FeedItem[]; nextPage: number | null }> {
+  if ((await fetchBlockedUserIds()).includes(authorId)) return { items: [], nextPage: null };
+  const { data, error } = await supabase.from('published_itineraries').select('*')
+    .eq('status', 'approved').eq('author', authorId)
+    .order('created_at', { ascending: false }).order('id', { ascending: false })
+    .range(page * 20, page * 20 + 20);
+  if (error) throw error;
+  const items: FeedItem[] = (data ?? []).slice(0, 20).map(row => ({
+    kind: 'itinerary', id: row.id, title: row.title, authorId: row.author,
+    authorName: row.author_name, city: row.city, vibe: row.vibe,
+    stopCount: row.stop_count ?? 0, cover: row.cover, createdAt: row.created_at,
+  }));
+  return { items, nextPage: (data?.length ?? 0) > 20 ? page + 1 : null };
+}
+
+export async function fetchCloudSavedGuideIds(): Promise<string[]> {
+  const { data, error } = await supabase.from('saved_guides').select('guide_id').order('created_at', { ascending: true });
+  if (error) throw error;
+  return (data ?? []).map(row => row.guide_id);
+}
+
+/** Idempotent save/remove; ownership comes exclusively from auth.uid() + RLS. */
+export async function setCloudGuideSaved(guideId: string, saved: boolean): Promise<void> {
+  const { error } = await supabase.rpc('set_saved_guide', { p_guide_id: guideId, p_saved: saved });
+  if (error) throw error;
+}
+
+/** Resolve the saved shelf by ID, including guides older than the latest feed.
+ * Approved status and blocked authors use the same rules as discovery. */
+export async function fetchSavedGuideFeed(ids: string[]): Promise<FeedItem[]> {
+  if (!ids.length) return [];
+  const blocked = new Set(await fetchBlockedUserIds());
+  const rows = [];
+  for (let start = 0; start < ids.length; start += 50) {
+    const { data, error } = await supabase.from('published_itineraries').select('*').eq('status', 'approved').in('id', ids.slice(start, start + 50));
+    if (error) throw error;
+    rows.push(...(data ?? []));
+  }
+  const order = new Map(ids.map((id, i) => [id, i]));
+  return rows.filter(row => !blocked.has(row.author)).map(row => ({
+    kind: 'itinerary' as const, id: row.id, title: row.title, authorId: row.author,
+    authorName: row.author_name, city: row.city, vibe: row.vibe,
+    stopCount: row.stop_count ?? 0, cover: row.cover, createdAt: row.created_at,
+  })).sort((a, b) => (order.get(b.id) ?? 0) - (order.get(a.id) ?? 0));
+}
+
 /** Everything the community is publishing — trips + spots — newest first,
  *  with blocked authors filtered out. */
 export async function fetchCommunityFeed(): Promise<FeedItem[]> {
@@ -598,8 +651,10 @@ export async function fetchCommunityFeed(): Promise<FeedItem[]> {
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .limit(60),
-    fetchBlockedUserIds().catch(() => [] as string[]),
+    fetchBlockedUserIds(),
   ]);
+  if (itins.error) throw itins.error;
+  if (spots.error) throw spots.error;
   const blockedSet = new Set(blocked);
   const items: FeedItem[] = [];
   for (const r of itins.data ?? []) {

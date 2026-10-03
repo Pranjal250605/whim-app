@@ -1,22 +1,14 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Linking, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import Constants from 'expo-constants';
+import { APP_VERSION } from '@/lib/buildInfo';
 import { useAuth } from '@/lib/auth';
 import { fetchViewer } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
 import { useWhimStore } from '@/store/useWhimStore';
 import BackButton from '@/components/BackButton';
 
-// "1.0.0 (12)" — the build number lets testers say exactly which build a bug is on.
-// platform.ios.buildNumber is the installed binary's CFBundleVersion (the truth);
-// expoConfig is only the app.json snapshot, used as a fallback.
-const BUILD =
-  Platform.OS === 'ios'
-    ? Constants.platform?.ios?.buildNumber ?? Constants.expoConfig?.ios?.buildNumber
-    : Constants.expoConfig?.android?.versionCode;
-const APP_VERSION = `${Constants.expoConfig?.version ?? '1.0.0'}${BUILD ? ` (${BUILD})` : ''}`;
 
 function Row({
   label,

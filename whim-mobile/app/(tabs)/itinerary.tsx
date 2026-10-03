@@ -17,6 +17,8 @@ import { estimateTransitMins, googleMapsDirectionsUrl, orderByProximity } from '
 import { getTransit, legText, type TransitResult } from '@/lib/transit';
 import RouteMap from '@/components/RouteMap';
 import DashedRail from '@/components/DashedRail';
+import { track } from '@/lib/analytics';
+import { useRouteAnalytics } from '@/lib/useRouteAnalytics';
 
 // Phase 4 — Itinerary. Orders the saved anchors, maps them, lists them as a
 // timeline, and shows the transit connection (real line names via Google, or a
@@ -32,6 +34,9 @@ export default function ItineraryScreen() {
   const scoped = useMemo(() => scopedBucket(bucketList, city, vibe), [bucketList, city, vibe]);
   const stops = useMemo(() => orderByProximity(scoped), [scoped]);
   const byId = useMemo(() => Object.fromEntries(scoped.map((b) => [b.anchor.id, b])), [scoped]);
+
+  const hydrated = useWhimStore((s) => s.hydrated);
+  useRouteAnalytics('solo', city, vibe, stops.length, hydrated);
 
   const [legs, setLegs] = useState<Record<number, TransitResult | null>>({});
 
@@ -69,7 +74,9 @@ export default function ItineraryScreen() {
 
   const openInMaps = () => {
     const url = googleMapsDirectionsUrl(stops);
-    if (url) Linking.openURL(url).catch(() => toast('Couldn’t open Maps.'));
+    if (url) Linking.openURL(url)
+      .then(() => track('open_in_maps', { mode: 'solo', city, vibe, stop_count: stops.length }))
+      .catch(() => toast('Couldn’t open Maps.'));
   };
 
   // ── publish this trip to the community feed ──────────────────────────────
@@ -112,6 +119,7 @@ export default function ItineraryScreen() {
     try {
       const uri = await captureRef(shareRef, { format: 'png', quality: 1, result: 'tmpfile' });
       if (await Sharing.isAvailableAsync()) {
+        track('plan_share_requested', { mode: 'solo', city, vibe, stop_count: stops.length });
         await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'Share your BeWhim day' });
       }
     } catch (e) {
