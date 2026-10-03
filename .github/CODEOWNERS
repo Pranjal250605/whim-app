@@ -1,0 +1,13 @@
+# Who must review a PR, by path. Enforced once branch protection on `main` has
+# "Require review from Code Owners" turned on. Later lines win.
+
+# Default: everything is Pranjal's (app, backend, data, docs).
+*                     @Pranjal250605
+
+# The website — site team owns it.
+# TODO: add the two site teammates' GitHub usernames, e.g. `/web/ @alice @bob`
+/web/                 @Pranjal250605
+
+# Live auth + legal pages served by GitHub Pages — breaking these breaks
+# sign-up / password reset / the App Store privacy link.
+/docs/                @Pranjal250605
