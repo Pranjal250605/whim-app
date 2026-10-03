@@ -3,6 +3,7 @@ import { ActivityIndicator, Alert, KeyboardAvoidingView, Linking, Modal, Platfor
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
+import { router } from 'expo-router';
 import Icon from '@/components/Icon';
 import ShareCard from '@/components/ShareCard';
 import { scheduleTripReminder } from '@/lib/notify';
@@ -148,6 +149,25 @@ export default function ItineraryScreen() {
         <Text className="font-serif text-2xl text-ink">Your optimised day</Text>
         <Text className="mt-1 text-[13px] text-muted">{stops.length} stops · timed by opening hours & transit</Text>
 
+        {stops.length === 0 && (
+          <View className="mt-6 items-center rounded-[20px] border border-dashed border-ink/15 px-6 py-8">
+            <Text className="text-center font-serif text-[19px] text-ink">
+              No {VIBE_LABEL[vibe]} spots saved in {city} yet
+            </Text>
+            <Text className="mt-2 text-center text-[13.5px] leading-5 text-muted">
+              Swipe right on a few places and BeWhim sequences them into a day — timed by opening hours, with transit between stops.
+            </Text>
+            <Pressable
+              onPress={() => router.navigate('/')}
+              style={press()}
+              className="mt-5 h-[48px] flex-row items-center justify-center gap-2 rounded-full bg-ink px-6"
+            >
+              <Text className="text-[15px] font-semibold text-white">Find spots to save</Text>
+              <Icon name="arrowRight" size={15} color="#fff" strokeWidth={2.2} />
+            </Pressable>
+          </View>
+        )}
+
         {stops.length > 0 && (
           <View className="mt-3">
             <View className="flex-row gap-2.5">
@@ -180,12 +200,9 @@ export default function ItineraryScreen() {
             >
               <Text className="text-[15px] font-semibold text-white">Publish this trip ✦</Text>
             </Pressable>
-            <Text className="mt-1.5 text-center text-[11.5px] text-muted">
+            <Text className="mb-5 mt-1.5 text-center text-[11.5px] text-muted">
               Share your route with the BeWhim community
             </Text>
-            <Pressable onPress={confirmClear} className="mb-5 mt-3 items-center py-1">
-              <Text className="text-[13px] font-semibold text-[#D23B2C]">Delete itinerary & start fresh</Text>
-            </Pressable>
           </View>
         )}
 
@@ -235,6 +252,13 @@ export default function ItineraryScreen() {
             </View>
           );
         })}
+
+        {/* destructive action lives below the plan, away from Publish */}
+        {stops.length > 0 && (
+          <Pressable onPress={confirmClear} className="mt-8 items-center py-2">
+            <Text className="text-[13px] font-semibold text-[#D23B2C]">Delete itinerary & start fresh</Text>
+          </Pressable>
+        )}
       </ScrollView>
 
 

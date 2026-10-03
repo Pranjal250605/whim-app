@@ -1,5 +1,11 @@
 # Whim
 
+> **Product name: BeWhim** — use it in every user-facing string (app UI, `docs/`
+> pages, notifications, App Store listing, website). "Whim" survives only as an
+> internal identifier: repo, bundle id `com.pranjalrai.whim`, `whim://` scheme,
+> Xcode project, store names (`useWhimStore`). Never rename those — a new bundle
+> id is a different App Store app.
+
 A travel-discovery iOS app: swipe through curated spots for a city + "vibe", save
 the ones you like into a **Hitlist**, and get an auto-sequenced day plan you can
 route on a map and share. Think "Tinder for places to go." Target: the App Store.

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { create } from 'zustand';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
@@ -49,10 +50,13 @@ interface RoomState {
   refreshMembers: () => Promise<void>;
   reportMember: (userId: string, reason: string) => void;
   blockMember: (userId: string) => void;
-  leaveCurrentRoom: () => Promise<void>;
+  leaveCurrentRoom: () => Promise<boolean>; // false = still a member (toast shown)
 }
 
 let channel: RealtimeChannel | null = null;
+// bumps on every enter()/leave(): an enter() whose awaits resolve after the
+// user already left (or entered another room) must not set state or subscribe
+let enterGen = 0;
 // distinguishes "first matches fetch after entering" (quiet) from live updates
 let matchesHydrated = false;
 
@@ -67,6 +71,8 @@ export const useRoomStore = create<RoomState>((set, get) => ({
 
   enter: async (roomId) => {
     get().leave(); // drop any previous room subscription
+    const gen = ++enterGen;
+    const stale = () => gen !== enterGen;
     matchesHydrated = false;
     set({ room: null, members: [], matches: [], deck: [], deckIndex: 0, deckSourceCount: 0, loading: true });
     try {
@@ -77,6 +83,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
         fetchMyRoomVotes(roomId),
         fetchBlockedUserIds().catch(() => []),
       ]);
+      if (stale()) return;
       blockedIds = new Set(blocked);
       const voted = new Set(myVotes);
       set({
@@ -87,6 +94,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
         loading: false,
       });
       await get().refreshMatches();
+      if (stale()) return;
 
       // live updates: any vote or membership change re-derives the matches.
       // RLS scopes postgres_changes, so only members receive these events.
@@ -107,6 +115,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
         )
         .subscribe();
     } catch (e) {
+      if (stale()) return;
       console.warn('[whim] enter room failed:', e);
       set({ loading: false });
       toast('Couldn’t open that room — try again.');
@@ -114,6 +123,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
   },
 
   leave: () => {
+    enterGen++; // invalidate any enter() still in flight
     if (channel) {
       supabase.removeChannel(channel);
       channel = null;
@@ -191,13 +201,31 @@ export const useRoomStore = create<RoomState>((set, get) => ({
 
   leaveCurrentRoom: async () => {
     const { room } = get();
-    if (!room) return;
+    if (!room) return false;
     try {
       await leaveRoom(room.id);
       get().leave();
+      return true;
     } catch (e) {
       console.warn('[whim] leaveRoom failed:', e);
       toast('Couldn’t leave the room — try again.');
+      return false;
     }
   },
 }));
+
+/**
+ * Make sure the room in the URL is loaded. The lobby normally enters the room
+ * before pushing the group deck or plan; opened any other way (shared link,
+ * notification, app restored on that screen) nothing was loaded and the plan
+ * rendered blank. Enters the room if needed, and leaves it again on the way
+ * out only when this screen was the one that entered.
+ */
+export function useEnsureRoom(roomId: string | undefined): void {
+  useEffect(() => {
+    const st = useRoomStore.getState();
+    if (!roomId || st.room?.id === roomId || st.loading) return;
+    st.enter(roomId);
+    return () => useRoomStore.getState().leave();
+  }, [roomId]);
+}

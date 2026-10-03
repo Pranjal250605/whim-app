@@ -100,10 +100,11 @@ re-vibing and generic-spot drops show on the next load (served from cache).
 Simulator note: after `simctl location set`, `simctl location clear` + set
 again if the app keeps seeing the old fix.
 
-Open lead: the app's first request in a burst sometimes stalls 10–30 s before
-reaching the server (server timings stay ~2–3 s; follow-up calls ~1 s; idle
-functions boot in 0.35 s from the Mac). Seen mostly while driving the app via
-the debugger — confirm on a real device before chasing it.
+~~Open lead: first request stalls 10–30 s~~ — **resolved 2026-09-30: measurement
+artifact.** Promises started from the Metro debugger (CDP `Runtime.evaluate`) on an
+idle app don't run until something wakes the JS thread; with a keep-alive timer
+the same calls take 1.6–3.3 s. Any in-app timing via CDP must schedule a timer
+(e.g. `setInterval(()=>{},30)`) or the numbers are meaningless.
 
 Measuring tip: Metro's debugger (CDP) replays OLD console warnings on connect —
 compare timestamps before trusting counts.

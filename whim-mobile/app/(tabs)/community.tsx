@@ -240,7 +240,14 @@ export default function Community() {
         <Text className="mt-1 text-[13.5px] text-muted">Real trips and spots, published by BeWhim travelers.</Text>
       </View>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-4 max-h-12" contentContainerStyle={{ paddingHorizontal: 20, gap: 10 }}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        // never let the list below squeeze this row (ScrollViews shrink by default,
+        // which sliced the bottoms off the pills); pad so the selected shadow fits
+        className="mt-3 shrink-0 grow-0"
+        contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 6, gap: 10 }}
+      >
         {FILTERS.map((f) => {
           const on = f.id === filter;
           return (

@@ -70,8 +70,8 @@ export default function RoomLobby() {
         text: 'Leave',
         style: 'destructive',
         onPress: async () => {
-          await leaveCurrentRoom();
-          router.back();
+          // stay in the lobby if it didn't work — the toast explains
+          if (await leaveCurrentRoom()) router.back();
         },
       },
     ]);
