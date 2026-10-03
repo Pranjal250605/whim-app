@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from './auth';
-import { readSavedGuides, toggleSavedGuide } from './savedGuides';
+import { moveSavedGuidesToCloud, readSavedGuides, toggleSavedGuide } from './savedGuides';
 import { toast } from './toast';
 import { track } from './analytics';
 import { GUIDE_CLOUD_SYNC_ENABLED } from './guideFeatures';
@@ -11,7 +11,16 @@ export function useSavedGuides() {
   const userId = session?.user.id;
   const qc = useQueryClient();
   const queryKey = ['savedGuides', userId];
-  const query = useQuery({ queryKey, queryFn: () => GUIDE_CLOUD_SYNC_ENABLED ? fetchCloudSavedGuideIds() : readSavedGuides(userId!), enabled: !!userId });
+  const query = useQuery({
+    queryKey,
+    queryFn: async () => {
+      if (!GUIDE_CLOUD_SYNC_ENABLED) return readSavedGuides(userId!);
+      // carry over anything saved on this device before cloud sync shipped
+      await moveSavedGuidesToCloud(userId!, (id) => setCloudGuideSaved(id, true));
+      return fetchCloudSavedGuideIds();
+    },
+    enabled: !!userId,
+  });
   const mutation = useMutation({
     mutationFn: async (id: string) => {
       if (!userId) throw new Error('Sign in to save a guide.');

@@ -119,3 +119,29 @@ test('moderation filter blocks obvious abuse without flagging place names', () =
   assert.throws(() => assertClean('Nice title', 'fucking awful'), /language we don/);
   assert.doesNotThrow(() => assertClean('Nice title', undefined));
 });
+test('device saves move to the account once; unsavable ids drop, network failures stay for retry', async () => {
+  const disk = new Map([['bewhim:saved-guides:v1:alice', JSON.stringify(['ok', 'gone', 'blocked', 'offline'])]]);
+  const storage = {
+    getItem: async k => disk.get(k) ?? null,
+    setItem: async (k, v) => { disk.set(k, v); },
+    removeItem: async k => { disk.delete(k); },
+  };
+  const saved = load('lib/savedGuides.ts', { '@react-native-async-storage/async-storage': storage });
+  const uploaded = [];
+  const upload = async id => {
+    if (id === 'gone') throw Object.assign(new Error('fk'), { code: '23503' });
+    if (id === 'blocked') throw Object.assign(new Error('rls'), { code: '42501' });
+    if (id === 'offline') throw new Error('Network request failed');
+    uploaded.push(id);
+  };
+  await saved.moveSavedGuidesToCloud('alice', upload);
+  assert.deepEqual(uploaded, ['ok']);
+  assert.deepEqual(await saved.readSavedGuides('alice'), ['offline']);
+  await saved.moveSavedGuidesToCloud('alice', async id => { uploaded.push(id); });
+  assert.deepEqual(uploaded, ['ok', 'offline']);
+  assert.equal(disk.has('bewhim:saved-guides:v1:alice'), false);
+  await saved.moveSavedGuidesToCloud('alice', async () => { throw new Error('should not upload'); });
+  disk.set('bewhim:saved-guides:v1:bob', '{corrupt');
+  await saved.moveSavedGuidesToCloud('bob', async () => { throw new Error('should not upload'); });
+  assert.equal(disk.has('bewhim:saved-guides:v1:bob'), false);
+});

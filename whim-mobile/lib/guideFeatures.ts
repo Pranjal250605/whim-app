@@ -1,2 +1,4 @@
-// Enable only after migration 0023 and authenticated RLS checks pass.
-export const GUIDE_CLOUD_SYNC_ENABLED = false;
+// Saved guides live in the account (saved_guides, migration 0023, applied to
+// production 2026-10-03). Device-only saves from earlier builds are moved over
+// on first load — see moveSavedGuidesToCloud.
+export const GUIDE_CLOUD_SYNC_ENABLED = true;
