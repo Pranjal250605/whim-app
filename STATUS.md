@@ -27,6 +27,30 @@ items get resolved — this file is a working log, not a spec.
 ## 1. Pending actions
 
 - `AGENTS.md` — untracked (pre-existing), left alone.
+- **2026-10-02 local Build 13 work (branch `prai2702/whi-30-…`, Linear WHI-30):** funnel instrumentation for
+  Near Me, Rooms, deck completion, route views and Maps/share actions; shared
+  build/platform/environment tags on events and errors; duplicate super-save
+  event removed. Details and event meanings: `whim-mobile/ANALYTICS.md`.
+- Related reliability fixes: explicit empty-deck load state, stale solo deck
+  requests invalidated on context/reset, stale room matches/members ignored
+  after exit or a newer refresh. Existing untracked `AGENTS.md` untouched.
+- Validation: 11 isolated Node regression tests pass; TypeScript and targeted
+  ESLint pass. No commit, push, deploy, build upload, or production data write.
+  Device sharing/GPS and a three-person Room test remain outstanding.
+
+- **2026-10-03 creator guides foundation (branch `prai2702/whi-30-…`, Linear WHI-30):** Community search by
+  title/city/creator, city filters, Guides and Saved tabs; guide detail save and
+  customize actions. Saved IDs persist locally per authenticated account; the
+  saved shelf resolves approved guides by ID (including older feed entries)
+  and excludes blocked authors. No cloud sync or payment system yet.
+- Multi-day remixes preserve stop day assignments; unassigned extra stops stay
+  visible. Guide detail controls use the safe-area inset and wrapping actions.
+  Feed errors now surface instead of pretending an API failure is an empty feed.
+- Validation: 15 isolated regression tests pass (11 existing + 4 guide tests),
+  TypeScript and targeted lint pass. Simulator QA completed for guide discovery, Tokyo search,
+  no-match/reset, detail, local save, Saved shelf, persistence after reload, and
+  remix with all 12 stops and 3 day assignments. Real-device QA remains. No commits, deploys, public guide submissions or release upload.
+
 
 JS changes need only a Metro reload — no native rebuild.
 
@@ -155,3 +179,39 @@ xcrun simctl io booted screenshot /tmp/shot.png
 # set simulator GPS
 xcrun simctl location booted set 35.6595,139.7005
 ```
+
+## 8. Simulator guide QA (2026-10-03)
+
+Found and fixed an invisible floating tab bar: GlassNav now has one explicitly
+positioned overlay container and respects the bottom safe-area inset. Verified
+Community navigation works after the fix. Create a guide moved out of the cramped
+header pill into its own full-width, minimum-48px action row; verified it opens
+the builder. Test remix was not published. One Tokyo guide remains bookmarked
+locally on the simulator. Screenshots: `~/Desktop/notion new/BeWhim-simulator-QA/`.
+
+## 9. Creator pages + cloud-save preparation (2026-10-03 — WHI-30)
+
+- `app/creator/[id].tsx`: creator guide storefront, newest first, 20 per page,
+  load-more, loading/error/empty states. Detail links to the creator page.
+  Approved content only; blocked creators are excluded. Simulator verified
+  BeWhim storefront lists all 13 guides and opens another guide.
+- Cloud bookmark data functions and migration `0023_saved_guides.sql` prepared:
+  own-account RLS, approved/unblocked guide insert checks, cascading deletes,
+  idempotent security-invoker RPC. Migration applied to production on 2026-10-03 with Pranjal’s explicit go.
+- `GUIDE_CLOUD_SYNC_ENABLED` is false. The existing device library remains active.
+  Live RLS verification passed 2026-10-03 (rolled-back test; see Codex handoff).
+  Cloud activation still requires the device→cloud bookmark transfer and an explicit decision
+  on transferring existing device bookmarks; automatic import is not implemented.
+- 18 isolated Node tests, TypeScript and targeted lint pass. SQL execution and cross-account policy checks passed against the linked
+  database in a rolled-back transaction: duplicate saves/removals, own-only reads
+  and deletes, forged ownership, rejected/blocked guides, update and anonymous
+  denial. RLS enabled; function is security invoker; zero QA rows remain.
+  No commits, deploys, release upload or paid marketplace.
+
+### Migration 0023 applied (2026-10-03)
+
+Applied via the existing logged-in Supabase CLI to `gvqldgkdtitueyijptmt`.
+Verification SQL preserved in `whim-mobile/scripts/tests/saved-guides-rls.sql`
+(run only with authorization: it creates transactional fixtures before rollback).
+Cloud sync remains disabled pending device-bookmark transfer implementation and
+end-to-end app QA. No commit or app release upload.

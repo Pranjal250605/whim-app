@@ -31,7 +31,7 @@ export default function SwipeScreen() {
   // "we haven't curated this vibe" — so deal it for the current context once.
   useEffect(() => {
     const st = useWhimStore.getState();
-    if (st.deckSourceCount === 0 && st.deck.length === 0 && !st.deckLoading) setContext(st.city, st.vibe);
+    if (!st.deckLoaded && !st.deckLoading) setContext(st.city, st.vibe);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // count only what's saved in this city + vibe collection

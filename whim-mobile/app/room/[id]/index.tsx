@@ -9,6 +9,7 @@ import { COLORS, SHADOWS, press } from '@/lib/theme';
 import BackButton from '@/components/BackButton';
 import SpotImage from '@/components/SpotImage';
 import Icon from '@/components/Icon';
+import { track } from '@/lib/analytics';
 
 const memberInitials = (name: string | null) => {
   const n = (name ?? '').trim();
@@ -78,11 +79,14 @@ export default function RoomLobby() {
 
   const shareInvite = () => {
     if (!room) return;
+    track('room_invite_share_requested', { room_id: room.id });
     Share.share({
       message:
         `Help me plan our ${room.city} day on BeWhim ✦ swipe with me!\n` +
         `Room code: ${room.code}\n` +
         `Open: whim://room/join?code=${room.code}`,
+    }).then((result) => {
+      if (result.action === Share.sharedAction) track('room_invite_shared', { room_id: room.id });
     }).catch(() => {});
   };
 

@@ -17,6 +17,8 @@ import { estimateTransitMins, googleMapsDirectionsUrl, orderByProximity } from '
 import { getTransit, legText, type TransitResult } from '@/lib/transit';
 import RouteMap from '@/components/RouteMap';
 import DashedRail from '@/components/DashedRail';
+import { track } from '@/lib/analytics';
+import { useRouteAnalytics } from '@/lib/useRouteAnalytics';
 
 // Phase 4 — Itinerary. Orders the saved anchors, maps them, lists them as a
 // timeline, and shows the transit connection (real line names via Google, or a
@@ -32,6 +34,9 @@ export default function ItineraryScreen() {
   const scoped = useMemo(() => scopedBucket(bucketList, city, vibe), [bucketList, city, vibe]);
   const stops = useMemo(() => orderByProximity(scoped), [scoped]);
   const byId = useMemo(() => Object.fromEntries(scoped.map((b) => [b.anchor.id, b])), [scoped]);
+
+  const hydrated = useWhimStore((s) => s.hydrated);
+  useRouteAnalytics('solo', city, vibe, stops.length, hydrated);
 
   const [legs, setLegs] = useState<Record<number, TransitResult | null>>({});
 
@@ -69,7 +74,9 @@ export default function ItineraryScreen() {
 
   const openInMaps = () => {
     const url = googleMapsDirectionsUrl(stops);
-    if (url) Linking.openURL(url).catch(() => toast('Couldn’t open Maps.'));
+    if (url) Linking.openURL(url)
+      .then(() => track('open_in_maps', { mode: 'solo', city, vibe, stop_count: stops.length }))
+      .catch(() => toast('Couldn’t open Maps.'));
   };
 
   // ── publish this trip to the community feed ──────────────────────────────
@@ -78,14 +85,17 @@ export default function ItineraryScreen() {
   const [pubTitle, setPubTitle] = useState('');
   const [pubNote, setPubNote] = useState('');
   const [pubBusy, setPubBusy] = useState(false);
+  // shown inline: a toast would render behind the publish Modal on iOS
+  const [pubError, setPubError] = useState<string | null>(null);
 
   const doPublish = async () => {
     const title = pubTitle.trim();
     if (!title) {
-      toast('Give your trip a title.');
+      setPubError('Give your trip a title.');
       return;
     }
     setPubBusy(true);
+    setPubError(null);
     try {
       await publishItinerary({
         title,
@@ -101,7 +111,7 @@ export default function ItineraryScreen() {
       setPubNote('');
       toast('Published to the community ✦');
     } catch (e: any) {
-      toast(e?.message || 'Couldn’t publish — try again.');
+      setPubError(e?.message || 'Couldn’t publish — try again.');
     } finally {
       setPubBusy(false);
     }
@@ -112,6 +122,7 @@ export default function ItineraryScreen() {
     try {
       const uri = await captureRef(shareRef, { format: 'png', quality: 1, result: 'tmpfile' });
       if (await Sharing.isAvailableAsync()) {
+        track('plan_share_requested', { mode: 'solo', city, vibe, stop_count: stops.length });
         await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'Share your BeWhim day' });
       }
     } catch (e) {
@@ -284,7 +295,10 @@ export default function ItineraryScreen() {
 
             <TextInput
               value={pubTitle}
-              onChangeText={setPubTitle}
+              onChangeText={(t) => {
+                setPubTitle(t);
+                setPubError(null);
+              }}
               placeholder={`e.g. “${city} in a day”`}
               placeholderTextColor="#B6B1A9"
               maxLength={80}
@@ -292,7 +306,10 @@ export default function ItineraryScreen() {
             />
             <TextInput
               value={pubNote}
-              onChangeText={setPubNote}
+              onChangeText={(t) => {
+                setPubNote(t);
+                setPubError(null);
+              }}
               placeholder="Add a note (optional) — who it’s for, the vibe, a tip…"
               placeholderTextColor="#B6B1A9"
               maxLength={500}
@@ -300,6 +317,11 @@ export default function ItineraryScreen() {
               className="mt-3 min-h-[84px] rounded-2xl border border-ink/10 bg-white px-4 py-3.5 text-[14.5px] leading-6 text-ink"
               style={{ textAlignVertical: 'top' }}
             />
+            {pubError && (
+              <Text accessibilityRole="alert" className="mt-2 text-[13px] text-[#D23B2C]">
+                {pubError}
+              </Text>
+            )}
 
             <Pressable
               onPress={doPublish}

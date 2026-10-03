@@ -250,14 +250,17 @@ export default function Passport() {
 function HandleModal({ visible, onClose, onSaved }: { visible: boolean; onClose: () => void; onSaved: () => void }) {
   const [value, setValue] = useState('');
   const [busy, setBusy] = useState(false);
+  // shown inline: a toast would render behind this Modal on iOS
+  const [error, setError] = useState<string | null>(null);
   const save = async () => {
     setBusy(true);
+    setError(null);
     try {
       await setUsername(value);
       setValue('');
       onSaved();
     } catch (e: any) {
-      toast(e?.message || 'Couldn’t save handle.');
+      setError(e?.message || 'Couldn’t save handle.');
     } finally {
       setBusy(false);
     }
@@ -274,7 +277,10 @@ function HandleModal({ visible, onClose, onSaved }: { visible: boolean; onClose:
             <Text className="font-mono text-[17px] text-muted">@</Text>
             <TextInput
               value={value}
-              onChangeText={(t) => setValue(t.replace(/[^a-zA-Z0-9_]/g, '').toLowerCase())}
+              onChangeText={(t) => {
+                setValue(t.replace(/[^a-zA-Z0-9_]/g, '').toLowerCase());
+                setError(null);
+              }}
               placeholder="yourname"
               placeholderTextColor="#B6B1A9"
               autoCapitalize="none"
@@ -283,6 +289,7 @@ function HandleModal({ visible, onClose, onSaved }: { visible: boolean; onClose:
               className="flex-1 py-3.5 text-[17px] text-ink"
             />
           </View>
+          {error && <Text accessibilityRole="alert" className="mt-2 text-[13px] text-[#D23B2C]">{error}</Text>}
           <Pressable
             onPress={save}
             disabled={busy || value.length < 3}
