@@ -84,3 +84,4 @@ The dSYM "Upload Symbols Failed" warnings for Mapbox/hermes frameworks are benig
 | 10 | Jul 27 | "Your spots" space; saved-spots surfacing fix; audit fixes (cross-user cache clear, push rebrand, save-vibe pin) |
 | 11 | Jul 28 | Catalogue 13→48 cities / 2,160 spots (seed-city engine); European expansion for beta |
 | 12 | Sep 27 | +15 Batch-4 cities in picker (63 total); smart route (hours as constraints + best start + 2-opt, ~39% shorter days); Japan transit shows instant estimates; Open in Maps multi-stop fix; Near Me two-phase load (list in ~6 s, tips fill in place); dashed leg connector. No native changes (no prebuild) |
+| 13 | Oct 3 | Product analytics (route_viewed, open_in_maps, share, room funnel); guide discovery + saving (device-local; cloud sync wired but off); creator guide pages; migration 0023 `saved_guides` (already applied). No native changes (no prebuild) |
