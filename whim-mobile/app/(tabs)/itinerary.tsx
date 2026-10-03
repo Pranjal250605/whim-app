@@ -85,14 +85,17 @@ export default function ItineraryScreen() {
   const [pubTitle, setPubTitle] = useState('');
   const [pubNote, setPubNote] = useState('');
   const [pubBusy, setPubBusy] = useState(false);
+  // shown inline: a toast would render behind the publish Modal on iOS
+  const [pubError, setPubError] = useState<string | null>(null);
 
   const doPublish = async () => {
     const title = pubTitle.trim();
     if (!title) {
-      toast('Give your trip a title.');
+      setPubError('Give your trip a title.');
       return;
     }
     setPubBusy(true);
+    setPubError(null);
     try {
       await publishItinerary({
         title,
@@ -108,7 +111,7 @@ export default function ItineraryScreen() {
       setPubNote('');
       toast('Published to the community ✦');
     } catch (e: any) {
-      toast(e?.message || 'Couldn’t publish — try again.');
+      setPubError(e?.message || 'Couldn’t publish — try again.');
     } finally {
       setPubBusy(false);
     }
@@ -292,7 +295,10 @@ export default function ItineraryScreen() {
 
             <TextInput
               value={pubTitle}
-              onChangeText={setPubTitle}
+              onChangeText={(t) => {
+                setPubTitle(t);
+                setPubError(null);
+              }}
               placeholder={`e.g. “${city} in a day”`}
               placeholderTextColor="#B6B1A9"
               maxLength={80}
@@ -300,7 +306,10 @@ export default function ItineraryScreen() {
             />
             <TextInput
               value={pubNote}
-              onChangeText={setPubNote}
+              onChangeText={(t) => {
+                setPubNote(t);
+                setPubError(null);
+              }}
               placeholder="Add a note (optional) — who it’s for, the vibe, a tip…"
               placeholderTextColor="#B6B1A9"
               maxLength={500}
@@ -308,6 +317,11 @@ export default function ItineraryScreen() {
               className="mt-3 min-h-[84px] rounded-2xl border border-ink/10 bg-white px-4 py-3.5 text-[14.5px] leading-6 text-ink"
               style={{ textAlignVertical: 'top' }}
             />
+            {pubError && (
+              <Text accessibilityRole="alert" className="mt-2 text-[13px] text-[#D23B2C]">
+                {pubError}
+              </Text>
+            )}
 
             <Pressable
               onPress={doPublish}
