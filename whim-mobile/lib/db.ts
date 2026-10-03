@@ -587,20 +587,32 @@ export async function promoteSpot(placeId: string): Promise<void> {
   }
 }
 
+/** One published_itineraries row → feed card (community feed, creator page, saved shelf). */
+function itineraryFeedItem(row: any): FeedItem {
+  return {
+    kind: 'itinerary', id: row.id, title: row.title, authorId: row.author,
+    authorName: row.author_name, city: row.city, vibe: row.vibe,
+    stopCount: row.stop_count ?? 0, cover: row.cover, createdAt: row.created_at,
+  };
+}
+
+/** For mixed feeds: a failed block-list read shouldn't take the whole screen down. */
+function blockedUserIdsOrNone(): Promise<string[]> {
+  return fetchBlockedUserIds().catch(() => [] as string[]);
+}
+
 /** Creator storefront: approved guides only; blocked creators return no content.
  * Fetch one extra row to decide whether another page exists. */
 export async function fetchCreatorGuides(authorId: string, page = 0): Promise<{ items: FeedItem[]; nextPage: number | null }> {
-  if ((await fetchBlockedUserIds()).includes(authorId)) return { items: [], nextPage: null };
+  // Block check on the first page only (a blocked creator gets no next page).
+  // Fails closed: this page is one person's content, so an error must not show it.
+  if (page === 0 && (await fetchBlockedUserIds()).includes(authorId)) return { items: [], nextPage: null };
   const { data, error } = await supabase.from('published_itineraries').select('*')
     .eq('status', 'approved').eq('author', authorId)
     .order('created_at', { ascending: false }).order('id', { ascending: false })
     .range(page * 20, page * 20 + 20);
   if (error) throw error;
-  const items: FeedItem[] = (data ?? []).slice(0, 20).map(row => ({
-    kind: 'itinerary', id: row.id, title: row.title, authorId: row.author,
-    authorName: row.author_name, city: row.city, vibe: row.vibe,
-    stopCount: row.stop_count ?? 0, cover: row.cover, createdAt: row.created_at,
-  }));
+  const items = (data ?? []).slice(0, 20).map(itineraryFeedItem);
   return { items, nextPage: (data?.length ?? 0) > 20 ? page + 1 : null };
 }
 
@@ -620,7 +632,7 @@ export async function setCloudGuideSaved(guideId: string, saved: boolean): Promi
  * Approved status and blocked authors use the same rules as discovery. */
 export async function fetchSavedGuideFeed(ids: string[]): Promise<FeedItem[]> {
   if (!ids.length) return [];
-  const blocked = new Set(await fetchBlockedUserIds());
+  const blocked = new Set(await blockedUserIdsOrNone());
   const rows = [];
   for (let start = 0; start < ids.length; start += 50) {
     const { data, error } = await supabase.from('published_itineraries').select('*').eq('status', 'approved').in('id', ids.slice(start, start + 50));
@@ -628,11 +640,7 @@ export async function fetchSavedGuideFeed(ids: string[]): Promise<FeedItem[]> {
     rows.push(...(data ?? []));
   }
   const order = new Map(ids.map((id, i) => [id, i]));
-  return rows.filter(row => !blocked.has(row.author)).map(row => ({
-    kind: 'itinerary' as const, id: row.id, title: row.title, authorId: row.author,
-    authorName: row.author_name, city: row.city, vibe: row.vibe,
-    stopCount: row.stop_count ?? 0, cover: row.cover, createdAt: row.created_at,
-  })).sort((a, b) => (order.get(b.id) ?? 0) - (order.get(a.id) ?? 0));
+  return rows.filter(row => !blocked.has(row.author)).map(itineraryFeedItem).sort((a, b) => (order.get(b.id) ?? 0) - (order.get(a.id) ?? 0));
 }
 
 /** Everything the community is publishing — trips + spots — newest first,
@@ -651,7 +659,7 @@ export async function fetchCommunityFeed(): Promise<FeedItem[]> {
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .limit(60),
-    fetchBlockedUserIds(),
+    blockedUserIdsOrNone(),
   ]);
   if (itins.error) throw itins.error;
   if (spots.error) throw spots.error;
@@ -659,18 +667,7 @@ export async function fetchCommunityFeed(): Promise<FeedItem[]> {
   const items: FeedItem[] = [];
   for (const r of itins.data ?? []) {
     if (blockedSet.has(r.author)) continue;
-    items.push({
-      kind: 'itinerary',
-      id: r.id,
-      title: r.title,
-      authorId: r.author,
-      authorName: r.author_name,
-      city: r.city,
-      vibe: r.vibe,
-      stopCount: r.stop_count ?? 0,
-      cover: r.cover,
-      createdAt: r.created_at,
-    });
+    items.push(itineraryFeedItem(r));
   }
   for (const r of spots.data ?? []) {
     if (blockedSet.has(r.submitted_by)) continue;

@@ -43,6 +43,7 @@ interface RoomState {
   deckIndex: number;
   deckSourceCount: number;
   loading: boolean; // initial room load (deck + members + matches)
+  matchesLoaded: boolean; // first matches fetch for this room has landed
 
   enter: (roomId: string) => Promise<void>;
   leave: () => void;
@@ -71,13 +72,14 @@ export const useRoomStore = create<RoomState>((set, get) => ({
   deckIndex: 0,
   deckSourceCount: 0,
   loading: false,
+  matchesLoaded: false,
 
   enter: async (roomId) => {
     get().leave(); // drop any previous room subscription
     const gen = ++enterGen;
     const stale = () => gen !== enterGen;
     matchesHydrated = false;
-    set({ room: null, members: [], matches: [], deck: [], deckIndex: 0, deckSourceCount: 0, loading: true });
+    set({ room: null, members: [], matches: [], deck: [], deckIndex: 0, deckSourceCount: 0, loading: true, matchesLoaded: false });
     try {
       const room = await fetchRoom(roomId);
       const [members, all, myVotes, blocked] = await Promise.all([
@@ -131,7 +133,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
       supabase.removeChannel(channel);
       channel = null;
     }
-    set({ room: null, members: [], matches: [], deck: [], deckIndex: 0, deckSourceCount: 0, loading: false });
+    set({ room: null, members: [], matches: [], deck: [], deckIndex: 0, deckSourceCount: 0, loading: false, matchesLoaded: false });
   },
 
   vote: (direction) => {
@@ -172,7 +174,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
         toast(`It’s a match ✦ ${fresh[0].spot.title}`);
       }
       matchesHydrated = true;
-      set({ matches });
+      set({ matches, matchesLoaded: true });
     } catch (e) {
       console.warn('[whim] refreshMatches failed:', e);
     }

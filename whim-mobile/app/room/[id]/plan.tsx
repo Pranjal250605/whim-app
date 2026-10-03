@@ -27,9 +27,10 @@ export default function RoomPlan() {
   const room = useRoomStore((s) => s.room);
   const matches = useRoomStore((s) => s.matches);
   const members = useRoomStore((s) => s.members);
+  const matchesLoaded = useRoomStore((s) => s.matchesLoaded);
 
   const stops = useMemo(() => orderSpots(matches.map((m) => m.spot)), [matches]);
-  useRouteAnalytics('room', room?.city, room?.vibe, stops.length, !!room, room?.id);
+  useRouteAnalytics('room', room?.city, room?.vibe, stops.length, !!room && matchesLoaded, room?.id);
 
   const [legs, setLegs] = useState<Record<number, TransitResult | null>>({});
 

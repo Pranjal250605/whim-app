@@ -16,9 +16,12 @@ export function useSavedGuides() {
     mutationFn: async (id: string) => {
       if (!userId) throw new Error('Sign in to save a guide.');
       if (!GUIDE_CLOUD_SYNC_ENABLED) return toggleSavedGuide(userId, id);
-      const shouldSave = !(query.data ?? []).includes(id);
+      // Read the cache at call time, not the render's query.data, so two quick
+      // toggles each build on the other's result instead of overwriting it.
+      const current = () => qc.getQueryData<string[]>(queryKey) ?? [];
+      const shouldSave = !current().includes(id);
       await setCloudGuideSaved(id, shouldSave);
-      return shouldSave ? [...(query.data ?? []), id] : (query.data ?? []).filter(value => value !== id);
+      return shouldSave ? [...current().filter(value => value !== id), id] : current().filter(value => value !== id);
     },
     onSuccess: (ids, id) => {
       qc.setQueryData(queryKey, ids);
