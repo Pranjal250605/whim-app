@@ -1,9 +1,11 @@
-import { ActivityIndicator, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { Image } from 'expo-image';
-import { fetchCreatorGuides } from '@/lib/db';
+import { blockUser, fetchCreatorGuides } from '@/lib/db';
+import { hideBlockedAuthor } from '@/lib/blockCache';
+import { toast } from '@/lib/toast';
 import { useAuth } from '@/lib/auth';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { sizedPhoto } from '@/lib/img';
@@ -13,6 +15,8 @@ import Icon from '@/components/Icon';
 export default function CreatorGuides() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { session } = useAuth();
+  const qc = useQueryClient();
+  const isMe = session?.user.id === id;
   const guides = useInfiniteQuery({
     queryKey: ['creatorGuides', session?.user.id, id],
     queryFn: ({ pageParam }) => fetchCreatorGuides(String(id), pageParam),
@@ -22,8 +26,28 @@ export default function CreatorGuides() {
   const items = guides.data?.pages.flatMap(page => page.items) ?? [];
   const first = items.find(item => item.kind === 'itinerary');
   const name = first?.kind === 'itinerary' ? first.authorName || 'Community creator' : 'Community creator';
+  // App Store 1.2: block is available wherever someone's content appears.
+  // To report a single guide, open it — the guide page has Report.
+  const block = () => Alert.alert(`Block ${name}?`, 'You won’t see their guides or spots anywhere in BeWhim.', [
+    { text: 'Cancel', style: 'cancel' },
+    { text: 'Block', style: 'destructive', onPress: async () => {
+      try {
+        await blockUser(String(id));
+        hideBlockedAuthor(qc, String(id));
+        toast('Blocked — you won’t see their content.');
+        router.back();
+      } catch {
+        toast('Couldn’t block — check your connection and try again.');
+      }
+    } },
+  ]);
   return <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
-    <View className="px-4 pt-1"><BackButton /></View>
+    <View className="flex-row items-center justify-between px-4 pt-1">
+      <BackButton />
+      {!isMe && <Pressable onPress={block} accessibilityRole="button" accessibilityLabel="Block this creator" hitSlop={8} className="min-h-[44px] justify-center rounded-full bg-white px-4">
+        <Text className="text-[12.5px] font-semibold text-ink">Block</Text>
+      </Pressable>}
+    </View>
     <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
       <Text className="mt-3 font-mono text-[11px] tracking-[0.14em] text-accent">CREATOR GUIDES</Text>
       <Text className="mt-2 font-serif text-[30px] text-ink">{name}</Text>

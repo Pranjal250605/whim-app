@@ -11,6 +11,7 @@ import RouteMap from '@/components/RouteMap';
 import { VIBE_DOT } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
+import { hideBlockedAuthor } from '@/lib/blockCache';
 import { useQueryClient } from '@tanstack/react-query';
 import BackButton from '@/components/BackButton';
 import Icon from '@/components/Icon';
@@ -135,19 +136,28 @@ export default function Trip() {
       {
         text: 'Block this person',
         style: 'destructive',
-        onPress: () => {
-          blockUser(itin.authorId).catch(() => {});
-          toast('Blocked — you won’t see their content.');
-          router.back();
+        onPress: async () => {
+          try {
+            await blockUser(itin.authorId);
+            hideBlockedAuthor(qc, itin.authorId);
+            toast('Blocked — you won’t see their content.');
+            router.back();
+          } catch {
+            toast('Couldn’t block — check your connection and try again.');
+          }
         },
       },
       {
         text: 'Report trip',
         style: 'destructive',
-        onPress: () => {
-          reportItinerary(itin.id, 'reported from trip view').catch(() => {});
-          toast('Thanks — we’ll review this within 24 hours.');
-          router.back();
+        onPress: async () => {
+          try {
+            await reportItinerary(itin.id, 'reported from trip view');
+            toast('Thanks — we’ll review this within 24 hours.');
+            router.back();
+          } catch {
+            toast('Couldn’t send the report — check your connection and try again.');
+          }
         },
       },
     ]);

@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import { track } from './analytics';
+import { assertClean } from './moderation';
 import type { BucketAnchor, MicroActivity, Spot, VibeId } from './types';
 
 // Thin data-access layer over Supabase. All reads/writes are scoped to the
@@ -137,6 +138,7 @@ function rowToRoom(r: any): Room {
 }
 
 export async function createRoom(city: string, vibe: VibeId, name?: string): Promise<Room> {
+  assertClean(name);
   const { data, error } = await supabase.rpc('create_room', {
     p_city: city,
     p_vibe: vibe,
@@ -406,6 +408,7 @@ export async function publishCustomTrip(input: {
   const stops = input.stops.slice(0, 30);
   if (stops.length === 0) throw new Error('Add at least one location.');
   if (!input.title.trim()) throw new Error('Give your trip a title.');
+  assertClean(input.title, input.note);
   const { data: prof } = await supabase.from('profiles').select('display_name').eq('id', user.id).maybeSingle();
   const { data, error } = await supabase
     .from('published_itineraries')
@@ -442,6 +445,7 @@ export async function publishItinerary(input: {
   if (!user) throw new Error('Not signed in');
   const ids = input.spotIds.slice(0, 30);
   if (ids.length === 0) throw new Error('Add at least one spot before publishing.');
+  assertClean(input.title, input.note);
   // snapshot the author's display name — profiles are read-own-only, so a feed
   // can't join to it; this is how "by <name>" renders for other viewers.
   const { data: prof } = await supabase.from('profiles').select('display_name').eq('id', user.id).maybeSingle();
@@ -743,6 +747,7 @@ export async function fetchProfile(): Promise<Profile | null> {
 }
 
 export async function updateDisplayName(name: string): Promise<void> {
+  assertClean(name);
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -776,6 +781,7 @@ const rowToBadge = (r: any): Badge => ({
 export async function setUsername(username: string): Promise<void> {
   const u = username.trim().toLowerCase();
   if (!/^[a-z0-9_]{3,20}$/.test(u)) throw new Error('Handles are 3–20 characters: letters, numbers or _.');
+  assertClean(u.replace(/_/g, ' '));
   const {
     data: { user },
   } = await supabase.auth.getUser();

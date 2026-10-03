@@ -70,7 +70,7 @@ test('save/create/join events only follow successful persistence', async () => {
     from: () => ({ upsert: async () => ({ error }) }),
     rpc: async () => ({ error, data: { id: 'room', city: 'Delhi', vibe: 'classics' } }),
   };
-  const db = load('lib/db.ts', { './supabase': { supabase }, './analytics': { track: (...args) => events.push(args) } });
+  const db = load('lib/db.ts', { './supabase': { supabase }, './analytics': { track: (...args) => events.push(args) }, './moderation': load('lib/moderation.ts') });
   await db.saveSpot({ id: 'spot' }, [], 'Delhi', 'classics', 'super');
   await db.createRoom('Delhi', 'classics');
   await db.joinRoom('SECRET');

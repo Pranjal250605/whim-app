@@ -62,6 +62,7 @@ test('saved shelf resolves older guides and hides blocked authors', async () => 
   let selected = [];
   const db = load('lib/db.ts', {
     './analytics': { track() {} },
+    './moderation': load('lib/moderation.ts'),
     './supabase': { supabase: { from(table) {
       if (table === 'blocked_users') return { select: async () => ({ data: [{ blocked_id: 'blocked-user' }], error: null }) };
       return { select() { return this; }, eq(field, value) { assert.equal(field, 'status'); assert.equal(value, 'approved'); return this; },
@@ -74,7 +75,7 @@ test('saved shelf resolves older guides and hides blocked authors', async () => 
 });
 
 function databaseMock(supabase) {
-  return load('lib/db.ts', { './analytics': { track() {} }, './supabase': { supabase } });
+  return load('lib/db.ts', { './analytics': { track() {} }, './supabase': { supabase }, './moderation': load('lib/moderation.ts') });
 }
 test('creator storefront filters approved author rows and paginates without displaying its sentinel', async () => {
   const calls = []; const rows = Array.from({ length: 21 }, (_, n) => ({ id: `guide-${n}`, author: 'creator', title: `Guide ${n}` }));
@@ -110,4 +111,11 @@ test('cloud save sends explicit idempotent intent, never client ownership; failu
   ]);
   error = new Error('offline');
   await assert.rejects(db.setCloudGuideSaved('guide', true), /offline/);
+});
+test('moderation filter blocks obvious abuse without flagging place names', () => {
+  const { isObjectionable, assertClean } = load('lib/moderation.ts');
+  for (const bad of ['F*ck this place', 'f u c k', 'sh1t trip', 'n1gger', 'Total B!TCH']) assert.equal(isObjectionable(bad), true, bad);
+  for (const ok of ['Scunthorpe day out', 'Essex coast', 'Cockburn Street', 'Dickens museum', 'Matcha in Kyoto', 'Shitamachi walk', '', null]) assert.equal(isObjectionable(ok), false, String(ok));
+  assert.throws(() => assertClean('Nice title', 'fucking awful'), /language we don/);
+  assert.doesNotThrow(() => assertClean('Nice title', undefined));
 });

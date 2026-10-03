@@ -20,6 +20,7 @@ import { sizedPhoto } from '@/lib/img';
 import { VIBE_DOT, VIBE_LABEL } from '@/data/vibes';
 import { COLORS, SHADOWS, press } from '@/lib/theme';
 import { toast } from '@/lib/toast';
+import { hideBlockedAuthor } from '@/lib/blockCache';
 import Icon from '@/components/Icon';
 import { filterGuideFeed, guideCities } from '@/lib/guideCatalog';
 import { useSavedGuides } from '@/lib/useSavedGuides';
@@ -115,22 +116,29 @@ export default function Community() {
         {
           text: 'Block this person',
           style: 'destructive',
-          onPress: () => {
-            blockUser(item.authorId).catch(() => {});
-            removeLocally(item.id);
-            toast('Blocked — you won’t see their content.');
+          onPress: async () => {
+            try {
+              await blockUser(item.authorId);
+              hideBlockedAuthor(qc, item.authorId);
+              toast('Blocked — you won’t see their content.');
+            } catch {
+              toast('Couldn’t block — check your connection and try again.');
+            }
           },
         },
         {
           text: `Report ${item.kind === 'itinerary' ? 'trip' : 'spot'}`,
           style: 'destructive',
-          onPress: () => {
-            (item.kind === 'itinerary'
-              ? reportItinerary(item.id, 'reported from feed')
-              : reportCommunitySpot(item.id, 'reported from feed')
-            ).catch(() => {});
-            removeLocally(item.id);
-            toast('Thanks — we’ll review this within 24 hours.');
+          onPress: async () => {
+            try {
+              await (item.kind === 'itinerary'
+                ? reportItinerary(item.id, 'reported from feed')
+                : reportCommunitySpot(item.id, 'reported from feed'));
+              removeLocally(item.id);
+              toast('Thanks — we’ll review this within 24 hours.');
+            } catch {
+              toast('Couldn’t send the report — check your connection and try again.');
+            }
           },
         },
       );

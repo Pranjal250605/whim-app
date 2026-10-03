@@ -209,11 +209,12 @@ export const useRoomStore = create<RoomState>((set, get) => ({
     // hide them immediately, then persist
     blockedIds.add(userId);
     set((s) => ({ members: visible(s.members) }));
-    blockUser(userId).catch((e) => {
-      console.warn('[whim] blockUser failed:', e);
-      toast('Couldn’t block — check your connection.');
-    });
-    toast('Blocked — you won’t see them again.');
+    blockUser(userId)
+      .then(() => toast('Blocked — you won’t see them again.'))
+      .catch((e) => {
+        console.warn('[whim] blockUser failed:', e);
+        toast('Hidden for now, but the block didn’t save — check your connection and try again.');
+      });
   },
 
   leaveCurrentRoom: async () => {
