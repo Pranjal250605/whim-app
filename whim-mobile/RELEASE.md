@@ -83,3 +83,4 @@ The dSYM "Upload Symbols Failed" warnings for Mapbox/hermes frameworks are benig
 | 9 | Jul 26 | Super-rich Near Me (grounded blurbs, open/price/walk, tags, tips, distance+time ranking, personalized, save-to-spots); BeWhim permission strings |
 | 10 | Jul 27 | "Your spots" space; saved-spots surfacing fix; audit fixes (cross-user cache clear, push rebrand, save-vibe pin) |
 | 11 | Jul 28 | Catalogue 13→48 cities / 2,160 spots (seed-city engine); European expansion for beta |
+| 12 | Sep 27 | +15 Batch-4 cities in picker (63 total); smart route (hours as constraints + best start + 2-opt, ~39% shorter days); Japan transit shows instant estimates; Open in Maps multi-stop fix; Near Me two-phase load (list in ~6 s, tips fill in place); dashed leg connector. No native changes (no prebuild) |
