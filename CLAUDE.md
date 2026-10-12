@@ -17,11 +17,21 @@ route on a map and share. Think "Tinder for places to go." Target: the App Store
 > changes / next steps) — read it before picking up open issues.
 
 > **Repo layout:** this git repo (`whim-app`) is a small monorepo. The Expo app
-> lives in **`whim-mobile/`** — that's where you run every command. `.agents/`
+> lives in **`whim-mobile/`** — that's where you run every app command. `web/`
+> is the marketing site, built by the site team (see `web/README.md`). `.agents/`
 > holds installed design skills (see [Design](#design)). `docs/` is the GitHub
 > Pages site: `index.html` (email-confirm landing, the auth `site_url`),
 > `reset.html` (password reset form — target of `resetPasswordForEmail`), and
-> `privacy.html` (the Privacy Policy linked from Settings).
+> `privacy.html` (the Privacy Policy linked from Settings) — live app plumbing,
+> not the website; never repurpose it. The root `src/` + `vite.config.js` is the
+> original design prototype.
+
+> **Team workflow (3 people, tracked in Linear):** Pranjal owns the app and
+> backend; two teammates own `web/`. Work on a branch named after the Linear
+> issue — use Linear's "Copy git branch name" (e.g. `prai2702/whi-12-short-title`;
+> team key `WHI`, workspace linear.app/bewhim) — and open a PR into `main`; never
+> push to `main` directly. `.github/CODEOWNERS` routes reviews. `AGENTS.md` only points
+> here, so Codex and Claude read the same rules.
 
 ---
 
