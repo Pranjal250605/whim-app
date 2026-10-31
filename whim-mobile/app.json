@@ -38,6 +38,7 @@
         }
       ],
       "expo-notifications",
+      "./plugins/withXcode27PodTargets",
       [
         "expo-splash-screen",
         {
