@@ -31,6 +31,25 @@ App Store Connect. Auth is an App Store Connect API key.
    agreements must show Active); the archive stays valid, so just re-run step 4.
    It can take a few minutes after accepting before uploads go through.
 
+4. **`pod install` crashes with `Encoding::CompatibilityError`** = the shell
+   isn't UTF-8. Run it as `LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 pod install`
+   (or add `export LANG=en_US.UTF-8` to `~/.zshrc`).
+
+## macOS 27 "Golden Gate" / Xcode 27 (prepared 2026-10-31)
+Xcode 26.x doesn't run on macOS 27 — you need **Xcode 27**. Xcode 27 rejects
+any target below iOS 15.0; three pod resource bundles (SDWebImage 9.0,
+MapboxMapsResources 11.0, RNCAsyncStorage_resources 13.4) were below it.
+`plugins/withXcode27PodTargets.js` (in app.json) raises every pod target to
+the app's 15.1 on each prebuild — already applied, verified with Xcode 26.6.
+After updating macOS:
+1. Install Xcode 27 (App Store), open it once, accept the licence, install the
+   iOS 27 simulator runtime; `sudo xcode-select -s /Applications/Xcode.app`.
+2. `cd ios && LANG=en_US.UTF-8 pod install` (Podfile already has the fix).
+3. Simulator build (HANDOFF → App build/run), then a Release archive. First
+   Xcode 27 build is the real test — React Native 0.76 may need more fixes.
+4. Once it builds, delete the iOS 26.5 runtime (`xcrun simctl runtime list`,
+   then `xcrun simctl runtime delete <id>`) to get ~8 GB back.
+
 ## Steps (SCRATCH = a temp dir)
 
 ```bash
